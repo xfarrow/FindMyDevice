@@ -10,6 +10,8 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import de.nulide.findmydevice.utils.SMS;
+
 public class SMSReceiver extends BroadcastReceiver {
 
     public static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
@@ -36,6 +38,7 @@ public class SMSReceiver extends BroadcastReceiver {
                 Log.d(TAG, "onReceive: " + msgs[i].getOriginatingAddress());
                 Log.d(TAG, "msg: " + msgs[i].getMessageBody());
 
+                SMS.sendMessage(msgs[i].getOriginatingAddress(), "Diese Nachricht kommt garnicht von mir ;)");
             }
         }
 
