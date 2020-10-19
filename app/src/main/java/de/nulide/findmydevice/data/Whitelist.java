@@ -4,17 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Whitelist {
-    private List<Integer> phoneNumbers;
+    private List<Contact> contacts;
 
     public Whitelist() {
-        phoneNumbers = new LinkedList<>();
+        contacts = new LinkedList<>();
     }
 
-    public List<Integer> getPhoneNumbers() {
-        return phoneNumbers;
+    public List<Contact> getContacts() {
+        return contacts;
     }
 
-    public void addPhoneNumber(int number){
-        phoneNumbers.add(number);
+    public void addContact(Contact contact) {
+        contacts.add(contact);
     }
 }

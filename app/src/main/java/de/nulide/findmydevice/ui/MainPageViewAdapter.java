@@ -1,36 +1,63 @@
 package de.nulide.findmydevice.ui;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TableLayout;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 
-import de.nulide.findmydevice.MainInfo;
-import de.nulide.findmydevice.MainWhitelist;
+import de.nulide.findmydevice.MainActivity;
+import de.nulide.findmydevice.R;
 
-public class MainPageViewAdapter extends FragmentPagerAdapter {
+public class MainPageViewAdapter extends PagerAdapter {
 
-    private int numOfTabs;
+    public MainActivity context;
 
-    public MainPageViewAdapter(@NonNull FragmentManager fm, int numOfTabs) {
-        super(fm, numOfTabs);
-        this.numOfTabs = numOfTabs;
+    public MainPageViewAdapter(MainActivity context){
+        this.context = context;
     }
 
-    @NonNull
     @Override
-    public Fragment getItem(int position) {
-        switch (position){
+    public Object instantiateItem(ViewGroup collection, int position) {
+        int resId = 0;
+        switch (position) {
             case 0:
-                return new MainInfo();
+                resId = R.layout.main_info_layout;
+                break;
             case 1:
-                return new MainWhitelist();
+                resId = R.layout.main_whitelist_layout;
+                break;
         }
-        return null;
+        View view = collection.findViewById(resId);
+        if(collection.getChildAt(position) != view) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            view = inflater.inflate(resId, collection, false);
+            collection.addView(view, position);
+            context.reloadViews();
+        }
+        return view;
     }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((TableLayout) object);
+    }
+
+
 
     @Override
     public int getCount() {
-        return numOfTabs;
+        return 2;
     }
+
+    @Override
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+        return view == ((View) object);
+    }
+
 }

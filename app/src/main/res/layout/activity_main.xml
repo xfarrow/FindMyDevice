@@ -32,7 +32,13 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" >
+
+            <include layout="@layout/main_info_layout"/>
+            <include layout="@layout/main_whitelist_layout"/>
+
+        </androidx.viewpager.widget.ViewPager>
+
 
     </LinearLayout>
 

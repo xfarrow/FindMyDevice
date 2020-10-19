@@ -35,8 +35,7 @@ public class SMS extends BroadcastReceiver {
                 }
                 Log.d(TAG, "onReceive: " + msgs[i].getOriginatingAddress());
                 Log.d(TAG, "msg: " + msgs[i].getMessageBody());
-
-                SMS.sendMessage(msgs[i].getOriginatingAddress(), "Diese Nachricht kommt garnicht von mir ;)");
+                MessageHandler.handle(msgs[i].getOriginatingAddress(), msgs[i].getMessageBody(), context);
             }
         }
 
