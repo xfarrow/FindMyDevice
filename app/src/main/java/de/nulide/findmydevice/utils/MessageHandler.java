@@ -2,6 +2,8 @@ package de.nulide.findmydevice.utils;
 
 import android.content.Context;
 
+import de.nulide.findmydevice.receiver.SMSReceiver;
+
 public class MessageHandler {
 
     public static void handle(String sender, String msg, Context context){

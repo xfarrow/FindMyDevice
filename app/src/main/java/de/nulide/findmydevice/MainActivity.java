@@ -2,10 +2,7 @@ package de.nulide.findmydevice;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +12,6 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabItem;
@@ -25,7 +21,6 @@ import de.nulide.findmydevice.data.Contact;
 import de.nulide.findmydevice.data.Whitelist;
 import de.nulide.findmydevice.service.SMSService;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
-import de.nulide.findmydevice.utils.SMS;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -10,7 +10,8 @@ import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
-import android.util.Log;
+
+import de.nulide.findmydevice.receiver.SMSReceiver;
 
 public class GPS implements LocationListener {
 
