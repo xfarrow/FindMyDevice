@@ -11,5 +11,22 @@
         android:layout_width="match_parent">
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Service"
+            android:layout_margin="5dp"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/textViewServiceRunning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="-"
+            android:layout_margin="5dp"
+            android:textSize="21sp" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,6 +39,7 @@ public class MainPageViewAdapter extends PagerAdapter {
             view = inflater.inflate(resId, collection, false);
             collection.addView(view, position);
             context.reloadViews();
+            context.updateViews();
         }
         return view;
     }

@@ -4,12 +4,14 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -29,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TabItem tabItemWhitelist;
     private ViewPager viewPager;
 
+    private TextView textViewRunningService;
+
+
     private ListView listWhiteList;
     private Button buttonAddContact;
 
@@ -40,10 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(!SMSService.isRunning(this)){
-            Intent backgroundService = new Intent(getApplicationContext(), SMSService.class);
-            startService(backgroundService);
-        }
+
 
         /*
 
@@ -72,13 +74,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager.setAdapter(mPageViewAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        reloadViews();
+
+        if(!SMSService.isRunning(this)){
+            Intent backgroundService = new Intent(getApplicationContext(), SMSService.class);
+            startService(backgroundService);
+        }
 
     }
 
     public void reloadViews(){
+        textViewRunningService = findViewById(R.id.textViewServiceRunning);
+
         listWhiteList = findViewById(R.id.list_whitelist);
         buttonAddContact = findViewById(R.id.button_add_contact);
         buttonAddContact.setOnClickListener(this);
+    }
+
+    public void updateViews(){
+        if(SMSService.isRunning(this)){
+            textViewRunningService.setText("running");
+            textViewRunningService.setTextColor(Color.GREEN);
+        }else{
+            textViewRunningService.setText("not running");
+            textViewRunningService.setTextColor(Color.RED);
+        }
     }
 
     @Override
