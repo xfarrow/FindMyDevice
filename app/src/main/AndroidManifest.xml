@@ -24,11 +24,13 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".utils.SMS">
+        <receiver android:enabled="true" android:exported="true" android:name=".utils.SMS">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+        <service android:enabled="true" android:name="de.nulide.findmydevice.service.SMSService" />
     </application>
 
 </manifest>

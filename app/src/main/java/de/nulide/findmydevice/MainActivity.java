@@ -2,6 +2,8 @@ package de.nulide.findmydevice;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
@@ -21,6 +23,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import de.nulide.findmydevice.data.Contact;
 import de.nulide.findmydevice.data.Whitelist;
+import de.nulide.findmydevice.service.SMSService;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
 import de.nulide.findmydevice.utils.SMS;
 
@@ -41,8 +44,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SMS rec = new SMS();
-        registerReceiver(rec, new IntentFilter(SMS.SMS_RECEIVED));
+
+        if(!SMSService.isRunning(this)){
+            Intent backgroundService = new Intent(getApplicationContext(), SMSService.class);
+            startService(backgroundService);
+        }
+
         /*
 
         Log.d("SMS", "SMS ready");
@@ -113,4 +120,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+
 }
