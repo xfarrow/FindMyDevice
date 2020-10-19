@@ -29,7 +29,6 @@ public class SMSReceiver extends BroadcastReceiver {
                     (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M);
             msgs = new SmsMessage[pdus.length];
             for (int i = 0; i < msgs.length; i++) {
-                // Check Android version and use appropriate createFromPdu.
                 if (isVersionM) {
                     msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i], format);
                 } else {

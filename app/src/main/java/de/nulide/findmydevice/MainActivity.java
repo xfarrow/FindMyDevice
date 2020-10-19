@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -23,6 +24,7 @@ import de.nulide.findmydevice.data.Contact;
 import de.nulide.findmydevice.data.Whitelist;
 import de.nulide.findmydevice.service.SMSService;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
+import de.nulide.findmydevice.ui.WhiteListViewAdapter;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private ListView listWhiteList;
+    private WhiteListViewAdapter listWhiteListAdapter;
     private Button buttonAddContact;
 
     private Whitelist whiteList;
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         reloadViews();
+        updateViews();
 
         if(!SMSService.isRunning(this)){
             Intent backgroundService = new Intent(getApplicationContext(), SMSService.class);
@@ -99,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViewRunningService.setText("not running");
             textViewRunningService.setTextColor(Color.RED);
         }
+        listWhiteListAdapter = new WhiteListViewAdapter(this, whiteList);
+        listWhiteList.setAdapter(listWhiteListAdapter);
     }
 
     @Override
@@ -118,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Cursor c =  managedQuery(contactData, null, null, null, null);
                     if (c.moveToFirst()) {
                         String id =c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+                        String name =c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                         String hasPhone =c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
                         if (hasPhone.equalsIgnoreCase("1")) {
                             Cursor phones = getContentResolver().query(
@@ -126,10 +133,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     null, null);
                             phones.moveToFirst();
                             String cNumber = phones.getString(phones.getColumnIndex("data1"));
-                            System.out.println("number is:"+cNumber);
-                            whiteList.addContact(new Contact("?",cNumber));
+                            String cName = phones.getString(phones.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
+                            Log.d("main", cName);
+                            whiteList.addContact(new Contact(cName,cNumber));
+                            reloadViews();
+                            updateViews();
                         }
-                        String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                     }
                 }
                 break;
