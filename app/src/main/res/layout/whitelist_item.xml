@@ -14,16 +14,18 @@
 
         <TextView
             android:id="@+id/textViewWLItem1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:textSize="21dp"
+            android:layout_weight="0.5"
             android:text="1" />
 
         <TextView
             android:id="@+id/textViewWLItem2"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:textSize="21dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:text="2" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

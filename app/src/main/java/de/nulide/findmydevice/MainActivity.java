@@ -9,7 +9,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,9 +28,8 @@ import de.nulide.findmydevice.data.Whitelist;
 import de.nulide.findmydevice.service.SMSService;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
 import de.nulide.findmydevice.ui.WhiteListViewAdapter;
-import de.nulide.findmydevice.utils.Ringer;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private TabLayout tabLayout;
     private TabItem tabItemInfo;
@@ -48,25 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-        /*
-
-        Log.d("SMS", "SMS ready");
-
-        GPS gps = new GPS(this);
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Looper m = Looper.myLooper();
-        lm.requestSingleUpdate(LocationManager.GPS_PROVIDER, gps, m);
-        lm.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, gps, m);
-        Log.d("GPS", String.valueOf(gps.getLastBestLocation()));
-
-        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        GsmCellLocation location = (GsmCellLocation) tm.getCellLocation();
-        String networkOperator = tm.getNetworkOperator();
-        Log.d("gsm", location.getCid() + "/"+ location.getLac());
-        Log.d("gsm-2", networkOperator.substring(0,3)+ "/"+networkOperator.substring(3));*/
 
         whiteList = new Whitelist();
 
@@ -105,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         listWhiteListAdapter = new WhiteListViewAdapter(this, whiteList);
         listWhiteList.setAdapter(listWhiteListAdapter);
+        listWhiteList.setOnItemClickListener(this);
+        registerForContextMenu(listWhiteList);
     }
 
     @Override
@@ -145,5 +130,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.setHeaderTitle("Select The Action");
+        menu.add(0, v.getId(), 0, "Delete");
+    }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int index = info.position;
+        if (item.getTitle() == "Delete") {
+            whiteList.getContacts().remove(index);
+            updateViews();
+        } else {
+            return false;
+        }
+        return true;
+
+
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
 }
