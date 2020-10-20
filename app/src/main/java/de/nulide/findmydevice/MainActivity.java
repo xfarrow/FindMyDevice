@@ -25,6 +25,7 @@ import de.nulide.findmydevice.data.Whitelist;
 import de.nulide.findmydevice.service.SMSService;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
 import de.nulide.findmydevice.ui.WhiteListViewAdapter;
+import de.nulide.findmydevice.utils.Ringer;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent backgroundService = new Intent(getApplicationContext(), SMSService.class);
             startService(backgroundService);
         }
-
     }
 
     public void reloadViews(){

@@ -15,8 +15,9 @@ public class MessageHandler {
             gps.sendGSMCellLocation();
         }else if(msg.startsWith("fmd ring")){
             reply = "rings";
+            Ringer.ring(context);
         }else if(msg.startsWith("fmd delete")){
-            reply = "will be done.\nGoodbye";
+            reply = "Not available right now.";
         }else if(msg.startsWith("fmd")){
             reply = "FindMyDevice Commands:\n" +
                     "fmd where are you - sends gps data\n" +
