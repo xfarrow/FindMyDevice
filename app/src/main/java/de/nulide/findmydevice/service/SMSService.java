@@ -10,6 +10,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import de.nulide.findmydevice.data.WhiteList;
+import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.receiver.SMSReceiver;
 
 public class SMSService extends Service {
@@ -25,6 +27,7 @@ public class SMSService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        IO.context = this.getApplicationContext();
         rec = new SMSReceiver();
         registerReceiver(rec, new IntentFilter(SMSReceiver.SMS_RECEIVED));
     }

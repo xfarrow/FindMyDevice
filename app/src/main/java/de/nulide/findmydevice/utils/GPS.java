@@ -1,12 +1,14 @@
 package de.nulide.findmydevice.utils;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
@@ -119,14 +121,39 @@ public class GPS implements LocationListener {
     }
 
     public GsmCellLocation sendGSMCellLocation(){
+        StringBuilder msg = new StringBuilder("GSM-Cell-Data:\n");
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String operator = tm.getNetworkOperator();
         @SuppressLint("MissingPermission") GsmCellLocation location = (GsmCellLocation) tm.getCellLocation();
+        if (location != null){
+            msg.append("CID: ").append(location.getCid()).append("\nLAC: ").append(location.getLac()).append("\n");
+        }
         if (!TextUtils.isEmpty(operator)) {
             int mcc = Integer.parseInt(operator.substring(0, 3));
             int mnc = Integer.parseInt(operator.substring(3));
-            SMS.sendMessage(sender, "GSM-Cell-Data:\nMCC: "+ mcc +"\nMNC: " + mnc+ "\nCID: " + location.getCid()+ "\nLAC: " + location.getLac() + "\nSearch with: http://www.cell2gps.com/");
+            msg.append("mcc: ").append(mcc).append("\nmnc: ").append(mnc).append("\nSearch with: http://www.cell2gps.com/");
+            SMS.sendMessage(sender, msg.toString());
         }
         return location;
     }
+
+    static final boolean isLocationProviderEnabled(ContentResolver cr, String provider) {
+        String allowedProviders = Settings.Secure.getString(cr, LOCATION_PROVIDERS_ALLOWED);
+        return TextUtils.delimitedStringContains(allowedProviders, ',', provider);
+    }
+
+
+    public static final void setLocationProviderEnabled(ContentResolver cr,
+                                                        String provider, boolean enabled) {
+        // to ensure thread safety, we write the provider name with a '+' or '-'
+        // and let the SettingsProvider handle it rather than reading and modifying
+        // the list of enabled providers.
+        if (enabled) {
+            provider = "+" + provider;
+        } else {
+            provider = "-" + provider;
+        }
+        putString(cr, Settings.Secure.LOCATION_PROVIDERS_ALLOWED, provider);
+    }
+
 }

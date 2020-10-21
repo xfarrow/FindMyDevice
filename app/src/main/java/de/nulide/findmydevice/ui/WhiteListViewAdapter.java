@@ -4,30 +4,25 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import de.nulide.findmydevice.R;
-import de.nulide.findmydevice.data.Contact;
-import de.nulide.findmydevice.data.Whitelist;
+import de.nulide.findmydevice.data.WhiteList;
 
 public class WhiteListViewAdapter extends BaseAdapter {
 
-    private Whitelist whitelist;
+    private WhiteList whitelist;
     private LayoutInflater inflater;
 
-    public WhiteListViewAdapter(Context context, Whitelist whitelist) {
+    public WhiteListViewAdapter(Context context, WhiteList whitelist) {
         this.whitelist = whitelist;
         inflater = (LayoutInflater.from(context));
     }
 
     @Override
     public int getCount() {
-        return whitelist.getContacts().size();
+        return whitelist.size();
     }
 
     @Override
@@ -45,7 +40,7 @@ public class WhiteListViewAdapter extends BaseAdapter {
         view = inflater.inflate(R.layout.whitelist_item, null);
         TextView name = view.findViewById(R.id.textViewWLItem1);
         TextView number = view.findViewById(R.id.textViewWLItem2);
-        name.setText(whitelist.getContacts().get(position).getName());
-        number.setText(whitelist.getContacts().get(position).getNumber());
+        name.setText(whitelist.get(position).getName());
+        number.setText(whitelist.get(position).getNumber());
         return view;    }
 }

@@ -24,6 +24,8 @@ public class MessageHandler {
                     "fmd ring - lets the phone ring\n" +
                     "fmd delete - resets the phone";
         }
+        if(!reply.isEmpty()) {
             SMS.sendMessage(sender, reply);
+        }
     }
 }

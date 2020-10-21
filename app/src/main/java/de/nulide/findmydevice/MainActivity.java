@@ -24,7 +24,8 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 import de.nulide.findmydevice.data.Contact;
-import de.nulide.findmydevice.data.Whitelist;
+import de.nulide.findmydevice.data.WhiteList;
+import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.service.SMSService;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
 import de.nulide.findmydevice.ui.WhiteListViewAdapter;
@@ -43,7 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private WhiteListViewAdapter listWhiteListAdapter;
     private Button buttonAddContact;
 
-    private Whitelist whiteList;
+    private WhiteList whiteList;
+
+    Intent backgroundService;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -51,7 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        whiteList = new Whitelist();
+        IO.context = this;
+        whiteList = IO.readWhiteList();
 
         tabLayout = findViewById(R.id.tablayout);
         tabItemInfo = findViewById(R.id.tabItemInfo);
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         updateViews();
 
         if(!SMSService.isRunning(this)){
-            Intent backgroundService = new Intent(getApplicationContext(), SMSService.class);
+            backgroundService = new Intent(getApplicationContext(), SMSService.class);
             startService(backgroundService);
         }
     }
@@ -120,7 +124,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String cNumber = phones.getString(phones.getColumnIndex("data1"));
                             String cName = phones.getString(phones.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
                             Log.d("main", cName);
-                            whiteList.addContact(new Contact(cName,cNumber));
+                            whiteList.add(new Contact(cName,cNumber));
+                            stopService(backgroundService);
+                            startService(backgroundService);
                             reloadViews();
                             updateViews();
                         }
@@ -141,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int index = info.position;
         if (item.getTitle() == "Delete") {
-            whiteList.getContacts().remove(index);
+            whiteList.remove(index);
             updateViews();
         } else {
             return false;
