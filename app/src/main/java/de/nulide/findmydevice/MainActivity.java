@@ -29,6 +29,7 @@ import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.service.SMSService;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
 import de.nulide.findmydevice.ui.WhiteListViewAdapter;
+import de.nulide.findmydevice.utils.Permission;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
@@ -53,6 +54,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(!Permission.checkAll(this)) {
+            Intent myIntent = new Intent(this, PermissionsActivity.class);
+            startActivity(myIntent);
+        }
 
         IO.context = this;
         whiteList = IO.readWhiteList();

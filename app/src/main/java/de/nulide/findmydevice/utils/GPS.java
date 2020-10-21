@@ -137,7 +137,7 @@ public class GPS implements LocationListener {
         return location;
     }
 
-    static final boolean isLocationProviderEnabled(ContentResolver cr, String provider) {
+    /*static final boolean isLocationProviderEnabled(ContentResolver cr, String provider) {
         String allowedProviders = Settings.Secure.getString(cr, LOCATION_PROVIDERS_ALLOWED);
         return TextUtils.delimitedStringContains(allowedProviders, ',', provider);
     }
@@ -154,6 +154,6 @@ public class GPS implements LocationListener {
             provider = "-" + provider;
         }
         putString(cr, Settings.Secure.LOCATION_PROVIDERS_ALLOWED, provider);
-    }
+    }*/
 
 }
