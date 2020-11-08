@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
 
     <application
         android:allowBackup="true"
@@ -40,7 +39,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:enabled="true" android:exported="true" android:name="de.nulide.findmydevice.service.SMSService" />
+        <service android:enabled="true" android:name="de.nulide.findmydevice.service.SMSService" />
     </application>
 
 </manifest>

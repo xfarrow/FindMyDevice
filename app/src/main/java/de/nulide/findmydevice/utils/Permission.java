@@ -15,31 +15,29 @@ import androidx.core.content.ContextCompat;
 
 public class Permission {
 
-    public static final int PERM_SMS_ID = 61341;
-    public static final int PERM_GPS_ID = 61342;
-    public static final int PERM_CONTACT_ID = 61343;
-    public static final int PERM_DND_ID = 61344;
-
-    public static final String PERM_SMS = Manifest.permission.SEND_SMS;
-    public static final String PERM_GPS = Manifest.permission.ACCESS_FINE_LOCATION;
-    public static final String PERM_BG_GPS = Manifest.permission.ACCESS_BACKGROUND_LOCATION;
-    public static final String PERM_CONTACT = Manifest.permission.READ_CONTACTS;
-    public static final String PERM_DND = Manifest.permission.ACCESS_NOTIFICATION_POLICY;
-
+    private static final int PERM_SMS_ID = 61341;
+    private static final int PERM_GPS_ID = 61342;
+    private static final int PERM_CONTACT_ID = 61343;
 
     public static boolean checkAll(Activity activity){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if(checkPermission(activity, PERM_SMS) && checkPermission(activity, PERM_CONTACT) &&
-                checkPermission(activity, PERM_DND) && checkDNDPermission(activity)){
-                return true;
-            }
-        }else{
-            if(checkPermission(activity, PERM_SMS) && checkPermission(activity, PERM_CONTACT) &&
-                    checkPermission(activity, PERM_GPS)){
+            if(checkDNDPermission(activity) && checkContactsPermission(activity) && checkGPSPermission(activity) && checkSMSPermission(activity)){
                 return true;
             }
         }
         return false;
+    }
+
+    public static void requestSMSPermission(Activity activity){
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS}, PERM_SMS_ID);
+    }
+
+    public static void requestGPSPermission(Activity activity){
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION}, PERM_GPS_ID);
+    }
+
+    public static void requestContactPermission(Activity activity){
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CONTACTS}, PERM_GPS_ID);
     }
 
     public static void requestDNDPermission(Activity activity){
@@ -47,17 +45,6 @@ public class Permission {
             if (!checkDNDPermission(activity)) {
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                 activity.startActivity(intent);
-            }
-        }
-    }
-
-
-    public static void requestPermission(Activity activity, String permission, int permId) {
-        if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
-            if(permId == PERM_GPS_ID){
-                ActivityCompat.requestPermissions(activity, new String[]{permission,PERM_BG_GPS}, permId);
-            }else {
-                ActivityCompat.requestPermissions(activity, new String[]{permission}, permId);
             }
         }
     }
@@ -71,8 +58,20 @@ public class Permission {
         return false;
     }
 
-    public static boolean checkPermission(Activity activity, String permission) {
-        if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
+    public static boolean checkSMSPermission(Activity activity) {
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+            return false;
+        }
+        return true;
+    }
+    public static boolean checkGPSPermission(Activity activity) {
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return false;
+        }
+        return true;
+    }
+    public static boolean checkContactsPermission(Activity activity) {
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             return false;
         }
         return true;

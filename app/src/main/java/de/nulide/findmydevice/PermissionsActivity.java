@@ -36,15 +36,15 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void update(){
-        if(Permission.checkPermission(this, Permission.PERM_GPS)){
+        if(Permission.checkGPSPermission(this)){
             buttonGPSPerm.setEnabled(false);
             buttonGPSPerm.setTextColor(Color.GREEN);
         }
-        if(Permission.checkPermission(this, Permission.PERM_CONTACT)){
+        if(Permission.checkContactsPermission(this)){
             buttonContactPerm.setEnabled(false);
             buttonContactPerm.setTextColor(Color.GREEN);
         }
-        if(Permission.checkPermission(this, Permission.PERM_SMS)){
+        if(Permission.checkSMSPermission(this)){
             buttonSMSPerm.setEnabled(false);
             buttonSMSPerm.setTextColor(Color.GREEN);
         }
@@ -72,11 +72,11 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if(v == buttonSMSPerm){
-            Permission.requestPermission(this, Permission.PERM_SMS, Permission.PERM_SMS_ID);
+            Permission.requestSMSPermission(this);
         }else if(v == buttonContactPerm){
-            Permission.requestPermission(this, Permission.PERM_CONTACT, Permission.PERM_CONTACT_ID);
+            Permission.requestContactPermission(this);
         }else if(v == buttonGPSPerm){
-            Permission.requestPermission(this, Permission.PERM_GPS, Permission.PERM_GPS_ID);
+            Permission.requestGPSPermission(this);
         }else if(v == buttonDNDPerm){
             Permission.requestDNDPermission(this);
         }
