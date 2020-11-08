@@ -13,21 +13,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tablayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItemInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Info" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItemWhitelist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Whitelist" />
-
-        </com.google.android.material.tabs.TabLayout>
+            android:layout_height="wrap_content" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"

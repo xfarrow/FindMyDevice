@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabItem;
@@ -34,11 +35,11 @@ import de.nulide.findmydevice.utils.Permission;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private TabLayout tabLayout;
-    private TabItem tabItemInfo;
-    private TabItem tabItemWhitelist;
     private ViewPager viewPager;
 
     private TextView textViewRunningService;
+    private TextView textViewWhiteListCount;
+
 
 
     private ListView listWhiteList;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private WhiteList whiteList;
 
-    Intent backgroundService;
+    private Intent backgroundService;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -64,12 +65,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         whiteList = IO.readWhiteList();
 
         tabLayout = findViewById(R.id.tablayout);
-        tabItemInfo = findViewById(R.id.tabItemInfo);
-        tabItemWhitelist = findViewById(R.id.tabItemWhitelist);
         viewPager = findViewById(R.id.viewPager);
         MainPageViewAdapter mPageViewAdapter = new MainPageViewAdapter(this);
         viewPager.setAdapter(mPageViewAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setText("Info");
+        tabLayout.getTabAt(1).setText("WhiteList");
 
         reloadViews();
         updateViews();
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void reloadViews(){
         textViewRunningService = findViewById(R.id.textViewServiceRunning);
+        textViewWhiteListCount = findViewById(R.id.textViewWhiteListCount);
 
         listWhiteList = findViewById(R.id.list_whitelist);
         buttonAddContact = findViewById(R.id.button_add_contact);
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViewRunningService.setText("not running");
             textViewRunningService.setTextColor(Color.RED);
         }
+        textViewWhiteListCount.setText(""+whiteList.size());
         listWhiteListAdapter = new WhiteListViewAdapter(this, whiteList);
         listWhiteList.setAdapter(listWhiteListAdapter);
         listWhiteList.setOnItemClickListener(this);

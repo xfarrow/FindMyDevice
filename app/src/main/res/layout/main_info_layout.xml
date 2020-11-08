@@ -28,5 +28,22 @@
             android:layout_margin="5dp"
             android:textSize="21sp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="WhiteListCount"
+            android:layout_margin="5dp"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textViewWhiteListCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="0"
+            android:layout_margin="5dp"
+            android:textSize="21sp" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
