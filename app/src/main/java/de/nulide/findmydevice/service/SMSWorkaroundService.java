@@ -14,11 +14,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
-import de.nulide.findmydevice.R;
-
-public class SMSForegroundService extends Service {
+public class SMSWorkaroundService extends Service {
 
     private final int ID = 71;
+
     @Nullable
     @Override
 
@@ -41,7 +40,7 @@ public class SMSForegroundService extends Service {
 
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
         nBuilder.setContentTitle("Foreground Workaround")
-                .setContentText("Starting Service")
+                .setContentText("Service Workaround")
                 .setAutoCancel(true);
         startForeground(ID, nBuilder.build());
     }

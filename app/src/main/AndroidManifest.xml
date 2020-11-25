@@ -47,7 +47,7 @@
 
 
         <service android:enabled="true" android:exported="true" android:name="de.nulide.findmydevice.service.SMSService" />
-        <service android:enabled="true" android:exported="true" android:name="de.nulide.findmydevice.service.SMSForegroundService" />
+        <service android:enabled="true" android:exported="true" android:name="de.nulide.findmydevice.service.SMSWorkaroundService" />
 
     </application>
 

@@ -16,8 +16,8 @@ import de.nulide.findmydevice.data.WhiteList;
 
 public class IO {
 
-    public static Context context;
     private static final String whiteListFileName = "whitelist.json";
+    public static Context context;
 
     public static void writeWhiteList(WhiteList wl) {
         ObjectMapper mapper = new ObjectMapper();

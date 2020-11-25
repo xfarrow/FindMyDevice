@@ -8,11 +8,10 @@ import de.nulide.findmydevice.data.io.IO;
 
 public class WhiteList extends LinkedList<Contact> {
 
+    private final static String FILE_NAME = "whitelist.dat";
     Context context;
 
-    private final static String FILE_NAME = "whitelist.dat";
-
-    public WhiteList(){
+    public WhiteList() {
 
     }
 
@@ -21,17 +20,17 @@ public class WhiteList extends LinkedList<Contact> {
     }
 
     @Override
-    public boolean add(Contact c){
+    public boolean add(Contact c) {
         super.add(c);
         IO.writeWhiteList(this);
         return true;
     }
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
     public Context getContext() {
         return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 }

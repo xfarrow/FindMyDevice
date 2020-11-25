@@ -6,9 +6,6 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 
 import de.nulide.findmydevice.MainActivity;
@@ -18,7 +15,7 @@ public class MainPageViewAdapter extends PagerAdapter {
 
     public MainActivity context;
 
-    public MainPageViewAdapter(MainActivity context){
+    public MainPageViewAdapter(MainActivity context) {
         this.context = context;
     }
 
@@ -34,7 +31,7 @@ public class MainPageViewAdapter extends PagerAdapter {
                 break;
         }
         View view = collection.findViewById(resId);
-        if(collection.getChildAt(position) != view) {
+        if (collection.getChildAt(position) != view) {
             LayoutInflater inflater = LayoutInflater.from(context);
             view = inflater.inflate(resId, collection, false);
             collection.addView(view, position);
@@ -48,7 +45,6 @@ public class MainPageViewAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((TableLayout) object);
     }
-
 
 
     @Override

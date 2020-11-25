@@ -7,8 +7,8 @@ import java.util.TimerTask;
 
 public class RingtoneTimerTask extends TimerTask {
 
-    private Timer t;
-    private Ringtone r;
+    private final Timer t;
+    private final Ringtone r;
     private int I = 0;
 
     public RingtoneTimerTask(Timer t, Ringtone r) {

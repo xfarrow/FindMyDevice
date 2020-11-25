@@ -9,14 +9,13 @@ import android.net.Uri;
 import android.os.Build;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class Ringer {
 
-    public static void ring(Context context){
+    public static void ring(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        audioManager.setStreamVolume (AudioManager.STREAM_ALARM,audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM),0);
-        if ( audioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL )
+        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
+        if (audioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL)
             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);

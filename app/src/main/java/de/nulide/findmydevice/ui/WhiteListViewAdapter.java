@@ -12,8 +12,8 @@ import de.nulide.findmydevice.data.WhiteList;
 
 public class WhiteListViewAdapter extends BaseAdapter {
 
-    private WhiteList whitelist;
-    private LayoutInflater inflater;
+    private final WhiteList whitelist;
+    private final LayoutInflater inflater;
 
     public WhiteListViewAdapter(Context context, WhiteList whitelist) {
         this.whitelist = whitelist;
@@ -42,5 +42,6 @@ public class WhiteListViewAdapter extends BaseAdapter {
         TextView number = view.findViewById(R.id.textViewWLItem2);
         name.setText(whitelist.get(position).getName());
         number.setText(whitelist.get(position).getNumber());
-        return view;    }
+        return view;
+    }
 }

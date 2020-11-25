@@ -1,30 +1,26 @@
 package de.nulide.findmydevice.utils;
 
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
-import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
-
-import de.nulide.findmydevice.receiver.SMSReceiver;
 
 public class GPS implements LocationListener {
 
     static final int WAIT_TIME = 1000 * 5;
     private Location currentBestLocation = null;
-    private Context context;
-    private LocationManager locationManager;
-    private String sender;
+    private final Context context;
+    private final LocationManager locationManager;
+    private final String sender;
 
     @SuppressLint("MissingPermission")
-    public GPS(Context context, String sender){
+    public GPS(Context context, String sender) {
         this.context = context;
         this.sender = sender;
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -42,7 +38,7 @@ public class GPS implements LocationListener {
             currentBestLocation = location;
         }
         String Providor = getLastBestLocation().getProvider();
-        String Latitude = getLastBestLocation().getLatitude()+ "";
+        String Latitude = getLastBestLocation().getLatitude() + "";
         String Longitude = getLastBestLocation().getLongitude() + "";
         SMS.sendMessage(sender, Providor + ": " + Latitude + " " + Longitude);
     }
@@ -120,12 +116,12 @@ public class GPS implements LocationListener {
         } else return isNewer && !isSignificantlyLessAccurate && isFromSameProvider;
     }
 
-    public GsmCellLocation sendGSMCellLocation(){
+    public GsmCellLocation sendGSMCellLocation() {
         StringBuilder msg = new StringBuilder("GSM-Cell-Data:\n");
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String operator = tm.getNetworkOperator();
         @SuppressLint("MissingPermission") GsmCellLocation location = (GsmCellLocation) tm.getCellLocation();
-        if (location != null){
+        if (location != null) {
             msg.append("CID: ").append(location.getCid()).append("\nLAC: ").append(location.getLac()).append("\n");
         }
         if (!TextUtils.isEmpty(operator)) {
