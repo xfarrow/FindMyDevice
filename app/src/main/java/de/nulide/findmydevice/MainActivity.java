@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -27,6 +28,7 @@ import com.google.android.material.tabs.TabLayout;
 import de.nulide.findmydevice.data.Contact;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
+import de.nulide.findmydevice.service.SMSForegroundService;
 import de.nulide.findmydevice.service.SMSService;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
 import de.nulide.findmydevice.ui.WhiteListViewAdapter;
@@ -78,8 +80,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(!SMSService.isRunning(this)){
             backgroundService = new Intent(getApplicationContext(), SMSService.class);
-            startService(backgroundService);
-        }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Intent foregroundService = new Intent(this, SMSForegroundService.class);
+                startForegroundService(foregroundService);
+            }else {
+                Intent backgroundService = new Intent(this, SMSService.class);
+                startService(backgroundService);
+            }        }
     }
 
     public void reloadViews(){

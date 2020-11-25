@@ -37,7 +37,7 @@ public class Permission {
     }
 
     public static void requestContactPermission(Activity activity){
-        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CONTACTS}, PERM_GPS_ID);
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CONTACTS}, PERM_CONTACT_ID);
     }
 
     public static void requestDNDPermission(Activity activity){
