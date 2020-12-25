@@ -12,7 +12,7 @@ import java.util.Timer;
 
 public class Ringer {
 
-    public static void ring(Context context) {
+    public static void ring(Context context, int duration) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
         if (audioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL)
@@ -31,7 +31,7 @@ public class Ringer {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             r.setLooping(true);
             Timer t = new Timer();
-            t.schedule(new RingtoneTimerTask(t, r), 0, 1000);
+            t.schedule(new RingtoneTimerTask(t, r), 0, duration * 100);
         }
         r.play();
     }
