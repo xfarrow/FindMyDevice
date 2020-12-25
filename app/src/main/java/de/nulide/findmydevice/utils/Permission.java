@@ -3,6 +3,8 @@ package de.nulide.findmydevice.utils;
 import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationManager;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,17 +15,21 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import de.nulide.findmydevice.receiver.DeviceAdminReceiver;
+
 public class Permission {
 
     private static final int PERM_SMS_ID = 61341;
     private static final int PERM_GPS_ID = 61342;
     private static final int PERM_CONTACT_ID = 61343;
+    private static final int PERM_DEVICE_ADMIN_ID = 61344;
 
     public static boolean checkAll(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return checkDNDPermission(activity) && checkContactsPermission(activity) && checkGPSPermission(activity) && checkSMSPermission(activity);
+            return checkDNDPermission(activity) && checkContactsPermission(activity) && checkGPSPermission(activity) && checkSMSPermission(activity) && checkDeviceAdminPermission(activity);
+        }else{
+            return checkContactsPermission(activity) && checkGPSPermission(activity) && checkSMSPermission(activity) && checkDeviceAdminPermission(activity);
         }
-        return false;
     }
 
     public static void requestSMSPermission(Activity activity) {
@@ -47,6 +53,13 @@ public class Permission {
         }
     }
 
+    public static void requestDeviceAdminPermission(Activity activity){
+        Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, new ComponentName(activity, DeviceAdminReceiver.class));
+        activity.startActivity(intent);
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static boolean checkDNDPermission(Activity activity) {
         NotificationManager mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -63,6 +76,11 @@ public class Permission {
 
     public static boolean checkContactsPermission(Activity activity) {
         return ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static boolean checkDeviceAdminPermission(Activity activity){
+        DevicePolicyManager devicePolicyManager = (DevicePolicyManager) activity.getSystemService(Context.DEVICE_POLICY_SERVICE);
+        return devicePolicyManager.isAdminActive(new ComponentName(activity, DeviceAdminReceiver.class));
     }
 
 }

@@ -13,10 +13,11 @@ import de.nulide.findmydevice.utils.Permission;
 
 public class PermissionsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button buttonSMSPerm;
-    Button buttonContactPerm;
-    Button buttonGPSPerm;
-    Button buttonDNDPerm;
+    private Button buttonSMSPerm;
+    private Button buttonContactPerm;
+    private Button buttonGPSPerm;
+    private Button buttonDNDPerm;
+    private Button buttonDeviceAdminPerm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
         buttonGPSPerm.setOnClickListener(this);
         buttonDNDPerm = findViewById(R.id.buttonDNDPermission);
         buttonDNDPerm.setOnClickListener(this);
+        buttonDeviceAdminPerm = findViewById(R.id.buttonDeviceAdminPermission);
+        buttonDeviceAdminPerm.setOnClickListener(this);
         update();
     }
 
@@ -47,6 +50,10 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
             buttonSMSPerm.setEnabled(false);
             buttonSMSPerm.setTextColor(Color.GREEN);
         }
+        if (Permission.checkDeviceAdminPermission(this)) {
+            buttonDeviceAdminPerm.setEnabled(false);
+            buttonDeviceAdminPerm.setTextColor(Color.GREEN);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (Permission.checkDNDPermission(this)) {
                 buttonDNDPerm.setEnabled(false);
@@ -55,6 +62,7 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
         } else {
             buttonDNDPerm.setVisibility(View.INVISIBLE);
         }
+
         if (Permission.checkAll(this)) {
             Intent myIntent = new Intent(this, MainActivity.class);
             finish();
@@ -78,6 +86,8 @@ public class PermissionsActivity extends AppCompatActivity implements View.OnCli
             Permission.requestGPSPermission(this);
         } else if (v == buttonDNDPerm) {
             Permission.requestDNDPermission(this);
+        } else if (v == buttonDeviceAdminPerm) {
+            Permission.requestDeviceAdminPermission(this);
         }
         update();
     }
