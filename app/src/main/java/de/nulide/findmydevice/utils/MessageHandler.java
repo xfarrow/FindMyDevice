@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -17,10 +18,15 @@ import java.util.concurrent.locks.Lock;
 
 import de.nulide.findmydevice.LockScreenMessage;
 import de.nulide.findmydevice.R;
+import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.data.io.IO;
 
 public class MessageHandler {
 
     public static void handle(String sender, String msg, Context context) {
+        IO.context = context;
+        Settings settings = IO.read(Settings.class, IO.settingsFileName);
+
         msg = msg.toLowerCase();
         String reply = "";
         if (msg.startsWith("fmd where are you")) {
@@ -44,15 +50,28 @@ public class MessageHandler {
             context.startActivity(lockScreenMessage);
             reply = "locked";
         } else if (msg.startsWith("fmd delete")) {
-            DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
-            //devicePolicyManager.wipeData(0);
-            reply = "Goodbye...";
+            if(settings.isWipeEnabled()) {
+                DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+                if(msg.length() > 11) {
+                    String pin = msg.substring(11, msg.length());
+                    if (pin.equals(settings.getPin().toLowerCase())) {
+                        devicePolicyManager.wipeData(0);
+                        reply = "Goodbye...";
+                    } else {
+                        reply = "False Pin!";
+                    }
+                }else{
+                    reply = "Syntax: fmd delete [pin]";
+                }
+            }
         } else if (msg.startsWith("fmd")) {
             reply = "FindMyDevice Commands:\n" +
                     "fmd where are you - sends gps data\n" +
                     "fmd ring - lets the phone ring\n" +
-                    "fmd lock - locks the phone\n" +
-                    "fmd delete - resets the phone";
+                    "fmd lock - locks the phone";
+            if(settings.isWipeEnabled()){
+                reply += "\nfmd delete - resets the phone";
+            }
         }
         if (!reply.isEmpty()) {
             SMS.sendMessage(sender, reply);
