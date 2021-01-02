@@ -8,11 +8,16 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +27,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 import de.nulide.findmydevice.data.Contact;
+import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
@@ -29,7 +35,7 @@ import de.nulide.findmydevice.ui.WhiteListViewAdapter;
 import de.nulide.findmydevice.utils.Permission;
 import de.nulide.findmydevice.utils.ServiceHandler;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener, TextWatcher {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -42,9 +48,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private WhiteListViewAdapter listWhiteListAdapter;
     private Button buttonAddContact;
 
-    private WhiteList whiteList;
+    private CheckBox checkBoxDeviceWipe;
+    private EditText editTextPin;
+    private EditText editTextLockScreenMessage;
 
-    private Intent backgroundService;
+    private WhiteList whiteList;
+    private Settings settings;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -58,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         IO.context = this;
-        whiteList = IO.readWhiteList();
-
+        whiteList = IO.read(WhiteList.class, IO.whiteListFileName);
+        settings = IO.read(Settings.class, IO.settingsFileName);
         tabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.viewPager);
         MainPageViewAdapter mPageViewAdapter = new MainPageViewAdapter(this);
@@ -68,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setText("Info");
         tabLayout.getTabAt(1).setText("WhiteList");
+        tabLayout.getTabAt(2).setText("Settings");
 
         reloadViews();
         updateViews();
@@ -81,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listWhiteList = findViewById(R.id.list_whitelist);
         buttonAddContact = findViewById(R.id.button_add_contact);
         buttonAddContact.setOnClickListener(this);
+
+        checkBoxDeviceWipe = findViewById(R.id.checkBoxWipeData);
+        editTextLockScreenMessage = findViewById(R.id.editTextTextLockScreenMessage);
+        editTextPin = findViewById(R.id.editTextPin);
     }
 
     public void updateViews() {
@@ -96,6 +110,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listWhiteList.setAdapter(listWhiteListAdapter);
         listWhiteList.setOnItemClickListener(this);
         registerForContextMenu(listWhiteList);
+
+        checkBoxDeviceWipe.setChecked(settings.isWipeEnabled());
+        checkBoxDeviceWipe.setOnCheckedChangeListener(this);
+        editTextLockScreenMessage.setText(settings.getLockScreenMessage());
+        editTextLockScreenMessage.addTextChangedListener(this);
+        editTextPin.setText(settings.getPin());
+        editTextPin.addTextChangedListener(this);
     }
 
     @Override
@@ -161,5 +182,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(buttonView == checkBoxDeviceWipe){
+            settings.setWipeEnabled(isChecked);
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if(s == editTextLockScreenMessage.getText()){
+            settings.setLockScreenMessage(s.toString());
+        }else if(s == editTextPin.getText()){
+            settings.setPin(s.toString());
+        }
     }
 }

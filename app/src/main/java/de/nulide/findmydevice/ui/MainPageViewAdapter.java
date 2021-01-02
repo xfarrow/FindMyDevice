@@ -29,6 +29,9 @@ public class MainPageViewAdapter extends PagerAdapter {
             case 1:
                 resId = R.layout.main_whitelist_layout;
                 break;
+            case 2:
+                resId = R.layout.main_settings_layout;
+                break;
         }
         View view = collection.findViewById(resId);
         if (collection.getChildAt(position) != view) {
@@ -43,13 +46,12 @@ public class MainPageViewAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((TableLayout) object);
     }
 
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override

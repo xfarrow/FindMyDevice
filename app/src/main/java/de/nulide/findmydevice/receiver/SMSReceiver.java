@@ -23,7 +23,7 @@ public class SMSReceiver extends BroadcastReceiver {
     private Date timeUntilNextUsage;
 
     public SMSReceiver() {
-        whitelist = IO.readWhiteList();
+        whitelist = (WhiteList) IO.read(WhiteList.class, IO.whiteListFileName);
         timeUntilNextUsage = Calendar.getInstance().getTime();
     }
 

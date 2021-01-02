@@ -12,30 +12,31 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
 
 public class IO {
 
-    private static final String whiteListFileName = "whitelist.json";
+    public static final String whiteListFileName = "whitelist.json";
+    public static final String settingsFileName = "settings-001.json";
     public static Context context;
 
-    public static void writeWhiteList(WhiteList wl) {
+    public static <T> void write(T obj, String fileName){
         ObjectMapper mapper = new ObjectMapper();
-        File file = new File(context.getFilesDir(), whiteListFileName);
+        File file = new File(context.getFilesDir(), fileName);
         try {
-            String json = mapper.writeValueAsString(wl);
+            String json = mapper.writeValueAsString(obj);
             PrintWriter out = new PrintWriter(file);
             out.write(json);
             out.close();
-        } catch (JsonProcessingException | FileNotFoundException e) {
+        } catch (FileNotFoundException | JsonProcessingException e) {
             e.printStackTrace();
         }
     }
 
-    public static WhiteList readWhiteList() {
+    public static <T> T read(Class<T> type, String fileName){
         ObjectMapper mapper = new ObjectMapper();
-        File file = new File(context.getFilesDir(), whiteListFileName);
-        WhiteList whiteList = new WhiteList(context);
+        File file = new File(context.getFilesDir(), fileName);
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             StringBuilder json = new StringBuilder();
@@ -47,16 +48,22 @@ public class IO {
                     json.append('\n');
                 }
                 br.close();
+                T obj = mapper.readValue(json.toString(), type);
+                return obj;
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            whiteList = mapper.readValue(json.toString(), WhiteList.class);
-            whiteList.setContext(context);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return whiteList;
+        try {
+            return type.newInstance();
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

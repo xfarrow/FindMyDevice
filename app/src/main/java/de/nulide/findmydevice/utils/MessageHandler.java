@@ -1,7 +1,22 @@
 package de.nulide.findmydevice.utils;
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import java.util.concurrent.locks.Lock;
+
+import de.nulide.findmydevice.LockScreenMessage;
+import de.nulide.findmydevice.R;
 
 public class MessageHandler {
 
@@ -22,6 +37,11 @@ public class MessageHandler {
         } else if (msg.startsWith("fmd lock")){
             DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
             devicePolicyManager.lockNow();
+            Intent lockScreenMessage = new Intent(context, LockScreenMessage.class);
+            lockScreenMessage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Bundle bundle = lockScreenMessage.getExtras();
+            lockScreenMessage.putExtra(LockScreenMessage.SENDER, sender);
+            context.startActivity(lockScreenMessage);
             reply = "locked";
         } else if (msg.startsWith("fmd delete")) {
             DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
