@@ -1,0 +1,31 @@
+FindMyDevice
+
+Ein Smartphone-Ortungsapp.
+
+Vorwort:
+
+Aufgrund eines fatalen Missgeschicks hab ich mein neues Handy verloren und da ich auf jeglich Google-Dienste verzichten wollte, musste ich darunter leiden es nicht orten zu können.
+Dies wollte ich für die Zukunft verhindern und allen Leuten eine Alternative hierfür bereitstellen.
+
+FindMyDevice erlaubt es dein Handy über SMS zu orten. Nachdem die App installiert ist kann man in der Whitelist Telefonnummern hinzufügen welche dich orten dürfen.
+Die Syntax ist ziemlich simpel schicke einfach eine SMS mit fmd an dein Handy.
+
+Features:
+
+- Handy via SMS orten
+- Handy sperren
+- Handy klingeln lassen
+- Handy löschen lassen
+
+Geplante Features:
+
+- Netzwerke der Umgebung anzeigen lassen
+- Standort ohne GPS und Netzwerk herausfinden
+
+Da ich leider weiterhin kein neues Handy kaufen konnte, wäre ich über ein Spende sehr erfreut.
+
+Achtung:
+Diese App ist noch in der Beta.
+Falls die Ortung nicht funktioniert und das Handy verloren ist, bringt es euch leider nichts mit dem Finger auf mich zu zeigen. Dann ist das Handy weg.
+Ich strenge mich an die App weiterzuentwickeln, allerdings ist das nur ein Projekt welches ich fortführe wenn ich Zeit habe, da ich weiterhin auch noch so arbeiten muss.
+Danke fürs Verständnis.

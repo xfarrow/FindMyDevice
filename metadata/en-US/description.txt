@@ -1,0 +1,32 @@
+FindMyDevice
+
+This application can locate your smartphone when it gets lost.
+
+
+Hello,
+just for explanation. I lost my new phone.
+And cause i don't use the Google-Services i couldn't locate it and so i was f*****.
+In hope that this doesn't happen again, i developed this application, that can locate the smartphone via sms.
+After installed, you can enter some numbers into that whitelist that can locate you.
+Just send a sms with fmd to receive the syntax how to locate the phone.
+
+Features:
+
+- Locate the phone via SMS
+- Lock the Phone
+- Let the phone ring
+- Delete the phone
+
+Planned Features:
+
+- Recognize networks that are near the phone
+- Locate the phone without gps ort network
+
+I still couldn't afford a new phone.
+So if you want to help i am very happy about donations.
+
+CAVE:
+This application is still in beta.
+If this app doesn't work, it's not my fault, it's the fault of the holy satan and the missing lines that weren't on the right spot.
+I try my best to develop the app, but i still have to work regularry.
+So sorry, if it didn't worked out.
