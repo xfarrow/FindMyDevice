@@ -1,69 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="fmd delete"
-            android:padding="2mm"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/checkBoxWipeData"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Enable"
-            android:padding="2mm"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="fmd delete" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pin:\nUsed as confirmation before wiping the device."
-            android:padding="2mm"/>
+            <CheckBox
+                android:id="@+id/checkBoxWipeData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="Enable" />
 
-        <EditText
-            android:id="@+id/editTextPin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text=""
-            android:padding="2mm"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="Pin:\nUsed as confirmation before wiping the device." />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            <EditText
+                android:id="@+id/editTextPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+            android:padding="2mm"
+                android:text="" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="fmd lock"
-            android:padding="2mm"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lock Screen Message:\nWhen locking the device, this message will appear on the lock screen."
-            android:padding="2mm"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="fmd lock" />
 
-        <EditText
-            android:id="@+id/editTextTextLockScreenMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text=""
-            android:padding="2mm"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="Lock Screen Message:\nWhen locking the device, this message will appear on the lock screen." />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/editTextTextLockScreenMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:padding="2mm"
+                android:text="" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
