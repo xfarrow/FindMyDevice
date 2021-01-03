@@ -1,5 +1,3 @@
-This application can locate your smartphone when it gets lost.
-
 Hello,
 
 So an explanation, I lost my new phone.
