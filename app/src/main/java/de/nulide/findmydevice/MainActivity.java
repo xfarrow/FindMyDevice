@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tabLayout.getTabAt(0).setText("Info");
         tabLayout.getTabAt(1).setText("WhiteList");
         tabLayout.getTabAt(2).setText("Settings");
+        tabLayout.getTabAt(3).setText("About");
 
         reloadViews();
         updateViews();

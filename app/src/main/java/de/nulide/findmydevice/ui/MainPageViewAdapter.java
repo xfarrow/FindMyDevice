@@ -32,6 +32,8 @@ public class MainPageViewAdapter extends PagerAdapter {
             case 2:
                 resId = R.layout.main_settings_layout;
                 break;
+            case 3:
+                resId = R.layout.main_about_layout;
         }
         View view = collection.findViewById(resId);
         if (collection.getChildAt(position) != view) {
@@ -51,7 +53,7 @@ public class MainPageViewAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     @Override
