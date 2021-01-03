@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.ScanResult;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,21 +27,20 @@ public class MessageHandler {
     public static void handle(String sender, String msg, Context context) {
         IO.context = context;
         Settings settings = IO.read(Settings.class, IO.settingsFileName);
-
         msg = msg.toLowerCase();
-        String reply = "";
+        StringBuilder replyBuilder = new StringBuilder("");
         if (msg.startsWith("fmd where are you")) {
-            reply = "will be send as soon as possible.";
+            replyBuilder.append("will be send as soon as possible.");
             GPS gps = new GPS(context, sender);
             gps.sendGSMCellLocation();
         } else if (msg.startsWith("fmd ring")) {
-            reply = "rings";
+            replyBuilder.append("rings");
             if(msg.contains("long")){
                 Ringer.ring(context, 180);
             }else{
                 Ringer.ring(context, 15);
             }
-        } else if (msg.startsWith("fmd lock")){
+        } else if (msg.startsWith("fmd lock")) {
             DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
             devicePolicyManager.lockNow();
             Intent lockScreenMessage = new Intent(context, LockScreenMessage.class);
@@ -48,7 +48,12 @@ public class MessageHandler {
             Bundle bundle = lockScreenMessage.getExtras();
             lockScreenMessage.putExtra(LockScreenMessage.SENDER, sender);
             context.startActivity(lockScreenMessage);
-            reply = "locked";
+            replyBuilder.append("locked");
+        }else if(msg.startsWith("fmd stats")){
+            replyBuilder.append("WiFi-Stats:\nIP: ").append(WiFi.getWifiIP(context)).append("\nAvailable Wifi-Networks:\n");
+            for(ScanResult sr : WiFi.getWifiNetworks(context)){
+                replyBuilder.append(sr.SSID).append("\n");
+            }
         } else if (msg.startsWith("fmd delete")) {
             if(settings.isWipeEnabled()) {
                 DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -56,23 +61,25 @@ public class MessageHandler {
                     String pin = msg.substring(11, msg.length());
                     if (pin.equals(settings.getPin().toLowerCase())) {
                         devicePolicyManager.wipeData(0);
-                        reply = "Goodbye...";
+                        replyBuilder.append("Goodbye...");
                     } else {
-                        reply = "False Pin!";
+                        replyBuilder.append("False Pin!");
                     }
                 }else{
-                    reply = "Syntax: fmd delete [pin]";
+                    replyBuilder.append("Syntax: fmd delete [pin]");
                 }
             }
         } else if (msg.startsWith("fmd")) {
-            reply = "FindMyDevice Commands:\n" +
-                    "fmd where are you - sends gps data\n" +
+            replyBuilder.append("FindMyDevice Commands:\n" +
+                    "fmd where are you - sends the current location\n" +
                     "fmd ring - lets the phone ring\n" +
-                    "fmd lock - locks the phone";
+                    "fmd lock - locks the phone\n" +
+                    "fmd stats - sends device informations");
             if(settings.isWipeEnabled()){
-                reply += "\nfmd delete - resets the phone";
+                replyBuilder.append("\nfmd delete - resets the phone");
             }
         }
+        String reply = replyBuilder.toString();
         if (!reply.isEmpty()) {
             SMS.sendMessage(sender, reply);
         }
