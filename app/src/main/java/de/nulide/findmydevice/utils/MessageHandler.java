@@ -27,6 +27,7 @@ public class MessageHandler {
     public static void handle(String sender, String msg, Context context) {
         IO.context = context;
         Settings settings = IO.read(Settings.class, IO.settingsFileName);
+        String originalMsg = msg;
         msg = msg.toLowerCase();
         StringBuilder replyBuilder = new StringBuilder("");
         if (msg.startsWith("fmd where are you")) {
@@ -58,8 +59,8 @@ public class MessageHandler {
             if(settings.isWipeEnabled()) {
                 DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
                 if(msg.length() > 11) {
-                    String pin = msg.substring(11, msg.length());
-                    if (pin.equals(settings.getPin().toLowerCase())) {
+                    String pin = originalMsg.substring(11, msg.length());
+                    if (pin.equals(settings.getPin())) {
                         devicePolicyManager.wipeData(0);
                         replyBuilder.append("Goodbye...");
                     } else {
