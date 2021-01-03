@@ -11,6 +11,7 @@ import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -146,10 +148,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             phones.moveToFirst();
                             String cNumber = phones.getString(phones.getColumnIndex("data1"));
                             String cName = phones.getString(phones.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
-                            whiteList.add(new Contact(cName, cNumber));
-                            ServiceHandler.restartService(this);
-                            reloadViews();
-                            updateViews();
+                            if(!cNumber.startsWith("0")) {
+                                whiteList.add(new Contact(cName, cNumber));
+                                ServiceHandler.restartService(this);
+                                reloadViews();
+                                updateViews();
+                            }else{
+                                Toast toast = Toast.makeText(this,"Please add Landcode to the number.", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.CENTER, 0, 0);
+                                toast.show();
+                            }
                         }
                     }
                 }
