@@ -66,6 +66,31 @@
                 android:padding="2mm"
                 android:text="" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="fmd command" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="The command that is beeing used for communication with fmd." />
+
+            <EditText
+                android:id="@+id/editTextFmdCommand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:padding="2mm"
+                android:text="fmd" />
+
         </LinearLayout>
 
     </ScrollView>

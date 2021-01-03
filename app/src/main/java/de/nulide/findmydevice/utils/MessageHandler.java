@@ -30,18 +30,18 @@ public class MessageHandler {
         String originalMsg = msg;
         msg = msg.toLowerCase();
         StringBuilder replyBuilder = new StringBuilder("");
-        if (msg.startsWith("fmd where are you")) {
+        if (msg.startsWith(settings.getFmdCommand() + " where are you")) {
             replyBuilder.append("will be send as soon as possible.");
             GPS gps = new GPS(context, sender);
             gps.sendGSMCellLocation();
-        } else if (msg.startsWith("fmd ring")) {
+        } else if (msg.startsWith(settings.getFmdCommand() + " ring")) {
             replyBuilder.append("rings");
             if(msg.contains("long")){
                 Ringer.ring(context, 180);
             }else{
                 Ringer.ring(context, 15);
             }
-        } else if (msg.startsWith("fmd lock")) {
+        } else if (msg.startsWith(settings.getFmdCommand() + " lock")) {
             DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
             devicePolicyManager.lockNow();
             Intent lockScreenMessage = new Intent(context, LockScreenMessage.class);
@@ -50,16 +50,16 @@ public class MessageHandler {
             lockScreenMessage.putExtra(LockScreenMessage.SENDER, sender);
             context.startActivity(lockScreenMessage);
             replyBuilder.append("locked");
-        }else if(msg.startsWith("fmd stats")){
+        }else if(msg.startsWith(settings.getFmdCommand() + " stats")){
             replyBuilder.append("WiFi-Stats:\nIP: ").append(WiFi.getWifiIP(context)).append("\nAvailable Wifi-Networks:\n");
             for(ScanResult sr : WiFi.getWifiNetworks(context)){
                 replyBuilder.append(sr.SSID).append("\n");
             }
-        } else if (msg.startsWith("fmd delete")) {
+        } else if (msg.startsWith(settings.getFmdCommand() + " delete")) {
             if(settings.isWipeEnabled()) {
                 DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
-                if(msg.length() > 11) {
-                    String pin = originalMsg.substring(11, msg.length());
+                if(msg.length() > settings.getFmdCommand().length() + 8) {
+                    String pin = originalMsg.substring(settings.getFmdCommand().length() + 8, msg.length());
                     if (pin.equals(settings.getPin())) {
                         devicePolicyManager.wipeData(0);
                         replyBuilder.append("Goodbye...");
@@ -67,17 +67,17 @@ public class MessageHandler {
                         replyBuilder.append("False Pin!");
                     }
                 }else{
-                    replyBuilder.append("Syntax: fmd delete [pin]");
+                    replyBuilder.append("Syntax: ").append(settings.getFmdCommand()).append(" delete [pin]");
                 }
             }
-        } else if (msg.startsWith("fmd")) {
-            replyBuilder.append("FindMyDevice Commands:\n" +
-                    "fmd where are you - sends the current location\n" +
-                    "fmd ring - lets the phone ring\n" +
-                    "fmd lock - locks the phone\n" +
-                    "fmd stats - sends device informations");
+        } else if (msg.equals(settings.getFmdCommand())) {
+            replyBuilder.append("FindMyDevice Commands:\n")
+                    .append(settings.getFmdCommand()).append(" where are you - sends the current location\n")
+                    .append(settings.getFmdCommand()).append(" ring - lets the phone ring\n")
+                    .append(settings.getFmdCommand()).append(" lock - locks the phone\n")
+                    .append(settings.getFmdCommand()).append(" stats - sends device informations");
             if(settings.isWipeEnabled()){
-                replyBuilder.append("\nfmd delete - resets the phone");
+                replyBuilder.append("\n").append(settings.getFmdCommand()).append(" delete - resets the phone");
             }
         }
         String reply = replyBuilder.toString();

@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CheckBox checkBoxDeviceWipe;
     private EditText editTextPin;
     private EditText editTextLockScreenMessage;
+    private EditText editTextFmdCommand;
 
     private WhiteList whiteList;
     private Settings settings;
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         checkBoxDeviceWipe = findViewById(R.id.checkBoxWipeData);
         editTextLockScreenMessage = findViewById(R.id.editTextTextLockScreenMessage);
         editTextPin = findViewById(R.id.editTextPin);
+        editTextFmdCommand = findViewById(R.id.editTextFmdCommand);
     }
 
     public void updateViews() {
@@ -120,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextLockScreenMessage.addTextChangedListener(this);
         editTextPin.setText(settings.getPin());
         editTextPin.addTextChangedListener(this);
+        editTextFmdCommand.setText(settings.getFmdCommand());
+        editTextFmdCommand.addTextChangedListener(this);
     }
 
     @Override
@@ -216,6 +220,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             settings.setLockScreenMessage(s.toString());
         }else if(s == editTextPin.getText()){
             settings.setPin(s.toString());
+        }else if(s == editTextFmdCommand.getText()){
+            if(s.toString().isEmpty()){
+                Toast.makeText(this, "Empty Command not allowed\n Returning to default.[fmd]", Toast.LENGTH_LONG).show();
+                settings.setFmdCommand("fmd");
+            }else{
+                settings.setFmdCommand(s.toString());
+            }
         }
     }
 }
