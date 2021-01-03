@@ -55,7 +55,7 @@ public class SMSReceiver extends BroadcastReceiver {
                 }
             }
             Calendar now = Calendar.getInstance();
-            now.add(Calendar.SECOND, 2);
+            now.add(Calendar.SECOND, 1);
             timeUntilNextUsage = now.getTime();
         }
     }
