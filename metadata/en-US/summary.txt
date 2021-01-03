@@ -1,1 +1,1 @@
-FindMyDevice
+Locate your smartphone via SMS when it gets lost
