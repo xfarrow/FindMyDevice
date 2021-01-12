@@ -8,11 +8,13 @@ public class Settings {
     private String lockScreenMessage;
     private String pin;
     private String fmdCommand;
+    private boolean introductionPassed;
 
     public Settings() {
         lockScreenMessage = new String();
         pin = new String();
         fmdCommand = new String("fmd");
+        introductionPassed = false;
     }
 
     public boolean isWipeEnabled() {
@@ -48,6 +50,15 @@ public class Settings {
 
     public void setFmdCommand(String fmdCommand) {
         this.fmdCommand = fmdCommand.toLowerCase();
+        IO.write(this, IO.settingsFileName);
+    }
+
+    public boolean isIntroductionPassed() {
+        return introductionPassed;
+    }
+
+    public void setIntroductionPassed(boolean introductionPassed) {
+        this.introductionPassed = introductionPassed;
         IO.write(this, IO.settingsFileName);
     }
 }

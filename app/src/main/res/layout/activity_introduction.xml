@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IntroductionActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/textViewInfoText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3mm"
+            android:textSize="16dp"
+            android:text="..." />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonGivePermission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:layout_margin="2mm"
+            android:text="Give Permission" />
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="2mm"
+            android:layout_gravity="center|bottom"
+            android:text="Next" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

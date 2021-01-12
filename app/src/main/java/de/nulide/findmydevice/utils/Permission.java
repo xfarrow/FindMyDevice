@@ -24,6 +24,22 @@ public class Permission {
     private static final int PERM_CONTACT_ID = 61343;
     private static final int PERM_DEVICE_ADMIN_ID = 61344;
 
+    public static boolean GPS = false;
+    public static boolean DEVICE_ADMIN = false;
+    public static boolean DND = false;
+    public static boolean CORE = false;
+
+    public static void initValues(Activity activity){
+        GPS = checkGPSPermission(activity);
+        DEVICE_ADMIN = checkDeviceAdminPermission(activity);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            DND = checkDNDPermission(activity);
+        }
+        if(checkContactsPermission(activity) && checkSMSPermission(activity)){
+            CORE = true;
+        }
+    }
+
     public static boolean checkAll(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return checkDNDPermission(activity) && checkContactsPermission(activity) && checkGPSPermission(activity) && checkSMSPermission(activity) && checkDeviceAdminPermission(activity);

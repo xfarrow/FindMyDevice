@@ -64,14 +64,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (!Permission.checkAll(this)) {
-            Intent myIntent = new Intent(this, PermissionsActivity.class);
-            startActivity(myIntent);
-        }
-
         IO.context = this;
         whiteList = IO.read(WhiteList.class, IO.whiteListFileName);
         settings = IO.read(Settings.class, IO.settingsFileName);
+        if(!settings.isIntroductionPassed() || (!Permission.checkSMSPermission(this) && !Permission.checkContactsPermission(this))){
+            Intent introductionIntent = new Intent(this, IntroductionActivity.class);
+            startActivity(introductionIntent);
+        }
         tabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.viewPager);
         MainPageViewAdapter mPageViewAdapter = new MainPageViewAdapter(this);
@@ -131,6 +130,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(intent, 1);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        settings = IO.read(Settings.class, IO.settingsFileName);
+        if(!settings.isIntroductionPassed() || (!Permission.checkSMSPermission(this) && !Permission.checkContactsPermission(this))){
+            Intent introductionIntent = new Intent(this, IntroductionActivity.class);
+            startActivity(introductionIntent);
+        }
     }
 
     @Override

@@ -3,4 +3,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="Introduction">FMD is an application that can help you find your phone when it gets lost.\nIt uses sms to communicate so you need to have a second device or a friend so you can track your phone. Just write a sms that contains "fmd" and the application will do what you want.\nStill Beta.\n\n - Nulide</string>
+    <string name="Permission_SMS">The communication with your lost phone will be via sms. So the application needs the Permission for this.\nThis Permission is needed.</string>
+    <string name="Permission_CONTACTS">Not everybody is allowed to contact your phone. So you need to select some contacts who can than communicate via sms with this application.\nThis permission is needed.</string>
+    <string name="Permission_GPS">If you want to locate the gps coordinates from the phone, the application needs this permission. Please allow the application to locate you also in background.\nWhen this permission is not given, this functionality will not be activated.</string>
+    <string name="Permission_DND">You also can let the phone ring. When DoNotDisturb is activated, it may be possible that the phone is muted.\nIf you don\'t give this permission, functionality is not granted.</string>
+    <string name="Permission_DEVICE_ADMIN">If you want to lock the phone or delete it when it got lost. This permission is needed.\nWhen this permission is not given, this functionality will not be activated.</string>
 </resources>
