@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
-            android:padding="2mm"
+                android:padding="2mm"
                 android:text="" />
 
             <View

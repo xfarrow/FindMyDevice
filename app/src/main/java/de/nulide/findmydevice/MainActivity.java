@@ -44,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView textViewRunningService;
     private TextView textViewWhiteListCount;
+    private TextView textViewCORE;
+    private TextView textViewGPS;
+    private TextView textViewDND;
+    private TextView textViewDeviceAdmin;
 
 
     private ListView listWhiteList;
@@ -67,7 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         IO.context = this;
         whiteList = IO.read(WhiteList.class, IO.whiteListFileName);
         settings = IO.read(Settings.class, IO.settingsFileName);
-        if(!settings.isIntroductionPassed() || (!Permission.checkSMSPermission(this) && !Permission.checkContactsPermission(this))){
+        Permission.initValues(this);
+        if(!settings.isIntroductionPassed() || !Permission.CORE){
             Intent introductionIntent = new Intent(this, IntroductionActivity.class);
             startActivity(introductionIntent);
         }
@@ -99,6 +104,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextLockScreenMessage = findViewById(R.id.editTextTextLockScreenMessage);
         editTextPin = findViewById(R.id.editTextPin);
         editTextFmdCommand = findViewById(R.id.editTextFmdCommand);
+
+        textViewCORE = findViewById(R.id.textViewCORE);
+        textViewGPS = findViewById(R.id.textViewGPS);
+        textViewDND = findViewById(R.id.textViewDND);
+        textViewDeviceAdmin = findViewById(R.id.textViewDeviceAdmin);
     }
 
     public void updateViews() {
@@ -123,6 +133,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextPin.addTextChangedListener(this);
         editTextFmdCommand.setText(settings.getFmdCommand());
         editTextFmdCommand.addTextChangedListener(this);
+
+        if(Permission.CORE){
+            textViewCORE.setText("enabled");
+            textViewCORE.setTextColor(Color.GREEN);
+        }else{
+            textViewCORE.setText("disabled");
+            textViewCORE.setTextColor(Color.RED);
+        }
+        if(Permission.GPS){
+            textViewGPS.setText("enabled");
+            textViewGPS.setTextColor(Color.GREEN);
+        }else{
+            textViewGPS.setText("disabled");
+            textViewGPS.setTextColor(Color.RED);
+        }
+        if(Permission.DND){
+            textViewDND.setText("enabled");
+            textViewDND.setTextColor(Color.GREEN);
+        }else{
+            textViewDND.setText("disabled");
+            textViewDND.setTextColor(Color.RED);
+        }
+        if(Permission.DEVICE_ADMIN){
+            textViewDeviceAdmin.setText("enabled");
+            textViewDeviceAdmin.setTextColor(Color.GREEN);
+        }else{
+            textViewDeviceAdmin.setText("disabled");
+            textViewDeviceAdmin.setTextColor(Color.RED);
+        }
+
     }
 
     @Override
@@ -135,8 +175,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
+        Permission.initValues(this);
         settings = IO.read(Settings.class, IO.settingsFileName);
-        if(!settings.isIntroductionPassed() || (!Permission.checkSMSPermission(this) && !Permission.checkContactsPermission(this))){
+        if(!settings.isIntroductionPassed() || !Permission.CORE){
             Intent introductionIntent = new Intent(this, IntroductionActivity.class);
             startActivity(introductionIntent);
         }
