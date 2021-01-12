@@ -14,6 +14,7 @@ public class ServiceHandler {
     public static void restartService(Context context) {
         Intent backgroundService = new Intent(context, SMSService.class);
         context.stopService(backgroundService);
+        startServiceSomehow(context);
     }
 
     public static void startServiceSomehow(Context context) {
