@@ -47,6 +47,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
                     }
                     String receiver = msgs[i].getOriginatingAddress();
+                    receiver.replace(" ", "");
                     for (int iwl = 0; iwl < whitelist.size(); iwl++) {
                         if (receiver.equals(whitelist.get(iwl).getNumber())) {
                             MessageHandler.handle(msgs[i].getOriginatingAddress(), msgs[i].getMessageBody(), context);

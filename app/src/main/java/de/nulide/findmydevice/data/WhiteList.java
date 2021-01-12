@@ -14,6 +14,7 @@ public class WhiteList extends LinkedList<Contact> {
 
     @Override
     public boolean add(Contact c) {
+        c.setNumber(c.getNumber().replace(" ", ""));
         super.add(c);
         IO.write(this, IO.whiteListFileName);
         return true;
