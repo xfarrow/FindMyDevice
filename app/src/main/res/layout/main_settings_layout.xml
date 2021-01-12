@@ -91,6 +91,30 @@
                 android:padding="2mm"
                 android:text="fmd" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="permissions" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="The permissions needed for certain functionalities" />
+
+            <Button
+                android:id="@+id/buttonPermissions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="Permissions" />
+
         </LinearLayout>
 
     </ScrollView>

@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextPin;
     private EditText editTextLockScreenMessage;
     private EditText editTextFmdCommand;
+    private Button buttonPermission;
 
     private WhiteList whiteList;
     private Settings settings;
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextLockScreenMessage = findViewById(R.id.editTextTextLockScreenMessage);
         editTextPin = findViewById(R.id.editTextPin);
         editTextFmdCommand = findViewById(R.id.editTextFmdCommand);
+        buttonPermission = findViewById(R.id.buttonPermissions);
 
         textViewCORE = findViewById(R.id.textViewCORE);
         textViewGPS = findViewById(R.id.textViewGPS);
@@ -133,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextPin.addTextChangedListener(this);
         editTextFmdCommand.setText(settings.getFmdCommand());
         editTextFmdCommand.addTextChangedListener(this);
+        buttonPermission.setOnClickListener(this);
 
         if(Permission.CORE){
             textViewCORE.setText("enabled");
@@ -167,9 +170,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        startActivityForResult(intent, 1);
-
+        if(v == buttonAddContact) {
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            startActivityForResult(intent, 1);
+        }else if(v == buttonPermission){
+            Intent permissionIntent = new Intent(this, PermissionsActivity.class);
+            startActivity(permissionIntent);
+        }
     }
 
     @Override
