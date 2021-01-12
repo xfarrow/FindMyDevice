@@ -239,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int index = info.position;
         if (item.getTitle() == "Delete") {
             whiteList.remove(index);
+            ServiceHandler.restartService(this);
             updateViews();
         } else {
             return false;
