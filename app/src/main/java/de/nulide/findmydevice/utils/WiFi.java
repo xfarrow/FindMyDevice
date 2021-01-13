@@ -11,6 +11,9 @@ public class WiFi {
 
     public static List<ScanResult> getWifiNetworks(Context context){
         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        wifiManager.setWifiEnabled(true);
+        wifiManager.startScan();
+
         List<ScanResult> results = wifiManager.getScanResults();
         return results;
     }
