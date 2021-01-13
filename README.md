@@ -3,6 +3,10 @@
 Find your Device via SMS.
 This applications goal is to track your device when it's lost and should be a secure open source application and a alternative to Googles FindMyDevice.
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/de.nulide.findmydevice/)
+
 
 # Why?
 
