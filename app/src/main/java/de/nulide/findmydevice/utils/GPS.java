@@ -7,6 +7,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
@@ -131,5 +132,17 @@ public class GPS implements LocationListener {
             SMS.sendMessage(sender, msg.toString());
         }
         return location;
+    }
+
+    public static void turnOnGPS(Context context){
+        Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_MODE, new Integer(Settings.Secure.LOCATION_MODE_HIGH_ACCURACY).toString());
+    }
+
+    public static boolean isGPSOn(Context context){
+        String GPS_MODE = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+        if(GPS_MODE.equals(new Integer(Settings.Secure.LOCATION_MODE_OFF).toString())){
+            return false;
+        }
+        return true;
     }
 }

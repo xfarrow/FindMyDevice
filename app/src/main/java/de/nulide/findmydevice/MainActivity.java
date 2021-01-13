@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
 import de.nulide.findmydevice.ui.WhiteListViewAdapter;
+import de.nulide.findmydevice.utils.GPS;
 import de.nulide.findmydevice.utils.Permission;
 import de.nulide.findmydevice.utils.ServiceHandler;
 
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewGPS;
     private TextView textViewDND;
     private TextView textViewDeviceAdmin;
+    private TextView textViewWriteSecureSettings;
 
 
     private ListView listWhiteList;
@@ -110,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewGPS = findViewById(R.id.textViewGPS);
         textViewDND = findViewById(R.id.textViewDND);
         textViewDeviceAdmin = findViewById(R.id.textViewDeviceAdmin);
+        textViewWriteSecureSettings = findViewById(R.id.textViewWriteSecureSettings);
     }
 
     public void updateViews() {
@@ -164,6 +168,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViewDeviceAdmin.setText("disabled");
             textViewDeviceAdmin.setTextColor(Color.RED);
         }
+        if(Permission.WRITE_SECURE_SETTINGS){
+            textViewWriteSecureSettings.setText("enabled");
+            textViewWriteSecureSettings.setTextColor(Color.GREEN);
+        }else{
+            textViewWriteSecureSettings.setText("disabled");
+            textViewWriteSecureSettings.setTextColor(Color.RED);
+        }
 
     }
 
@@ -173,7 +184,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
             startActivityForResult(intent, 1);
         }else if(v == buttonPermission){
-            Intent permissionIntent = new Intent(this, PermissionsActivity.class);
+            Intent permissionIntent = new Intent(this, IntroductionActivity.class);
+            permissionIntent.putExtra(IntroductionActivity.POS_KEY, 1);
             startActivity(permissionIntent);
         }
     }

@@ -27,11 +27,13 @@ public class Permission {
     public static boolean GPS = false;
     public static boolean DEVICE_ADMIN = false;
     public static boolean DND = false;
+    public static boolean WRITE_SECURE_SETTINGS = false;
     public static boolean CORE = false;
 
     public static void initValues(Activity activity){
         GPS = checkGPSPermission(activity);
         DEVICE_ADMIN = checkDeviceAdminPermission(activity);
+        WRITE_SECURE_SETTINGS = checkWriteSecurePermission(activity);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             DND = checkDNDPermission(activity);
         }
@@ -80,6 +82,10 @@ public class Permission {
     public static boolean checkDNDPermission(Activity activity) {
         NotificationManager mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
         return mNotificationManager.isNotificationPolicyAccessGranted();
+    }
+
+    public static boolean checkWriteSecurePermission(Activity activity){
+        return ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_SECURE_SETTINGS) == PackageManager.PERMISSION_GRANTED;
     }
 
     public static boolean checkSMSPermission(Activity activity) {

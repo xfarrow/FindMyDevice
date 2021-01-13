@@ -22,14 +22,17 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
     private Button buttonGivePermission;
 
     private int position = 0;
-
+    public static String POS_KEY = "pos";
     private Settings settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduction);
-
+        Bundle bundle = getIntent().getExtras();
+        if(!bundle.isEmpty()) {
+            position = bundle.getInt(POS_KEY);
+        }
         IO.context = this;
         settings = IO.read(Settings.class, IO.settingsFileName);
 
@@ -99,6 +102,14 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                 }
                 break;
             case 6:
+                textViewInfoText.setText(getString(R.string.PERMISSION_WRITE_SECURE_SETTINGS));
+                if(Permission.checkWriteSecurePermission(this)){
+                    buttonGivePermission.setTextColor(Color.GREEN);
+                }else{
+                    buttonGivePermission.setTextColor(Color.RED);
+                }
+                break;
+            case 7:
                 settings.setIntroductionPassed(true);
                 Intent myIntent = new Intent(this, MainActivity.class);
                 finish();
@@ -135,11 +146,13 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                 case 5:
                     Permission.requestDeviceAdminPermission(this);
                     break;
+                case 6:
+                    updateViews();
+                    break;
             }
-        }else{
+        }else if(v == buttonNext){
             position++;
             updateViews();
         }
-
     }
 }

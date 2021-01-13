@@ -29,6 +29,11 @@ public class MessageHandler {
         msg = msg.toLowerCase();
         StringBuilder replyBuilder = new StringBuilder();
         if (msg.startsWith(settings.getFmdCommand() + " where are you") && Permission.GPS) {
+            if(Permission.WRITE_SECURE_SETTINGS){
+                if(!GPS.isGPSOn(context)){
+                    GPS.turnOnGPS(context);
+                }
+            }
             replyBuilder.append("will be send as soon as possible.");
             GPS gps = new GPS(context, sender);
             gps.sendGSMCellLocation();
