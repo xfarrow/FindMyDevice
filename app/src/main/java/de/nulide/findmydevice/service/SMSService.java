@@ -30,7 +30,7 @@ public class SMSService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         unregisterReceiver(rec);
+        super.onDestroy();
     }
 }

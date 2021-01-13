@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private WhiteList whiteList;
     private Settings settings;
 
-    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
