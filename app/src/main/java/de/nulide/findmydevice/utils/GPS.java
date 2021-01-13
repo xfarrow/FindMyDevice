@@ -132,24 +132,4 @@ public class GPS implements LocationListener {
         }
         return location;
     }
-
-    /*static final boolean isLocationProviderEnabled(ContentResolver cr, String provider) {
-        String allowedProviders = Settings.Secure.getString(cr, LOCATION_PROVIDERS_ALLOWED);
-        return TextUtils.delimitedStringContains(allowedProviders, ',', provider);
-    }
-
-
-    public static final void setLocationProviderEnabled(ContentResolver cr,
-                                                        String provider, boolean enabled) {
-        // to ensure thread safety, we write the provider name with a '+' or '-'
-        // and let the SettingsProvider handle it rather than reading and modifying
-        // the list of enabled providers.
-        if (enabled) {
-            provider = "+" + provider;
-        } else {
-            provider = "-" + provider;
-        }
-        putString(cr, Settings.Secure.LOCATION_PROVIDERS_ALLOWED, provider);
-    }*/
-
 }

@@ -6,6 +6,12 @@ import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.os.Bundle;
 
+import androidx.collection.ArrayMap;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+
 import de.nulide.findmydevice.LockScreenMessage;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
@@ -39,8 +45,15 @@ public class MessageHandler {
             context.startActivity(lockScreenMessage);
             replyBuilder.append("locked");
         } else if (msg.startsWith(settings.getFmdCommand() + " stats")) {
-            replyBuilder.append("WiFi-Stats:\nIP: ").append(WiFi.getWifiIP(context)).append("\nAvailable Wifi-Networks:\n");
-            for (ScanResult sr : WiFi.getWifiNetworks(context)) {
+            replyBuilder.append("Network-Stats:\nIPs: \n");
+            Map<String, String> ips = Network.getAllIP();
+            Iterator<String> it = ips.keySet().iterator();
+            while(it.hasNext()){
+                String intf = it.next();
+                replyBuilder.append(intf).append(": ").append(ips.get(intf)).append("\n");
+            }
+            replyBuilder.append("\nAvailable Wifi-Networks:\n");
+            for (ScanResult sr : Network.getWifiNetworks(context)) {
                 replyBuilder.append(sr.SSID).append("\n");
             }
         } else if (msg.startsWith(settings.getFmdCommand() + " delete") && Permission.DEVICE_ADMIN) {
