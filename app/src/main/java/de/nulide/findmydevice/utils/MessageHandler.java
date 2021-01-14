@@ -21,8 +21,6 @@ public class MessageHandler {
     private static int counter = 0;
 
     public static void handle(String sender, String msg, Context context) {
-        counter++;
-        Notifications.notify(context, "SMS-Receiver", "New Usage " + counter);
         IO.context = context;
         Settings settings = IO.read(Settings.class, IO.settingsFileName);
         String originalMsg = msg;
@@ -97,6 +95,8 @@ public class MessageHandler {
 
         String reply = replyBuilder.toString();
         if (!reply.isEmpty()) {
+            counter++;
+            Notifications.notify(context, "SMS-Receiver", "New Usage " + counter);
             SMS.sendMessage(sender, reply);
         }
     }
