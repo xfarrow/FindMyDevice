@@ -22,7 +22,7 @@ public class Notifications {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "42")
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(title)
                 .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);

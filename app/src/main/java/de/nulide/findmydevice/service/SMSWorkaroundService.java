@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import de.nulide.findmydevice.R;
+
 public class SMSWorkaroundService extends Service {
 
     private final int ID = 71;
@@ -33,6 +35,7 @@ public class SMSWorkaroundService extends Service {
         NotificationChannel chan = null;
         chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
         chan.setLightColor(Color.BLUE);
+        chan.setDescription("Workaround for starting the Service from the background.");
         chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         assert manager != null;
@@ -40,6 +43,7 @@ public class SMSWorkaroundService extends Service {
 
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
         nBuilder.setContentTitle("Foreground Workaround")
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentText("Service Workaround")
                 .setAutoCancel(true);
         startForeground(ID, nBuilder.build());
