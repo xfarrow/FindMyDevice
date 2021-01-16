@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -161,6 +162,8 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                     Permission.requestOverlayPermission(this);
                     break;
                 case 7:
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://gitlab.com/Nulide/findmydevice/-/wikis/PERMISSION-WRITE_SECURE_SETTINGS"));
+                    startActivity(intent);
                     updateViews();
                     break;
             }
