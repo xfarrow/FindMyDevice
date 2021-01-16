@@ -21,6 +21,7 @@ public class MessageHandler {
     private static int counter = 0;
 
     public static void handle(String sender, String msg, Context context) {
+        Permission.initValues(context);
         IO.context = context;
         Settings settings = IO.read(Settings.class, IO.settingsFileName);
         String originalMsg = msg;

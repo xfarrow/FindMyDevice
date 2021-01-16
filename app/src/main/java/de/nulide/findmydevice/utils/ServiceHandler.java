@@ -16,7 +16,7 @@ public class ServiceHandler {
             Intent backgroundService = new Intent(context, SMSService.class);
             context.stopService(backgroundService);
         }
-        startServiceSomehow(context);
+        //fstartServiceSomehow(context);
     }
 
     public static void startServiceSomehow(Context context) {
@@ -37,6 +37,7 @@ public class ServiceHandler {
             if (SMSService.class.getName().equals(service.service.getClassName())) {
                 return true;
             }
+
         }
         return false;
     }

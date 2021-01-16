@@ -33,15 +33,15 @@ public class Permission {
     public static boolean WRITE_SECURE_SETTINGS = false;
     public static boolean CORE = false;
 
-    public static void initValues(Activity activity){
-        GPS = checkGPSPermission(activity);
-        DEVICE_ADMIN = checkDeviceAdminPermission(activity);
-        WRITE_SECURE_SETTINGS = checkWriteSecurePermission(activity);
-        OVERLAY = checkOverlayPermission(activity);
+    public static void initValues(Context context){
+        GPS = checkGPSPermission(context);
+        DEVICE_ADMIN = checkDeviceAdminPermission(context);
+        WRITE_SECURE_SETTINGS = checkWriteSecurePermission(context);
+        OVERLAY = checkOverlayPermission(context);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            DND = checkDNDPermission(activity);
+            DND = checkDNDPermission(context);
         }
-        if(checkContactsPermission(activity) && checkSMSPermission(activity)){
+        if(checkContactsPermission(context) && checkSMSPermission(context)){
             CORE = true;
         }
     }
@@ -82,39 +82,39 @@ public class Permission {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static boolean checkDNDPermission(Activity activity) {
-        NotificationManager mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+    public static boolean checkDNDPermission(Context context) {
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         return mNotificationManager.isNotificationPolicyAccessGranted();
     }
 
-    public static boolean checkOverlayPermission(Activity activity){
+    public static boolean checkOverlayPermission(Context context){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(activity)) {
+            if (!Settings.canDrawOverlays(context)) {
                 return false;
             }
         }
         return true;
     }
 
-    public static boolean checkWriteSecurePermission(Activity activity){
-        return ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_SECURE_SETTINGS) == PackageManager.PERMISSION_GRANTED;
+    public static boolean checkWriteSecurePermission(Context context){
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS) == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static boolean checkSMSPermission(Activity activity) {
-        return ContextCompat.checkSelfPermission(activity, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED;
+    public static boolean checkSMSPermission(Context context) {
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static boolean checkGPSPermission(Activity activity) {
-        return ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    public static boolean checkGPSPermission(Context context) {
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static boolean checkContactsPermission(Activity activity) {
-        return ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+    public static boolean checkContactsPermission(Context context) {
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static boolean checkDeviceAdminPermission(Activity activity){
-        DevicePolicyManager devicePolicyManager = (DevicePolicyManager) activity.getSystemService(Context.DEVICE_POLICY_SERVICE);
-        return devicePolicyManager.isAdminActive(new ComponentName(activity, DeviceAdminReceiver.class));
+    public static boolean checkDeviceAdminPermission(Context context){
+        DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+        return devicePolicyManager.isAdminActive(new ComponentName(context, DeviceAdminReceiver.class));
     }
 
 }

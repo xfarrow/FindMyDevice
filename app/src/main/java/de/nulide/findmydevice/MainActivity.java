@@ -233,7 +233,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if(!cNumber.startsWith("0")) {
                                 whiteList.add(new Contact(cName, cNumber));
                                 ServiceHandler.restartService(this);
-                                reloadViews();
                                 updateViews();
                             }else{
                                 Toast toast = Toast.makeText(this,"Please add Landcode to the number.", Toast.LENGTH_LONG);
