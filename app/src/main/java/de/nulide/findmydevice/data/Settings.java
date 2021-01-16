@@ -1,20 +1,23 @@
 package de.nulide.findmydevice.data;
 
+
 import de.nulide.findmydevice.data.io.IO;
 
 public class Settings {
+
+    public static final int newestIntroductionVersion = 2;
 
     private boolean wipeEnabled;
     private String lockScreenMessage;
     private String pin;
     private String fmdCommand;
-    private boolean introductionPassed;
+    private int introductionVersionPassed;
 
     public Settings() {
         lockScreenMessage = new String();
         pin = new String();
         fmdCommand = new String("fmd");
-        introductionPassed = false;
+        introductionVersionPassed = 0;
     }
 
     public boolean isWipeEnabled() {
@@ -53,12 +56,24 @@ public class Settings {
         IO.write(this, IO.settingsFileName);
     }
 
-    public boolean isIntroductionPassed() {
-        return introductionPassed;
+    public int getIntroductionVersionPassed() {
+        return introductionVersionPassed;
     }
 
-    public void setIntroductionPassed(boolean introductionPassed) {
-        this.introductionPassed = introductionPassed;
+    public void setIntroductionVersionPassed(int introductionVersionPassed) {
+        this.introductionVersionPassed = introductionVersionPassed;
+        IO.write(this, IO.settingsFileName);
+    }
+
+    public boolean isIntroductionPassed() {
+        if(newestIntroductionVersion == introductionVersionPassed){
+            return true;
+        }
+        return false;
+    }
+
+    public void setIntroductionPassed() {
+        this.introductionVersionPassed = newestIntroductionVersion;
         IO.write(this, IO.settingsFileName);
     }
 }

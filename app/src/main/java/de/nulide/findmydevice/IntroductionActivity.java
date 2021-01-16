@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import de.nulide.findmydevice.data.Settings;
-import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.utils.Permission;
 
@@ -30,7 +29,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduction);
         Bundle bundle = getIntent().getExtras();
-        if(!bundle.isEmpty()) {
+        if(bundle != null && !bundle.isEmpty()) {
             position = bundle.getInt(POS_KEY);
         }
         IO.context = this;
@@ -49,7 +48,11 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
     public void updateViews(){
         switch(position){
             case 0:
-                textViewInfoText.setText(getString(R.string.Introduction));
+                if(settings.getIntroductionVersionPassed() > 0){
+                    textViewInfoText.setText(getString(R.string.UpdatePermission));
+                }else {
+                    textViewInfoText.setText(getString(R.string.Introduction));
+                }
                 break;
             case 1:
                 buttonGivePermission.setVisibility(View.VISIBLE);
@@ -102,15 +105,23 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                 }
                 break;
             case 6:
-                textViewInfoText.setText(getString(R.string.PERMISSION_WRITE_SECURE_SETTINGS));
-                if(Permission.checkWriteSecurePermission(this)){
+                textViewInfoText.setText(getString(R.string.Permission_OVERLAY));
+                if(Permission.checkOverlayPermission(this)){
                     buttonGivePermission.setTextColor(Color.GREEN);
                 }else{
                     buttonGivePermission.setTextColor(Color.RED);
                 }
                 break;
             case 7:
-                settings.setIntroductionPassed(true);
+                textViewInfoText.setText(getString(R.string.Permission_WRITE_SECURE_SETTINGS));
+                if(Permission.checkWriteSecurePermission(this)){
+                    buttonGivePermission.setTextColor(Color.GREEN);
+                }else{
+                    buttonGivePermission.setTextColor(Color.RED);
+                }
+                break;
+            case 8:
+                settings.setIntroductionPassed();
                 Intent myIntent = new Intent(this, MainActivity.class);
                 finish();
                 startActivity(myIntent);
@@ -147,6 +158,9 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                     Permission.requestDeviceAdminPermission(this);
                     break;
                 case 6:
+                    Permission.requestOverlayPermission(this);
+                    break;
+                case 7:
                     updateViews();
                     break;
             }

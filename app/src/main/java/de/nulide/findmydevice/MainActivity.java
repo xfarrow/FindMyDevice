@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewDND;
     private TextView textViewDeviceAdmin;
     private TextView textViewWriteSecureSettings;
+    private TextView textViewOverlay;
 
 
     private ListView listWhiteList;
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewDND = findViewById(R.id.textViewDND);
         textViewDeviceAdmin = findViewById(R.id.textViewDeviceAdmin);
         textViewWriteSecureSettings = findViewById(R.id.textViewWriteSecureSettings);
+        textViewOverlay = findViewById(R.id.textViewOverlay);
     }
 
     public void updateViews() {
@@ -174,6 +176,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else{
             textViewWriteSecureSettings.setText("disabled");
             textViewWriteSecureSettings.setTextColor(Color.RED);
+        }
+        if(Permission.OVERLAY){
+            textViewOverlay.setText("enabled");
+            textViewOverlay.setTextColor(Color.GREEN);
+        }else{
+            textViewOverlay.setText("disabled");
+            textViewOverlay.setTextColor(Color.RED);
         }
 
     }

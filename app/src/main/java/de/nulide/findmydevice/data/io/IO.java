@@ -3,6 +3,8 @@ package de.nulide.findmydevice.data.io;
 import android.content.Context;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
@@ -36,6 +38,7 @@ public class IO {
 
     public static <T> T read(Class<T> type, String fileName){
         ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         File file = new File(context.getFilesDir(), fileName);
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));

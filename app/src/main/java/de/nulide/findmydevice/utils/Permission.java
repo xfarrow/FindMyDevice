@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 
@@ -17,16 +18,18 @@ import androidx.core.content.ContextCompat;
 
 import de.nulide.findmydevice.receiver.DeviceAdminReceiver;
 
+import static de.nulide.findmydevice.data.io.IO.context;
+
 public class Permission {
 
     private static final int PERM_SMS_ID = 61341;
     private static final int PERM_GPS_ID = 61342;
     private static final int PERM_CONTACT_ID = 61343;
-    private static final int PERM_DEVICE_ADMIN_ID = 61344;
 
     public static boolean GPS = false;
     public static boolean DEVICE_ADMIN = false;
     public static boolean DND = false;
+    public static boolean OVERLAY = false;
     public static boolean WRITE_SECURE_SETTINGS = false;
     public static boolean CORE = false;
 
@@ -34,19 +37,12 @@ public class Permission {
         GPS = checkGPSPermission(activity);
         DEVICE_ADMIN = checkDeviceAdminPermission(activity);
         WRITE_SECURE_SETTINGS = checkWriteSecurePermission(activity);
+        OVERLAY = checkOverlayPermission(activity);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             DND = checkDNDPermission(activity);
         }
         if(checkContactsPermission(activity) && checkSMSPermission(activity)){
             CORE = true;
-        }
-    }
-
-    public static boolean checkAll(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return checkDNDPermission(activity) && checkContactsPermission(activity) && checkGPSPermission(activity) && checkSMSPermission(activity) && checkDeviceAdminPermission(activity);
-        }else{
-            return checkContactsPermission(activity) && checkGPSPermission(activity) && checkSMSPermission(activity) && checkDeviceAdminPermission(activity);
         }
     }
 
@@ -60,6 +56,13 @@ public class Permission {
 
     public static void requestContactPermission(Activity activity) {
         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CONTACTS}, PERM_CONTACT_ID);
+    }
+
+    public static void requestOverlayPermission(Activity activity){
+        if(!checkOverlayPermission(activity)) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + activity.getPackageName()));
+            activity.startActivity(intent);
+        }
     }
 
     public static void requestDNDPermission(Activity activity) {
@@ -82,6 +85,15 @@ public class Permission {
     public static boolean checkDNDPermission(Activity activity) {
         NotificationManager mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
         return mNotificationManager.isNotificationPolicyAccessGranted();
+    }
+
+    public static boolean checkOverlayPermission(Activity activity){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(activity)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static boolean checkWriteSecurePermission(Activity activity){
