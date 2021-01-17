@@ -19,7 +19,7 @@
     <string name="About">About</string>
     <string name="About_Text">Thanks for downloading the App.\nThere is still a lot to do. But i hope this app will help you when you get in the same situation i had. Loosing the phone is bad, but loosing it cause there are no privacy-friendly apps outside is even worse.\nContributions or Donations are welcome. Just go to the F-Droid Store and search for my App.\n\n - Nulide</string>
     <string name="Used_APIs">Used APIs:\n</string>
-    <string name="UsedApis_Content" translatable="false">com.fasterxml.jackson.core:jackson-databind:2.10.0</string>
+    <string name="UsedApis_Content" translatable="false">com.fasterxml.jackson.core:jackson-databind:2.10.0\ncom.android.volley:volley:1.1.1\nOpenCellID</string>
     <string name="Service" translatable="false">Service</string>
     <string name="CORE" translatable="false">CORE:</string>
     <string name="GPS" translatable="false">GPS:</string>

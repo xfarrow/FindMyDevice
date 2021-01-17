@@ -11,12 +11,14 @@ public class Settings {
     private String lockScreenMessage;
     private String pin;
     private String fmdCommand;
+    private String openCellIDAPIkey;
     private int introductionVersionPassed;
 
     public Settings() {
         lockScreenMessage = new String();
         pin = new String();
         fmdCommand = new String("fmd");
+        openCellIDAPIkey = new String();
         introductionVersionPassed = 0;
     }
 
@@ -74,6 +76,15 @@ public class Settings {
 
     public void setIntroductionPassed() {
         this.introductionVersionPassed = newestIntroductionVersion;
+        IO.write(this, IO.settingsFileName);
+    }
+
+    public String getOpenCellIDAPIkey() {
+        return openCellIDAPIkey;
+    }
+
+    public void setOpenCellIDAPIkey(String openCellIDAPIkey) {
+        this.openCellIDAPIkey = openCellIDAPIkey;
         IO.write(this, IO.settingsFileName);
     }
 }

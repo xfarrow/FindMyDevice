@@ -11,6 +11,19 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
+import android.util.Log;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
 
 public class GPS implements LocationListener {
 
@@ -26,8 +39,9 @@ public class GPS implements LocationListener {
         this.sender = sender;
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         Looper m = Looper.myLooper();
-        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, m);
-        locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, this, m);
+        for(String providor : locationManager.getAllProviders()){
+            locationManager.requestSingleUpdate(providor, this, m);
+        }
     }
 
     @Override
@@ -38,10 +52,10 @@ public class GPS implements LocationListener {
         if (currentBestLocation == null) {
             currentBestLocation = location;
         }
-        String Providor = getLastBestLocation().getProvider();
+        String Provider = getLastBestLocation().getProvider();
         String Latitude = getLastBestLocation().getLatitude() + "";
         String Longitude = getLastBestLocation().getLongitude() + "";
-        SMS.sendMessage(sender, Providor + ": " + Latitude + " " + Longitude);
+        SMS.sendMessage(sender, Provider + ": " + Latitude + " " + Longitude);
     }
 
     @Override
@@ -130,8 +144,22 @@ public class GPS implements LocationListener {
             int mnc = Integer.parseInt(operator.substring(3));
             msg.append("mcc: ").append(mcc).append("\nmnc: ").append(mnc).append("\nSearch with: http://www.cell2gps.com/");
             SMS.sendMessage(sender, msg.toString());
+            sendOpenCellIdLocation(context, sender, mcc, mnc, location.getLac(), location.getCid());
         }
         return location;
+    }
+
+    public void sendOpenCellIdLocation(Context context, String sender, int mcc, int mnc, int lac, int cid){
+        StringBuilder urlBuilder = new StringBuilder("https://opencellid.org/cell/get?key=");
+        String devKey = "xxx";
+
+        urlBuilder.append(devKey).append("&mcc=").append(mcc).append("&mnc=").append(mnc)
+                .append("&lac=").append(lac).append("&cellid=").append(cid).append("&format=json");
+
+        final String url = urlBuilder.toString();
+        RequestQueue ExampleRequestQueue = Volley.newRequestQueue(context);
+        JsonObjectRequest ExampleRequest = new JsonObjectRequest(Request.Method.GET, url, null, new JSONResponseListener(sender, url), new JSONResponseListener(sender, url));
+        ExampleRequestQueue.add(ExampleRequest);
     }
 
     public static void turnOnGPS(Context context){
