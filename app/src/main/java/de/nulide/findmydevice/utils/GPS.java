@@ -25,6 +25,8 @@ import org.json.JSONObject;
 
 import java.util.Iterator;
 
+import de.nulide.findmydevice.data.io.IO;
+
 public class GPS implements LocationListener {
 
     static final int WAIT_TIME = 1000 * 5;
@@ -150,10 +152,12 @@ public class GPS implements LocationListener {
     }
 
     public void sendOpenCellIdLocation(Context context, String sender, int mcc, int mnc, int lac, int cid){
-        StringBuilder urlBuilder = new StringBuilder("https://opencellid.org/cell/get?key=");
-        String devKey = "xxx";
-
-        urlBuilder.append(devKey).append("&mcc=").append(mcc).append("&mnc=").append(mnc)
+        de.nulide.findmydevice.data.Settings settings = IO.read(de.nulide.findmydevice.data.Settings.class, IO.settingsFileName);
+        if(settings.getOpenCellIDAPIkey().isEmpty()){
+            return;
+        }
+        StringBuilder urlBuilder = new StringBuilder("https://opencellid.org/cell/get?key=")
+                .append(settings.getOpenCellIDAPIkey()).append("&mcc=").append(mcc).append("&mnc=").append(mnc)
                 .append("&lac=").append(lac).append("&cellid=").append(cid).append("&format=json");
 
         final String url = urlBuilder.toString();

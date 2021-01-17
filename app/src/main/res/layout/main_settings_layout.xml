@@ -100,6 +100,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2mm"
+                android:text="OpenCellID" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="API-KEY:" />
+
+            <EditText
+                android:id="@+id/editTextOpenCellIDAPIKey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:padding="2mm"
+                android:text="" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
                 android:text="@string/permission" />
 
             <TextView

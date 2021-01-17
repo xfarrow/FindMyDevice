@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextPin;
     private EditText editTextLockScreenMessage;
     private EditText editTextFmdCommand;
+    private EditText editTextOpenCellIdKey;
     private Button buttonPermission;
 
     private WhiteList whiteList;
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextLockScreenMessage = findViewById(R.id.editTextTextLockScreenMessage);
         editTextPin = findViewById(R.id.editTextPin);
         editTextFmdCommand = findViewById(R.id.editTextFmdCommand);
+        editTextOpenCellIdKey = findViewById(R.id.editTextOpenCellIDAPIKey);
         buttonPermission = findViewById(R.id.buttonPermissions);
 
         textViewCORE = findViewById(R.id.textViewCORE);
@@ -140,6 +142,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextPin.addTextChangedListener(this);
         editTextFmdCommand.setText(settings.getFmdCommand());
         editTextFmdCommand.addTextChangedListener(this);
+        editTextOpenCellIdKey.setText(settings.getOpenCellIDAPIkey());
+        editTextOpenCellIdKey.addTextChangedListener(this);
         buttonPermission.setOnClickListener(this);
 
         if(Permission.CORE){
@@ -304,6 +308,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }else{
                 settings.setFmdCommand(s.toString());
             }
+        }else if(s == editTextOpenCellIdKey.getText()){
+            settings.setOpenCellIDAPIkey(s.toString());
         }
     }
 }
