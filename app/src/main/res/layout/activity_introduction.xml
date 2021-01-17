@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
             android:layout_margin="2mm"
-            android:text="Give Permission" />
+            android:text="@string/Give_Permission" />
 
         <Button
             android:id="@+id/buttonNext"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="2mm"
             android:layout_gravity="center|bottom"
-            android:text="Next" />
+            android:text="@string/Next" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

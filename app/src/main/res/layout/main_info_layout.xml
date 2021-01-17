@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Service"
+            android:text="@string/Service"
             android:layout_margin="5dp"
             android:textSize="36sp" />
 
@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="CORE:"
+                android:text="@string/CORE"
                 android:layout_margin="5dp"
                 android:textSize="21sp" />
 
@@ -100,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="GPS:"
+                android:text="@string/GPS"
                 android:layout_margin="5dp"
                 android:textSize="21sp" />
 
@@ -126,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="DND:"
+                android:text="@string/DND"
                 android:layout_margin="5dp"
                 android:textSize="21sp" />
 
@@ -152,7 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="DeviceAdmin:"
+                android:text="@string/DEVICE_ADMIN"
                 android:layout_margin="5dp"
                 android:textSize="21sp" />
 
@@ -178,7 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Overlay:"
+                android:text="@string/Overlay"
                 android:layout_margin="5dp"
                 android:textSize="21sp" />
 
@@ -204,7 +204,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="SecureSettings:"
+                android:text="@string/SecureSettings"
                 android:layout_margin="5dp"
                 android:textSize="21sp" />
 

@@ -14,14 +14,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:gravity="center_horizontal"
-            android:text="About"
+            android:text="@string/About"
             android:textSize="36sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="Thanks for downloading the App.\nThere is still a lot to do. But i hope this app will help you when you get in the same situation i had. Loosing the phone is bad, but loosing it cause there are no privacy-friendly apps outside is even worse.\nContributions or Donations are welcome. Just go to the F-Droid Store and search for my App.\n\n -Nulide"
+            android:text="@string/About_Text"
             android:textSize="18sp" />
 
         <View
@@ -34,14 +34,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="Used APIs:\n"
+            android:text="@string/Used_APIs"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="com.fasterxml.jackson.core:jackson-databind:2.10.0"
+            android:text="@string/UsedApis_Content"
             android:textSize="12sp" />
 
 

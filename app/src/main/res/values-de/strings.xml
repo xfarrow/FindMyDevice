@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_blank_fragment">Hallo leeres Fragment</string>
+    <string name="Delete">Löschen</string>
+    <string name="Select_Action">Wähle eine Aktion:</string>
+    <string name="TOAST_LANDCODE_ERROR">Bitte fügen sie den Ländercode an die Nummer hinzu.</string>
+    <string name="TAB_Settings">Einstellungen</string>
+    <string name="Tab_About">Über</string>
+    <string name="running">läuft</string>
+    <string name="not_running">ausgefallen</string>
+    <string name="Enabled">Aktiviert</string>
+    <string name="Disabled">Deaktiviert</string>
+    <string name="Add_Contact">Kontakt hinzufügen</string>
+    <string name="permission">Rechte</string>
+    <string name="Used_APIs">"Benutzte APIs:\n"</string>
+    <string name="Enable">Aktiv</string>
+    <string name="About">Über</string>
+    <string name="Next">Weiter</string>
+    <string name="Give_Permission">Rechte erteilen</string>
+    <string name="Locked_Lock_Screen">FindMyDevice\nDieses Gerät wurde gesperrt!\nNachricht vom Besitzer:</string>
+    <string name="UpdatePermission">Es gab ein Update für die Rechteverwaltung.\nBitte überprüfen sie die folgenden Rechte.</string>
+    <string name="Introduction">FMD ist eine Anwendung, welche es Ihnen ermöglicht ihr Handy wiederzufinden.\nFMD benutzt SMS zur Kommunikation. Sie benötigen somit ein zweites Handy oder einen Freund, dessen Handy sie ausleihend können.\nSchreiben sie einfach eine SMS mit dem fmd Kommando.\nBeta.\n\n  - Nulide</string>
+    <string name="Permission_SMS">Die Kommunikation mit dem verlorenen Handy findet über SMS statt. Deshalb benötigt die Anwendung die Rechte für SMS.\nDieses Recht ist für den Betrieb der Applikation notwendig.</string>
+    <string name="SET_COMMAND_DESC">Der Befehl welcher als Trigger für die Kommunikation mit FMD dient.</string>
+    <string name="SET_LOCKSCREEN_MESSAGE_DESC">Sperrbildschirmnachricht:\nEine Nachricht, welche auf dem Sperrbildschirm angezeigt wird, wenn das Gerät gesperrt wird.</string>
+    <string name="SET_PIN_DESC">Pin:\nDient zur Absicherung. Wird benötigt wenn das Gerät gelöscht werden soll.</string>
+    <string name="SET_PERMISSION_DESC">Rechte über welche die Applikation verfügt.</string>
+    <string name="About_Text">Danke fürs runterladen der App.\nEs gibt noch eine Menge zu tun. Ich hoffe das diese Anwendung euch behilflich wird, falls ihr in eine Ähnliche Situation kommt.\nSpenden sind willkommen.\n\n  - Nulide</string>
+    <string name="Permission_OVERLAY">Wenn sie das Gerät über die Ferne sperren kann eine Benachrichtigung auf dem Sperrbildschirm angezeigt werden.\nDamit dies reibungslos geschehen kann wird ein Recht benötigt um Inhalte über andere Applikationen zeigen zu dürfen.</string>
+    <string name="Permission_WRITE_SECURE_SETTINGS">Diese App kann GPS einschalten. Dies ist praktisch wenn das Handy verloren geht und GPS ausgeschaltet war.\nDafür wird eine spezielle Berechtigung benötigt, die ein paar extra Schritte benötigt.\nKlicken Sie auf den Button um mehr zu erfahren.\nWenn sie diese Berechtigung nicht erteilen wird die Lokalisation weiterhin funktionieren.</string>
+    <string name="Permission_CONTACTS">Nicht jeder soll sie orten dürfen. Deshalb müssen sie ein paar Kontakte auswählen, welche dies tun dürfen.\nDafür benötigt die App Zugriff auf Kontakte.\nDiese Berechtigung ist für den Betrieb der App notwendig.</string>
+    <string name="Permission_GPS">Wenn sie ihr Gerät über GPS orten wollen, wird diese Berechtigung benötigt.\nFür eine bessere Funktionalität erlauben sie der App sie im Hintergrund orten zu dürfen.\nDie App kann auch ohne diese Berechttigung funktionieren. Ortung ist dann allerdings nur über GSM möglich.</string>
+    <string name="Permission_DND">Die App kann das Handy klingeln lassen. Wenn allerdings der DoNotDisturb-Modus aktiviert wurde, kann es sein dass das Klingeln blockiert wird.\nWenn diese Berechtigung nicht gewährt wird kann die Funktionalität nicht garantiert werden.</string>
+    <string name="Permission_DEVICE_ADMIN">Wenn sie das Handy aus der Ferne sperren oder löschen wolleen, muss die App ein Geräte-Adminstrator werden.\nWenn dies nicht getan wird, wird das Feature deaktiviert.</string>
+</resources>

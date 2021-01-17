@@ -24,13 +24,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2mm"
-                android:text="Enable" />
+                android:text="@string/Enable" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2mm"
-                android:text="Pin:\nUsed as confirmation before wiping the device." />
+                android:text="@string/SET_PIN_DESC" />
 
             <EditText
                 android:id="@+id/editTextPin"
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2mm"
-                android:text="Lock Screen Message:\nWhen locking the device, this message will appear on the lock screen." />
+                android:text="@string/SET_LOCKSCREEN_MESSAGE_DESC" />
 
             <EditText
                 android:id="@+id/editTextTextLockScreenMessage"
@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2mm"
-                android:text="The command that is beeing used for communication with fmd." />
+                android:text="@string/SET_COMMAND_DESC" />
 
             <EditText
                 android:id="@+id/editTextFmdCommand"
@@ -100,20 +100,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2mm"
-                android:text="permissions" />
+                android:text="@string/permission" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2mm"
-                android:text="The permissions needed for certain functionalities" />
+                android:text="@string/SET_PERMISSION_DESC" />
 
             <Button
                 android:id="@+id/buttonPermissions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2mm"
-                android:text="Permissions" />
+                android:text="@string/permission" />
 
         </LinearLayout>
 

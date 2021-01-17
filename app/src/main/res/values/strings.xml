@@ -1,16 +1,48 @@
 <resources>
-    <string name="app_name">FindMyDevice</string>
+    <string name="app_name" translatable="false">FindMyDevice</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="Introduction">FMD is an application that can help you find your phone when it gets lost.\nIt uses sms to communicate so you need to have a second device or a friend so you can track your phone. Just write a sms that contains "fmd" and the application will do what you want.\nStill Beta.\n\n - Nulide</string>
+    <string name="Introduction">FMD is an application that can help you find your phone when it gets lost.\nIt uses sms to communicate. You need to have a second device or a friend so you can track your phone. \nJust write a sms that contains the fmd command. \nStill Beta.\n\n  - Nulide</string>
     <string name="UpdatePermission">There is an update for the permissions.\nPlease check the following permissions therefore.</string>
     <string name="Permission_SMS">The communication with your lost phone will be via sms. So the application needs the Permission for this.\nThis Permission is needed.</string>
-    <string name="Permission_CONTACTS">Not everybody is allowed to contact your phone. So you need to select some contacts who can than communicate via sms with this application.\nThis permission is needed.</string>
-    <string name="Permission_GPS">If you want to locate the gps coordinates from the phone, the application needs this permission. Please allow the application to locate you also in background.\nWhen this permission is not given, this functionality will not be activated.</string>
+    <string name="Permission_CONTACTS">Not everybody is allowed to contact your phone. So you need to select some contacts who than will be able to do so.\nThis permission is needed.</string>
+    <string name="Permission_GPS">If you want to locate the gps coordinates from the phone, the application needs this permission. \nPlease allow the application to locate you also in background.\nWhen this permission is not given, this functionality will not be activated.</string>
     <string name="Permission_DND">You also can let the phone ring. When DoNotDisturb is activated, it may be possible that the phone is muted.\nIf you don\'t give this permission, functionality is not granted.</string>
     <string name="Permission_DEVICE_ADMIN">If you want to lock the phone or delete it when it got lost. This permission is needed.\nWhen this permission is not given, this functionality will not be activated.</string>
-    <string name="Permission_WRITE_SECURE_SETTINGS">This application is capable of turning on GPS when it\'s off. In order to achieve this, the application needs a special permission that you have to grant to it with a pc. If you don\'t grant this permission, it\'s no problem. You can still use this application.</string>
-    <string name="Permission_OVERLAY">When you remotely lock the device. You show a message on the screen so when somebody finds the device they know that it belongs to you. This permission helps showing this information.</string>
+    <string name="Permission_WRITE_SECURE_SETTINGS">This application is capable of turning on GPS when it\'s off. \nIn order to achieve this, the application needs a special permission that you have to grant to it with a pc. \nIf you don\'t grant this permission, it\'s no problem. \nYou can still use this application.</string>
+    <string name="Permission_OVERLAY">When you remotely lock the device the application can show a message on the lockscrenn.\nThis permission helps showing this information.</string>
+    <string name="Give_Permission">Give Permission</string>
+    <string name="Next">Next</string>
+    <string name="Locked_Lock_Screen">FindMyDevice\nThis Phone was locked!\nMessage from the Owner:</string>
+    <string name="About">About</string>
+    <string name="About_Text">Thanks for downloading the App.\nThere is still a lot to do. But i hope this app will help you when you get in the same situation i had. Loosing the phone is bad, but loosing it cause there are no privacy-friendly apps outside is even worse.\nContributions or Donations are welcome. Just go to the F-Droid Store and search for my App.\n\n - Nulide</string>
+    <string name="Used_APIs">Used APIs:\n</string>
+    <string name="UsedApis_Content" translatable="false">com.fasterxml.jackson.core:jackson-databind:2.10.0</string>
+    <string name="Service" translatable="false">Service</string>
+    <string name="CORE" translatable="false">CORE:</string>
+    <string name="GPS" translatable="false">GPS:</string>
+    <string name="DND" translatable="false">DND:</string>
+    <string name="DEVICE_ADMIN" translatable="false">DeviceAdmin:</string>
+    <string name="Overlay" translatable="false">Overlay:</string>
+    <string name="SecureSettings" translatable="false">SecureSettings:</string>
+    <string name="Enable">Enable</string>
+    <string name="SET_PIN_DESC">Pin:\nUsed as confirmation before wiping the device.</string>
+    <string name="SET_LOCKSCREEN_MESSAGE_DESC">Lock Screen Message:\nWhen locking the device, this message will appear on the lock screen.</string>
+    <string name="SET_COMMAND_DESC">The command that is beeing used for communication with fmd.</string>
+    <string name="SET_PERMISSION_DESC">The permissions needed for certain functionalities</string>
+    <string name="permission">Permissions</string>
+    <string name="Add_Contact">Add Contact</string>
+    <string name="Enabled">enabled</string>
+    <string name="Disabled">Disabled</string>
+    <string name="running">running</string>
+    <string name="not_running">not running</string>
+    <string name="Tab_Info" translatable="false">Info</string>
+    <string name="Tab_About">About</string>
+    <string name="TAB_Whitelist" translatable="false">Whitelist</string>
+    <string name="TAB_Settings">Settings</string>
+    <string name="TOAST_LANDCODE_ERROR">Please add Landcode to the number.</string>
+    <string name="Delete">Delete</string>
+    <string name="Select_Action">Select an action:</string>
 </resources>

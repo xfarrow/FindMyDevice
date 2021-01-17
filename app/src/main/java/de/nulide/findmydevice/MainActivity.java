@@ -86,10 +86,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager.setAdapter(mPageViewAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setText("Info");
-        tabLayout.getTabAt(1).setText("WhiteList");
-        tabLayout.getTabAt(2).setText("Settings");
-        tabLayout.getTabAt(3).setText("About");
+        tabLayout.getTabAt(0).setText(getString(R.string.Tab_Info));
+        tabLayout.getTabAt(1).setText(getString(R.string.TAB_Whitelist));
+        tabLayout.getTabAt(2).setText(getString(R.string.TAB_Settings));
+        tabLayout.getTabAt(3).setText(getString(R.string.Tab_About));
 
         reloadViews();
         updateViews();
@@ -120,10 +120,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void updateViews() {
         if (ServiceHandler.isRunning(this)) {
-            textViewRunningService.setText("running");
+            textViewRunningService.setText(getString(R.string.running));
             textViewRunningService.setTextColor(Color.GREEN);
         } else {
-            textViewRunningService.setText("not running");
+            textViewRunningService.setText(getString(R.string.not_running));
             textViewRunningService.setTextColor(Color.RED);
         }
         textViewWhiteListCount.setText("" + whiteList.size());
@@ -143,45 +143,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonPermission.setOnClickListener(this);
 
         if(Permission.CORE){
-            textViewCORE.setText("enabled");
+            textViewCORE.setText(getString(R.string.Enabled));
             textViewCORE.setTextColor(Color.GREEN);
         }else{
-            textViewCORE.setText("disabled");
+            textViewCORE.setText(getString(R.string.Disabled));
             textViewCORE.setTextColor(Color.RED);
         }
         if(Permission.GPS){
-            textViewGPS.setText("enabled");
+            textViewGPS.setText(getString(R.string.Enabled));
             textViewGPS.setTextColor(Color.GREEN);
         }else{
-            textViewGPS.setText("disabled");
+            textViewGPS.setText(getString(R.string.Disabled));
             textViewGPS.setTextColor(Color.RED);
         }
         if(Permission.DND){
-            textViewDND.setText("enabled");
+            textViewDND.setText(getString(R.string.Enabled));
             textViewDND.setTextColor(Color.GREEN);
         }else{
-            textViewDND.setText("disabled");
+            textViewDND.setText(getString(R.string.Disabled));
             textViewDND.setTextColor(Color.RED);
         }
         if(Permission.DEVICE_ADMIN){
-            textViewDeviceAdmin.setText("enabled");
+            textViewDeviceAdmin.setText(getString(R.string.Enabled));
             textViewDeviceAdmin.setTextColor(Color.GREEN);
         }else{
-            textViewDeviceAdmin.setText("disabled");
+            textViewDeviceAdmin.setText(getString(R.string.Disabled));
             textViewDeviceAdmin.setTextColor(Color.RED);
         }
         if(Permission.WRITE_SECURE_SETTINGS){
-            textViewWriteSecureSettings.setText("enabled");
+            textViewWriteSecureSettings.setText(getString(R.string.Enabled));
             textViewWriteSecureSettings.setTextColor(Color.GREEN);
         }else{
-            textViewWriteSecureSettings.setText("disabled");
+            textViewWriteSecureSettings.setText(getString(R.string.Disabled));
             textViewWriteSecureSettings.setTextColor(Color.RED);
         }
         if(Permission.OVERLAY){
-            textViewOverlay.setText("enabled");
+            textViewOverlay.setText(getString(R.string.Enabled));
             textViewOverlay.setTextColor(Color.GREEN);
         }else{
-            textViewOverlay.setText("disabled");
+            textViewOverlay.setText(getString(R.string.Disabled));
             textViewOverlay.setTextColor(Color.RED);
         }
 
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 ServiceHandler.restartService(this);
                                 updateViews();
                             }else{
-                                Toast toast = Toast.makeText(this,"Please add Landcode to the number.", Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(this, getString(R.string.TOAST_LANDCODE_ERROR), Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.CENTER, 0, 0);
                                 toast.show();
                             }
@@ -248,15 +248,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.setHeaderTitle("Select The Action");
-        menu.add(0, v.getId(), 0, "Delete");
+        menu.setHeaderTitle(getString(R.string.Select_Action));
+        menu.add(0, v.getId(), 0, getString(R.string.Delete));
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int index = info.position;
-        if (item.getTitle() == "Delete") {
+        if (item.getTitle() == getString(R.string.Delete)) {
             whiteList.remove(index);
             ServiceHandler.restartService(this);
             updateViews();
