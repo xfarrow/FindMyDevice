@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextOpenCellIdKey.addTextChangedListener(this);
         buttonPermission.setOnClickListener(this);
 
+        textViewRunningService.setText("I think it\'s running");
         if(Permission.CORE){
             textViewCORE.setText(getString(R.string.Enabled));
             textViewCORE.setTextColor(Color.GREEN);
