@@ -50,33 +50,18 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
+
         <receiver
-            android:name=".receiver.BootReceiver"
+            android:name=".receiver.SMSReceiver"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="de.nulide.reload.data" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name=".receiver.ServiceStoppedReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="de.nulide.findmydevice.service.stopped" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name=".service.SMSService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".service.SMSWorkaroundService"
-            android:enabled="true"
-            android:exported="true" />
     </application>
 
 </manifest>

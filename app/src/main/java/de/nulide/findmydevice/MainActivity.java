@@ -1,6 +1,5 @@
 package de.nulide.findmydevice;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -35,9 +33,9 @@ import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
 import de.nulide.findmydevice.ui.WhiteListViewAdapter;
-import de.nulide.findmydevice.utils.GPS;
+import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
-import de.nulide.findmydevice.utils.ServiceHandler;
+import de.nulide.findmydevice.utils.ReceiverHandler;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener, TextWatcher {
 
@@ -74,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         IO.context = this;
+        Notifications.init(this);
         whiteList = IO.read(WhiteList.class, IO.whiteListFileName);
         settings = IO.read(Settings.class, IO.settingsFileName);
         Permission.initValues(this);
@@ -94,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         reloadViews();
         updateViews();
-        ServiceHandler.startServiceSomehow(this);
     }
 
     public void reloadViews() {
@@ -121,13 +119,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void updateViews() {
-        if (ServiceHandler.isRunning(this)) {
-            textViewRunningService.setText(getString(R.string.running));
-            textViewRunningService.setTextColor(Color.GREEN);
-        } else {
-            textViewRunningService.setText(getString(R.string.not_running));
-            textViewRunningService.setTextColor(Color.RED);
-        }
         textViewWhiteListCount.setText("" + whiteList.size());
         listWhiteListAdapter = new WhiteListViewAdapter(this, whiteList);
         listWhiteList.setAdapter(listWhiteListAdapter);
@@ -236,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String cName = phones.getString(phones.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
                             if(!cNumber.startsWith("0")) {
                                 whiteList.add(new Contact(cName, cNumber));
-                                ServiceHandler.restartService(this);
+                                ReceiverHandler.reloadData(this);
                                 updateViews();
                             }else{
                                 Toast toast = Toast.makeText(this, getString(R.string.TOAST_LANDCODE_ERROR), Toast.LENGTH_LONG);
@@ -262,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int index = info.position;
         if (item.getTitle() == getString(R.string.Delete)) {
             whiteList.remove(index);
-            ServiceHandler.restartService(this);
+            ReceiverHandler.reloadData(this);
             updateViews();
         } else {
             return false;
