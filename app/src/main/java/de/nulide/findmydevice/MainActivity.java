@@ -215,7 +215,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Cursor c = managedQuery(contactData, null, null, null, null);
                     if (c.moveToFirst()) {
                         String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
-                        String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                         String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
                         if (hasPhone.equalsIgnoreCase("1")) {
                             Cursor phones = getContentResolver().query(
@@ -227,7 +226,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String cName = phones.getString(phones.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
                             if(!cNumber.startsWith("0")) {
                                 whiteList.add(new Contact(cName, cNumber));
-                                ReceiverHandler.reloadData(this);
                                 updateViews();
                             }else{
                                 Toast toast = Toast.makeText(this, getString(R.string.TOAST_LANDCODE_ERROR), Toast.LENGTH_LONG);
@@ -253,7 +251,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int index = info.position;
         if (item.getTitle() == getString(R.string.Delete)) {
             whiteList.remove(index);
-            ReceiverHandler.reloadData(this);
             updateViews();
         } else {
             return false;

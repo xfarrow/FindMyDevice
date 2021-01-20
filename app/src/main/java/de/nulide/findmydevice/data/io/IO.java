@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
+import de.nulide.findmydevice.utils.ReceiverHandler;
 
 public class IO {
 
@@ -34,6 +35,7 @@ public class IO {
         } catch (FileNotFoundException | JsonProcessingException e) {
             e.printStackTrace();
         }
+        ReceiverHandler.reloadData(context);
     }
 
     public static <T> T read(Class<T> type, String fileName){
