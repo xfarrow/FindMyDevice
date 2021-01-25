@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewWriteSecureSettings;
     private TextView textViewOverlay;
 
+    private Button buttonHelp;
+
 
     private ListView listWhiteList;
     private WhiteListViewAdapter listWhiteListAdapter;
@@ -124,6 +126,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewDeviceAdmin = findViewById(R.id.textViewDeviceAdmin);
         textViewWriteSecureSettings = findViewById(R.id.textViewWriteSecureSettings);
         textViewOverlay = findViewById(R.id.textViewOverlay);
+
+        buttonHelp = findViewById(R.id.buttonHelp);
     }
 
     public void updateViews() {
@@ -144,6 +148,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextOpenCellIdKey.setText(settings.getOpenCellIDAPIkey());
         editTextOpenCellIdKey.addTextChangedListener(this);
         buttonPermission.setOnClickListener(this);
+
+        if(buttonHelp != null) {
+            buttonHelp.setOnClickListener(this);
+        }
 
         textViewRunningService.setText("I think it\'s running");
         if(Permission.CORE){
@@ -200,6 +208,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent permissionIntent = new Intent(this, IntroductionActivity.class);
             permissionIntent.putExtra(IntroductionActivity.POS_KEY, 1);
             startActivity(permissionIntent);
+        }else if(v == buttonHelp){
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://gitlab.com/Nulide/findmydevice/-/wikis/home"));
+            startActivity(intent);
         }
     }
 

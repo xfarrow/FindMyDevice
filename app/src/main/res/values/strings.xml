@@ -60,4 +60,5 @@
     <string name="MH_Help_Lock">" lock - locks the  phone"</string>
     <string name="MH_Help_Stats">" stats - sends device informtions"</string>
     <string name="MH_Help_delete">" delete - resets the phone"</string>
+    <string name="A_Help">Help</string>
 </resources>

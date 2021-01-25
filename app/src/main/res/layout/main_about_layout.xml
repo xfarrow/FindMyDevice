@@ -24,6 +24,14 @@
             android:text="@string/About_Text"
             android:textSize="18sp" />
 
+        <Button
+            android:id="@+id/buttonHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:text="@string/A_Help"/>
+
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
