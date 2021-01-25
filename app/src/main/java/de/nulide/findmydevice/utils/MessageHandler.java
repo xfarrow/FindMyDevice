@@ -52,6 +52,10 @@ public class MessageHandler {
             lockScreenMessage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Bundle bundle = lockScreenMessage.getExtras();
             lockScreenMessage.putExtra(LockScreenMessage.SENDER, sender);
+            if (msg.length() > settings.getFmdCommand().length() + 6) {
+                String customMessage = originalMsg.substring(settings.getFmdCommand().length() + 6, msg.length());
+                lockScreenMessage.putExtra(LockScreenMessage.CUSTOM_TEXT, customMessage);
+            }
             context.startActivity(lockScreenMessage);
             replyBuilder.append("locked");
         } else if (msg.startsWith(settings.getFmdCommand() + " stats")) {

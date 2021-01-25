@@ -15,6 +15,7 @@ import de.nulide.findmydevice.utils.SMS;
 public class LockScreenMessage extends AppCompatActivity {
 
     public static final String SENDER = "sender";
+    public static final String CUSTOM_TEXT = "ctext";
     private String sender;
 
     private TextView tvLockScreenMessage;
@@ -31,7 +32,11 @@ public class LockScreenMessage extends AppCompatActivity {
         IO.context = this;
         settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
         tvLockScreenMessage = findViewById(R.id.textViewLockScreenMessage);
-        tvLockScreenMessage.setText(settings.getLockScreenMessage());
+        if(bundle.containsKey(CUSTOM_TEXT)){
+            tvLockScreenMessage.setText(bundle.getString(CUSTOM_TEXT));
+        }else {
+            tvLockScreenMessage.setText(settings.getLockScreenMessage());
+        }
     }
 
     @Override
