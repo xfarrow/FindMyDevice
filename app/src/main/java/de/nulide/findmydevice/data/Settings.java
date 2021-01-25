@@ -11,6 +11,7 @@ public class Settings extends HashMap<String, Object> {
     public static final int newestIntroductionVersion = 2;
 
     public static final String SET_WIPE_ENABLED = "SET_WIPE_ENABLED";
+    public static final String SET_ACCESS_VIA_PIN = "SET_ACCESS_VIA_PIN";
     public static final String SET_LOCKSCREEN_MESSAGE = "SET_LOCKSCREEN_MESSAGE";
     public static final String SET_PIN = "SET_PIN";
     public static final String SET_FMD_COMMAND = "SET_FMD_COMMAND";
@@ -33,6 +34,7 @@ public class Settings extends HashMap<String, Object> {
         }else{
             switch (key){
                 case SET_WIPE_ENABLED:
+                case SET_ACCESS_VIA_PIN:
                     return false;
                 case SET_FMD_COMMAND:
                     return "fmd";

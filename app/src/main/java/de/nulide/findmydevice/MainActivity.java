@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonAddContact;
 
     private CheckBox checkBoxDeviceWipe;
+    private CheckBox checkBoxAccessViaPin;
     private EditText editTextPin;
     private EditText editTextLockScreenMessage;
     private EditText editTextFmdCommand;
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonAddContact.setOnClickListener(this);
 
         checkBoxDeviceWipe = findViewById(R.id.checkBoxWipeData);
+        checkBoxAccessViaPin = findViewById(R.id.checkBoxFMDviaPin);
         editTextLockScreenMessage = findViewById(R.id.editTextTextLockScreenMessage);
         editTextPin = findViewById(R.id.editTextPin);
         editTextFmdCommand = findViewById(R.id.editTextFmdCommand);
@@ -137,6 +139,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listWhiteList.setOnItemClickListener(this);
         registerForContextMenu(listWhiteList);
 
+        checkBoxAccessViaPin.setChecked((Boolean)settings.get(Settings.SET_ACCESS_VIA_PIN));
+        checkBoxAccessViaPin.setOnCheckedChangeListener(this);
         checkBoxDeviceWipe.setChecked((Boolean)settings.get(Settings.SET_WIPE_ENABLED));
         checkBoxDeviceWipe.setOnCheckedChangeListener(this);
         editTextLockScreenMessage.setText((String)settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
@@ -297,6 +301,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(buttonView == checkBoxDeviceWipe){
             settings.set(Settings.SET_WIPE_ENABLED, isChecked);
+        }else if(buttonView == checkBoxAccessViaPin){
+            settings.set(Settings.SET_ACCESS_VIA_PIN, isChecked);
         }
     }
 

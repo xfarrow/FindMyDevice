@@ -26,6 +26,35 @@
                 android:padding="2mm"
                 android:text="@string/Enable" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="FMD via Pin" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="@string/SET_FMD_VIA_PIN_DESC" />
+
+            <CheckBox
+                android:id="@+id/checkBoxFMDviaPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="@string/Enable" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

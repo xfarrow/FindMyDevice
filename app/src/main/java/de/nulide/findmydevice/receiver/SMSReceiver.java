@@ -10,6 +10,7 @@ import android.telephony.SmsMessage;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
 
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
@@ -17,9 +18,11 @@ import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONSettings;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
+import de.nulide.findmydevice.utils.ExpiredTempWhiteListedTask;
 import de.nulide.findmydevice.utils.MessageHandler;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
+import de.nulide.findmydevice.utils.SaveTimerTask;
 
 public class SMSReceiver extends BroadcastReceiver {
 
@@ -28,12 +31,12 @@ public class SMSReceiver extends BroadcastReceiver {
     public static final String RELOAD_DATA = "de.nulide.reload.data";
 
     private WhiteList whiteList;
+    private String tempContact;
     private Settings settings;
     private Date timeUntilNextUsage;
 
     public SMSReceiver() {
         timeUntilNextUsage = Calendar.getInstance().getTime();
-
     }
 
     @SuppressLint("NewApi")
@@ -61,13 +64,28 @@ public class SMSReceiver extends BroadcastReceiver {
                         }
                         String receiver = msgs[i].getOriginatingAddress();
                         receiver.replace(" ", "");
+                        boolean inWhitelist = false;
                         for (int iwl = 0; iwl < whiteList.size(); iwl++) {
                             if (receiver.equals(whiteList.get(iwl).getNumber())) {
                                 MessageHandler.handle(msgs[i].getOriginatingAddress(), msgs[i].getMessageBody(), context);
+                                inWhitelist = true;
+                            }
+                        }
+                        if((Boolean) settings.get(Settings.SET_ACCESS_VIA_PIN)) {
+                            if (!inWhitelist && tempContact != null && tempContact.equals(receiver)) {
+                                MessageHandler.handle(receiver, msgs[i].getMessageBody(), context);
+                                inWhitelist = true;
+                            }
+                            if (!inWhitelist && MessageHandler.checkForPin(msgs[i].getMessageBody())) {
+                                Timer tempContactExpireTimer = new Timer();
+                                tempContactExpireTimer.schedule(new ExpiredTempWhiteListedTask(receiver, this), 10000);
+                                tempContact = receiver;
+                                MessageHandler.handle(receiver, msgs[i].getMessageBody(), context);
                             }
                         }
                     }
                 }
+
                 Calendar now = Calendar.getInstance();
                 now.add(Calendar.SECOND, 1);
                 timeUntilNextUsage = now.getTime();
@@ -86,6 +104,10 @@ public class SMSReceiver extends BroadcastReceiver {
         settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
         Permission.initValues(context);
         MessageHandler.init(settings);
+    }
+
+    public void removeTemp(){
+       // tempContact = null;
     }
 
 }

@@ -85,7 +85,7 @@ public class MessageHandler {
                     replyBuilder.append(context.getString(R.string.MH_Syntax)).append((String)settings.get(Settings.SET_FMD_COMMAND)).append(" delete [pin]");
                 }
             }
-        } else if (msg.equals((String)settings.get(Settings.SET_FMD_COMMAND))) {
+        } else if (msg.startsWith((String)settings.get(Settings.SET_FMD_COMMAND))) {
             replyBuilder.append(context.getString(R.string.MH_Title_Help)).append("\n");
             if (Permission.GPS) {
                 replyBuilder.append((String)settings.get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_where)).append("\n");
@@ -107,4 +107,15 @@ public class MessageHandler {
             SMS.sendMessage(sender, reply);
         }
     }
+
+    public static boolean checkForPin(String msg){
+        if (msg.length() > ((String)settings.get(Settings.SET_FMD_COMMAND)).length()) {
+            String pin = msg.substring(((String)settings.get(Settings.SET_FMD_COMMAND)).length()+1, msg.length());
+            if(pin.equals((String)settings.get(Settings.SET_PIN))){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
