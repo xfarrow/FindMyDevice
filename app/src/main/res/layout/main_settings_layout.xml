@@ -61,14 +61,12 @@
                 android:padding="2mm"
                 android:text="@string/SET_PIN_DESC" />
 
-            <EditText
-                android:id="@+id/editTextPin"
+            <Button
+                android:id="@+id/buttonEnterPin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
                 android:padding="2mm"
-                android:text="" />
+                android:text="@string/EnterPin"/>
 
             <View
                 android:layout_width="match_parent"

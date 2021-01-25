@@ -1,6 +1,7 @@
 package de.nulide.findmydevice;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -22,10 +23,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 import de.nulide.findmydevice.data.Contact;
 import de.nulide.findmydevice.data.Settings;
@@ -36,6 +40,7 @@ import de.nulide.findmydevice.data.io.json.JSONSettings;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
 import de.nulide.findmydevice.ui.WhiteListViewAdapter;
+import de.nulide.findmydevice.utils.BCryptUtils;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
 
@@ -62,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private CheckBox checkBoxDeviceWipe;
     private CheckBox checkBoxAccessViaPin;
-    private EditText editTextPin;
+    private Button buttonEnterPin;
     private EditText editTextLockScreenMessage;
     private EditText editTextFmdCommand;
     private EditText editTextOpenCellIdKey;
@@ -111,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         checkBoxDeviceWipe = findViewById(R.id.checkBoxWipeData);
         checkBoxAccessViaPin = findViewById(R.id.checkBoxFMDviaPin);
         editTextLockScreenMessage = findViewById(R.id.editTextTextLockScreenMessage);
-        editTextPin = findViewById(R.id.editTextPin);
+        buttonEnterPin = findViewById(R.id.buttonEnterPin);
         editTextFmdCommand = findViewById(R.id.editTextFmdCommand);
         editTextOpenCellIdKey = findViewById(R.id.editTextOpenCellIDAPIKey);
         buttonPermission = findViewById(R.id.buttonPermissions);
@@ -139,8 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         checkBoxDeviceWipe.setOnCheckedChangeListener(this);
         editTextLockScreenMessage.setText((String)settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
         editTextLockScreenMessage.addTextChangedListener(this);
-        editTextPin.setText((String)settings.get(Settings.SET_PIN));
-        editTextPin.addTextChangedListener(this);
+        buttonEnterPin.setOnClickListener(this);
         editTextFmdCommand.setText((String)settings.get(Settings.SET_FMD_COMMAND));
         editTextFmdCommand.addTextChangedListener(this);
         editTextOpenCellIdKey.setText((String)settings.get(Settings.SET_OPENCELLID_API_KEY));
@@ -209,6 +213,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(v == buttonHelp){
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://gitlab.com/Nulide/findmydevice/-/wikis/home"));
             startActivity(intent);
+        }else if(v == buttonEnterPin){
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("PIN");
+            alert.setMessage(getString(R.string.EnterPin));
+            final EditText input = new EditText(this);
+            alert.setView(input);
+            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    String text = input.getText().toString();
+                    if(!text.isEmpty()){
+                        settings.set(Settings.SET_PIN, BCryptUtils.hashPassword(text));
+                    }
+                }
+            });
+            alert.show();
         }
     }
 
@@ -314,8 +333,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void afterTextChanged(Editable edited) {
         if(edited == editTextLockScreenMessage.getText()){
             settings.set(Settings.SET_LOCKSCREEN_MESSAGE, edited.toString());
-        }else if(edited == editTextPin.getText()){
-            settings.set(Settings.SET_PIN, edited.toString());
         }else if(edited == editTextFmdCommand.getText()){
             if(edited.toString().isEmpty()){
                 Toast.makeText(this, "Empty Command not allowed\n Returning to default.[fmd]", Toast.LENGTH_LONG).show();

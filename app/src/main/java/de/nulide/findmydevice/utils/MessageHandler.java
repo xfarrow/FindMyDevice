@@ -75,7 +75,7 @@ public class MessageHandler {
                 DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
                 if (msg.length() > ((String)settings.get(Settings.SET_FMD_COMMAND)).length() + 8) {
                     String pin = originalMsg.substring(((String)settings.get(Settings.SET_FMD_COMMAND)).length() + 8, msg.length());
-                    if (pin.equals((String)settings.get(Settings.SET_PIN))) {
+                    if (BCryptUtils.checkPasswordHash((String)settings.get(Settings.SET_PIN), pin)) {
                         devicePolicyManager.wipeData(0);
                         replyBuilder.append(context.getString(R.string.MH_Delete));
                     } else {
@@ -111,7 +111,7 @@ public class MessageHandler {
     public static boolean checkForPin(String msg){
         if (msg.length() > ((String)settings.get(Settings.SET_FMD_COMMAND)).length()) {
             String pin = msg.substring(((String)settings.get(Settings.SET_FMD_COMMAND)).length()+1, msg.length());
-            if(pin.equals((String)settings.get(Settings.SET_PIN))){
+            if(BCryptUtils.checkPasswordHash((String)settings.get(Settings.SET_PIN), pin)){
                 return true;
             }
         }

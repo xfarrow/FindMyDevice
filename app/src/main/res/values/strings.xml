@@ -19,7 +19,7 @@
     <string name="About">About</string>
     <string name="About_Text">Thanks for downloading the App.\nThere is still a lot to do. But i hope this app will help you when you get in the same situation i had. Loosing the phone is bad, but loosing it cause there are no privacy-friendly apps outside is even worse.\nContributions or Donations are welcome. Just go to the F-Droid Store and search for my App.\n\n - Nulide</string>
     <string name="Used_APIs">Used APIs:\n</string>
-    <string name="UsedApis_Content" translatable="false">com.fasterxml.jackson.core:jackson-databind:2.10.0\ncom.android.volley:volley:1.1.1\nOpenCellID</string>
+    <string name="UsedApis_Content" translatable="false">com.fasterxml.jackson.core:jackson-databind:2.10.0\ncom.android.volley:volley:1.1.1\norg.mindrot:jbcrypt:0.4\nOpenCellID</string>
     <string name="Service" translatable="false">Service</string>
     <string name="CORE" translatable="false">CORE:</string>
     <string name="GPS" translatable="false">GPS:</string>
@@ -28,7 +28,7 @@
     <string name="Overlay" translatable="false">Overlay:</string>
     <string name="SecureSettings" translatable="false">SecureSettings:</string>
     <string name="Enable">Enable</string>
-    <string name="SET_PIN_DESC">Pin:\nUsed as confirmation before wiping the device.</string>
+    <string name="SET_PIN_DESC">Pin:\nUsed as confirmation before wiping the device or for a temporary usage of the service.</string>
     <string name="SET_LOCKSCREEN_MESSAGE_DESC">Lock Screen Message:\nWhen locking the device, this message will appear on the lock screen.</string>
     <string name="SET_COMMAND_DESC">The command that is beeing used for communication with fmd.</string>
     <string name="SET_PERMISSION_DESC">The permissions needed for certain functionalities</string>
@@ -62,4 +62,5 @@
     <string name="MH_Help_delete">" delete - resets the phone"</string>
     <string name="A_Help">Help</string>
     <string name="SET_FMD_VIA_PIN_DESC">Allow to communicate with FMD via a pin. You will be added to a temporary Whitelist.</string>
+    <string name="EnterPin">Enter Pin</string>
 </resources>
