@@ -3,7 +3,6 @@ package de.nulide.findmydevice.data.io;
 import android.content.Context;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,8 +13,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import de.nulide.findmydevice.data.Settings;
-import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.utils.ReceiverHandler;
 
 public class IO {
@@ -24,7 +21,7 @@ public class IO {
     public static final String settingsFileName = "settings-001.json";
     public static Context context;
 
-    public static <T> void write(T obj, String fileName){
+    public static <T> void write(T obj, String fileName) {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(context.getFilesDir(), fileName);
         try {
@@ -38,7 +35,7 @@ public class IO {
         ReceiverHandler.reloadData(context);
     }
 
-    public static <T> T read(Class<T> type, String fileName){
+    public static <T> T read(Class<T> type, String fileName) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         File file = new File(context.getFilesDir(), fileName);

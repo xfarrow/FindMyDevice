@@ -2,6 +2,8 @@ package de.nulide.findmydevice.data;
 
 
 import de.nulide.findmydevice.data.io.IO;
+import de.nulide.findmydevice.data.io.JSONFactory;
+import de.nulide.findmydevice.data.io.json.JSONSettings;
 
 public class Settings {
 
@@ -22,13 +24,22 @@ public class Settings {
         introductionVersionPassed = 0;
     }
 
+    public Settings(boolean wipeEnabled, String lockScreenMessage, String pin, String fmdCommand, String openCellIDAPIkey, int introductionVersionPassed) {
+        this.wipeEnabled = wipeEnabled;
+        this.lockScreenMessage = lockScreenMessage;
+        this.pin = pin;
+        this.fmdCommand = fmdCommand;
+        this.openCellIDAPIkey = openCellIDAPIkey;
+        this.introductionVersionPassed = introductionVersionPassed;
+    }
+
     public boolean isWipeEnabled() {
         return wipeEnabled;
     }
 
     public void setWipeEnabled(boolean wipeEnabled) {
         this.wipeEnabled = wipeEnabled;
-        IO.write(this, IO.settingsFileName);
+        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
     }
 
     public String getLockScreenMessage() {
@@ -37,7 +48,7 @@ public class Settings {
 
     public void setLockScreenMessage(String lockScreenMessage) {
         this.lockScreenMessage = lockScreenMessage;
-        IO.write(this, IO.settingsFileName);
+        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
     }
 
     public String getPin() {
@@ -46,7 +57,7 @@ public class Settings {
 
     public void setPin(String pin) {
         this.pin = pin;
-        IO.write(this, IO.settingsFileName);
+        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
     }
 
     public String getFmdCommand() {
@@ -55,7 +66,7 @@ public class Settings {
 
     public void setFmdCommand(String fmdCommand) {
         this.fmdCommand = fmdCommand.toLowerCase();
-        IO.write(this, IO.settingsFileName);
+        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
     }
 
     public int getIntroductionVersionPassed() {
@@ -64,7 +75,7 @@ public class Settings {
 
     public void setIntroductionVersionPassed(int introductionVersionPassed) {
         this.introductionVersionPassed = introductionVersionPassed;
-        IO.write(this, IO.settingsFileName);
+        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
     }
 
     public boolean isIntroductionPassed() {
@@ -76,7 +87,7 @@ public class Settings {
 
     public void setIntroductionPassed() {
         this.introductionVersionPassed = newestIntroductionVersion;
-        IO.write(this, IO.settingsFileName);
+        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
     }
 
     public String getOpenCellIDAPIkey() {
@@ -85,6 +96,6 @@ public class Settings {
 
     public void setOpenCellIDAPIkey(String openCellIDAPIkey) {
         this.openCellIDAPIkey = openCellIDAPIkey;
-        IO.write(this, IO.settingsFileName);
+        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
     }
 }

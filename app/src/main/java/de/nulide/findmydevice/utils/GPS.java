@@ -133,7 +133,7 @@ public class GPS implements LocationListener {
         } else return isNewer && !isSignificantlyLessAccurate && isFromSameProvider;
     }
 
-    public GsmCellLocation sendGSMCellLocation() {
+    public GsmCellLocation sendGSMCellLocation(de.nulide.findmydevice.data.Settings settings) {
         StringBuilder msg = new StringBuilder("GSM-Cell-Data:\n");
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String operator = tm.getNetworkOperator();
@@ -146,13 +146,12 @@ public class GPS implements LocationListener {
             int mnc = Integer.parseInt(operator.substring(3));
             msg.append("mcc: ").append(mcc).append("\nmnc: ").append(mnc).append("\nSearch with: http://www.cell2gps.com/");
             SMS.sendMessage(sender, msg.toString());
-            sendOpenCellIdLocation(context, sender, mcc, mnc, location.getLac(), location.getCid());
+            sendOpenCellIdLocation(settings, sender, mcc, mnc, location.getLac(), location.getCid());
         }
         return location;
     }
 
-    public void sendOpenCellIdLocation(Context context, String sender, int mcc, int mnc, int lac, int cid){
-        de.nulide.findmydevice.data.Settings settings = IO.read(de.nulide.findmydevice.data.Settings.class, IO.settingsFileName);
+    public void sendOpenCellIdLocation(de.nulide.findmydevice.data.Settings settings, String sender, int mcc, int mnc, int lac, int cid){
         if(settings.getOpenCellIDAPIkey().isEmpty()){
             return;
         }

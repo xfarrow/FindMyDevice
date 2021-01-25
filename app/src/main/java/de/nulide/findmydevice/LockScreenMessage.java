@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
+import de.nulide.findmydevice.data.io.JSONFactory;
+import de.nulide.findmydevice.data.io.json.JSONSettings;
 import de.nulide.findmydevice.utils.SMS;
 
 public class LockScreenMessage extends AppCompatActivity {
@@ -27,8 +29,7 @@ public class LockScreenMessage extends AppCompatActivity {
         sender = bundle.getString(SENDER);
         Settings settings;
         IO.context = this;
-        settings = IO.read(Settings.class, IO.settingsFileName);
-
+        settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
         tvLockScreenMessage = findViewById(R.id.textViewLockScreenMessage);
         tvLockScreenMessage.setText(settings.getLockScreenMessage());
     }

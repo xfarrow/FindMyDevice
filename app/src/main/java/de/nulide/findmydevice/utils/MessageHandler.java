@@ -21,9 +21,8 @@ public class MessageHandler {
     private static int counter = 0;
     private static Settings settings;
 
-    public static void init(Context context){
-        Permission.initValues(context);
-        settings = IO.read(Settings.class, IO.settingsFileName);
+    public static void init(Settings set){
+        settings = set;
     }
 
     public static void handle(String sender, String msg, Context context) {
@@ -38,7 +37,7 @@ public class MessageHandler {
             }
             replyBuilder.append("will be send as soon as possible.");
             GPS gps = new GPS(context, sender);
-            gps.sendGSMCellLocation();
+            gps.sendGSMCellLocation(settings);
         } else if (msg.startsWith(settings.getFmdCommand() + " ring")) {
             replyBuilder.append("rings");
             if (msg.contains("long")) {

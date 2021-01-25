@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
+import de.nulide.findmydevice.data.io.JSONFactory;
+import de.nulide.findmydevice.data.io.json.JSONSettings;
+import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.utils.Permission;
 
 public class IntroductionActivity extends AppCompatActivity implements View.OnClickListener {
@@ -34,7 +37,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
             position = bundle.getInt(POS_KEY);
         }
         IO.context = this;
-        settings = IO.read(Settings.class, IO.settingsFileName);
+        settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
 
         textViewInfoText = findViewById(R.id.textViewInfoText);
         buttonGivePermission = findViewById(R.id.buttonGivePermission);

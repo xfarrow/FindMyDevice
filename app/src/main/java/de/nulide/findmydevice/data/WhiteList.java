@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.LinkedList;
 
 import de.nulide.findmydevice.data.io.IO;
+import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 
 public class WhiteList extends LinkedList<Contact> {
 
@@ -12,7 +13,9 @@ public class WhiteList extends LinkedList<Contact> {
 
     }
 
-
+    public boolean superAdd(Contact c){
+        return super.add(c);
+    }
 
     @Override
     public Contact remove(int index){

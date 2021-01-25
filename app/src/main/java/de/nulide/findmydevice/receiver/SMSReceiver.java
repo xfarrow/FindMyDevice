@@ -11,10 +11,15 @@ import android.telephony.SmsMessage;
 import java.util.Calendar;
 import java.util.Date;
 
+import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
+import de.nulide.findmydevice.data.io.JSONFactory;
+import de.nulide.findmydevice.data.io.json.JSONSettings;
+import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.utils.MessageHandler;
 import de.nulide.findmydevice.utils.Notifications;
+import de.nulide.findmydevice.utils.Permission;
 
 public class SMSReceiver extends BroadcastReceiver {
 
@@ -22,7 +27,8 @@ public class SMSReceiver extends BroadcastReceiver {
     public static final String BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
     public static final String RELOAD_DATA = "de.nulide.reload.data";
 
-    private WhiteList whitelist;
+    private WhiteList whiteList;
+    private Settings settings;
     private Date timeUntilNextUsage;
 
     public SMSReceiver() {
@@ -33,7 +39,7 @@ public class SMSReceiver extends BroadcastReceiver {
     @SuppressLint("NewApi")
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(whitelist == null){
+        if(whiteList == null){
             init(context);
         }
         if (intent.getAction().equals(SMS_RECEIVED)) {
@@ -55,8 +61,8 @@ public class SMSReceiver extends BroadcastReceiver {
                         }
                         String receiver = msgs[i].getOriginatingAddress();
                         receiver.replace(" ", "");
-                        for (int iwl = 0; iwl < whitelist.size(); iwl++) {
-                            if (receiver.equals(whitelist.get(iwl).getNumber())) {
+                        for (int iwl = 0; iwl < whiteList.size(); iwl++) {
+                            if (receiver.equals(whiteList.get(iwl).getNumber())) {
                                 MessageHandler.handle(msgs[i].getOriginatingAddress(), msgs[i].getMessageBody(), context);
                             }
                         }
@@ -76,8 +82,10 @@ public class SMSReceiver extends BroadcastReceiver {
 
     private void init(Context context){
         IO.context = context;
-        whitelist = (WhiteList) IO.read(WhiteList.class, IO.whiteListFileName);
-        MessageHandler.init(context);
+        whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
+        settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
+        Permission.initValues(context);
+        MessageHandler.init(settings);
     }
 
 }
