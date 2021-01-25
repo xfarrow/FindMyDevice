@@ -32,4 +32,19 @@
     <string name="Permission_GPS">Wenn sie ihr Gerät über GPS orten wollen, wird diese Berechtigung benötigt.\nFür eine bessere Funktionalität erlauben sie der App sie im Hintergrund orten zu dürfen.\nDie App kann auch ohne diese Berechttigung funktionieren. Ortung ist dann allerdings nur über GSM möglich.</string>
     <string name="Permission_DND">Die App kann das Handy klingeln lassen. Wenn allerdings der DoNotDisturb-Modus aktiviert wurde, kann es sein dass das Klingeln blockiert wird.\nWenn diese Berechtigung nicht gewährt wird kann die Funktionalität nicht garantiert werden.</string>
     <string name="Permission_DEVICE_ADMIN">Wenn sie das Handy aus der Ferne sperren oder löschen wolleen, muss die App ein Geräte-Adminstrator werden.\nWenn dies nicht getan wird, wird das Feature deaktiviert.</string>
+    <string name="A_Help">Hilfe</string>
+    <string name="MH_Help_delete">" delete - Löscht alle Daten"</string>
+    <string name="MH_Help_Stats">" stats - sendet Netzwerk-Informtionen"</string>
+    <string name="MH_Help_Lock">" lock - Sperrt das Gerät"</string>
+    <string name="MH_Help_ring">" ring - lässt das Handy klingeln"</string>
+    <string name="MH_Help_where">" where are you - sendet den derzeitigen Standort des Handys"</string>
+    <string name="MH_Title_Help">FindMyDevice Kommandos:</string>
+    <string name="MH_False_Pin">Falscher Pin!</string>
+    <string name="MH_Delete">Tschüss</string>
+    <string name="MH_Networks">\nVerfügbare WLan-Netzwerke:\n</string>
+    <string name="MH_Stats">Netzwerk_Statistik:\nIPs:\n</string>
+    <string name="MH_Locked">gesperrt</string>
+    <string name="MH_rings">klingelt</string>
+    <string name="MH_GPS_WILL_FOLLOW">GPS-Koordinaten werden demnächst versendet.</string>
+    <string name="TOAST_DUBLICATE_CONTACT">Dieser Kontakt existiert bereits.</string>
 </resources>
