@@ -1,10 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">FindMyDevice</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="Introduction">FMD is an application that can help you find your phone when it gets lost.\nIt uses sms to communicate. You need to have a second device or a friend so you can track your phone. \nJust write a sms that contains the fmd command. \nStill Beta.\n\n  - Nulide</string>
+    <string name="Introduction">FMD is an application that can help you find your phone when it gets lost.\nIt uses sms to communicate. You need to have a second device or a friend so you can track your phone. \nJust write a sms that starts with \"fmd\". \nStill Beta.\n\n  - Nulide</string>
     <string name="UpdatePermission">There is an update for the permissions.\nPlease check the following permissions therefore.</string>
     <string name="Permission_SMS">The communication with your lost phone will be via sms. So the application needs the Permission for this.\nThis Permission is needed.</string>
     <string name="Permission_CONTACTS">Not everybody is allowed to contact your phone. So you need to select some contacts who than will be able to do so.\nThis permission is needed.</string>
@@ -53,7 +50,7 @@
     <string name="MH_Networks">\nAvailable Wifi-Networks:\n</string>
     <string name="MH_Delete">Goodbye...</string>
     <string name="MH_False_Pin">False Pin!</string>
-    <string name="MH_Syntax">Syntax:</string>
+    <string name="MH_Syntax" translatable="false">Syntax:</string>
     <string name="MH_Title_Help">FindMyDevice Commands:</string>
     <string name="MH_Help_where">" where are you - sends the current location"</string>
     <string name="MH_Help_ring">" ring - lets the phone ring"</string>
