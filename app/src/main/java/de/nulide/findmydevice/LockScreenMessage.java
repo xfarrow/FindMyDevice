@@ -45,4 +45,11 @@ public class LockScreenMessage extends AppCompatActivity {
         super.onPause();
     }
 
+    @Override
+    public void onBackPressed() {
+        SMS.sendMessage(sender, "LockScreenMessage: Back-Button pressed.");
+    }
+
+
+
 }
