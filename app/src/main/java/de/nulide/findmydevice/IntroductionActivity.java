@@ -15,7 +15,6 @@ import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONSettings;
-import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.utils.Permission;
 
 public class IntroductionActivity extends AppCompatActivity implements View.OnClickListener {
@@ -52,7 +51,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
     public void updateViews(){
         switch(position){
             case 0:
-                if(settings.getIntroductionVersionPassed() > 0){
+                if((Integer)settings.get(Settings.SET_INTRODUCTION_VERSION) > 0){
                     textViewInfoText.setText(getString(R.string.UpdatePermission));
                 }else {
                     textViewInfoText.setText(getString(R.string.Introduction));

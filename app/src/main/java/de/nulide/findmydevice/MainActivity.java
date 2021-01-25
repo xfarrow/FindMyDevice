@@ -28,6 +28,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -136,15 +137,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listWhiteList.setOnItemClickListener(this);
         registerForContextMenu(listWhiteList);
 
-        checkBoxDeviceWipe.setChecked(settings.isWipeEnabled());
+        checkBoxDeviceWipe.setChecked((Boolean)settings.get(Settings.SET_WIPE_ENABLED));
         checkBoxDeviceWipe.setOnCheckedChangeListener(this);
-        editTextLockScreenMessage.setText(settings.getLockScreenMessage());
+        editTextLockScreenMessage.setText((String)settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
         editTextLockScreenMessage.addTextChangedListener(this);
-        editTextPin.setText(settings.getPin());
+        editTextPin.setText((String)settings.get(Settings.SET_PIN));
         editTextPin.addTextChangedListener(this);
-        editTextFmdCommand.setText(settings.getFmdCommand());
+        editTextFmdCommand.setText((String)settings.get(Settings.SET_FMD_COMMAND));
         editTextFmdCommand.addTextChangedListener(this);
-        editTextOpenCellIdKey.setText(settings.getOpenCellIDAPIkey());
+        editTextOpenCellIdKey.setText((String)settings.get(Settings.SET_OPENCELLID_API_KEY));
         editTextOpenCellIdKey.addTextChangedListener(this);
         buttonPermission.setOnClickListener(this);
 
@@ -295,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(buttonView == checkBoxDeviceWipe){
-            settings.setWipeEnabled(isChecked);
+            settings.set(Settings.SET_WIPE_ENABLED, isChecked);
         }
     }
 
@@ -312,18 +313,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void afterTextChanged(Editable edited) {
         if(edited == editTextLockScreenMessage.getText()){
-            settings.setLockScreenMessage(edited.toString());
+            settings.set(Settings.SET_LOCKSCREEN_MESSAGE, edited.toString());
         }else if(edited == editTextPin.getText()){
-            settings.setPin(edited.toString());
+            settings.set(Settings.SET_PIN, edited.toString());
         }else if(edited == editTextFmdCommand.getText()){
             if(edited.toString().isEmpty()){
                 Toast.makeText(this, "Empty Command not allowed\n Returning to default.[fmd]", Toast.LENGTH_LONG).show();
-                settings.setFmdCommand("fmd");
+                settings.set(Settings.SET_FMD_COMMAND, "fmd");
             }else{
-                settings.setFmdCommand(edited.toString());
+                settings.set(Settings.SET_FMD_COMMAND, edited.toString());
             }
         }else if(edited == editTextOpenCellIdKey.getText()){
-            settings.setOpenCellIDAPIkey(edited.toString());
+            settings.set(Settings.SET_OPENCELLID_API_KEY, edited.toString());
         }
 
     }

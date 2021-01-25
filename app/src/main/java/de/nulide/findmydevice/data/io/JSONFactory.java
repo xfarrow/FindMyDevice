@@ -1,5 +1,7 @@
 package de.nulide.findmydevice.data.io;
 
+import java.util.Map;
+
 import de.nulide.findmydevice.data.Contact;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
@@ -10,17 +12,14 @@ import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 public class JSONFactory {
 
     public static Settings convertJSONSettings(JSONSettings jsonSettings) {
-        return new Settings(jsonSettings.isWipeEnabled(), jsonSettings.getLockScreenMessage(), jsonSettings.getPin(), jsonSettings.getFmdCommand(), jsonSettings.getOpenCellIDAPIkey(), jsonSettings.getIntroductionVersionPassed());
+        Settings settings = new Settings();
+        settings.putAll(jsonSettings);
+        return settings;
     }
 
     public static JSONSettings convertSettings(Settings settings) {
         JSONSettings jsonSettings = new JSONSettings();
-        jsonSettings.setFmdCommand(settings.getFmdCommand());
-        jsonSettings.setIntroductionVersionPassed(settings.getIntroductionVersionPassed());
-        jsonSettings.setLockScreenMessage(settings.getLockScreenMessage());
-        jsonSettings.setOpenCellIDAPIkey(settings.getOpenCellIDAPIkey());
-        jsonSettings.setPin(settings.getPin());
-        jsonSettings.setWipeEnabled(settings.isWipeEnabled());
+        jsonSettings.putAll(settings);
         return jsonSettings;
     }
 

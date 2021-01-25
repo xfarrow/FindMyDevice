@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
+import java.util.Set;
 
 import de.nulide.findmydevice.data.io.IO;
 
@@ -152,11 +153,11 @@ public class GPS implements LocationListener {
     }
 
     public void sendOpenCellIdLocation(de.nulide.findmydevice.data.Settings settings, String sender, int mcc, int mnc, int lac, int cid){
-        if(settings.getOpenCellIDAPIkey().isEmpty()){
+        if(((String)settings.get(de.nulide.findmydevice.data.Settings.SET_OPENCELLID_API_KEY)).isEmpty()){
             return;
         }
         StringBuilder urlBuilder = new StringBuilder("https://opencellid.org/cell/get?key=")
-                .append(settings.getOpenCellIDAPIkey()).append("&mcc=").append(mcc).append("&mnc=").append(mnc)
+                .append((String)settings.get(de.nulide.findmydevice.data.Settings.SET_OPENCELLID_API_KEY)).append("&mcc=").append(mcc).append("&mnc=").append(mnc)
                 .append("&lac=").append(lac).append("&cellid=").append(cid).append("&format=json");
 
         final String url = urlBuilder.toString();

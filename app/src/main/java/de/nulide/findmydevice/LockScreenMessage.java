@@ -35,7 +35,7 @@ public class LockScreenMessage extends AppCompatActivity {
         if(bundle.containsKey(CUSTOM_TEXT)){
             tvLockScreenMessage.setText(bundle.getString(CUSTOM_TEXT));
         }else {
-            tvLockScreenMessage.setText(settings.getLockScreenMessage());
+            tvLockScreenMessage.setText((String)settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
         }
     }
 
