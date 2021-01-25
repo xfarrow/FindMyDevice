@@ -1,6 +1,7 @@
 package de.nulide.findmydevice;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -27,10 +28,16 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import de.nulide.findmydevice.data.Contact;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
+import de.nulide.findmydevice.data.io.JSONFactory;
+import de.nulide.findmydevice.data.io.json.JSONSettings;
+import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.ui.MainPageViewAdapter;
 import de.nulide.findmydevice.ui.WhiteListViewAdapter;
 import de.nulide.findmydevice.utils.Notifications;
@@ -56,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private WhiteListViewAdapter listWhiteListAdapter;
     private Button buttonAddContact;
 
+    private Timer afterTextEditedTimer;
     private CheckBox checkBoxDeviceWipe;
     private EditText editTextPin;
     private EditText editTextLockScreenMessage;
@@ -73,8 +81,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         IO.context = this;
         Notifications.init(this);
-        whiteList = IO.read(WhiteList.class, IO.whiteListFileName);
-        settings = IO.read(Settings.class, IO.settingsFileName);
+        whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
+        settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
         Permission.initValues(this);
         if(!settings.isIntroductionPassed() || !Permission.CORE){
             Intent introductionIntent = new Intent(this, IntroductionActivity.class);
@@ -199,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         Permission.initValues(this);
-        settings = IO.read(Settings.class, IO.settingsFileName);
+        settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
         if(!settings.isIntroductionPassed() || !Permission.CORE){
             Intent introductionIntent = new Intent(this, IntroductionActivity.class);
             startActivity(introductionIntent);
@@ -286,19 +294,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void afterTextChanged(Editable s) {
-        if(s == editTextLockScreenMessage.getText()){
-            settings.setLockScreenMessage(s.toString());
-        }else if(s == editTextPin.getText()){
-            settings.setPin(s.toString());
-        }else if(s == editTextFmdCommand.getText()){
-            if(s.toString().isEmpty()){
-                Toast.makeText(this, "Empty Command not allowed\n Returning to default.[fmd]", Toast.LENGTH_LONG).show();
-                settings.setFmdCommand("fmd");
-            }else{
-                settings.setFmdCommand(s.toString());
+        if(afterTextEditedTimer == null){
+            afterTextEditedTimer = new Timer();
+        }else{
+            afterTextEditedTimer.cancel();
+            afterTextEditedTimer = new Timer();
+        }
+        afterTextEditedTimer.schedule(new AfterTextEditedTimerTask(this, s), 1000);
+    }
+
+    class AfterTextEditedTimerTask extends  TimerTask{
+
+            private Editable edited;
+            private Context context;
+
+            public AfterTextEditedTimerTask(Context context, Editable edited){
+                this.edited = edited;
+                this.context = context;
             }
-        }else if(s == editTextOpenCellIdKey.getText()){
-            settings.setOpenCellIDAPIkey(s.toString());
+
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable(){
+                public void run() {
+                    if(edited == editTextLockScreenMessage.getText()){
+                        settings.setLockScreenMessage(edited.toString());
+                    }else if(edited == editTextPin.getText()){
+                        settings.setPin(edited.toString());
+                    }else if(edited == editTextFmdCommand.getText()){
+                        if(edited.toString().isEmpty()){
+                            Toast.makeText(context, "Empty Command not allowed\n Returning to default.[fmd]", Toast.LENGTH_LONG).show();
+                            settings.setFmdCommand("fmd");
+                        }else{
+                            settings.setFmdCommand(edited.toString());
+                        }
+                    }else if(edited == editTextOpenCellIdKey.getText()){
+                        settings.setOpenCellIDAPIkey(edited.toString());
+                    }
+                    afterTextEditedTimer = null;
+                }
+            });
         }
     }
 }
