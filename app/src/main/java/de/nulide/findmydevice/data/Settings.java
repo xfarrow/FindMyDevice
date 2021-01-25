@@ -1,9 +1,14 @@
 package de.nulide.findmydevice.data;
 
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import de.nulide.findmydevice.MainActivity;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONSettings;
+import de.nulide.findmydevice.utils.SaveTimerTask;
 
 public class Settings {
 
@@ -15,6 +20,8 @@ public class Settings {
     private String fmdCommand;
     private String openCellIDAPIkey;
     private int introductionVersionPassed;
+
+    private Timer afterChangeTimer;
 
     public Settings() {
         lockScreenMessage = new String();
@@ -39,7 +46,7 @@ public class Settings {
 
     public void setWipeEnabled(boolean wipeEnabled) {
         this.wipeEnabled = wipeEnabled;
-        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
+        write();
     }
 
     public String getLockScreenMessage() {
@@ -48,7 +55,7 @@ public class Settings {
 
     public void setLockScreenMessage(String lockScreenMessage) {
         this.lockScreenMessage = lockScreenMessage;
-        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
+        write();
     }
 
     public String getPin() {
@@ -57,7 +64,7 @@ public class Settings {
 
     public void setPin(String pin) {
         this.pin = pin;
-        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
+        write();
     }
 
     public String getFmdCommand() {
@@ -66,7 +73,7 @@ public class Settings {
 
     public void setFmdCommand(String fmdCommand) {
         this.fmdCommand = fmdCommand.toLowerCase();
-        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
+        write();
     }
 
     public int getIntroductionVersionPassed() {
@@ -75,7 +82,7 @@ public class Settings {
 
     public void setIntroductionVersionPassed(int introductionVersionPassed) {
         this.introductionVersionPassed = introductionVersionPassed;
-        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
+        write();
     }
 
     public boolean isIntroductionPassed() {
@@ -87,7 +94,7 @@ public class Settings {
 
     public void setIntroductionPassed() {
         this.introductionVersionPassed = newestIntroductionVersion;
-        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
+        write();
     }
 
     public String getOpenCellIDAPIkey() {
@@ -96,6 +103,14 @@ public class Settings {
 
     public void setOpenCellIDAPIkey(String openCellIDAPIkey) {
         this.openCellIDAPIkey = openCellIDAPIkey;
-        IO.write(JSONFactory.convertSettings(this), IO.settingsFileName);
+        write();
+    }
+
+    private void write(){
+        if (afterChangeTimer != null) {
+            afterChangeTimer.cancel();
+        }
+        afterChangeTimer = new Timer();
+        afterChangeTimer.schedule(new SaveTimerTask(this), 300);
     }
 }

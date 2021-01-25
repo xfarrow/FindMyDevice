@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private WhiteListViewAdapter listWhiteListAdapter;
     private Button buttonAddContact;
 
-    private Timer afterTextEditedTimer;
     private CheckBox checkBoxDeviceWipe;
     private EditText editTextPin;
     private EditText editTextLockScreenMessage;
@@ -311,47 +310,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void afterTextChanged(Editable s) {
-        if(afterTextEditedTimer == null){
-            afterTextEditedTimer = new Timer();
-        }else{
-            afterTextEditedTimer.cancel();
-            afterTextEditedTimer = new Timer();
-        }
-        afterTextEditedTimer.schedule(new AfterTextEditedTimerTask(this, s), 1000);
-    }
-
-    class AfterTextEditedTimerTask extends  TimerTask{
-
-            private Editable edited;
-            private Context context;
-
-            public AfterTextEditedTimerTask(Context context, Editable edited){
-                this.edited = edited;
-                this.context = context;
+    public void afterTextChanged(Editable edited) {
+        if(edited == editTextLockScreenMessage.getText()){
+            settings.setLockScreenMessage(edited.toString());
+        }else if(edited == editTextPin.getText()){
+            settings.setPin(edited.toString());
+        }else if(edited == editTextFmdCommand.getText()){
+            if(edited.toString().isEmpty()){
+                Toast.makeText(this, "Empty Command not allowed\n Returning to default.[fmd]", Toast.LENGTH_LONG).show();
+                settings.setFmdCommand("fmd");
+            }else{
+                settings.setFmdCommand(edited.toString());
             }
-
-        @Override
-        public void run() {
-            runOnUiThread(new Runnable(){
-                public void run() {
-                    if(edited == editTextLockScreenMessage.getText()){
-                        settings.setLockScreenMessage(edited.toString());
-                    }else if(edited == editTextPin.getText()){
-                        settings.setPin(edited.toString());
-                    }else if(edited == editTextFmdCommand.getText()){
-                        if(edited.toString().isEmpty()){
-                            Toast.makeText(context, "Empty Command not allowed\n Returning to default.[fmd]", Toast.LENGTH_LONG).show();
-                            settings.setFmdCommand("fmd");
-                        }else{
-                            settings.setFmdCommand(edited.toString());
-                        }
-                    }else if(edited == editTextOpenCellIdKey.getText()){
-                        settings.setOpenCellIDAPIkey(edited.toString());
-                    }
-                    afterTextEditedTimer = null;
-                }
-            });
+        }else if(edited == editTextOpenCellIdKey.getText()){
+            settings.setOpenCellIDAPIkey(edited.toString());
         }
+
     }
 }
