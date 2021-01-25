@@ -13,11 +13,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import de.nulide.findmydevice.utils.ReceiverHandler;
-
 public class IO {
 
     public static final String whiteListFileName = "whitelist.json";
+    public static final String SMSReceiverTempData = "temp_smsrec.json";
     public static final String settingsFileName = "settings-001.json";
     public static Context context;
 
@@ -32,7 +31,6 @@ public class IO {
         } catch (FileNotFoundException | JsonProcessingException e) {
             e.printStackTrace();
         }
-        ReceiverHandler.reloadData(context);
     }
 
     public static <T> T read(Class<T> type, String fileName) {

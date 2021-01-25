@@ -13,41 +13,37 @@ import java.util.Date;
 import java.util.Timer;
 
 import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.data.TempConfigSMSRec;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONSettings;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
-import de.nulide.findmydevice.utils.ExpiredTempWhiteListedTask;
 import de.nulide.findmydevice.utils.MessageHandler;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
-import de.nulide.findmydevice.utils.SaveTimerTask;
+import de.nulide.findmydevice.utils.SMS;
 
 public class SMSReceiver extends BroadcastReceiver {
 
     public static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
     public static final String BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
-    public static final String RELOAD_DATA = "de.nulide.reload.data";
 
     private WhiteList whiteList;
-    private String tempContact;
     private Settings settings;
-    private Date timeUntilNextUsage;
+    private TempConfigSMSRec config;
 
     public SMSReceiver() {
-        timeUntilNextUsage = Calendar.getInstance().getTime();
     }
 
     @SuppressLint("NewApi")
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(whiteList == null){
-            init(context);
-        }
+        init(context);
         if (intent.getAction().equals(SMS_RECEIVED)) {
-            Date time = Calendar.getInstance().getTime();
-            if (time.getTime() > timeUntilNextUsage.getTime()) {
+            Calendar time = Calendar.getInstance();
+            time.add(Calendar.SECOND, -2);
+            if (time.getTimeInMillis() > ((Long)config.get(TempConfigSMSRec.CONF_LAST_USAGE))) {
                 Bundle bundle = intent.getExtras();
                 SmsMessage[] msgs;
                 String format = bundle.getString("format");
@@ -72,14 +68,21 @@ public class SMSReceiver extends BroadcastReceiver {
                             }
                         }
                         if((Boolean) settings.get(Settings.SET_ACCESS_VIA_PIN)) {
+                            String tempContact = (String)config.get(TempConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT);
+                            Long tempContactActiveSince = (Long) config.get(TempConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE);
+                            if(tempContactActiveSince != null && tempContactActiveSince+(5*60*1000) < time.getTimeInMillis()){
+                                SMS.sendMessage(tempContact, "FindMyDevive: Pin expired!");
+                                config.set(TempConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
+                                config.set(TempConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
+                                tempContact = null;
+                            }
                             if (!inWhitelist && tempContact != null && tempContact.equals(receiver)) {
                                 MessageHandler.handle(receiver, msgs[i].getMessageBody(), context);
                                 inWhitelist = true;
                             }
                             if (!inWhitelist && MessageHandler.checkForPin(msgs[i].getMessageBody())) {
-                                Timer tempContactExpireTimer = new Timer();
-                                tempContactExpireTimer.schedule(new ExpiredTempWhiteListedTask(receiver, this), 10000);
-                                tempContact = receiver;
+                                config.set(TempConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, receiver);
+                                config.set(TempConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, time.getTimeInMillis());
                                 MessageHandler.handle(receiver, msgs[i].getMessageBody(), context);
                             }
                         }
@@ -87,14 +90,10 @@ public class SMSReceiver extends BroadcastReceiver {
                 }
 
                 Calendar now = Calendar.getInstance();
-                now.add(Calendar.SECOND, 1);
-                timeUntilNextUsage = now.getTime();
+                config.set(TempConfigSMSRec.CONF_LAST_USAGE,now.getTime());
             }
         }else if(intent.getAction().equals(BOOT_COMPLETED)){
-            init(context);
-            Notifications.notify(context, "AfterBootTest", "Service running", Notifications.CHANNEL_LIFE);
-        }else if(intent.getAction().equals(RELOAD_DATA)){
-            init(context);
+            Notifications.notify(context, "AfterBootTest", "Receiver is working", Notifications.CHANNEL_LIFE);
         }
     }
 
@@ -102,12 +101,14 @@ public class SMSReceiver extends BroadcastReceiver {
         IO.context = context;
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
         settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
+        config = JSONFactory.convertJSONConfig(IO.read(JSONSettings.class, IO.SMSReceiverTempData));
+        if(config.get(TempConfigSMSRec.CONF_LAST_USAGE) == null){
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MINUTE, -5);
+            config.set(TempConfigSMSRec.CONF_LAST_USAGE,cal.getTimeInMillis());
+        }
         Permission.initValues(context);
         MessageHandler.init(settings);
-    }
-
-    public void removeTemp(){
-       // tempContact = null;
     }
 
 }

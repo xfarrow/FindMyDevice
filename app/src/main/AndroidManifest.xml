@@ -59,7 +59,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-                <action android:name="de.nulide.reload.data" />
             </intent-filter>
         </receiver>
     </application>
