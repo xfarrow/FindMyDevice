@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import de.nulide.findmydevice.LockScreenMessage;
+import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 
@@ -35,11 +36,11 @@ public class MessageHandler {
                     GPS.turnOnGPS(context);
                 }
             }
-            replyBuilder.append("will be send as soon as possible.");
+            replyBuilder.append(context.getString(R.string.MH_GPS_WILL_FOLLOW));
             GPS gps = new GPS(context, sender);
             gps.sendGSMCellLocation(settings);
         } else if (msg.startsWith(settings.getFmdCommand() + " ring")) {
-            replyBuilder.append("rings");
+            replyBuilder.append(context.getString(R.string.MH_rings));
             if (msg.contains("long")) {
                 Ringer.ring(context, 180);
             } else {
@@ -50,23 +51,22 @@ public class MessageHandler {
             devicePolicyManager.lockNow();
             Intent lockScreenMessage = new Intent(context, LockScreenMessage.class);
             lockScreenMessage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Bundle bundle = lockScreenMessage.getExtras();
             lockScreenMessage.putExtra(LockScreenMessage.SENDER, sender);
             if (msg.length() > settings.getFmdCommand().length() + 6) {
                 String customMessage = originalMsg.substring(settings.getFmdCommand().length() + 6, msg.length());
                 lockScreenMessage.putExtra(LockScreenMessage.CUSTOM_TEXT, customMessage);
             }
             context.startActivity(lockScreenMessage);
-            replyBuilder.append("locked");
+            replyBuilder.append(context.getString(R.string.MH_Locked));
         } else if (msg.startsWith(settings.getFmdCommand() + " stats")) {
-            replyBuilder.append("Network-Stats:\nIPs: \n");
+            replyBuilder.append(context.getString(R.string.MH_Stats));
             Map<String, String> ips = Network.getAllIP();
             Iterator<String> it = ips.keySet().iterator();
             while(it.hasNext()){
                 String intf = it.next();
                 replyBuilder.append(intf).append(": ").append(ips.get(intf)).append("\n");
             }
-            replyBuilder.append("\nAvailable Wifi-Networks:\n");
+            replyBuilder.append(context.getString(R.string.MH_Networks));
             for (ScanResult sr : Network.getWifiNetworks(context)) {
                 replyBuilder.append(sr.SSID).append("\n");
             }
@@ -77,26 +77,26 @@ public class MessageHandler {
                     String pin = originalMsg.substring(settings.getFmdCommand().length() + 8, msg.length());
                     if (pin.equals(settings.getPin())) {
                         devicePolicyManager.wipeData(0);
-                        replyBuilder.append("Goodbye...");
+                        replyBuilder.append(context.getString(R.string.MH_Delete));
                     } else {
-                        replyBuilder.append("False Pin!");
+                        replyBuilder.append(context.getString(R.string.MH_False_Pin));
                     }
                 } else {
-                    replyBuilder.append("Syntax: ").append(settings.getFmdCommand()).append(" delete [pin]");
+                    replyBuilder.append(context.getString(R.string.MH_Syntax)).append(settings.getFmdCommand()).append(" delete [pin]");
                 }
             }
         } else if (msg.equals(settings.getFmdCommand())) {
-            replyBuilder.append("FindMyDevice Commands:\n");
+            replyBuilder.append(context.getString(R.string.MH_Title_Help)).append("\n");
             if (Permission.GPS) {
-                replyBuilder.append(settings.getFmdCommand()).append(" where are you - sends the current location\n");
+                replyBuilder.append(settings.getFmdCommand()).append(context.getString(R.string.MH_Help_where)).append("\n");
             }
-            replyBuilder.append(settings.getFmdCommand()).append(" ring - lets the phone ring\n");
+            replyBuilder.append(settings.getFmdCommand()).append(context.getString(R.string.MH_Help_ring)).append("\n");
             if (Permission.DEVICE_ADMIN) {
-                replyBuilder.append(settings.getFmdCommand()).append(" lock - locks the phone\n");
+                replyBuilder.append(settings.getFmdCommand()).append(context.getString(R.string.MH_Help_Lock)).append("\n");
             }
-            replyBuilder.append(settings.getFmdCommand()).append(" stats - sends device informations");
+            replyBuilder.append(settings.getFmdCommand()).append(context.getString(R.string.MH_Help_Stats));
             if (settings.isWipeEnabled()) {
-                replyBuilder.append("\n").append(settings.getFmdCommand()).append(" delete - resets the phone");
+                replyBuilder.append("\n").append(settings.getFmdCommand()).append(context.getString(R.string.MH_Help_delete));
             }
         }
 
