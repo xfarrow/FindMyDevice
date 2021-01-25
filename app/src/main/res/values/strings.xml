@@ -45,4 +45,5 @@
     <string name="TOAST_LANDCODE_ERROR">Please add Landcode to the number.</string>
     <string name="Delete">Delete</string>
     <string name="Select_Action">Select an action:</string>
+    <string name="TOAST_DUBLICATE_CONTACT">This contact already exists.</string>
 </resources>

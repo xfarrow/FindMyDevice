@@ -1,5 +1,7 @@
 package de.nulide.findmydevice.data;
 
+import androidx.annotation.Nullable;
+
 public class Contact {
 
     private String name;
@@ -27,5 +29,12 @@ public class Contact {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public boolean equals(@Nullable Contact toCheck) {
+        if(name.equals(toCheck.name) && number.equals(toCheck.number)){
+            return true;
+        }
+        return false;
     }
 }

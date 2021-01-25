@@ -28,8 +28,20 @@ public class WhiteList extends LinkedList<Contact> {
     @Override
     public boolean add(Contact c) {
         c.setNumber(c.getNumber().replace(" ", ""));
-        super.add(c);
-        IO.write(this, IO.whiteListFileName);
+        if(!checkForDuplicates(c)) {
+            super.add(c);
+            IO.write(this, IO.whiteListFileName);
+        }
         return true;
+    }
+
+    public boolean checkForDuplicates(Contact toCheck){
+        toCheck.setNumber(toCheck.getNumber().replace(" ", ""));
+        for(Contact contact : this){
+            if(contact.equals(toCheck)){
+                return true;
+            }
+        }
+        return false;
     }
 }
