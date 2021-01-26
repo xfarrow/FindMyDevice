@@ -338,7 +338,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "Empty Command not allowed\n Returning to default.[fmd]", Toast.LENGTH_LONG).show();
                 settings.set(Settings.SET_FMD_COMMAND, "fmd");
             }else{
-                settings.set(Settings.SET_FMD_COMMAND, edited.toString());
+                settings.set(Settings.SET_FMD_COMMAND, edited.toString().toLowerCase());
             }
         }else if(edited == editTextOpenCellIdKey.getText()){
             settings.set(Settings.SET_OPENCELLID_API_KEY, edited.toString());
