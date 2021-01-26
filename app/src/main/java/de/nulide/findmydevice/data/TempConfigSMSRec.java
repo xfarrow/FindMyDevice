@@ -7,18 +7,18 @@ import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.utils.SaveTimerTask;
 
-public class TempConfigSMSRec extends HashMap<String, Object> {
+public class TempConfigSMSRec extends HashMap<Integer, Object> {
 
-    public static final String CONF_LAST_USAGE = "CONF_LAST_USAGE";
-    public static final String CONF_TEMP_WHITELISTED_CONTACT = "CONF_TEMP_WHITELISTED_CONTACT";
-    public static final String CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE = "CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE";
+    public static final int CONF_LAST_USAGE = 0;
+    public static final int CONF_TEMP_WHITELISTED_CONTACT = 1;
+    public static final int CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE = 2;
 
-    public <T> void set(String key, T value){
+    public <T> void set(int key, T value){
         super.put(key, value);
         IO.write(JSONFactory.convertTempConfigSMSRec(this),IO.SMSReceiverTempData);
     }
 
-    public Object get(String key){
+    public Object get(int key){
         if(super.containsKey(key)){
             return super.get(key);
         }

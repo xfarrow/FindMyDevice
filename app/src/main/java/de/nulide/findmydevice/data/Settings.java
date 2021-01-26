@@ -6,29 +6,29 @@ import java.util.Timer;
 
 import de.nulide.findmydevice.utils.SaveTimerTask;
 
-public class Settings extends HashMap<String, Object> {
+public class Settings extends HashMap<Integer, Object> {
 
     public static final int newestIntroductionVersion = 2;
 
-    public static final String SET_WIPE_ENABLED = "SET_WIPE_ENABLED";
-    public static final String SET_ACCESS_VIA_PIN = "SET_ACCESS_VIA_PIN";
-    public static final String SET_LOCKSCREEN_MESSAGE = "SET_LOCKSCREEN_MESSAGE";
-    public static final String SET_PIN = "SET_PIN";
-    public static final String SET_FMD_COMMAND = "SET_FMD_COMMAND";
-    public static final String SET_OPENCELLID_API_KEY = "SET_OPENCELLID_API_KEY";
-    public static final String SET_INTRODUCTION_VERSION = "SET_INTRODUCTIONVERSION_PASSED";
+    public static final int SET_WIPE_ENABLED = 0;
+    public static final int SET_ACCESS_VIA_PIN = 1;
+    public static final int SET_LOCKSCREEN_MESSAGE = 2;
+    public static final int SET_PIN = 3;
+    public static final int SET_FMD_COMMAND = 4;
+    public static final int SET_OPENCELLID_API_KEY = 5;
+    public static final int SET_INTRODUCTION_VERSION = 6;
 
     private Timer afterChangeTimer;
 
     public Settings() {
     }
 
-    public <T> void set(String key, T value){
+    public <T> void set(int key, T value){
         super.put(key, value);
         write();
     }
 
-    public Object get(String key){
+    public Object get(int key){
         if(super.containsKey(key)){
             return super.get(key);
         }else{
