@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -218,6 +219,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             alert.setTitle("PIN");
             alert.setMessage(getString(R.string.EnterPin));
             final EditText input = new EditText(this);
+            input.setTransformationMethod(new PasswordTransformationMethod());
             alert.setView(input);
             alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
