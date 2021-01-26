@@ -63,4 +63,5 @@
     <string name="A_Help">Help</string>
     <string name="SET_FMD_VIA_PIN_DESC">Allow to communicate with FMD via a pin. You will be added to a temporary Whitelist.</string>
     <string name="EnterPin">Enter Pin</string>
+    <string name="PinAccepted">Pin accepted!</string>
 </resources>

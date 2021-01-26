@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.UnicodeSetIterator;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
@@ -12,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 
+import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.TempConfigSMSRec;
 import de.nulide.findmydevice.data.WhiteList;
@@ -81,6 +83,7 @@ public class SMSReceiver extends BroadcastReceiver {
                                 inWhitelist = true;
                             }
                             if (!inWhitelist && MessageHandler.checkForPin(msgs[i].getMessageBody())) {
+                                SMS.sendMessage(receiver, context.getString(R.string.PinAccepted));
                                 config.set(TempConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, receiver);
                                 config.set(TempConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, time.getTimeInMillis());
                                 MessageHandler.handle(receiver, msgs[i].getMessageBody(), context);
