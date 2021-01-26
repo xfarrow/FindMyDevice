@@ -8,11 +8,11 @@ public class SMS {
 
     public static void sendMessage(String destination, String msg) {
         SmsManager smsManager = SmsManager.getDefault();
-        if(msg.length() <= 160){
+        if (msg.length() <= 160) {
             smsManager.sendTextMessage
                     (destination, null, msg,
                             null, null);
-        }else {
+        } else {
             ArrayList<String> parts = smsManager.divideMessage(msg);
             smsManager.sendMultipartTextMessage(destination, null, parts, null, null);
         }

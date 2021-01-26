@@ -18,8 +18,6 @@ import androidx.core.content.ContextCompat;
 
 import de.nulide.findmydevice.receiver.DeviceAdminReceiver;
 
-import static de.nulide.findmydevice.data.io.IO.context;
-
 public class Permission {
 
     private static final int PERM_SMS_ID = 61341;
@@ -33,7 +31,7 @@ public class Permission {
     public static boolean WRITE_SECURE_SETTINGS = false;
     public static boolean CORE = false;
 
-    public static void initValues(Context context){
+    public static void initValues(Context context) {
         GPS = checkGPSPermission(context);
         DEVICE_ADMIN = checkDeviceAdminPermission(context);
         WRITE_SECURE_SETTINGS = checkWriteSecurePermission(context);
@@ -41,7 +39,7 @@ public class Permission {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             DND = checkDNDPermission(context);
         }
-        if(checkContactsPermission(context) && checkSMSPermission(context)){
+        if (checkContactsPermission(context) && checkSMSPermission(context)) {
             CORE = true;
         }
     }
@@ -58,8 +56,8 @@ public class Permission {
         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CONTACTS}, PERM_CONTACT_ID);
     }
 
-    public static void requestOverlayPermission(Activity activity){
-        if(!checkOverlayPermission(activity)) {
+    public static void requestOverlayPermission(Activity activity) {
+        if (!checkOverlayPermission(activity)) {
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + activity.getPackageName()));
             activity.startActivity(intent);
         }
@@ -74,7 +72,7 @@ public class Permission {
         }
     }
 
-    public static void requestDeviceAdminPermission(Activity activity){
+    public static void requestDeviceAdminPermission(Activity activity) {
         Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
         intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, new ComponentName(activity, DeviceAdminReceiver.class));
         activity.startActivity(intent);
@@ -87,16 +85,14 @@ public class Permission {
         return mNotificationManager.isNotificationPolicyAccessGranted();
     }
 
-    public static boolean checkOverlayPermission(Context context){
+    public static boolean checkOverlayPermission(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(context)) {
-                return false;
-            }
+            return Settings.canDrawOverlays(context);
         }
         return true;
     }
 
-    public static boolean checkWriteSecurePermission(Context context){
+    public static boolean checkWriteSecurePermission(Context context) {
         return ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS) == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -112,7 +108,7 @@ public class Permission {
         return ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static boolean checkDeviceAdminPermission(Context context){
+    public static boolean checkDeviceAdminPermission(Context context) {
         DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
         return devicePolicyManager.isAdminActive(new ComponentName(context, DeviceAdminReceiver.class));
     }

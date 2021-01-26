@@ -28,12 +28,12 @@ public class Network {
         ArrayMap<String, String> ip = new ArrayMap<>();
         try {
             Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
-            while(en.hasMoreElements()) {
+            while (en.hasMoreElements()) {
                 NetworkInterface intf = en.nextElement();
                 for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
                     InetAddress inetAddress = enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress()) {
-                        ip.put(intf.getDisplayName(), inetAddress.getHostAddress().toString());
+                        ip.put(intf.getDisplayName(), inetAddress.getHostAddress());
                     }
                 }
 

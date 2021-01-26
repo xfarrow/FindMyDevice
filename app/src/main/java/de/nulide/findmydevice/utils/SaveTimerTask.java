@@ -22,9 +22,9 @@ public class SaveTimerTask extends TimerTask {
 
     @Override
     public void run() {
-        if(settings != null){
+        if (settings != null) {
             IO.write(JSONFactory.convertSettings(settings), IO.settingsFileName);
-        }else if(settings != null){
+        } else if (settings != null) {
             IO.write(JSONFactory.convertWhiteList(whiteList), IO.whiteListFileName);
         }
 

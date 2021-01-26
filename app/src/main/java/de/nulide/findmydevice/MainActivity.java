@@ -30,8 +30,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 import de.nulide.findmydevice.data.Contact;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
@@ -87,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
         settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
         Permission.initValues(this);
-        if(!settings.isIntroductionPassed() || !Permission.CORE){
+        if (!settings.isIntroductionPassed() || !Permission.CORE) {
             Intent introductionIntent = new Intent(this, IntroductionActivity.class);
             startActivity(introductionIntent);
         }
@@ -139,63 +137,63 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listWhiteList.setOnItemClickListener(this);
         registerForContextMenu(listWhiteList);
 
-        checkBoxAccessViaPin.setChecked((Boolean)settings.get(Settings.SET_ACCESS_VIA_PIN));
+        checkBoxAccessViaPin.setChecked((Boolean) settings.get(Settings.SET_ACCESS_VIA_PIN));
         checkBoxAccessViaPin.setOnCheckedChangeListener(this);
-        checkBoxDeviceWipe.setChecked((Boolean)settings.get(Settings.SET_WIPE_ENABLED));
+        checkBoxDeviceWipe.setChecked((Boolean) settings.get(Settings.SET_WIPE_ENABLED));
         checkBoxDeviceWipe.setOnCheckedChangeListener(this);
-        editTextLockScreenMessage.setText((String)settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
+        editTextLockScreenMessage.setText((String) settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
         editTextLockScreenMessage.addTextChangedListener(this);
         buttonEnterPin.setOnClickListener(this);
-        editTextFmdCommand.setText((String)settings.get(Settings.SET_FMD_COMMAND));
+        editTextFmdCommand.setText((String) settings.get(Settings.SET_FMD_COMMAND));
         editTextFmdCommand.addTextChangedListener(this);
-        editTextOpenCellIdKey.setText((String)settings.get(Settings.SET_OPENCELLID_API_KEY));
+        editTextOpenCellIdKey.setText((String) settings.get(Settings.SET_OPENCELLID_API_KEY));
         editTextOpenCellIdKey.addTextChangedListener(this);
         buttonPermission.setOnClickListener(this);
 
-        if(buttonHelp != null) {
+        if (buttonHelp != null) {
             buttonHelp.setOnClickListener(this);
         }
 
-        textViewRunningService.setText("I think it\'s running");
-        if(Permission.CORE){
+        textViewRunningService.setText("I think it's running");
+        if (Permission.CORE) {
             textViewCORE.setText(getString(R.string.Enabled));
             textViewCORE.setTextColor(Color.GREEN);
-        }else{
+        } else {
             textViewCORE.setText(getString(R.string.Disabled));
             textViewCORE.setTextColor(Color.RED);
         }
-        if(Permission.GPS){
+        if (Permission.GPS) {
             textViewGPS.setText(getString(R.string.Enabled));
             textViewGPS.setTextColor(Color.GREEN);
-        }else{
+        } else {
             textViewGPS.setText(getString(R.string.Disabled));
             textViewGPS.setTextColor(Color.RED);
         }
-        if(Permission.DND){
+        if (Permission.DND) {
             textViewDND.setText(getString(R.string.Enabled));
             textViewDND.setTextColor(Color.GREEN);
-        }else{
+        } else {
             textViewDND.setText(getString(R.string.Disabled));
             textViewDND.setTextColor(Color.RED);
         }
-        if(Permission.DEVICE_ADMIN){
+        if (Permission.DEVICE_ADMIN) {
             textViewDeviceAdmin.setText(getString(R.string.Enabled));
             textViewDeviceAdmin.setTextColor(Color.GREEN);
-        }else{
+        } else {
             textViewDeviceAdmin.setText(getString(R.string.Disabled));
             textViewDeviceAdmin.setTextColor(Color.RED);
         }
-        if(Permission.WRITE_SECURE_SETTINGS){
+        if (Permission.WRITE_SECURE_SETTINGS) {
             textViewWriteSecureSettings.setText(getString(R.string.Enabled));
             textViewWriteSecureSettings.setTextColor(Color.GREEN);
-        }else{
+        } else {
             textViewWriteSecureSettings.setText(getString(R.string.Disabled));
             textViewWriteSecureSettings.setTextColor(Color.RED);
         }
-        if(Permission.OVERLAY){
+        if (Permission.OVERLAY) {
             textViewOverlay.setText(getString(R.string.Enabled));
             textViewOverlay.setTextColor(Color.GREEN);
-        }else{
+        } else {
             textViewOverlay.setText(getString(R.string.Disabled));
             textViewOverlay.setTextColor(Color.RED);
         }
@@ -204,17 +202,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if(v == buttonAddContact) {
+        if (v == buttonAddContact) {
             Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
             startActivityForResult(intent, 1);
-        }else if(v == buttonPermission){
+        } else if (v == buttonPermission) {
             Intent permissionIntent = new Intent(this, IntroductionActivity.class);
             permissionIntent.putExtra(IntroductionActivity.POS_KEY, 1);
             startActivity(permissionIntent);
-        }else if(v == buttonHelp){
+        } else if (v == buttonHelp) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://gitlab.com/Nulide/findmydevice/-/wikis/home"));
             startActivity(intent);
-        }else if(v == buttonEnterPin){
+        } else if (v == buttonEnterPin) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("PIN");
             alert.setMessage(getString(R.string.EnterPin));
@@ -224,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String text = input.getText().toString();
-                    if(!text.isEmpty()){
+                    if (!text.isEmpty()) {
                         settings.set(Settings.SET_PIN, BCryptUtils.hashPassword(text));
                     }
                 }
@@ -238,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         Permission.initValues(this);
         settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
-        if(!settings.isIntroductionPassed() || !Permission.CORE){
+        if (!settings.isIntroductionPassed() || !Permission.CORE) {
             Intent introductionIntent = new Intent(this, IntroductionActivity.class);
             startActivity(introductionIntent);
         }
@@ -263,17 +261,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             phones.moveToFirst();
                             String cNumber = phones.getString(phones.getColumnIndex("data1"));
                             String cName = phones.getString(phones.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
-                            if(!cNumber.startsWith("0")) {
+                            if (!cNumber.startsWith("0")) {
                                 Contact contact = new Contact(cName, cNumber);
-                                if(!whiteList.checkForDuplicates(contact)) {
+                                if (!whiteList.checkForDuplicates(contact)) {
                                     whiteList.add(contact);
                                     updateViews();
-                                }else{
+                                } else {
                                     Toast toast = Toast.makeText(this, getString(R.string.TOAST_DUBLICATE_CONTACT), Toast.LENGTH_LONG);
                                     toast.setGravity(Gravity.CENTER, 0, 0);
                                     toast.show();
                                 }
-                            }else{
+                            } else {
                                 Toast toast = Toast.makeText(this, getString(R.string.TOAST_LANDCODE_ERROR), Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.CENTER, 0, 0);
                                 toast.show();
@@ -314,9 +312,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if(buttonView == checkBoxDeviceWipe){
+        if (buttonView == checkBoxDeviceWipe) {
             settings.set(Settings.SET_WIPE_ENABLED, isChecked);
-        }else if(buttonView == checkBoxAccessViaPin){
+        } else if (buttonView == checkBoxAccessViaPin) {
             settings.set(Settings.SET_ACCESS_VIA_PIN, isChecked);
         }
     }
@@ -333,16 +331,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void afterTextChanged(Editable edited) {
-        if(edited == editTextLockScreenMessage.getText()){
+        if (edited == editTextLockScreenMessage.getText()) {
             settings.set(Settings.SET_LOCKSCREEN_MESSAGE, edited.toString());
-        }else if(edited == editTextFmdCommand.getText()){
-            if(edited.toString().isEmpty()){
+        } else if (edited == editTextFmdCommand.getText()) {
+            if (edited.toString().isEmpty()) {
                 Toast.makeText(this, "Empty Command not allowed\n Returning to default.[fmd]", Toast.LENGTH_LONG).show();
                 settings.set(Settings.SET_FMD_COMMAND, "fmd");
-            }else{
+            } else {
                 settings.set(Settings.SET_FMD_COMMAND, edited.toString().toLowerCase());
             }
-        }else if(edited == editTextOpenCellIdKey.getText()){
+        } else if (edited == editTextOpenCellIdKey.getText()) {
             settings.set(Settings.SET_OPENCELLID_API_KEY, edited.toString());
         }
 

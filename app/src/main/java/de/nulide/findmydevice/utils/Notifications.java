@@ -26,7 +26,7 @@ public class Notifications {
         notificationManager.notify(channelID, builder.build());
     }
 
-    public static void init(Context context){
+    public static void init(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel1 = new NotificationChannel(new Integer(CHANNEL_USAGE).toString(), "Usage", NotificationManager.IMPORTANCE_DEFAULT);
             channel1.setDescription("Notification about the service usage.");

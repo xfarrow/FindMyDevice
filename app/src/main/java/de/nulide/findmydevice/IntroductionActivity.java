@@ -1,7 +1,5 @@
 package de.nulide.findmydevice;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -11,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
@@ -19,12 +19,11 @@ import de.nulide.findmydevice.utils.Permission;
 
 public class IntroductionActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static String POS_KEY = "pos";
     private TextView textViewInfoText;
     private Button buttonNext;
     private Button buttonGivePermission;
-
     private int position = 0;
-    public static String POS_KEY = "pos";
     private Settings settings;
 
     @Override
@@ -32,7 +31,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduction);
         Bundle bundle = getIntent().getExtras();
-        if(bundle != null && !bundle.isEmpty()) {
+        if (bundle != null && !bundle.isEmpty()) {
             position = bundle.getInt(POS_KEY);
         }
         IO.context = this;
@@ -48,78 +47,78 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    public void updateViews(){
-        switch(position){
+    public void updateViews() {
+        switch (position) {
             case 0:
-                if((Integer)settings.get(Settings.SET_INTRODUCTION_VERSION) > 0){
+                if ((Integer) settings.get(Settings.SET_INTRODUCTION_VERSION) > 0) {
                     textViewInfoText.setText(getString(R.string.UpdatePermission));
-                }else {
+                } else {
                     textViewInfoText.setText(getString(R.string.Introduction));
                 }
                 break;
             case 1:
                 buttonGivePermission.setVisibility(View.VISIBLE);
                 textViewInfoText.setText(getString(R.string.Permission_SMS));
-                if(Permission.checkSMSPermission(this)){
+                if (Permission.checkSMSPermission(this)) {
                     buttonNext.setEnabled(true);
                     buttonGivePermission.setTextColor(Color.GREEN);
-                }else{
+                } else {
                     buttonNext.setEnabled(false);
                     buttonGivePermission.setTextColor(Color.RED);
                 }
                 break;
             case 2:
                 textViewInfoText.setText(getString(R.string.Permission_CONTACTS));
-                if(Permission.checkContactsPermission(this)){
+                if (Permission.checkContactsPermission(this)) {
                     buttonNext.setEnabled(true);
                     buttonGivePermission.setTextColor(Color.GREEN);
-                }else{
+                } else {
                     buttonNext.setEnabled(false);
                     buttonGivePermission.setTextColor(Color.RED);
                 }
                 break;
             case 3:
                 textViewInfoText.setText(getString(R.string.Permission_GPS));
-                if(Permission.checkGPSPermission(this)){
+                if (Permission.checkGPSPermission(this)) {
                     buttonGivePermission.setTextColor(Color.GREEN);
-                }else{
+                } else {
                     buttonGivePermission.setTextColor(Color.RED);
                 }
                 break;
             case 4:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     textViewInfoText.setText(getString(R.string.Permission_DND));
-                    if(Permission.checkDNDPermission(this)){
+                    if (Permission.checkDNDPermission(this)) {
                         buttonGivePermission.setTextColor(Color.GREEN);
-                    }else{
+                    } else {
                         buttonGivePermission.setTextColor(Color.RED);
                     }
-                }else{
+                } else {
                     position++;
                     updateViews();
                 }
                 break;
             case 5:
                 textViewInfoText.setText(getString(R.string.Permission_DEVICE_ADMIN));
-                if(Permission.checkDeviceAdminPermission(this)){
+                if (Permission.checkDeviceAdminPermission(this)) {
                     buttonGivePermission.setTextColor(Color.GREEN);
-                }else{
+                } else {
                     buttonGivePermission.setTextColor(Color.RED);
                 }
                 break;
             case 6:
                 textViewInfoText.setText(getString(R.string.Permission_OVERLAY));
-                if(Permission.checkOverlayPermission(this)){
+                if (Permission.checkOverlayPermission(this)) {
                     buttonGivePermission.setTextColor(Color.GREEN);
-                }else{
+                } else {
                     buttonGivePermission.setTextColor(Color.RED);
                 }
                 break;
             case 7:
                 textViewInfoText.setText(getString(R.string.Permission_WRITE_SECURE_SETTINGS));
-                if(Permission.checkWriteSecurePermission(this)){
+                if (Permission.checkWriteSecurePermission(this)) {
                     buttonGivePermission.setTextColor(Color.GREEN);
-                }else{
+                } else {
                     buttonGivePermission.setTextColor(Color.RED);
                 }
                 break;
@@ -140,8 +139,8 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        if(v == buttonGivePermission){
-            switch(position){
+        if (v == buttonGivePermission) {
+            switch (position) {
                 case 0:
 
                     break;
@@ -169,7 +168,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                     updateViews();
                     break;
             }
-        }else if(v == buttonNext){
+        } else if (v == buttonNext) {
             position++;
             updateViews();
         }

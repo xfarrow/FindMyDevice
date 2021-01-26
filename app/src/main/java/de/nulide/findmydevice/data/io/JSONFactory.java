@@ -1,10 +1,8 @@
 package de.nulide.findmydevice.data.io;
 
-import java.util.Map;
-
+import de.nulide.findmydevice.data.ConfigSMSRec;
 import de.nulide.findmydevice.data.Contact;
 import de.nulide.findmydevice.data.Settings;
-import de.nulide.findmydevice.data.TempConfigSMSRec;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.json.JSONContact;
 import de.nulide.findmydevice.data.io.json.JSONSettings;
@@ -51,15 +49,15 @@ public class JSONFactory {
         return jsonWhiteList;
     }
 
-    public static TempConfigSMSRec convertJSONConfig(JSONSettings jsonSettings){
-        TempConfigSMSRec temp = new TempConfigSMSRec();
+    public static ConfigSMSRec convertJSONConfig(JSONSettings jsonSettings) {
+        ConfigSMSRec temp = new ConfigSMSRec();
         temp.putAll(jsonSettings);
         return temp;
     }
 
-    public static JSONSettings convertTempConfigSMSRec(TempConfigSMSRec tempConfigSMSRec){
+    public static JSONSettings convertTempConfigSMSRec(ConfigSMSRec configSMSRec) {
         JSONSettings jsonSettings = new JSONSettings();
-        jsonSettings.putAll(tempConfigSMSRec);
+        jsonSettings.putAll(configSMSRec);
         return jsonSettings;
     }
 }

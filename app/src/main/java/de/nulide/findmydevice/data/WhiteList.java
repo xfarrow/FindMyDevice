@@ -1,11 +1,8 @@
 package de.nulide.findmydevice.data;
 
-import android.content.Context;
-
 import java.util.LinkedList;
 
 import de.nulide.findmydevice.data.io.IO;
-import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 
 public class WhiteList extends LinkedList<Contact> {
 
@@ -13,12 +10,12 @@ public class WhiteList extends LinkedList<Contact> {
 
     }
 
-    public boolean superAdd(Contact c){
+    public boolean superAdd(Contact c) {
         return super.add(c);
     }
 
     @Override
-    public Contact remove(int index){
+    public Contact remove(int index) {
         Contact c = get(index);
         super.remove(index);
         IO.write(this, IO.whiteListFileName);
@@ -28,17 +25,17 @@ public class WhiteList extends LinkedList<Contact> {
     @Override
     public boolean add(Contact c) {
         c.setNumber(c.getNumber().replace(" ", ""));
-        if(!checkForDuplicates(c)) {
+        if (!checkForDuplicates(c)) {
             super.add(c);
             IO.write(this, IO.whiteListFileName);
         }
         return true;
     }
 
-    public boolean checkForDuplicates(Contact toCheck){
+    public boolean checkForDuplicates(Contact toCheck) {
         toCheck.setNumber(toCheck.getNumber().replace(" ", ""));
-        for(Contact contact : this){
-            if(contact.equals(toCheck)){
+        for (Contact contact : this) {
+            if (contact.equals(toCheck)) {
                 return true;
             }
         }

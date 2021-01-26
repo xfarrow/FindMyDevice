@@ -11,30 +11,19 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Iterator;
-import java.util.Set;
-
-import de.nulide.findmydevice.data.io.IO;
 
 public class GPS implements LocationListener {
 
     static final int WAIT_TIME = 1000 * 5;
-    private Location currentBestLocation = null;
     private final Context context;
     private final LocationManager locationManager;
     private final String sender;
+    private Location currentBestLocation = null;
 
     @SuppressLint("MissingPermission")
     public GPS(Context context, String sender) {
@@ -42,9 +31,18 @@ public class GPS implements LocationListener {
         this.sender = sender;
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         Looper m = Looper.myLooper();
-        for(String providor : locationManager.getAllProviders()){
+        for (String providor : locationManager.getAllProviders()) {
             locationManager.requestSingleUpdate(providor, this, m);
         }
+    }
+
+    public static void turnOnGPS(Context context) {
+        Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_MODE, new Integer(Settings.Secure.LOCATION_MODE_HIGH_ACCURACY).toString());
+    }
+
+    public static boolean isGPSOn(Context context) {
+        String GPS_MODE = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+        return !GPS_MODE.equals(new Integer(Settings.Secure.LOCATION_MODE_OFF).toString());
     }
 
     @Override
@@ -152,29 +150,17 @@ public class GPS implements LocationListener {
         return location;
     }
 
-    public void sendOpenCellIdLocation(de.nulide.findmydevice.data.Settings settings, String sender, int mcc, int mnc, int lac, int cid){
-        if(((String)settings.get(de.nulide.findmydevice.data.Settings.SET_OPENCELLID_API_KEY)).isEmpty()){
+    public void sendOpenCellIdLocation(de.nulide.findmydevice.data.Settings settings, String sender, int mcc, int mnc, int lac, int cid) {
+        if (((String) settings.get(de.nulide.findmydevice.data.Settings.SET_OPENCELLID_API_KEY)).isEmpty()) {
             return;
         }
         StringBuilder urlBuilder = new StringBuilder("https://opencellid.org/cell/get?key=")
-                .append((String)settings.get(de.nulide.findmydevice.data.Settings.SET_OPENCELLID_API_KEY)).append("&mcc=").append(mcc).append("&mnc=").append(mnc)
+                .append((String) settings.get(de.nulide.findmydevice.data.Settings.SET_OPENCELLID_API_KEY)).append("&mcc=").append(mcc).append("&mnc=").append(mnc)
                 .append("&lac=").append(lac).append("&cellid=").append(cid).append("&format=json");
 
         final String url = urlBuilder.toString();
         RequestQueue ExampleRequestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest ExampleRequest = new JsonObjectRequest(Request.Method.GET, url, null, new JSONResponseListener(sender, url), new JSONResponseListener(sender, url));
         ExampleRequestQueue.add(ExampleRequest);
-    }
-
-    public static void turnOnGPS(Context context){
-        Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_MODE, new Integer(Settings.Secure.LOCATION_MODE_HIGH_ACCURACY).toString());
-    }
-
-    public static boolean isGPSOn(Context context){
-        String GPS_MODE = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
-        if(GPS_MODE.equals(new Integer(Settings.Secure.LOCATION_MODE_OFF).toString())){
-            return false;
-        }
-        return true;
     }
 }

@@ -1,10 +1,10 @@
 package de.nulide.findmydevice;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
@@ -32,10 +32,10 @@ public class LockScreenMessage extends AppCompatActivity {
         IO.context = this;
         settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
         tvLockScreenMessage = findViewById(R.id.textViewLockScreenMessage);
-        if(bundle.containsKey(CUSTOM_TEXT)){
+        if (bundle.containsKey(CUSTOM_TEXT)) {
             tvLockScreenMessage.setText(bundle.getString(CUSTOM_TEXT));
-        }else {
-            tvLockScreenMessage.setText((String)settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
+        } else {
+            tvLockScreenMessage.setText((String) settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
         }
     }
 
@@ -50,7 +50,6 @@ public class LockScreenMessage extends AppCompatActivity {
         SMS.sendMessage(sender, "LockScreenMessage: Back-Button pressed.");
         finish();
     }
-
 
 
 }

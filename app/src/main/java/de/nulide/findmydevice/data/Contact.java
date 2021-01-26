@@ -32,9 +32,6 @@ public class Contact {
     }
 
     public boolean equals(@Nullable Contact toCheck) {
-        if(name.equals(toCheck.name) && number.equals(toCheck.number)){
-            return true;
-        }
-        return false;
+        return name.equals(toCheck.name) && number.equals(toCheck.number);
     }
 }

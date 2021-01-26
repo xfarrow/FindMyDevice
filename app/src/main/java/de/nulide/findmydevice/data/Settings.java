@@ -23,16 +23,16 @@ public class Settings extends HashMap<Integer, Object> {
     public Settings() {
     }
 
-    public <T> void set(int key, T value){
+    public <T> void set(int key, T value) {
         super.put(key, value);
         write();
     }
 
-    public Object get(int key){
-        if(super.containsKey(key)){
+    public Object get(int key) {
+        if (super.containsKey(key)) {
             return super.get(key);
-        }else{
-            switch (key){
+        } else {
+            switch (key) {
                 case SET_WIPE_ENABLED:
                 case SET_ACCESS_VIA_PIN:
                     return false;
@@ -46,20 +46,15 @@ public class Settings extends HashMap<Integer, Object> {
     }
 
 
-
-
     public boolean isIntroductionPassed() {
-        if(newestIntroductionVersion == (Integer)get(SET_INTRODUCTION_VERSION)){
-            return true;
-        }
-        return false;
+        return newestIntroductionVersion == (Integer) get(SET_INTRODUCTION_VERSION);
     }
 
-    public void setIntroductionPassed(){
+    public void setIntroductionPassed() {
         set(SET_INTRODUCTION_VERSION, newestIntroductionVersion);
     }
 
-    private void write(){
+    private void write() {
         if (afterChangeTimer != null) {
             afterChangeTimer.cancel();
         }
