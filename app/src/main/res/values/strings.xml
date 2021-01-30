@@ -4,20 +4,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="Introduction">FMD is an application that can help you find your phone when it gets lost.\nIt uses sms to communicate. You need to have a second device or a friend so you can track your phone. \nJust write a sms that contains the fmd command. \nStill Beta.\n\n  - Nulide</string>
-    <string name="UpdatePermission">There is an update for the permissions.\nPlease check the following permissions therefore.</string>
-    <string name="Permission_SMS">The communication with your lost phone will be via sms. So the application needs the Permission for this.\nThis Permission is needed.</string>
-    <string name="Permission_CONTACTS">Not everybody is allowed to contact your phone. So you need to select some contacts who than will be able to do so.\nThis permission is needed.</string>
-    <string name="Permission_GPS">If you want to locate the gps coordinates from the phone, the application needs this permission. \nPlease allow the application to locate you also in background.\nWhen this permission is not given, this functionality will not be activated.</string>
-    <string name="Permission_DND">You also can let the phone ring. When DoNotDisturb is activated, it may be possible that the phone is muted.\nIf you don\'t give this permission, functionality is not granted.</string>
-    <string name="Permission_DEVICE_ADMIN">If you want to lock the phone or delete it when it got lost. This permission is needed.\nWhen this permission is not given, this functionality will not be activated.</string>
-    <string name="Permission_WRITE_SECURE_SETTINGS">This application is capable of turning on GPS when it\'s off. \nIn order to achieve this, the application needs a special permission that you have to grant to it with a pc. \nIf you don\'t grant this permission, it\'s no problem. \nYou can still use this application.</string>
-    <string name="Permission_OVERLAY">When you remotely lock the device the application can show a message on the lockscrenn.\nThis permission helps showing this information.</string>
+    <string name="Introduction">FMD is an application that can help you find your phone when it gets lost.\nIt uses SMS (texting) to communicate. You need to have a second device or a friend so you can track your phone.\nJust write a SNS that contains the "fmd" command.\nStill in beta.\n\n - Nulide</string>
+    <string name="UpdatePermission">Some new permissions are needed.\nPlease check the following permissions in order to continue using this app, or change back to an older version of the app.</string>
+    <string name="Permission_SMS">In order to see when you tell the phone to do something, this app needs to be able to see your texts. Your texts never leave your device, and they are never used for anything except finding your phone.\nThis Permission is needed.</string>
+    <string name="Permission_CONTACTS">Not everybody is allowed to wipe or locate your phone, so you need to be able to select some contacts who will be able to locate your device.\nThis permission is needed.</string>
+    <string name="Permission_GPS">If you want to locate the gps coordinates from the phone, the application needs this permission. \nPlease also allow the application to locate you in the background.\nIf you don\'t give this permission, this functionality will not be activated.</string>
+    <string name="Permission_DND">You also can make the phone ring so that you can find it. When DoNotDisturb is activated, it may be possible that the phone is muted.\nIf you don\'t give this permission, this functionality will not be activated.</string>
+    <string name="Permission_DEVICE_ADMIN">If you want to lock or wipe your phone if it gets lost, this permission is needed.\nIf you don\'t give this permission, this functionality will not be activated.</string>
+    <string name="Permission_WRITE_SECURE_SETTINGS">This application is capable of turning on GPS if you normally leave GPS off.\nIn order to achieve this, the application needs a special permission that you have to grant to it with a computer.\nIf you don\'t grant this permission, it\'s no problem.\nYou can still use this application.</string>
+    <string name="Permission_OVERLAY">When you remotely lock your device, this application can show a message on the lockscreen for whoever finds your phone.\nIf you don\'t give this permission, this functionality will not be activated.</string>
     <string name="Give_Permission">Give Permission</string>
     <string name="Next">Next</string>
-    <string name="Locked_Lock_Screen">FindMyDevice\nThis Phone was locked!\nMessage from the Owner:</string>
+    <string name="Locked_Lock_Screen">FindMyDevice\nThis phone is locked!\nMessage from the owner:</string>
     <string name="About">About</string>
-    <string name="About_Text">Thanks for downloading the App.\nThere is still a lot to do. But i hope this app will help you when you get in the same situation i had. Loosing the phone is bad, but loosing it cause there are no privacy-friendly apps outside is even worse.\nContributions or Donations are welcome. Just go to the F-Droid Store and search for my App.\n\n - Nulide</string>
+    <string name="About_Text">Thanks for downloading this app!\nThere is still a lot to do, but I hope this app will help you if you find yourself in the same situation I had. Losing your phone is bad, but losing your phone because there are no privacy-friendly apps to help you find it is even worse.\nContributions and donations are welcome! Just go to F-Droid and search for my app.\n\n - Nulide</string>
     <string name="Used_APIs">Used APIs:\n</string>
     <string name="UsedApis_Content" translatable="false">com.fasterxml.jackson.core:jackson-databind:2.10.0\ncom.android.volley:volley:1.1.1\norg.mindrot:jbcrypt:0.4\nOpenCellID</string>
     <string name="Service" translatable="false">Service</string>
@@ -30,11 +30,11 @@
     <string name="Enable">Enable</string>
     <string name="SET_PIN_DESC">Pin:\nUsed as confirmation before wiping the device or for a temporary usage of the service.</string>
     <string name="SET_LOCKSCREEN_MESSAGE_DESC">Lock Screen Message:\nWhen locking the device, this message will appear on the lock screen.</string>
-    <string name="SET_COMMAND_DESC">The command that is beeing used for communication with fmd.</string>
-    <string name="SET_PERMISSION_DESC">The permissions needed for certain functionalities</string>
+    <string name="SET_COMMAND_DESC">The command used to communicate with FindMyDevice.</string>
+    <string name="SET_PERMISSION_DESC">The permissions needed for certain features</string>
     <string name="permission">Permissions</string>
     <string name="Add_Contact">Add Contact</string>
-    <string name="Enabled">enabled</string>
+    <string name="Enabled">Enabled</string>
     <string name="Disabled">Disabled</string>
     <string name="running">running</string>
     <string name="not_running">not running</string>
