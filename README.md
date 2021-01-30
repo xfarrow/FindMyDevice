@@ -16,6 +16,10 @@ But why the heck did nobody created an open source application to find a lost de
 
 If you like and want to support this project, spread the info about this application or donate.
 
+# Contributors
+
+John - [2br-2b](https://gitlab.com/2br-2b)
+
 # Donate
 
 <script src="https://liberapay.com/Nulide/widgets/button.js"></script>
