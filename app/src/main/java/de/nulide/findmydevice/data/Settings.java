@@ -25,7 +25,7 @@ public class Settings extends HashMap<Integer, Object> {
 
     public <T> void set(int key, T value) {
         super.put(key, value);
-        write();
+        write(false);
     }
 
     public Object get(int key) {
@@ -52,13 +52,19 @@ public class Settings extends HashMap<Integer, Object> {
 
     public void setIntroductionPassed() {
         set(SET_INTRODUCTION_VERSION, newestIntroductionVersion);
+        write(true);
     }
 
-    private void write() {
-        if (afterChangeTimer != null) {
-            afterChangeTimer.cancel();
+    private void write(boolean write_now) {
+        SaveTimerTask saverTask = new SaveTimerTask(this);
+        if (write_now) {
+            saverTask.write();
+        } else {
+            if (afterChangeTimer != null) {
+                afterChangeTimer.cancel();
+            }
         }
         afterChangeTimer = new Timer();
-        afterChangeTimer.schedule(new SaveTimerTask(this), 300);
+        afterChangeTimer.schedule(saverTask, 300);
     }
 }
