@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    private TextView textViewRunningService;
+    private TextView textViewFMDCommandName;
     private TextView textViewWhiteListCount;
     private TextView textViewCORE;
     private TextView textViewGPS;
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void reloadViews() {
-        textViewRunningService = findViewById(R.id.textViewServiceRunning);
+        textViewFMDCommandName = findViewById(R.id.textViewFMDCommandName);
         textViewWhiteListCount = findViewById(R.id.textViewWhiteListCount);
 
         listWhiteList = findViewById(R.id.list_whitelist);
@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void updateViews() {
+        textViewFMDCommandName.setText((String) settings.get(Settings.SET_FMD_COMMAND));
         textViewWhiteListCount.setText("" + whiteList.size());
         listWhiteListAdapter = new WhiteListViewAdapter(this, whiteList);
         listWhiteList.setAdapter(listWhiteListAdapter);
@@ -155,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             buttonHelp.setOnClickListener(this);
         }
 
-        textViewRunningService.setText("I think it's running");
         if (Permission.CORE) {
             textViewCORE.setText(getString(R.string.Enabled));
             textViewCORE.setTextColor(Color.GREEN);

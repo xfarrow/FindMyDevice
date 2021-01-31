@@ -14,21 +14,13 @@
 
 
             <TextView
+                android:id="@+id/textViewFMDCommandName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
                 android:text="@string/Service"
                 android:textSize="36sp" />
-
-            <TextView
-                android:id="@+id/textViewServiceRunning"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:gravity="center_horizontal"
-                android:text="-"
-                android:textSize="21sp" />
 
             <View
                 android:layout_width="match_parent"
