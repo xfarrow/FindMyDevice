@@ -81,6 +81,7 @@ public class SMSReceiver extends BroadcastReceiver {
                             }
                             if (!inWhitelist && MessageHandler.checkForPin(msgs[i].getMessageBody())) {
                                 SMS.sendMessage(receiver, context.getString(R.string.PinAccepted));
+                                Notifications.notify(context, "Pin", "The pin was used by the following number: "+receiver+"\nPlease change the Pin!", Notifications.CHANNEL_PIN);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, receiver);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, time.getTimeInMillis());
                                 MessageHandler.handle(receiver, msgs[i].getMessageBody(), context);
@@ -107,6 +108,7 @@ public class SMSReceiver extends BroadcastReceiver {
             cal.add(Calendar.MINUTE, -5);
             config.set(ConfigSMSRec.CONF_LAST_USAGE, cal.getTimeInMillis());
         }
+        Notifications.init(context);
         Permission.initValues(context);
         MessageHandler.init(settings);
     }

@@ -14,6 +14,7 @@ public class Notifications {
 
     public static final int CHANNEL_USAGE = 42;
     public static final int CHANNEL_LIFE = 43;
+    public static final int CHANNEL_PIN = 44;
 
 
     public static void notify(Context context, String title, String text, int channelID) {
@@ -32,9 +33,12 @@ public class Notifications {
             channel1.setDescription("Notification about the service usage.");
             NotificationChannel channel2 = new NotificationChannel(new Integer(CHANNEL_LIFE).toString(), "Lifecycle", NotificationManager.IMPORTANCE_DEFAULT);
             channel2.setDescription("Notification about the lifecycle of the service.");
+            NotificationChannel channel3 = new NotificationChannel(new Integer(CHANNEL_PIN).toString(), "Pin_Usage", NotificationManager.IMPORTANCE_DEFAULT);
+            channel2.setDescription("Notification about the usage of the pin.");
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel1);
             notificationManager.createNotificationChannel(channel2);
+            notificationManager.createNotificationChannel(channel3);
         }
     }
 
