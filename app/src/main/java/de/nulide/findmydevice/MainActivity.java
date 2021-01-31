@@ -266,6 +266,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if (!whiteList.checkForDuplicates(contact)) {
                                 whiteList.add(contact);
                                 updateViews();
+                                if(!(Boolean) settings.get(Settings.SET_FIRST_TIME_CONTACT_ADDED)){
+                                    new AlertDialog.Builder(this)
+                                            .setTitle("WhiteList")
+                                            .setMessage(this.getString(R.string.ALERT_FIRST_TIME_CONTACT_ADDED))
+                                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    settings.set(Settings.SET_FIRST_TIME_CONTACT_ADDED, true);
+                                                }
+                                            })
+                                            .setIcon(android.R.drawable.ic_dialog_info)
+                                            .show();
+                                }
                             } else {
                                 Toast toast = Toast.makeText(this, getString(R.string.TOAST_DUBLICATE_CONTACT), Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.CENTER, 0, 0);

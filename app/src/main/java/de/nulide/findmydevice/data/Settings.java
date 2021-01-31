@@ -17,7 +17,10 @@ public class Settings extends HashMap<Integer, Object> {
     public static final int SET_FMD_COMMAND = 4;
     public static final int SET_OPENCELLID_API_KEY = 5;
     public static final int SET_INTRODUCTION_VERSION = 6;
-    public static final int SET_FIRST_TIME_WHITELIST = 7;
+
+
+    public static final int SET_FIRST_TIME_WHITELIST = 301;
+    public static final int SET_FIRST_TIME_CONTACT_ADDED = 302;
 
 
     private Timer afterChangeTimer;
@@ -38,6 +41,7 @@ public class Settings extends HashMap<Integer, Object> {
                 case SET_WIPE_ENABLED:
                 case SET_ACCESS_VIA_PIN:
                 case SET_FIRST_TIME_WHITELIST:
+                case SET_FIRST_TIME_CONTACT_ADDED:
                     return false;
                 case SET_FMD_COMMAND:
                     return "fmd";
