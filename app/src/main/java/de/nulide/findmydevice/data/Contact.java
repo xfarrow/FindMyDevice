@@ -1,5 +1,7 @@
 package de.nulide.findmydevice.data;
 
+import android.telephony.PhoneNumberUtils;
+
 import androidx.annotation.Nullable;
 
 public class Contact {
@@ -32,6 +34,6 @@ public class Contact {
     }
 
     public boolean equals(@Nullable Contact toCheck) {
-        return name.equals(toCheck.name) && number.equals(toCheck.number);
+        return PhoneNumberUtils.compare(number, toCheck.number);
     }
 }

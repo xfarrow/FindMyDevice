@@ -17,6 +17,8 @@ public class Settings extends HashMap<Integer, Object> {
     public static final int SET_FMD_COMMAND = 4;
     public static final int SET_OPENCELLID_API_KEY = 5;
     public static final int SET_INTRODUCTION_VERSION = 6;
+    public static final int SET_FIRST_TIME_WHITELIST = 7;
+
 
     private Timer afterChangeTimer;
 

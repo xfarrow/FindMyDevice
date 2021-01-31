@@ -261,21 +261,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             phones.moveToFirst();
                             String cNumber = phones.getString(phones.getColumnIndex("data1"));
                             String cName = phones.getString(phones.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
-                            if (!cNumber.startsWith("+")) {
-                                Contact contact = new Contact(cName, cNumber);
-                                if (!whiteList.checkForDuplicates(contact)) {
-                                    whiteList.add(contact);
-                                    updateViews();
-                                } else {
-                                    Toast toast = Toast.makeText(this, getString(R.string.TOAST_DUBLICATE_CONTACT), Toast.LENGTH_LONG);
-                                    toast.setGravity(Gravity.CENTER, 0, 0);
-                                    toast.show();
-                                }
+                            Contact contact = new Contact(cName, cNumber);
+                            if (!whiteList.checkForDuplicates(contact)) {
+                                whiteList.add(contact);
+                                updateViews();
                             } else {
-                                Toast toast = Toast.makeText(this, getString(R.string.TOAST_LANDCODE_ERROR), Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(this, getString(R.string.TOAST_DUBLICATE_CONTACT), Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.CENTER, 0, 0);
                                 toast.show();
                             }
+
                         }
                     }
                 }

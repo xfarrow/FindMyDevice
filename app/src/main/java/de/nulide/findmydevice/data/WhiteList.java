@@ -24,7 +24,6 @@ public class WhiteList extends LinkedList<Contact> {
 
     @Override
     public boolean add(Contact c) {
-        c.setNumber(c.getNumber().replace(" ", ""));
         if (!checkForDuplicates(c)) {
             super.add(c);
             IO.write(this, IO.whiteListFileName);
@@ -33,7 +32,6 @@ public class WhiteList extends LinkedList<Contact> {
     }
 
     public boolean checkForDuplicates(Contact toCheck) {
-        toCheck.setNumber(toCheck.getNumber().replace(" ", ""));
         for (Contact contact : this) {
             if (contact.equals(toCheck)) {
                 return true;

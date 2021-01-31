@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsMessage;
 
 import java.util.Calendar;
@@ -58,10 +59,9 @@ public class SMSReceiver extends BroadcastReceiver {
                             msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
                         }
                         String receiver = msgs[i].getOriginatingAddress();
-                        receiver.replace(" ", "");
                         boolean inWhitelist = false;
                         for (int iwl = 0; iwl < whiteList.size(); iwl++) {
-                            if (receiver.equals(whiteList.get(iwl).getNumber())) {
+                            if (PhoneNumberUtils.compare(whiteList.get(iwl).getNumber(), receiver)) {
                                 MessageHandler.handle(msgs[i].getOriginatingAddress(), msgs[i].getMessageBody(), context);
                                 inWhitelist = true;
                             }
@@ -75,7 +75,7 @@ public class SMSReceiver extends BroadcastReceiver {
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
                                 tempContact = null;
                             }
-                            if (!inWhitelist && tempContact != null && tempContact.equals(receiver)) {
+                            if (!inWhitelist && tempContact != null && PhoneNumberUtils.compare(tempContact, receiver)) {
                                 MessageHandler.handle(receiver, msgs[i].getMessageBody(), context);
                                 inWhitelist = true;
                             }
