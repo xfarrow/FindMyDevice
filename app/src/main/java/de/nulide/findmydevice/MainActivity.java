@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             phones.moveToFirst();
                             String cNumber = phones.getString(phones.getColumnIndex("data1"));
                             String cName = phones.getString(phones.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
-                            if (!cNumber.startsWith("0")) {
+                            if (!cNumber.startsWith("+")) {
                                 Contact contact = new Contact(cName, cNumber);
                                 if (!whiteList.checkForDuplicates(contact)) {
                                     whiteList.add(contact);
