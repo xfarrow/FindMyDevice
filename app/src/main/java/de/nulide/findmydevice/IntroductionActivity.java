@@ -40,7 +40,6 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
         textViewInfoText = findViewById(R.id.textViewInfoText);
         buttonGivePermission = findViewById(R.id.buttonGivePermission);
         buttonGivePermission.setOnClickListener(this);
-        buttonGivePermission.setVisibility(View.INVISIBLE);
         buttonNext = findViewById(R.id.buttonNext);
         buttonNext.setOnClickListener(this);
         updateViews();
@@ -50,6 +49,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
     public void updateViews() {
         switch (position) {
             case 0:
+                buttonGivePermission.setText(getString(R.string.A_Help));
                 if ((Integer) settings.get(Settings.SET_INTRODUCTION_VERSION) > 0) {
                     textViewInfoText.setText(getString(R.string.UpdatePermission));
                 } else {
@@ -57,7 +57,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                 }
                 break;
             case 1:
-                buttonGivePermission.setVisibility(View.VISIBLE);
+                buttonGivePermission.setText(getString(R.string.Give_Permission));
                 textViewInfoText.setText(getString(R.string.Permission_SMS));
                 if (Permission.checkSMSPermission(this)) {
                     buttonNext.setEnabled(true);
@@ -142,7 +142,8 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
         if (v == buttonGivePermission) {
             switch (position) {
                 case 0:
-
+                    Intent helpIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://gitlab.com/Nulide/findmydevice/-/wikis/home"));
+                    startActivity(helpIntent);
                     break;
                 case 1:
                     Permission.requestSMSPermission(this);
