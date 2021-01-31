@@ -43,7 +43,7 @@ import de.nulide.findmydevice.utils.BCryptUtils;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener, TextWatcher {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener, TextWatcher, ViewPager.OnPageChangeListener {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MainPageViewAdapter mPageViewAdapter = new MainPageViewAdapter(this);
         viewPager.setAdapter(mPageViewAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.addOnPageChangeListener(this);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setText(getString(R.string.Tab_Info));
         tabLayout.getTabAt(1).setText(getString(R.string.TAB_Whitelist));
@@ -338,6 +339,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (edited == editTextOpenCellIdKey.getText()) {
             settings.set(Settings.SET_OPENCELLID_API_KEY, edited.toString());
         }
+
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if(position == 1){
+            if(!(Boolean)settings.get(Settings.SET_FIRST_TIME_WHITELIST)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("WhiteList")
+                        .setMessage(this.getString(R.string.ALERT_FIRST_TIME_WHITELIST))
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                settings.set(Settings.SET_FIRST_TIME_WHITELIST, true);
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .show();
+            }
+        }
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
     }
 }

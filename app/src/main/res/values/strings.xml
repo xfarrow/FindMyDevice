@@ -64,4 +64,5 @@
     <string name="SET_FMD_VIA_PIN_DESC">Allow to communicate with FMD via a pin. You will be added to a temporary Whitelist.</string>
     <string name="EnterPin">Enter Pin</string>
     <string name="PinAccepted">Pin accepted!</string>
+    <string name="ALERT_FIRST_TIME_WHITELIST">Here you can add your contacts to the whitelist. The contacts of this whitelist will be able to track your device when they write a sms wich contains \"fmd\".</string>
 </resources>

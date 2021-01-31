@@ -37,6 +37,7 @@ public class Settings extends HashMap<Integer, Object> {
             switch (key) {
                 case SET_WIPE_ENABLED:
                 case SET_ACCESS_VIA_PIN:
+                case SET_FIRST_TIME_WHITELIST:
                     return false;
                 case SET_FMD_COMMAND:
                     return "fmd";

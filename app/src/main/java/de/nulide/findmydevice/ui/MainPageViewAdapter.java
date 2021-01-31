@@ -1,10 +1,12 @@
 package de.nulide.findmydevice.ui;
 
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.viewpager.widget.PagerAdapter;
 
 import de.nulide.findmydevice.MainActivity;
