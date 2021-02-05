@@ -46,10 +46,10 @@
     <string name="Delete">Delete</string>
     <string name="Select_Action">Select an action:</string>
     <string name="TOAST_DUBLICATE_CONTACT">This contact already exists.</string>
-    <string name="MH_GPS_WILL_FOLLOW">GPS-Coordinates will be send soon.</string>
+    <string name="MH_GPS_WILL_FOLLOW">GPS-Coordinates will be sent soon.</string>
     <string name="MH_rings">rings</string>
     <string name="MH_Locked">locked</string>
-    <string name="MH_Stats">Network-Stats:\nIPs: \n</string>
+    <string name="MH_Stats">Network-Stats:\nIP's: \n</string>
     <string name="MH_Networks">\nAvailable Wifi-Networks:\n</string>
     <string name="MH_Delete">Goodbye...</string>
     <string name="MH_False_Pin">False Pin!</string>
