@@ -1,41 +1,14 @@
-The deleted parts in these notes are already done.
+v0.0.6
 
-My goal is to have the following functionality as a bare minimum.
+To-Do:
 
-- whitelist
-
-
-
-the other options i will create in the future.
-but these are essential.
-
-
-the first page will be the permission page.
-in there i will explain which permissions are needed and need to be granted, so that the app functions.
-Than after that. the user can set the whitelist, the code.
-
-I know that this is not a secure method, but this service is only in emergency.
-To get the location the hacker needs a device to simulate having another number.(knowing this number) + the specific code.
-If the device get located. the code will change and a notification will remind the user that he was tracked and by who.
-
-i think it is more secure than googles services. the user needs to remember the code. or write it down or give it to people he trusts.
-When they break his trust. the applicationw ill tell him so.
-
-also this application works also when no connection to a network exists.
-
-
-Design?
-
-the first page is a lot of text with buttons to accept the different permissions.
-than the main-page i think i will create tabs. (CODE/Contacts/Settings)
-The code page will also be the main page. I will show the current code there and also if all the permissions are granted, the service running, and how many contacts are on the whitelist.
-The contact page will contain the whiterlisted contacts and a button("+") to add more. the contacts can be deleted by swipe or by holding them.Will see what i like more.
-In settings, there will be options like: turning on/off whitelist, the StartMessage, and things like that.
-
-so i think that's it.
-
-
-Right now i am also searching my old smartphone the old way. Asking people/police/etc. and spreading flyers.
-I hope this applicationwill help the people that are privacy aware to have a possibility to find their smartphones and not losing a lot of money and not having a disadvantage cause they don't use google.
-If somebody want's to help me, donations are welcome, as it seems right now i need a new smartphone, for which i don't have the money ^^".
-If somebody wants to help developing, you are welcome. And also the users, write issues, test the application, tell me what works and what works not, what you wish, or when somebody develops a feature i cann add it.
+- FMD log (#6)
+- Show link to opeen map or somehow (#7)
+- fmd your_pin bug?
+- fmd delete bug
+- where are you -> locate
+- fmd ring stop-button
+- grammar = send -> sent
+		fmd stats IPs -> Ip's
+- API_KEY WIKI (#8)
+? New Settings?

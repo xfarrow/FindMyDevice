@@ -25,7 +25,7 @@ public class MessageHandler {
         String originalMsg = msg;
         msg = msg.toLowerCase();
         StringBuilder replyBuilder = new StringBuilder();
-        if (msg.startsWith(settings.get(Settings.SET_FMD_COMMAND) + " where are you") && Permission.GPS) {
+        if (msg.startsWith(settings.get(Settings.SET_FMD_COMMAND) + " locate") && Permission.GPS) {
             if (Permission.WRITE_SECURE_SETTINGS) {
                 if (!GPS.isGPSOn(context)) {
                     GPS.turnOnGPS(context);
