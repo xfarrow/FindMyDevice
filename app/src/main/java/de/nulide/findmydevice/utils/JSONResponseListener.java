@@ -24,7 +24,9 @@ public class JSONResponseListener implements Response.ErrorListener, Response.Li
     public void onResponse(JSONObject response) {
         if (response.has("lat") && response.has("lon")) {
             try {
-                SMS.sendMessage(sender, "OpenCellID-Location: " + response.getString("lat") + " " + response.getString("lon"));
+                String lat = response.getString("lat");
+                String lon = response.getString("lon");
+                SMS.sendMessage(sender, "OpenCellID-Location: " + lat + " " + lon+"\n\n" + Map.createMapLink(lat, lon));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

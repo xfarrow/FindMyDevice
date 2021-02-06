@@ -53,10 +53,10 @@ public class GPS implements LocationListener {
         if (currentBestLocation == null) {
             currentBestLocation = location;
         }
-        String Provider = getLastBestLocation().getProvider();
-        String Latitude = getLastBestLocation().getLatitude() + "";
-        String Longitude = getLastBestLocation().getLongitude() + "";
-        SMS.sendMessage(sender, Provider + ": " + Latitude + " " + Longitude);
+        String provider = getLastBestLocation().getProvider();
+        String lat = new Double(getLastBestLocation().getLatitude()).toString();
+        String lon = new Double(getLastBestLocation().getLongitude()).toString();
+        SMS.sendMessage(sender, provider + ": " + lat + " " + lon + "\n\n" + Map.createMapLink(lat, lon));
     }
 
     @Override
