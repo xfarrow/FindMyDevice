@@ -38,9 +38,11 @@ import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.ui.IntroductionActivity;
+import de.nulide.findmydevice.ui.LogActivity;
 import de.nulide.findmydevice.ui.helper.MainPageViewAdapter;
 import de.nulide.findmydevice.ui.helper.WhiteListViewAdapter;
 import de.nulide.findmydevice.utils.BCryptUtils;
+import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
 
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextFmdCommand;
     private EditText editTextOpenCellIdKey;
     private Button buttonPermission;
+    private Button buttonLog;
 
     private WhiteList whiteList;
     private Settings settings;
@@ -82,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         IO.context = this;
+        Logger.init(Thread.currentThread());
         Notifications.init(this);
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
         settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
@@ -121,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextFmdCommand = findViewById(R.id.editTextFmdCommand);
         editTextOpenCellIdKey = findViewById(R.id.editTextOpenCellIDAPIKey);
         buttonPermission = findViewById(R.id.buttonPermissions);
+        buttonLog = findViewById(R.id.buttonLog);
 
         textViewCORE = findViewById(R.id.textViewCORE);
         textViewGPS = findViewById(R.id.textViewGPS);
@@ -152,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextOpenCellIdKey.setText((String) settings.get(Settings.SET_OPENCELLID_API_KEY));
         editTextOpenCellIdKey.addTextChangedListener(this);
         buttonPermission.setOnClickListener(this);
+        buttonLog.setOnClickListener(this);
 
         if (buttonHelp != null) {
             buttonHelp.setOnClickListener(this);
@@ -230,6 +236,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
             alert.show();
+        }else if(v == buttonLog){
+            Intent logActivity = new Intent(this, LogActivity.class);
+            startActivity(logActivity);
         }
     }
 

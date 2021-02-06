@@ -167,6 +167,24 @@
                 android:padding="2mm"
                 android:text="@string/permission" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="@string/S_LOG_TITLE" />
+
+            <Button
+                android:id="@+id/buttonLog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2mm"
+                android:text="@string/S_LOG_BUTTON" />
+
         </LinearLayout>
 
     </ScrollView>

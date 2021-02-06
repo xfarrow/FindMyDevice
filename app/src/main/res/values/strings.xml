@@ -67,4 +67,6 @@
     <string name="ALERT_FIRST_TIME_WHITELIST">Here you can add your contacts to the whitelist. The contacts of this whitelist will be able to track your device when they write a sms wich contains \"fmd\".</string>
     <string name="ALERT_FIRST_TIME_CONTACT_ADDED">Congratulations. You have added your first contact. You can now comunicate with fmd by sending a sms that contains \"fmd\" from the whitelisted phonenumber. When everything works, the application will respond.</string>
     <string name="R_STOP_RING">STOP RINGING</string>
+    <string name="S_LOG_TITLE">Log</string>
+    <string name="S_LOG_BUTTON">Show Log</string>
 </resources>
