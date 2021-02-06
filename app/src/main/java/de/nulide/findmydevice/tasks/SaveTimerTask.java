@@ -1,4 +1,4 @@
-package de.nulide.findmydevice.utils;
+package de.nulide.findmydevice.tasks;
 
 import java.util.TimerTask;
 

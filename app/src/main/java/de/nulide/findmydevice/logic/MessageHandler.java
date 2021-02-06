@@ -1,4 +1,4 @@
-package de.nulide.findmydevice.utils;
+package de.nulide.findmydevice.logic;
 
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
@@ -8,9 +8,17 @@ import android.net.wifi.ScanResult;
 import java.util.Iterator;
 import java.util.Map;
 
-import de.nulide.findmydevice.LockScreenMessage;
+import de.nulide.findmydevice.ui.LockScreenMessage;
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.utils.BCryptUtils;
+import de.nulide.findmydevice.utils.GPS;
+import de.nulide.findmydevice.utils.Logger;
+import de.nulide.findmydevice.utils.Network;
+import de.nulide.findmydevice.utils.Notifications;
+import de.nulide.findmydevice.utils.Permission;
+import de.nulide.findmydevice.utils.Ringer;
+import de.nulide.findmydevice.utils.SMS;
 
 public class MessageHandler {
 

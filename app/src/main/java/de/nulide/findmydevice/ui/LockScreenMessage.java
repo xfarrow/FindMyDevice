@@ -1,4 +1,4 @@
-package de.nulide.findmydevice;
+package de.nulide.findmydevice.ui;
 
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;

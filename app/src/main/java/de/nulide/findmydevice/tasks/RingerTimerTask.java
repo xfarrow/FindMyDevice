@@ -1,11 +1,11 @@
-package de.nulide.findmydevice.utils;
+package de.nulide.findmydevice.tasks;
 
 import android.media.Ringtone;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import de.nulide.findmydevice.RingerActivity;
+import de.nulide.findmydevice.ui.RingerActivity;
 
 public class RingerTimerTask extends TimerTask {
 

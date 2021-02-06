@@ -1,4 +1,4 @@
-package de.nulide.findmydevice;
+package de.nulide.findmydevice.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,9 @@ import android.widget.Button;
 
 import java.util.Timer;
 
+import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.utils.Ringer;
-import de.nulide.findmydevice.utils.RingerTimerTask;
+import de.nulide.findmydevice.tasks.RingerTimerTask;
 
 public class RingerActivity extends AppCompatActivity implements View.OnClickListener {
 

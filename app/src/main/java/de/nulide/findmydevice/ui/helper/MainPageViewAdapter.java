@@ -1,4 +1,4 @@
-package de.nulide.findmydevice.ui;
+package de.nulide.findmydevice.ui.helper;
 
 import android.content.DialogInterface;
 import android.view.LayoutInflater;

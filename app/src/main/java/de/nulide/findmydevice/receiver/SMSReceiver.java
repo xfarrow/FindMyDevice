@@ -20,7 +20,7 @@ import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.utils.Logger;
-import de.nulide.findmydevice.utils.MessageHandler;
+import de.nulide.findmydevice.logic.MessageHandler;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
 import de.nulide.findmydevice.utils.SMS;

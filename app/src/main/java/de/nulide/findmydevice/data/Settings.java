@@ -4,7 +4,7 @@ package de.nulide.findmydevice.data;
 import java.util.HashMap;
 import java.util.Timer;
 
-import de.nulide.findmydevice.utils.SaveTimerTask;
+import de.nulide.findmydevice.tasks.SaveTimerTask;
 
 public class Settings extends HashMap<Integer, Object> {
 

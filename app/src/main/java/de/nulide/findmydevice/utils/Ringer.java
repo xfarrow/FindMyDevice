@@ -9,7 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 
-import de.nulide.findmydevice.RingerActivity;
+import de.nulide.findmydevice.ui.RingerActivity;
 
 public class Ringer {
 
