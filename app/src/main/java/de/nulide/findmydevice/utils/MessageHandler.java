@@ -97,6 +97,7 @@ public class MessageHandler {
 
         String reply = replyBuilder.toString();
         if (!reply.isEmpty()) {
+            Logger.log("Command used", msg);
             counter++;
             Notifications.notify(context, "SMS-Receiver", "New Usage " + counter, Notifications.CHANNEL_USAGE);
             SMS.sendMessage(sender, reply);

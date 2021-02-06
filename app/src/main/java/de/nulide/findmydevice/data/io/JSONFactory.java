@@ -2,22 +2,23 @@ package de.nulide.findmydevice.data.io;
 
 import de.nulide.findmydevice.data.ConfigSMSRec;
 import de.nulide.findmydevice.data.Contact;
+import de.nulide.findmydevice.data.LogData;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.json.JSONContact;
-import de.nulide.findmydevice.data.io.json.JSONSettings;
+import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 
 public class JSONFactory {
 
-    public static Settings convertJSONSettings(JSONSettings jsonSettings) {
+    public static Settings convertJSONSettings(JSONMap jsonSettings) {
         Settings settings = new Settings();
         settings.putAll(jsonSettings);
         return settings;
     }
 
-    public static JSONSettings convertSettings(Settings settings) {
-        JSONSettings jsonSettings = new JSONSettings();
+    public static JSONMap convertSettings(Settings settings) {
+        JSONMap jsonSettings = new JSONMap();
         jsonSettings.putAll(settings);
         return jsonSettings;
     }
@@ -49,14 +50,26 @@ public class JSONFactory {
         return jsonWhiteList;
     }
 
-    public static ConfigSMSRec convertJSONConfig(JSONSettings jsonSettings) {
+    public static ConfigSMSRec convertJSONConfig(JSONMap jsonSettings) {
         ConfigSMSRec temp = new ConfigSMSRec();
         temp.putAll(jsonSettings);
         return temp;
     }
 
-    public static JSONSettings convertTempConfigSMSRec(ConfigSMSRec configSMSRec) {
-        JSONSettings jsonSettings = new JSONSettings();
+    public static JSONMap convertTempConfigSMSRec(ConfigSMSRec configSMSRec) {
+        JSONMap jsonSettings = new JSONMap();
+        jsonSettings.putAll(configSMSRec);
+        return jsonSettings;
+    }
+
+    public static LogData convertJSONLog(JSONMap jsonSettings) {
+        LogData temp = new LogData();
+        temp.putAll(jsonSettings);
+        return temp;
+    }
+
+    public static JSONMap convertLogData(LogData configSMSRec) {
+        JSONMap jsonSettings = new JSONMap();
         jsonSettings.putAll(configSMSRec);
         return jsonSettings;
     }

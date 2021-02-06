@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
-import de.nulide.findmydevice.data.io.json.JSONSettings;
+import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.utils.SMS;
 
 public class LockScreenMessage extends AppCompatActivity {
@@ -30,7 +30,7 @@ public class LockScreenMessage extends AppCompatActivity {
         sender = bundle.getString(SENDER);
         Settings settings;
         IO.context = this;
-        settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
+        settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         tvLockScreenMessage = findViewById(R.id.textViewLockScreenMessage);
         if (bundle.containsKey(CUSTOM_TEXT)) {
             tvLockScreenMessage.setText(bundle.getString(CUSTOM_TEXT));

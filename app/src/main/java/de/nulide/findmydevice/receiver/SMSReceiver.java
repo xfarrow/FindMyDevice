@@ -17,8 +17,9 @@ import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
-import de.nulide.findmydevice.data.io.json.JSONSettings;
+import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
+import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.MessageHandler;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
@@ -62,6 +63,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         boolean inWhitelist = false;
                         for (int iwl = 0; iwl < whiteList.size(); iwl++) {
                             if (PhoneNumberUtils.compare(whiteList.get(iwl).getNumber(), receiver)) {
+                                Logger.log("Usage", receiver + " used FMD");
                                 MessageHandler.handle(msgs[i].getOriginatingAddress(), msgs[i].getMessageBody(), context);
                                 inWhitelist = true;
                             }
@@ -70,16 +72,19 @@ public class SMSReceiver extends BroadcastReceiver {
                             String tempContact = (String) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT);
                             Long tempContactActiveSince = (Long) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE);
                             if (tempContactActiveSince != null && tempContactActiveSince + (5 * 60 * 1000) < time.getTimeInMillis()) {
+                                Logger.log("Session expired", receiver);
                                 SMS.sendMessage(tempContact, "FindMyDevive: Pin expired!");
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
                                 tempContact = null;
                             }
                             if (!inWhitelist && tempContact != null && PhoneNumberUtils.compare(tempContact, receiver)) {
+                                Logger.log("Usage", receiver + " used FMD");
                                 MessageHandler.handle(receiver, msgs[i].getMessageBody(), context);
                                 inWhitelist = true;
                             }
                             if (!inWhitelist && MessageHandler.checkForPin(msgs[i].getMessageBody())) {
+                                Logger.log("Usage", receiver + " used the Pin");
                                 SMS.sendMessage(receiver, context.getString(R.string.PinAccepted));
                                 Notifications.notify(context, "Pin", "The pin was used by the following number: "+receiver+"\nPlease change the Pin!", Notifications.CHANNEL_PIN);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, receiver);
@@ -95,19 +100,21 @@ public class SMSReceiver extends BroadcastReceiver {
             }
         } else if (intent.getAction().equals(BOOT_COMPLETED)) {
             Notifications.notify(context, "AfterBootTest", "Receiver is working", Notifications.CHANNEL_LIFE);
+            Logger.log("AfterBootTest", "passed");
         }
     }
 
     private void init(Context context) {
         IO.context = context;
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
-        settings = JSONFactory.convertJSONSettings(IO.read(JSONSettings.class, IO.settingsFileName));
-        config = JSONFactory.convertJSONConfig(IO.read(JSONSettings.class, IO.SMSReceiverTempData));
+        settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        config = JSONFactory.convertJSONConfig(IO.read(JSONMap.class, IO.SMSReceiverTempData));
         if (config.get(ConfigSMSRec.CONF_LAST_USAGE) == null) {
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.MINUTE, -5);
             config.set(ConfigSMSRec.CONF_LAST_USAGE, cal.getTimeInMillis());
         }
+        Logger.init();
         Notifications.init(context);
         Permission.initValues(context);
         MessageHandler.init(settings);
