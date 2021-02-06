@@ -37,7 +37,7 @@
     <string name="MH_Help_Stats">" stats - sendet Netzwerk-Informtionen"</string>
     <string name="MH_Help_Lock">" lock - Sperrt das Gerät"</string>
     <string name="MH_Help_ring">" ring - lässt das Handy klingeln"</string>
-    <string name="MH_Help_where">" where are you - sendet den derzeitigen Standort des Handys"</string>
+    <string name="MH_Help_where">" locate - sendet den derzeitigen Standort des Handys"</string>
     <string name="MH_Title_Help">FindMyDevice Kommandos:</string>
     <string name="MH_False_Pin">Falscher Pin!</string>
     <string name="MH_Delete">Tschüss</string>

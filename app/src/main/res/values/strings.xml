@@ -55,7 +55,7 @@
     <string name="MH_False_Pin">False Pin!</string>
     <string name="MH_Syntax">Syntax:</string>
     <string name="MH_Title_Help">FindMyDevice Commands:</string>
-    <string name="MH_Help_where">" where are you - sends the current location"</string>
+    <string name="MH_Help_where">" locate - sends the current location"</string>
     <string name="MH_Help_ring">" ring - lets the phone ring"</string>
     <string name="MH_Help_Lock">" lock - locks the  phone"</string>
     <string name="MH_Help_Stats">" stats - sends device informtions"</string>
