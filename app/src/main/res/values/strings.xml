@@ -49,7 +49,7 @@
     <string name="MH_GPS_WILL_FOLLOW">GPS-Coordinates will be sent soon.</string>
     <string name="MH_rings">rings</string>
     <string name="MH_Locked">locked</string>
-    <string name="MH_Stats">Network-Stats:\nIP's: \n</string>
+    <string name="MH_Stats">Network-Stats:\nIP\'s: \n</string>
     <string name="MH_Networks">\nAvailable Wifi-Networks:\n</string>
     <string name="MH_Delete">Goodbye...</string>
     <string name="MH_False_Pin">False Pin!</string>
@@ -66,4 +66,5 @@
     <string name="PinAccepted">Pin accepted!</string>
     <string name="ALERT_FIRST_TIME_WHITELIST">Here you can add your contacts to the whitelist. The contacts of this whitelist will be able to track your device when they write a sms wich contains \"fmd\".</string>
     <string name="ALERT_FIRST_TIME_CONTACT_ADDED">Congratulations. You have added your first contact. You can now comunicate with fmd by sending a sms that contains \"fmd\" from the whitelisted phonenumber. When everything works, the application will respond.</string>
+    <string name="R_STOP_RING">STOP RINGING</string>
 </resources>
