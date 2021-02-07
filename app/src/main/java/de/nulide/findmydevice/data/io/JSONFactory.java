@@ -13,7 +13,9 @@ public class JSONFactory {
 
     public static Settings convertJSONSettings(JSONMap jsonSettings) {
         Settings settings = new Settings();
-        settings.putAll(jsonSettings);
+        if(jsonSettings != null) {
+            settings.putAll(jsonSettings);
+        }
         return settings;
     }
 
@@ -36,8 +38,10 @@ public class JSONFactory {
 
     public static WhiteList convertJSONWhiteList(JSONWhiteList jsonWhiteList) {
         WhiteList whiteList = new WhiteList();
-        for (JSONContact jsonContact : jsonWhiteList) {
-            whiteList.superAdd(convertJSONContact(jsonContact));
+        if(jsonWhiteList != null) {
+            for (JSONContact jsonContact : jsonWhiteList) {
+                whiteList.superAdd(convertJSONContact(jsonContact));
+            }
         }
         return whiteList;
     }
@@ -52,7 +56,9 @@ public class JSONFactory {
 
     public static ConfigSMSRec convertJSONConfig(JSONMap jsonSettings) {
         ConfigSMSRec temp = new ConfigSMSRec();
-        temp.putAll(jsonSettings);
+        if(jsonSettings != null) {
+            temp.putAll(jsonSettings);
+        }
         return temp;
     }
 
@@ -64,7 +70,9 @@ public class JSONFactory {
 
     public static LogData convertJSONLog(JSONMap jsonSettings) {
         LogData temp = new LogData();
-        temp.putAll(jsonSettings);
+        if(jsonSettings != null) {
+            temp.putAll(jsonSettings);
+        }
         return temp;
     }
 

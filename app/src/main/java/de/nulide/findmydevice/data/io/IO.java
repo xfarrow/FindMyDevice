@@ -39,32 +39,34 @@ public class IO {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         File file = new File(context.getFilesDir(), fileName);
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            StringBuilder json = new StringBuilder();
+        if(file.exists()) {
             try {
-                String line;
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                StringBuilder json = new StringBuilder();
+                try {
+                    String line;
 
-                while ((line = br.readLine()) != null) {
-                    json.append(line);
-                    json.append('\n');
+                    while ((line = br.readLine()) != null) {
+                        json.append(line);
+                        json.append('\n');
+                    }
+                    br.close();
+                    T obj = mapper.readValue(json.toString(), type);
+                    return obj;
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                br.close();
-                T obj = mapper.readValue(json.toString(), type);
-                return obj;
-            } catch (IOException e) {
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            return type.newInstance();
+            try {
+                return type.newInstance();
 
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
