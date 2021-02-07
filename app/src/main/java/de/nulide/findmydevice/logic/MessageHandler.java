@@ -43,14 +43,18 @@ public class MessageHandler {
             originalMsg = originalMsg.substring(((String) settings.get(Settings.SET_FMD_COMMAND)).length()+1, msg.length());
             msg = msg.substring(((String) settings.get(Settings.SET_FMD_COMMAND)).length()+1, msg.length());
             if (msg.startsWith(COM_LOCATE) && Permission.GPS) {
-                if (Permission.WRITE_SECURE_SETTINGS) {
-                    if (!GPS.isGPSOn(context)) {
+                if (!GPS.isGPSOn(context)) {
+                    if (Permission.WRITE_SECURE_SETTINGS) {
                         GPS.turnOnGPS(context);
+                    }else{
+                        replyBuilder.append(context.getString(R.string.MH_NO_GPS));
                     }
                 }
-                replyBuilder.append(context.getString(R.string.MH_GPS_WILL_FOLLOW));
-                GPS gps = new GPS(context, sender);
-                gps.sendGSMCellLocation(settings);
+                if(GPS.isGPSOn(context)){
+                    replyBuilder.append(context.getString(R.string.MH_GPS_WILL_FOLLOW));
+                    GPS gps = new GPS(context, sender);
+                    gps.sendGSMCellLocation(settings);
+                }
             } else if (msg.startsWith(COM_RING)) {
                 replyBuilder.append(context.getString(R.string.MH_rings));
                 if (msg.contains("long")) {

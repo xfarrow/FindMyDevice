@@ -71,4 +71,5 @@
     <string name="S_LOG_BUTTON">Show Log</string>
     <string name="L_EXPORT">Export Log</string>
     <string name="CRASH_SEND_LOG">Send Log</string>
+    <string name="MH_NO_GPS">Sorry, location is turned off.</string>
 </resources>
