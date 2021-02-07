@@ -1,26 +1,21 @@
 package de.nulide.findmydevice.utils;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Calendar;
 
-import de.nulide.findmydevice.CrashedActivity;
+import de.nulide.findmydevice.ui.CrashedActivity;
 import de.nulide.findmydevice.data.LogData;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
-import de.nulide.findmydevice.ui.IntroductionActivity;
 
 public class Logger implements Thread.UncaughtExceptionHandler{
 

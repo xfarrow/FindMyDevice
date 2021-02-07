@@ -2,7 +2,25 @@ v0.0.6
 
 To-Do:
 
-- FMD log (#6) _ Better
-- API_KEY WIKI (#8)
-? New Settings?
+- overall improvements
 - No location possible - text
+
+v0.0.7
+
+UI-Improvements:
+	- new settings
+	- nicer log
+	
+	
+	
+v1.0.0
+
+- Stable
+
+
+v2.0.0
+
+- FMD over Network
+	E-Mail?
+	Server/Client?
+	...?

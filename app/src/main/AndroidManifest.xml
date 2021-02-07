@@ -27,7 +27,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:process=":bug_report" android:name=".CrashedActivity"></activity>
+        <activity android:process=":bug_report" android:name=".ui.CrashedActivity"></activity>
         <activity
             android:name=".ui.LogActivity"
             android:label="LOG" />

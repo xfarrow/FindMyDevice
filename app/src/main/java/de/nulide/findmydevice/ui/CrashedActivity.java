@@ -1,4 +1,4 @@
-package de.nulide.findmydevice;
+package de.nulide.findmydevice.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import de.nulide.findmydevice.R;
 
 public class CrashedActivity extends AppCompatActivity implements View.OnClickListener {
 

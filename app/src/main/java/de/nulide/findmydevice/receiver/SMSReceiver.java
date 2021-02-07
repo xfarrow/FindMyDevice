@@ -106,6 +106,7 @@ public class SMSReceiver extends BroadcastReceiver {
 
     private void init(Context context) {
         IO.context = context;
+        Logger.init(Thread.currentThread(), context);
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
         settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         config = JSONFactory.convertJSONConfig(IO.read(JSONMap.class, IO.SMSReceiverTempData));
@@ -114,7 +115,6 @@ public class SMSReceiver extends BroadcastReceiver {
             cal.add(Calendar.MINUTE, -5);
             config.set(ConfigSMSRec.CONF_LAST_USAGE, cal.getTimeInMillis());
         }
-        Logger.init(Thread.currentThread(), context);
         Notifications.init(context);
         Permission.initValues(context);
         MessageHandler.init(settings);
