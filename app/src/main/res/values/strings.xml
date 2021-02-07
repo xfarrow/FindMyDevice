@@ -69,4 +69,6 @@
     <string name="R_STOP_RING">STOP RINGING</string>
     <string name="S_LOG_TITLE">Log</string>
     <string name="S_LOG_BUTTON">Show Log</string>
+    <string name="L_EXPORT">Export Log</string>
+    <string name="CRASH_SEND_LOG">Send Log</string>
 </resources>

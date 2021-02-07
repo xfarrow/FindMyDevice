@@ -114,7 +114,7 @@ public class SMSReceiver extends BroadcastReceiver {
             cal.add(Calendar.MINUTE, -5);
             config.set(ConfigSMSRec.CONF_LAST_USAGE, cal.getTimeInMillis());
         }
-        Logger.init(Thread.currentThread());
+        Logger.init(Thread.currentThread(), context);
         Notifications.init(context);
         Permission.initValues(context);
         MessageHandler.init(settings);
