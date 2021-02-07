@@ -47,4 +47,16 @@
     <string name="MH_rings">klingelt</string>
     <string name="MH_GPS_WILL_FOLLOW">GPS-Koordinaten werden demnächst versendet.</string>
     <string name="TOAST_DUBLICATE_CONTACT">Dieser Kontakt existiert bereits.</string>
+    <string name="MH_Syntax">Syntax:</string>
+    <string name="EnterPin">Pin eingeben</string>
+    <string name="PinAccepted">Pin akzeptiert!</string>
+    <string name="R_STOP_RING">STOPP</string>
+    <string name="MH_NO_GPS">Ortung ist ausgeschaltet.</string>
+    <string name="CRASH_SEND_LOG">Log senden</string>
+    <string name="L_EXPORT">Log exportieren</string>
+    <string name="S_LOG_BUTTON">Log anzeigen</string>
+    <string name="S_LOG_TITLE">Log</string>
+    <string name="ALERT_FIRST_TIME_CONTACT_ADDED">Gratulation. Sie haben ihren ersten Kontakt der WhiteList hinzugefügt. Dieser kann nun über SMS mit FMD kommunizieren.</string>
+    <string name="ALERT_FIRST_TIME_WHITELIST">Hier können sie Kontakte hinzufügen welche mit FMD kommunizieren sollen.</string>
+    <string name="SET_FMD_VIA_PIN_DESC">Erlaube die benutzung von FMD über einen Pin. Der Kontakt wird einer temporären Whitelist hinzugefügt.</string>
 </resources>
