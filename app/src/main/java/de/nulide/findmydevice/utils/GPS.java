@@ -5,6 +5,7 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
@@ -41,8 +42,16 @@ public class GPS implements LocationListener {
     }
 
     public static boolean isGPSOn(Context context) {
-        String GPS_MODE = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
-        return !GPS_MODE.equals(new Integer(Settings.Secure.LOCATION_MODE_OFF).toString());
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            return lm.isLocationEnabled();
+        }
+        for(String provider : lm.getAllProviders()){
+            if(lm.isProviderEnabled(provider)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
