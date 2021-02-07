@@ -19,7 +19,7 @@
     <string name="About">About</string>
     <string name="About_Text">Thanks for downloading this app!\nThere is still a lot to do, but I hope this app will help you if you find yourself in the same situation I had. Losing your phone is bad, but losing your phone because there are no privacy-friendly apps to help you find it is even worse.\nContributions and donations are welcome! Just go to F-Droid and search for my app.\n\n - Nulide</string>
     <string name="Used_APIs">Used APIs:\n</string>
-    <string name="UsedApis_Content" translatable="false">com.fasterxml.jackson.core:jackson-databind:2.10.0\ncom.android.volley:volley:1.1.1\norg.mindrot:jbcrypt:0.4\nOpenCellID</string>
+    <string name="UsedApis_Content" translatable="false">com.fasterxml.jackson.core:jackson-databind:2.10.0\ncom.android.volley:volley:1.1.1\norg.mindrot:jbcrypt:0.4\nOpenCellID\nOpenStreetMap</string>
     <string name="Service" translatable="false">FMD</string>
     <string name="CORE" translatable="false">CORE:</string>
     <string name="GPS" translatable="false">GPS:</string>
