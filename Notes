@@ -1,15 +1,17 @@
-v0.0.6
-
-To-Do:
-
-- overall improvements
-
 v0.0.7
 
 UI-Improvements:
 	- new settings
 	- nicer log
 	
+
+v0.0.x
+
+Feature:
+	Mac_Adress identifier:
+		Combine Location and Mac_Adress
+
+	Bluetooth detector
 	
 
 v1.0.0
