@@ -11,15 +11,17 @@ UI-Improvements:
 	- nicer log
 	
 	
-	
+
 v1.0.0
 
 - Stable
 
 
-v2.0.0
+vx.x.x
 
 - FMD over Network
 	E-Mail?
 	Server/Client?
 	...?
+	
+- FMD FRP

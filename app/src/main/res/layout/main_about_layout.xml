@@ -37,7 +37,35 @@
                 android:text="@string/A_Help" />
 
             <View
-                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="@string/ABOUT_VERSION"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textViewFMDVersion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_margin="5dp"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:gravity="center_horizontal" />
+
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />

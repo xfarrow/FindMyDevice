@@ -3,6 +3,8 @@ package de.nulide.findmydevice;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -60,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewWriteSecureSettings;
     private TextView textViewOverlay;
 
+    private TextView textViewFMDVersion;
     private Button buttonHelp;
-
 
     private ListView listWhiteList;
     private WhiteListViewAdapter listWhiteListAdapter;
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextOpenCellIdKey;
     private Button buttonPermission;
     private Button buttonLog;
+
 
     private WhiteList whiteList;
     private Settings settings;
@@ -134,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewWriteSecureSettings = findViewById(R.id.textViewWriteSecureSettings);
         textViewOverlay = findViewById(R.id.textViewOverlay);
 
+        textViewFMDVersion = findViewById(R.id.textViewFMDVersion);
         buttonHelp = findViewById(R.id.buttonHelp);
     }
 
@@ -160,6 +164,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonLog.setOnClickListener(this);
 
         if (buttonHelp != null) {
+            PackageManager manager = getPackageManager();
+            PackageInfo info = null;
+            try {
+                info = manager.getPackageInfo(
+                        getPackageName(), 0);
+                textViewFMDVersion.setText(info.versionName);
+
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
             buttonHelp.setOnClickListener(this);
         }
 
