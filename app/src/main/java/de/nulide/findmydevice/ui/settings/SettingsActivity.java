@@ -60,6 +60,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
             case 3:
                 settingIntent = new Intent(this, IntroductionActivity.class);
+                settingIntent.putExtra(IntroductionActivity.POS_KEY, 1);
                 break;
 
             case 4:

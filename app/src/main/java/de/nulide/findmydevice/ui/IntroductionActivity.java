@@ -22,11 +22,15 @@ import de.nulide.findmydevice.utils.Permission;
 public class IntroductionActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static String POS_KEY = "pos";
+
     private TextView textViewInfoText;
     private Button buttonNext;
     private Button buttonGivePermission;
     private int position = 0;
     private Settings settings;
+
+    private int colorEnabled;
+    private int colorDisabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,15 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
         buttonGivePermission.setOnClickListener(this);
         buttonNext = findViewById(R.id.buttonNext);
         buttonNext.setOnClickListener(this);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            colorEnabled = getColor(R.color.colorEnabled);
+            colorDisabled = getColor(R.color.colorDisabled);
+        }else {
+            colorEnabled = getResources().getColor(R.color.colorEnabled);
+            colorDisabled = getResources().getColor(R.color.colorDisabled);
+        }
+
         updateViews();
 
     }
@@ -63,37 +76,37 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                 textViewInfoText.setText(getString(R.string.Permission_SMS));
                 if (Permission.checkSMSPermission(this)) {
                     buttonNext.setEnabled(true);
-                    buttonGivePermission.setTextColor(Color.GREEN);
+                    buttonGivePermission.setBackgroundColor(colorEnabled);
                 } else {
                     buttonNext.setEnabled(false);
-                    buttonGivePermission.setTextColor(Color.RED);
+                    buttonGivePermission.setBackgroundColor(colorDisabled);
                 }
                 break;
             case 2:
                 textViewInfoText.setText(getString(R.string.Permission_CONTACTS));
                 if (Permission.checkContactsPermission(this)) {
                     buttonNext.setEnabled(true);
-                    buttonGivePermission.setTextColor(Color.GREEN);
+                    buttonGivePermission.setBackgroundColor(colorEnabled);
                 } else {
                     buttonNext.setEnabled(false);
-                    buttonGivePermission.setTextColor(Color.RED);
+                    buttonGivePermission.setBackgroundColor(colorDisabled);
                 }
                 break;
             case 3:
                 textViewInfoText.setText(getString(R.string.Permission_GPS));
                 if (Permission.checkGPSPermission(this)) {
-                    buttonGivePermission.setTextColor(Color.GREEN);
+                    buttonGivePermission.setBackgroundColor(colorEnabled);
                 } else {
-                    buttonGivePermission.setTextColor(Color.RED);
+                    buttonGivePermission.setBackgroundColor(colorDisabled);
                 }
                 break;
             case 4:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     textViewInfoText.setText(getString(R.string.Permission_DND));
                     if (Permission.checkDNDPermission(this)) {
-                        buttonGivePermission.setTextColor(Color.GREEN);
+                        buttonGivePermission.setBackgroundColor(colorEnabled);
                     } else {
-                        buttonGivePermission.setTextColor(Color.RED);
+                        buttonGivePermission.setBackgroundColor(colorDisabled);
                     }
                 } else {
                     position++;
@@ -103,25 +116,25 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
             case 5:
                 textViewInfoText.setText(getString(R.string.Permission_DEVICE_ADMIN));
                 if (Permission.checkDeviceAdminPermission(this)) {
-                    buttonGivePermission.setTextColor(Color.GREEN);
+                    buttonGivePermission.setBackgroundColor(colorEnabled);
                 } else {
-                    buttonGivePermission.setTextColor(Color.RED);
+                    buttonGivePermission.setBackgroundColor(colorDisabled);
                 }
                 break;
             case 6:
                 textViewInfoText.setText(getString(R.string.Permission_OVERLAY));
                 if (Permission.checkOverlayPermission(this)) {
-                    buttonGivePermission.setTextColor(Color.GREEN);
+                    buttonGivePermission.setBackgroundColor(colorEnabled);
                 } else {
-                    buttonGivePermission.setTextColor(Color.RED);
+                    buttonGivePermission.setBackgroundColor(colorDisabled);
                 }
                 break;
             case 7:
                 textViewInfoText.setText(getString(R.string.Permission_WRITE_SECURE_SETTINGS));
                 if (Permission.checkWriteSecurePermission(this)) {
-                    buttonGivePermission.setTextColor(Color.GREEN);
+                    buttonGivePermission.setBackgroundColor(colorEnabled);
                 } else {
-                    buttonGivePermission.setTextColor(Color.RED);
+                    buttonGivePermission.setBackgroundColor(colorDisabled);
                 }
                 break;
             case 8:
