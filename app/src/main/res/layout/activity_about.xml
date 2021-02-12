@@ -15,19 +15,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:gravity="center_horizontal"
-                android:text="@string/About"
-                android:textSize="36sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="1mm"
                 android:text="@string/About_Text"
                 android:textSize="18sp" />
 
@@ -36,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
+                android:layout_margin="5mm"
                 android:text="@string/A_Help" />
 
             <View
@@ -52,7 +43,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="1mm"
                     android:text="@string/ABOUT_VERSION"
                     android:textSize="16sp" />
 
@@ -61,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:layout_margin="5dp"
+                    android:layout_margin="1mm"
                     android:text=""
                     android:textSize="16sp"
                     android:gravity="center_horizontal" />
@@ -76,14 +67,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="1mm"
                 android:text="@string/Used_APIs"
                 android:textSize="16sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="1mm"
                 android:text="@string/UsedApis_Content"
                 android:textSize="12sp" />
 

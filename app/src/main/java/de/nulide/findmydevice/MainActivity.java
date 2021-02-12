@@ -1,19 +1,15 @@
 package de.nulide.findmydevice;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
-import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +29,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
-import de.nulide.findmydevice.data.Contact;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
@@ -119,8 +114,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewFMDCommandName = findViewById(R.id.textViewFMDCommandName);
         textViewWhiteListCount = findViewById(R.id.textViewWhiteListCount);
 
-        listWhiteList = findViewById(R.id.list_whitelist);
-        buttonAddContact = findViewById(R.id.button_add_contact);
+        listWhiteList = findViewById(R.id.listWhiteList);
+        buttonAddContact = findViewById(R.id.buttonAddContact);
         buttonAddContact.setOnClickListener(this);
 
         checkBoxDeviceWipe = findViewById(R.id.checkBoxWipeData);

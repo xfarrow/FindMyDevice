@@ -28,7 +28,7 @@
     <string name="Overlay" translatable="false">Overlay:</string>
     <string name="SecureSettings" translatable="false">SecureSettings:</string>
     <string name="Enable">Enable</string>
-    <string name="SET_PIN_DESC">Pin:\nUsed as confirmation before wiping the device or for a temporary usage of the service.</string>
+    <string name="SET_PIN_DESC">Used as confirmation before wiping the device or for a temporary usage of the service.</string>
     <string name="SET_LOCKSCREEN_MESSAGE_DESC">Lock Screen Message:\nWhen locking the device, this message will appear on the lock screen.</string>
     <string name="SET_COMMAND_DESC">The command used to communicate with FindMyDevice.</string>
     <string name="SET_PERMISSION_DESC">The permissions needed for certain features</string>

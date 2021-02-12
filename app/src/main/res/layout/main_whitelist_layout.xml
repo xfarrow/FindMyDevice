@@ -10,13 +10,13 @@
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/list_whitelist"
+            android:id="@+id/listWhiteList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5" />
 
         <Button
-            android:id="@+id/button_add_contact"
+            android:id="@+id/buttonAddContact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"

@@ -6,4 +6,132 @@
     android:layout_height="match_parent"
     tools:context=".ui.settings.FMDConfigActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textColor="@color/colorAccent"
+                android:text="FMD via Pin" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/SET_FMD_VIA_PIN_DESC" />
+
+            <CheckBox
+                android:id="@+id/checkBoxFMDviaPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Enable" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textColor="@color/colorAccent"
+                android:text="Pin" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/SET_PIN_DESC" />
+
+            <Button
+                android:id="@+id/buttonEnterPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5mm"
+                android:text="@string/EnterPin"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textColor="@color/colorAccent"
+                android:text="fmd command" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/SET_COMMAND_DESC" />
+
+            <EditText
+                android:id="@+id/editTextFmdCommand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_margin="1mm"
+                android:text="fmd" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textColor="@color/colorAccent"
+                android:text="fmd lock" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/SET_LOCKSCREEN_MESSAGE_DESC" />
+
+            <EditText
+                android:id="@+id/editTextTextLockScreenMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_margin="1mm"
+                android:text="" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textColor="@color/colorAccent"
+                android:text="fmd delete" />
+
+            <CheckBox
+                android:id="@+id/checkBoxWipeData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Enable" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

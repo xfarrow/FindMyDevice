@@ -46,13 +46,13 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
         settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
 
-        listWhiteList = findViewById(R.id.list_whitelist);
+        listWhiteList = findViewById(R.id.listWhiteList);
         whiteListAdapter = new WhiteListViewAdapter(this, whiteList);
         listWhiteList.setAdapter(whiteListAdapter);
         listWhiteList.setOnItemClickListener(this);
         registerForContextMenu(listWhiteList);
 
-        buttonAddContact = findViewById(R.id.button_add_contact);
+        buttonAddContact = findViewById(R.id.buttonAddContact);
         buttonAddContact.setOnClickListener(this);
 
         if(!(Boolean)settings.get(Settings.SET_FIRST_TIME_WHITELIST)) {
