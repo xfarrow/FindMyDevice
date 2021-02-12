@@ -40,8 +40,12 @@ public class MessageHandler {
         msg = msg.toLowerCase();
         StringBuilder replyBuilder = new StringBuilder();
         if(msg.startsWith((String)settings.get(Settings.SET_FMD_COMMAND))) {
-            originalMsg = originalMsg.substring(((String) settings.get(Settings.SET_FMD_COMMAND)).length()+1, msg.length());
-            msg = msg.substring(((String) settings.get(Settings.SET_FMD_COMMAND)).length()+1, msg.length());
+            int cutLength = ((String) settings.get(Settings.SET_FMD_COMMAND)).length();
+            if(msg.length() > cutLength){
+                cutLength+=1;
+            }
+            originalMsg = originalMsg.substring(cutLength, msg.length());
+            msg = msg.substring(cutLength, msg.length());
             if (msg.startsWith(COM_LOCATE) && Permission.GPS) {
                 if (!GPS.isGPSOn(context)) {
                     if (Permission.WRITE_SECURE_SETTINGS) {
