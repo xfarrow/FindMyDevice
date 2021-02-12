@@ -27,14 +27,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.settings.FMDConfigActivity"
-            android:label="@string/Settings_FMDConfig"></activity>
-        <activity android:name=".ui.settings.AboutActivity"
-            android:label="@string/Settings_About"/>
-        <activity android:name=".ui.settings.WhiteListActivity"
-            android:label="@string/Settings_WhiteList"/>
-        <activity android:name=".ui.settings.SettingsActivity"
-            android:label="@string/TAB_Settings"/>
+        <activity android:name=".ui.settings.OpenCellIdActivity"></activity>
+        <activity
+            android:name=".ui.settings.FMDConfigActivity"
+            android:label="@string/Settings_FMDConfig" />
+        <activity
+            android:name=".ui.settings.AboutActivity"
+            android:label="@string/Settings_About" />
+        <activity
+            android:name=".ui.settings.WhiteListActivity"
+            android:label="@string/Settings_WhiteList" />
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:label="@string/TAB_Settings" />
         <activity
             android:name=".ui.CrashedActivity"
             android:process=":bug_report" />

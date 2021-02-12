@@ -55,7 +55,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                 break;
 
             case 2:
-                settingIntent = new Intent(this, FMDConfigActivity.class);
+                settingIntent = new Intent(this, OpenCellIdActivity.class);
                 break;
 
             case 3:

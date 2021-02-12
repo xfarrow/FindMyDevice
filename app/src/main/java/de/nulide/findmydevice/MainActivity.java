@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private WhiteListViewAdapter listWhiteListAdapter;
     private Button buttonAddContact;
 
-    private EditText editTextOpenCellIdKey;
     private Button buttonPermission;
     private Button buttonLog;
 
@@ -113,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonAddContact = findViewById(R.id.buttonAddContact);
         buttonAddContact.setOnClickListener(this);
 
-        editTextOpenCellIdKey = findViewById(R.id.editTextOpenCellIDAPIKey);
         buttonPermission = findViewById(R.id.buttonPermissions);
         buttonLog = findViewById(R.id.buttonLog);
 
@@ -136,8 +134,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listWhiteList.setOnItemClickListener(this);
         registerForContextMenu(listWhiteList);
 
-        editTextOpenCellIdKey.setText((String) settings.get(Settings.SET_OPENCELLID_API_KEY));
-        editTextOpenCellIdKey.addTextChangedListener(this);
         buttonPermission.setOnClickListener(this);
         buttonLog.setOnClickListener(this);
 
@@ -275,9 +271,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void afterTextChanged(Editable edited) {
-        if (edited == editTextOpenCellIdKey.getText()) {
-            settings.set(Settings.SET_OPENCELLID_API_KEY, edited.toString());
-        }
 
     }
 
