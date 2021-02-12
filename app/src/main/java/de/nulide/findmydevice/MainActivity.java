@@ -33,11 +33,12 @@ import de.nulide.findmydevice.ui.IntroductionActivity;
 import de.nulide.findmydevice.ui.LogActivity;
 import de.nulide.findmydevice.ui.settings.SettingsActivity;
 import de.nulide.findmydevice.ui.helper.WhiteListViewAdapter;
+import de.nulide.findmydevice.ui.settings.WhiteListActivity;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView textViewFMDCommandName;
     private TextView textViewWhiteListCount;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewDeviceAdmin;
     private TextView textViewWriteSecureSettings;
     private TextView textViewOverlay;
+    private Button buttonOpenWhitelist;
 
     private WhiteList whiteList;
     private Settings settings;
@@ -79,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         textViewDeviceAdmin = findViewById(R.id.textViewDeviceAdmin);
         textViewWriteSecureSettings = findViewById(R.id.textViewWriteSecureSettings);
         textViewOverlay = findViewById(R.id.textViewOverlay);
+        buttonOpenWhitelist = findViewById(R.id.buttonOpenWhiteList);
+        buttonOpenWhitelist.setOnClickListener(this);
     }
 
     public void updateViews() {
@@ -166,11 +170,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Permission.initValues(this);
-        updateViews();
+        whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
         settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         if (!settings.isIntroductionPassed() || !Permission.CORE) {
             Intent introductionIntent = new Intent(this, IntroductionActivity.class);
             startActivity(introductionIntent);
+        }
+        updateViews();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == buttonOpenWhitelist){
+            Intent whiteListActivity = new Intent(this, WhiteListActivity.class);
+            startActivity(whiteListActivity);
         }
     }
 }
