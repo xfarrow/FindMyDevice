@@ -80,4 +80,5 @@
     <string name="Toast_Empty_FMDCommand">Kommando darf nicht leer sein. Standard [fmd] wird nun benutzt.</string>
     <string name="FMDConfig_Alert_Pin">PIN</string>
     <string name="Ok">Ok</string>
+    <string name="Log_Alert_LogData">Log-Info</string>
 </resources>

@@ -3,9 +3,12 @@ package de.nulide.findmydevice.data.io;
 import de.nulide.findmydevice.data.ConfigSMSRec;
 import de.nulide.findmydevice.data.Contact;
 import de.nulide.findmydevice.data.LogData;
+import de.nulide.findmydevice.data.LogEntry;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.json.JSONContact;
+import de.nulide.findmydevice.data.io.json.JSONLog;
+import de.nulide.findmydevice.data.io.json.JSONLogEntry;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 
@@ -68,17 +71,29 @@ public class JSONFactory {
         return jsonSettings;
     }
 
-    public static LogData convertJSONLog(JSONMap jsonSettings) {
+    public static LogEntry convertJSONLogEntry(JSONLogEntry jsonLogEntry){
+        return new LogEntry(jsonLogEntry.getTime(), jsonLogEntry.getText());
+    }
+
+    public static JSONLogEntry convertLogEntry(LogEntry logEntry){
+        return new JSONLogEntry(logEntry.getTime(), logEntry.getText());
+    }
+
+    public static LogData convertJSONLog(JSONLog jsonLog) {
         LogData temp = new LogData();
-        if(jsonSettings != null) {
-            temp.putAll(jsonSettings);
+        if(jsonLog != null) {
+            for(JSONLogEntry jsonLogEntry : jsonLog){
+                temp.add(convertJSONLogEntry(jsonLogEntry));
+            }
         }
         return temp;
     }
 
-    public static JSONMap convertLogData(LogData configSMSRec) {
-        JSONMap jsonSettings = new JSONMap();
-        jsonSettings.putAll(configSMSRec);
-        return jsonSettings;
+    public static JSONLog convertLogData(LogData logData) {
+        JSONLog jsonLog = new JSONLog();
+        for(LogEntry logEntry : logData){
+            jsonLog.add(convertLogEntry(logEntry));
+        }
+        return jsonLog;
     }
 }

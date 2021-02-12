@@ -11,11 +11,11 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Calendar;
 
+import de.nulide.findmydevice.data.io.json.JSONLog;
 import de.nulide.findmydevice.ui.CrashedActivity;
 import de.nulide.findmydevice.data.LogData;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
-import de.nulide.findmydevice.data.io.json.JSONMap;
 
 public class Logger implements Thread.UncaughtExceptionHandler{
 
@@ -25,7 +25,7 @@ public class Logger implements Thread.UncaughtExceptionHandler{
 
     public static void init(Thread t, Context con){
         DEBUG = false;
-        log = JSONFactory.convertJSONLog(IO.read(JSONMap.class, IO.logFileName));
+        log = JSONFactory.convertJSONLog(IO.read(JSONLog.class, IO.logFileName));
         context = con;
         Logger logger = new Logger();
         t.setUncaughtExceptionHandler(logger);
@@ -37,9 +37,8 @@ public class Logger implements Thread.UncaughtExceptionHandler{
 
     public static void log(String title, String msg){
         StringBuilder logText = new StringBuilder();
-        logText.append(Calendar.getInstance().getTime().toString()).append(": ").append(title)
-                .append(" - ").append(msg);
-        log.add(logText.toString());
+        logText.append(title).append(" - ").append(msg);
+        log.add(Calendar.getInstance().getTime().getTime(), logText.toString());
         if(DEBUG){
             Log.d(title, msg);
         }

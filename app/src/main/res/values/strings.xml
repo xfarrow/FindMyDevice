@@ -93,4 +93,5 @@
     <string name="Toast_Empty_FMDCommand">Empty Command not allowed\n Returning to default.[fmd]</string>
     <string name="FMDConfig_Alert_Pin">PIN</string>
     <string name="Ok">Ok</string>
+    <string name="Log_Alert_LogData">LogData</string>
 </resources>
