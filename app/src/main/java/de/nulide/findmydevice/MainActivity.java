@@ -66,11 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private WhiteListViewAdapter listWhiteListAdapter;
     private Button buttonAddContact;
 
-    private CheckBox checkBoxDeviceWipe;
-    private CheckBox checkBoxAccessViaPin;
-    private Button buttonEnterPin;
-    private EditText editTextLockScreenMessage;
-    private EditText editTextFmdCommand;
     private EditText editTextOpenCellIdKey;
     private Button buttonPermission;
     private Button buttonLog;
@@ -118,11 +113,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonAddContact = findViewById(R.id.buttonAddContact);
         buttonAddContact.setOnClickListener(this);
 
-        checkBoxDeviceWipe = findViewById(R.id.checkBoxWipeData);
-        checkBoxAccessViaPin = findViewById(R.id.checkBoxFMDviaPin);
-        editTextLockScreenMessage = findViewById(R.id.editTextTextLockScreenMessage);
-        buttonEnterPin = findViewById(R.id.buttonEnterPin);
-        editTextFmdCommand = findViewById(R.id.editTextFmdCommand);
         editTextOpenCellIdKey = findViewById(R.id.editTextOpenCellIDAPIKey);
         buttonPermission = findViewById(R.id.buttonPermissions);
         buttonLog = findViewById(R.id.buttonLog);
@@ -146,15 +136,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listWhiteList.setOnItemClickListener(this);
         registerForContextMenu(listWhiteList);
 
-        checkBoxAccessViaPin.setChecked((Boolean) settings.get(Settings.SET_ACCESS_VIA_PIN));
-        checkBoxAccessViaPin.setOnCheckedChangeListener(this);
-        checkBoxDeviceWipe.setChecked((Boolean) settings.get(Settings.SET_WIPE_ENABLED));
-        checkBoxDeviceWipe.setOnCheckedChangeListener(this);
-        editTextLockScreenMessage.setText((String) settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
-        editTextLockScreenMessage.addTextChangedListener(this);
-        buttonEnterPin.setOnClickListener(this);
-        editTextFmdCommand.setText((String) settings.get(Settings.SET_FMD_COMMAND));
-        editTextFmdCommand.addTextChangedListener(this);
         editTextOpenCellIdKey.setText((String) settings.get(Settings.SET_OPENCELLID_API_KEY));
         editTextOpenCellIdKey.addTextChangedListener(this);
         buttonPermission.setOnClickListener(this);
@@ -255,23 +236,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (v == buttonHelp) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://gitlab.com/Nulide/findmydevice/-/wikis/home"));
             startActivity(intent);
-        } else if (v == buttonEnterPin) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle("PIN");
-            alert.setMessage(getString(R.string.EnterPin));
-            final EditText input = new EditText(this);
-            input.setTransformationMethod(new PasswordTransformationMethod());
-            alert.setView(input);
-            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    String text = input.getText().toString();
-                    if (!text.isEmpty()) {
-                        settings.set(Settings.SET_PIN, BCryptUtils.hashPassword(text));
-                    }
-                }
-            });
-            alert.show();
-        }else if(v == buttonLog){
+        } else if(v == buttonLog){
             Intent logActivity = new Intent(this, LogActivity.class);
             startActivity(logActivity);
         }
@@ -295,11 +260,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView == checkBoxDeviceWipe) {
-            settings.set(Settings.SET_WIPE_ENABLED, isChecked);
-        } else if (buttonView == checkBoxAccessViaPin) {
-            settings.set(Settings.SET_ACCESS_VIA_PIN, isChecked);
-        }
+
     }
 
     @Override
@@ -314,16 +275,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void afterTextChanged(Editable edited) {
-        if (edited == editTextLockScreenMessage.getText()) {
-            settings.set(Settings.SET_LOCKSCREEN_MESSAGE, edited.toString());
-        } else if (edited == editTextFmdCommand.getText()) {
-            if (edited.toString().isEmpty()) {
-                Toast.makeText(this, "Empty Command not allowed\n Returning to default.[fmd]", Toast.LENGTH_LONG).show();
-                settings.set(Settings.SET_FMD_COMMAND, "fmd");
-            } else {
-                settings.set(Settings.SET_FMD_COMMAND, edited.toString().toLowerCase());
-            }
-        } else if (edited == editTextOpenCellIdKey.getText()) {
+        if (edited == editTextOpenCellIdKey.getText()) {
             settings.set(Settings.SET_OPENCELLID_API_KEY, edited.toString());
         }
 
