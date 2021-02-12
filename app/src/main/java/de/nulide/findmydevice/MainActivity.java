@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateViews() {
         textViewFMDCommandName.setText((String) settings.get(Settings.SET_FMD_COMMAND));
-        textViewWhiteListCount.setText("" + whiteList.size());
+        textViewWhiteListCount.setText(Integer.valueOf(whiteList.size()).toString());
+
 
         int colorEnabled;
         int colorDisabled;
@@ -93,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
         }else {
             colorEnabled = getResources().getColor(R.color.colorEnabled);
             colorDisabled = getResources().getColor(R.color.colorDisabled);
+        }
+
+        if(whiteList.size() > 0){
+            textViewWhiteListCount.setTextColor(colorEnabled);
+        }else{
+            textViewWhiteListCount.setTextColor(colorDisabled);
         }
 
         if (Permission.CORE) {
