@@ -12,6 +12,19 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/Main_Title"
+                android:textSize="36sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <TextView
                 android:id="@+id/textViewFMDCommandName"
@@ -20,7 +33,7 @@
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
                 android:text="@string/Service"
-                android:textSize="36sp" />
+                android:textSize="26sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -36,8 +49,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:layout_weight="0.5"
+                    android:layout_margin="5dp"
                     android:text="WhiteList:"
                     android:textSize="24sp" />
 
@@ -45,10 +58,20 @@
                     android:id="@+id/textViewWhiteListCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:layout_weight="0.5"
+                    android:layout_margin="5dp"
                     android:text="0"
-                    android:textSize="21sp" />
+                    android:textColor="@color/colorDisabled"
+                    android:textSize="21sp"
+                    android:gravity="center_horizontal" />
+
+                    <Button
+                        android:id="@+id/buttonOpenWhiteList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:layout_margin="5dp"
+                        android:text="@string/Main_OpenWhiteList" />
 
             </LinearLayout>
 

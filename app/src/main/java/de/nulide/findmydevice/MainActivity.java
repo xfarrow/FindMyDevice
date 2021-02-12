@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -15,6 +14,7 @@ import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.ContextMenu;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -41,6 +42,7 @@ import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.ui.IntroductionActivity;
 import de.nulide.findmydevice.ui.LogActivity;
+import de.nulide.findmydevice.ui.settings.SettingsActivity;
 import de.nulide.findmydevice.ui.helper.MainPageViewAdapter;
 import de.nulide.findmydevice.ui.helper.WhiteListViewAdapter;
 import de.nulide.findmydevice.utils.BCryptUtils;
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         viewPager.addOnPageChangeListener(this);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setText(getString(R.string.Tab_Info));
+        tabLayout.getTabAt(0).setText(getString(R.string.Main_Title));
         tabLayout.getTabAt(1).setText(getString(R.string.TAB_Whitelist));
         tabLayout.getTabAt(2).setText(getString(R.string.TAB_Settings));
         tabLayout.getTabAt(3).setText(getString(R.string.Tab_About));
@@ -176,50 +178,74 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             buttonHelp.setOnClickListener(this);
         }
+        int colorEnabled;
+        int colorDisabled;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            colorEnabled = getColor(R.color.colorEnabled);
+            colorDisabled = getColor(R.color.colorDisabled);
+        }else {
+            colorEnabled = getResources().getColor(R.color.colorEnabled);
+            colorDisabled = getResources().getColor(R.color.colorDisabled);
+        }
 
         if (Permission.CORE) {
             textViewCORE.setText(getString(R.string.Enabled));
-            textViewCORE.setTextColor(Color.GREEN);
+            textViewCORE.setTextColor(colorEnabled);
         } else {
             textViewCORE.setText(getString(R.string.Disabled));
-            textViewCORE.setTextColor(Color.RED);
+            textViewCORE.setTextColor(colorDisabled);
         }
         if (Permission.GPS) {
             textViewGPS.setText(getString(R.string.Enabled));
-            textViewGPS.setTextColor(Color.GREEN);
+            textViewGPS.setTextColor(colorEnabled);
         } else {
             textViewGPS.setText(getString(R.string.Disabled));
-            textViewGPS.setTextColor(Color.RED);
+            textViewGPS.setTextColor(colorDisabled);
         }
         if (Permission.DND) {
             textViewDND.setText(getString(R.string.Enabled));
-            textViewDND.setTextColor(Color.GREEN);
+            textViewDND.setTextColor(colorEnabled);
         } else {
             textViewDND.setText(getString(R.string.Disabled));
-            textViewDND.setTextColor(Color.RED);
+            textViewDND.setTextColor(colorDisabled);
         }
         if (Permission.DEVICE_ADMIN) {
             textViewDeviceAdmin.setText(getString(R.string.Enabled));
-            textViewDeviceAdmin.setTextColor(Color.GREEN);
+            textViewDeviceAdmin.setTextColor(colorEnabled);
         } else {
             textViewDeviceAdmin.setText(getString(R.string.Disabled));
-            textViewDeviceAdmin.setTextColor(Color.RED);
+            textViewDeviceAdmin.setTextColor(colorDisabled);
         }
         if (Permission.WRITE_SECURE_SETTINGS) {
             textViewWriteSecureSettings.setText(getString(R.string.Enabled));
-            textViewWriteSecureSettings.setTextColor(Color.GREEN);
+            textViewWriteSecureSettings.setTextColor(colorEnabled);
         } else {
             textViewWriteSecureSettings.setText(getString(R.string.Disabled));
-            textViewWriteSecureSettings.setTextColor(Color.RED);
+            textViewWriteSecureSettings.setTextColor(colorDisabled);
         }
         if (Permission.OVERLAY) {
             textViewOverlay.setText(getString(R.string.Enabled));
-            textViewOverlay.setTextColor(Color.GREEN);
+            textViewOverlay.setTextColor(colorEnabled);
         } else {
             textViewOverlay.setText(getString(R.string.Disabled));
-            textViewOverlay.setTextColor(Color.RED);
+            textViewOverlay.setTextColor(colorDisabled);
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_app_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.menuItemSettings){
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -267,77 +293,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onActivityResult(int reqCode, int resultCode, Intent data) {
-        super.onActivityResult(reqCode, resultCode, data);
-        switch (reqCode) {
-            case (1):
-                if (resultCode == Activity.RESULT_OK) {
-                    Uri contactData = data.getData();
-                    Cursor c = managedQuery(contactData, null, null, null, null);
-                    if (c.moveToFirst()) {
-                        String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
-                        String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
-                        if (hasPhone.equalsIgnoreCase("1")) {
-                            Cursor phones = getContentResolver().query(
-                                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-                                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id,
-                                    null, null);
-                            phones.moveToFirst();
-                            String cNumber = phones.getString(phones.getColumnIndex("data1"));
-                            String cName = phones.getString(phones.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
-                            Contact contact = new Contact(cName, cNumber);
-                            if (!whiteList.checkForDuplicates(contact)) {
-                                whiteList.add(contact);
-                                updateViews();
-                                if(!(Boolean) settings.get(Settings.SET_FIRST_TIME_CONTACT_ADDED)){
-                                    new AlertDialog.Builder(this)
-                                            .setTitle("WhiteList")
-                                            .setMessage(this.getString(R.string.ALERT_FIRST_TIME_CONTACT_ADDED))
-                                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    settings.set(Settings.SET_FIRST_TIME_CONTACT_ADDED, true);
-                                                }
-                                            })
-                                            .setIcon(android.R.drawable.ic_dialog_info)
-                                            .show();
-                                }
-                            } else {
-                                Toast toast = Toast.makeText(this, getString(R.string.TOAST_DUBLICATE_CONTACT), Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.CENTER, 0, 0);
-                                toast.show();
-                            }
-
-                        }
-                    }
-                }
-                break;
-        }
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.setHeaderTitle(getString(R.string.Select_Action));
-        menu.add(0, v.getId(), 0, getString(R.string.Delete));
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        int index = info.position;
-        if (item.getTitle() == getString(R.string.Delete)) {
-            whiteList.remove(index);
-            updateViews();
-        } else {
-            return false;
-        }
-        return true;
-
-
-    }
-
-
-    @Override
+      @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
@@ -380,20 +336,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if(position == 1){
-            if(!(Boolean)settings.get(Settings.SET_FIRST_TIME_WHITELIST)) {
-                new AlertDialog.Builder(this)
-                        .setTitle("WhiteList")
-                        .setMessage(this.getString(R.string.ALERT_FIRST_TIME_WHITELIST))
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                settings.set(Settings.SET_FIRST_TIME_WHITELIST, true);
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_info)
-                        .show();
-            }
-        }
+
     }
 
     @Override

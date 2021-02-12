@@ -38,7 +38,7 @@
     <string name="Disabled">Disabled</string>
     <string name="running">running</string>
     <string name="not_running">not running</string>
-    <string name="Tab_Info" translatable="false">Info</string>
+    <string name="Main_Title" translatable="false">Info</string>
     <string name="Tab_About">About</string>
     <string name="TAB_Whitelist" translatable="false">Whitelist</string>
     <string name="TAB_Settings">Settings</string>
@@ -73,4 +73,12 @@
     <string name="CRASH_SEND_LOG">Send Log</string>
     <string name="MH_NO_GPS">Sorry, location is turned off.</string>
     <string name="ABOUT_VERSION">FMD version:</string>
+    <string name="Main_OpenWhiteList">+</string>
+    <string name="Settings_FMDConfig">FMDConfig</string>
+    <string name="Settings_WhiteList">WhiteList</string>
+    <string name="Settings_OpenCellId">OpenCellId</string>
+    <string name="Settings_Permissions">Permissions</string>
+    <string name="Settings_Logs">Logs</string>
+    <string name="Settings_About">About</string>
+    <string name="Error">Error</string>
 </resources>
