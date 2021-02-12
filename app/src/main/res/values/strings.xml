@@ -4,7 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="Introduction">FMD is an application that can help you find your phone when it gets lost.\nIt uses SMS (texting) to communicate. You need to have a second device or a friend so you can track your phone.\nJust write a SNS that contains the "fmd" command.\nStill in beta.\n\n - Nulide</string>
+    <string name="Introduction">FMD is an application that can help you find your phone when it gets lost.\nIt uses SMS (texting) to communicate. You need to have a second device or a friend so you can track your phone.\nJust write a SMS that contains the "fmd" command.\nStill in beta.\n\n - Nulide</string>
     <string name="UpdatePermission">Some new permissions are needed.\nPlease check the following permissions in order to continue using this app, or change back to an older version of the app.</string>
     <string name="Permission_SMS">In order to see when you tell the phone to do something, this app needs to be able to see your texts. Your texts never leave your device, and they are never used for anything except finding your phone.\nThis Permission is needed.</string>
     <string name="Permission_CONTACTS">Not everybody is allowed to wipe or locate your phone, so you need to be able to select some contacts who will be able to locate your device.\nThis permission is needed.</string>
