@@ -4,8 +4,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="Introduction">FMD is an application that can help you find your phone when it gets lost.\nIt uses SMS (texting) to communicate. You need to have a second device or a friend so you can track your phone.\nJust write a SMS that contains the "fmd" command.\nStill in beta.\n\n - Nulide</string>
-    <string name="UpdatePermission">Some new permissions are needed.\nPlease check the following permissions in order to continue using this app, or change back to an older version of the app.</string>
+    <string name="Introduction_Introduction">FMD is an application that can help you find your phone when it gets lost.\nIt uses SMS (texting) to communicate. You need to have a second device or a friend so you can track your phone.\nJust write a SMS that contains the "fmd" command.\nStill in beta.\n\n - Nulide</string>
+    <string name="Introduction_UpdatePermission">Some new permissions are needed.\nPlease check the following permissions in order to continue using this app, or change back to an older version of the app.</string>
     <string name="Permission_SMS">In order to see when you tell the phone to do something, this app needs to be able to see your texts. Your texts never leave your device, and they are never used for anything except finding your phone.\nThis Permission is needed.</string>
     <string name="Permission_CONTACTS">Not everybody is allowed to wipe or locate your phone, so you need to be able to select some contacts who will be able to locate your device.\nThis permission is needed.</string>
     <string name="Permission_GPS">If you want to locate the gps coordinates from the phone, the application needs this permission. \nPlease also allow the application to locate you in the background.\nIf you don\'t give this permission, this functionality will not be activated.</string>
@@ -13,39 +13,34 @@
     <string name="Permission_DEVICE_ADMIN">If you want to lock or wipe your phone if it gets lost, this permission is needed.\nIf you don\'t give this permission, this functionality will not be activated.</string>
     <string name="Permission_WRITE_SECURE_SETTINGS">This application is capable of turning on GPS if you normally leave GPS off.\nIn order to achieve this, the application needs a special permission that you have to grant to it with a computer.\nIf you don\'t grant this permission, it\'s no problem.\nYou can still use this application.</string>
     <string name="Permission_OVERLAY">When you remotely lock your device, this application can show a message on the lockscreen for whoever finds your phone.\nIf you don\'t give this permission, this functionality will not be activated.</string>
-    <string name="Give_Permission">Give Permission</string>
-    <string name="Next">Next</string>
+    <string name="Introduction_Give_Permission">Give Permission</string>
+    <string name="Introduction_Next">Next</string>
     <string name="Locked_Lock_Screen">FindMyDevice\nThis phone is locked!\nMessage from the owner:</string>
     <string name="About">About</string>
     <string name="About_Text">Thanks for downloading this app!\nThere is still a lot to do, but I hope this app will help you if you find yourself in the same situation I had. Losing your phone is bad, but losing your phone because there are no privacy-friendly apps to help you find it is even worse.\nContributions and donations are welcome! Just go to F-Droid and search for my app.\n\n - Nulide</string>
-    <string name="Used_APIs">Used APIs:\n</string>
-    <string name="UsedApis_Content" translatable="false">com.fasterxml.jackson.core:jackson-databind:2.10.0\ncom.android.volley:volley:1.1.1\norg.mindrot:jbcrypt:0.4\nOpenCellID\nOpenStreetMap</string>
-    <string name="Service" translatable="false">FMD</string>
-    <string name="CORE" translatable="false">CORE:</string>
-    <string name="GPS" translatable="false">GPS:</string>
-    <string name="DND" translatable="false">DND:</string>
-    <string name="DEVICE_ADMIN" translatable="false">DeviceAdmin:</string>
-    <string name="Overlay" translatable="false">Overlay:</string>
-    <string name="SecureSettings" translatable="false">SecureSettings:</string>
+    <string name="About_Used_APIs">Used APIs:\n</string>
+    <string name="About_UsedApis_Content" translatable="false">com.fasterxml.jackson.core:jackson-databind:2.10.0\ncom.android.volley:volley:1.1.1\norg.mindrot:jbcrypt:0.4\nOpenCellID\nOpenStreetMap</string>
+    <string name="Info_Service" translatable="false">FMD</string>
+    <string name="Info_CORE" translatable="false">CORE:</string>
+    <string name="Info_GPS" translatable="false">GPS:</string>
+    <string name="Info_DND" translatable="false">DND:</string>
+    <string name="Info_DEVICE_ADMIN" translatable="false">DeviceAdmin:</string>
+    <string name="Info_Overlay" translatable="false">Overlay:</string>
+    <string name="Info_SecureSettings" translatable="false">SecureSettings:</string>
     <string name="Enable">Enable</string>
-    <string name="SET_PIN_DESC">Used as confirmation before wiping the device or for a temporary usage of the service.</string>
-    <string name="SET_LOCKSCREEN_MESSAGE_DESC">Lock Screen Message:\nWhen locking the device, this message will appear on the lock screen.</string>
-    <string name="SET_COMMAND_DESC">The command used to communicate with FindMyDevice.</string>
-    <string name="SET_PERMISSION_DESC">The permissions needed for certain features</string>
-    <string name="permission">Permissions</string>
-    <string name="Add_Contact">Add Contact</string>
+    <string name="Settings_Pin_Description">Used as confirmation before wiping the device or for a temporary usage of the service.</string>
+    <string name="Settings_Lockscreenmessage_Description">Lock Screen Message:\nWhen locking the device, this message will appear on the lock screen.</string>
+    <string name="Settings_FMDCommand_Description">The command used to communicate with FindMyDevice.</string>
+    <string name="Settings_PermissionDescription">The permissions needed for certain features</string>
+    <string name="Settings_Permission">Permissions</string>
+    <string name="WhiteList_Add_Contact">Add Contact</string>
     <string name="Enabled">Enabled</string>
     <string name="Disabled">Disabled</string>
-    <string name="running">running</string>
-    <string name="not_running">not running</string>
     <string name="Main_Title" translatable="false">Info</string>
-    <string name="Tab_About">About</string>
-    <string name="TAB_Whitelist" translatable="false">Whitelist</string>
-    <string name="TAB_Settings">Settings</string>
-    <string name="TOAST_LANDCODE_ERROR">Please add Landcode to the number. (Like "+49", "+44", ...)</string>
+    <string name="Toast_Landcode_error">Please add Landcode to the number. (Like "+49", "+44", ...)</string>
     <string name="Delete">Delete</string>
-    <string name="Select_Action">Select an action:</string>
-    <string name="TOAST_DUBLICATE_CONTACT">This contact already exists.</string>
+    <string name="WhiteList_Select_Action">Select an action:</string>
+    <string name="Toast_Duplicate_contact">This contact already exists.</string>
     <string name="MH_GPS_WILL_FOLLOW">GPS-Coordinates will be sent soon.</string>
     <string name="MH_rings">rings</string>
     <string name="MH_Locked">locked</string>
@@ -60,25 +55,42 @@
     <string name="MH_Help_Lock">" lock - locks the  phone"</string>
     <string name="MH_Help_Stats">" stats - sends device informtions"</string>
     <string name="MH_Help_delete">" delete - resets the phone"</string>
-    <string name="A_Help">Help</string>
-    <string name="SET_FMD_VIA_PIN_DESC">Allow to communicate with FMD via a pin. You will be added to a temporary Whitelist.</string>
-    <string name="EnterPin">Enter Pin</string>
-    <string name="PinAccepted">Pin accepted!</string>
-    <string name="ALERT_FIRST_TIME_WHITELIST">Here you can add your contacts to the whitelist. The contacts of this whitelist will be able to track your device when they write a sms wich contains \"fmd\".</string>
-    <string name="ALERT_FIRST_TIME_CONTACT_ADDED">Congratulations. You have added your first contact. You can now comunicate with fmd by sending a sms that contains \"fmd\" from the whitelisted phonenumber. When everything works, the application will respond.</string>
-    <string name="R_STOP_RING">STOP RINGING</string>
-    <string name="S_LOG_TITLE">Log</string>
-    <string name="S_LOG_BUTTON">Show Log</string>
-    <string name="L_EXPORT">Export Log</string>
-    <string name="CRASH_SEND_LOG">Send Log</string>
-    <string name="MH_NO_GPS">Sorry, location is turned off.</string>
-    <string name="ABOUT_VERSION">FMD version:</string>
-    <string name="Main_OpenWhiteList">+</string>
-    <string name="Settings_FMDConfig">FMDConfig</string>
+    <string name="About_Help">Help</string>
+    <string name="Settings_FMD_via_Pin_Description">Allow to communicate with FMD via a pin. You will be added to a temporary Whitelist.</string>
+    <string name="Settings_Enter_Pin">Enter Pin</string>
+    <string name="MH_Pin_Accepted">Pin accepted!</string>
+    <string name="Alert_First_time_whitelist">Here you can add your contacts to the whitelist. The contacts of this whitelist will be able to track your device when they write a sms wich contains \"fmd\".</string>
+    <string name="Alert_First_Time_contact_added">Congratulations. You have added your first contact. You can now comunicate with fmd by sending a sms that contains \"fmd\" from the whitelisted phonenumber. When everything works, the application will respond.</string>
+    <string name="R_Stop_ring">STOP RINGING</string>
+    <string name="Settings_Log">Log</string>
+    <string name="Settings_Show_log">Show Log</string>
+    <string name="Crashed_Send_log">Send Log</string>
+    <string name="MH_No_GPS">Sorry, location is turned off.</string>
+    <string name="About_Version">FMD version:</string>
+    <string name="Main_OpenWhiteList" translatable="false">+</string>
+    <string name="Settings_FMDConfig">FMD Configuration</string>
     <string name="Settings_WhiteList">WhiteList</string>
     <string name="Settings_OpenCellId">OpenCellId</string>
     <string name="Settings_Permissions">Permissions</string>
     <string name="Settings_Logs">Logs</string>
     <string name="Settings_About">About</string>
+    <string name="Settings_Settings">Settings</string>
     <string name="Error">Error</string>
+    <string name="Main_WhiteListCounterText">WhiteList:</string>
+    <string name="OpenCellId_OpenCellId">OpenCellId</string>
+    <string name="OpenCellId_API_Key_Description">API-KEY:</string>
+    <string name="Notification_Usage">Usage</string>
+    <string name="Pin_Usage">PinUsage</string>
+    <string name="Notification_Lifecycle">Lifecycle</string>
+    <string name="Notification_Usage_Description">Notification about the serviceusage.</string>
+    <string name="Notification_Lifecycle_Description">Notification about the Lifecycle of the Service.</string>
+    <string name="Notification_Pin_Usage_Description">Notification about the pin usage.</string>
+    <string name="JSON_RL_Error">Error gaining location from OpenCellID. Please try the following link. The parameter you want are lon and lat.</string>
+    <string name="JSON_RL_OpenCellIdLocation">"OpenCellId-Location: "</string>
+    <string name="GPS_GSM_Data">GSM-Cell-Data:</string>
+    <string name="LockScreen_Usage_detectd">LockScreenMessage: Usage detected.</string>
+    <string name="LockScreen_Backbutton_pressed">LockScreenMessage: Back-Button pressed.</string>
+    <string name="Toast_Empty_FMDCommand">Empty Command not allowed\n Returning to default.[fmd]</string>
+    <string name="FMDConfig_Alert_Pin">PIN</string>
+    <string name="Ok">Ok</string>
 </resources>

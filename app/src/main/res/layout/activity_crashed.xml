@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2mm"
-                android:text="@string/CRASH_SEND_LOG"/>
+                android:text="@string/Crashed_Send_log"/>
 
         </LinearLayout>
     </ScrollView>

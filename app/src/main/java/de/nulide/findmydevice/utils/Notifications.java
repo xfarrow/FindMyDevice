@@ -29,12 +29,12 @@ public class Notifications {
 
     public static void init(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel1 = new NotificationChannel(new Integer(CHANNEL_USAGE).toString(), "Usage", NotificationManager.IMPORTANCE_DEFAULT);
-            channel1.setDescription("Notification about the service usage.");
-            NotificationChannel channel2 = new NotificationChannel(new Integer(CHANNEL_LIFE).toString(), "Lifecycle", NotificationManager.IMPORTANCE_DEFAULT);
-            channel2.setDescription("Notification about the lifecycle of the service.");
-            NotificationChannel channel3 = new NotificationChannel(new Integer(CHANNEL_PIN).toString(), "Pin_Usage", NotificationManager.IMPORTANCE_DEFAULT);
-            channel2.setDescription("Notification about the usage of the pin.");
+            NotificationChannel channel1 = new NotificationChannel(new Integer(CHANNEL_USAGE).toString(), context.getString(R.string.Notification_Usage), NotificationManager.IMPORTANCE_DEFAULT);
+            channel1.setDescription(context.getString(R.string.Notification_Usage_Description));
+            NotificationChannel channel2 = new NotificationChannel(new Integer(CHANNEL_LIFE).toString(), context.getString(R.string.Notification_Lifecycle), NotificationManager.IMPORTANCE_DEFAULT);
+            channel2.setDescription(context.getString(R.string.Notification_Lifecycle_Description));
+            NotificationChannel channel3 = new NotificationChannel(new Integer(CHANNEL_PIN).toString(), context.getString(R.string.Pin_Usage), NotificationManager.IMPORTANCE_DEFAULT);
+            channel2.setDescription(context.getString(R.string.Notification_Pin_Usage_Description));
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel1);
             notificationManager.createNotificationChannel(channel2);

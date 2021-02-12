@@ -23,7 +23,7 @@
             android:id="@+id/textViewLockScreenMessage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="text"
+            android:text=""
             android:padding="2mm"
             android:textSize="18dp"/>
 

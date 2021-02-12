@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
-                android:text="@string/SET_FMD_VIA_PIN_DESC" />
+                android:text="@string/Settings_FMD_via_Pin_Description" />
 
             <CheckBox
                 android:id="@+id/checkBoxFMDviaPin"
@@ -51,14 +51,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
-                android:text="@string/SET_PIN_DESC" />
+                android:text="@string/Settings_Pin_Description" />
 
             <Button
                 android:id="@+id/buttonEnterPin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5mm"
-                android:text="@string/EnterPin"/>
+                android:text="@string/Settings_Enter_Pin"/>
 
             <View
                 android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
-                android:text="@string/SET_COMMAND_DESC" />
+                android:text="@string/Settings_FMDCommand_Description" />
 
             <EditText
                 android:id="@+id/editTextFmdCommand"
@@ -102,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
-                android:text="@string/SET_LOCKSCREEN_MESSAGE_DESC" />
+                android:text="@string/Settings_Lockscreenmessage_Description" />
 
             <EditText
                 android:id="@+id/editTextTextLockScreenMessage"

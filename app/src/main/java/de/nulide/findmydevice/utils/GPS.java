@@ -18,6 +18,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import de.nulide.findmydevice.R;
+
 public class GPS implements LocationListener {
 
     static final int WAIT_TIME = 1000 * 5;
@@ -142,7 +144,8 @@ public class GPS implements LocationListener {
     }
 
     public GsmCellLocation sendGSMCellLocation(de.nulide.findmydevice.data.Settings settings) {
-        StringBuilder msg = new StringBuilder("GSM-Cell-Data:\n");
+        StringBuilder msg = new StringBuilder(context.getString(R.string.GPS_GSM_Data));
+        msg.append("\n");
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String operator = tm.getNetworkOperator();
         @SuppressLint("MissingPermission") GsmCellLocation location = (GsmCellLocation) tm.getCellLocation();
@@ -169,7 +172,7 @@ public class GPS implements LocationListener {
 
         final String url = urlBuilder.toString();
         RequestQueue ExampleRequestQueue = Volley.newRequestQueue(context);
-        JsonObjectRequest ExampleRequest = new JsonObjectRequest(Request.Method.GET, url, null, new JSONResponseListener(sender, url), new JSONResponseListener(sender, url));
+        JsonObjectRequest ExampleRequest = new JsonObjectRequest(Request.Method.GET, url, null, new JSONResponseListener(context, sender, url), new JSONResponseListener(context, sender, url));
         ExampleRequestQueue.add(ExampleRequest);
     }
 }

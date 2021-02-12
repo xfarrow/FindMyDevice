@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:text="@string/Service"
+                android:text="@string/Info_Service"
                 android:textSize="26sp" />
 
             <View
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:layout_margin="5dp"
-                    android:text="WhiteList:"
+                    android:text="@string/Main_WhiteListCounterText"
                     android:textSize="24sp" />
 
                 <TextView
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:layout_margin="5dp"
-                    android:text="0"
+                    android:text=""
                     android:textColor="@color/colorDisabled"
                     android:textSize="21sp"
                     android:gravity="center_horizontal" />
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
-                    android:text="@string/CORE"
+                    android:text="@string/Info_CORE"
                     android:textSize="21sp" />
 
                 <TextView
@@ -101,7 +101,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
                     android:gravity="center_horizontal"
-                    android:text="disabled"
+                    android:text="@string/Disabled"
                     android:textSize="21sp" />
 
             </LinearLayout>
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
-                    android:text="@string/GPS"
+                    android:text="@string/Info_GPS"
                     android:textSize="21sp" />
 
                 <TextView
@@ -127,7 +127,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
                     android:gravity="center_horizontal"
-                    android:text="disabled"
+                    android:text="@string/Disabled"
                     android:textSize="21sp" />
 
             </LinearLayout>
@@ -143,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
-                    android:text="@string/DND"
+                    android:text="@string/Info_DND"
                     android:textSize="21sp" />
 
                 <TextView
@@ -153,7 +153,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
                     android:gravity="center_horizontal"
-                    android:text="disabled"
+                    android:text="@string/Disabled"
                     android:textSize="21sp" />
 
             </LinearLayout>
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
-                    android:text="@string/DEVICE_ADMIN"
+                    android:text="@string/Info_DEVICE_ADMIN"
                     android:textSize="21sp" />
 
                 <TextView
@@ -179,7 +179,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
                     android:gravity="center_horizontal"
-                    android:text="disabled"
+                    android:text="@string/Disabled"
                     android:textSize="21sp" />
 
             </LinearLayout>
@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
-                    android:text="@string/Overlay"
+                    android:text="@string/Info_Overlay"
                     android:textSize="21sp" />
 
                 <TextView
@@ -205,7 +205,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
                     android:gravity="center_horizontal"
-                    android:text="disabled"
+                    android:text="@string/Disabled"
                     android:textSize="21sp" />
 
             </LinearLayout>
@@ -221,7 +221,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
-                    android:text="@string/SecureSettings"
+                    android:text="@string/Info_SecureSettings"
                     android:textSize="21sp" />
 
                 <TextView
@@ -231,7 +231,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
                     android:gravity="center_horizontal"
-                    android:text="disabled"
+                    android:text="@string/Disabled"
                     android:textSize="21sp" />
 
             </LinearLayout>

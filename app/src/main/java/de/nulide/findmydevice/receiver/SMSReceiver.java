@@ -85,7 +85,7 @@ public class SMSReceiver extends BroadcastReceiver {
                             }
                             if (!inWhitelist && MessageHandler.checkForPin(msgs[i].getMessageBody())) {
                                 Logger.log("Usage", receiver + " used the Pin");
-                                SMS.sendMessage(receiver, context.getString(R.string.PinAccepted));
+                                SMS.sendMessage(receiver, context.getString(R.string.MH_Pin_Accepted));
                                 Notifications.notify(context, "Pin", "The pin was used by the following number: "+receiver+"\nPlease change the Pin!", Notifications.CHANNEL_PIN);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, receiver);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, time.getTimeInMillis());

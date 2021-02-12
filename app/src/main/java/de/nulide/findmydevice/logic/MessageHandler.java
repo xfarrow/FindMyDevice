@@ -51,7 +51,7 @@ public class MessageHandler {
                     if (Permission.WRITE_SECURE_SETTINGS) {
                         GPS.turnOnGPS(context);
                     }else{
-                        replyBuilder.append(context.getString(R.string.MH_NO_GPS));
+                        replyBuilder.append(context.getString(R.string.MH_No_GPS));
                     }
                 }
                 if(GPS.isGPSOn(context)){

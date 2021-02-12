@@ -85,7 +85,7 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
             settings.set(Settings.SET_LOCKSCREEN_MESSAGE, edited.toString());
         } else if (edited == editTextFmdCommand.getText()) {
             if (edited.toString().isEmpty()) {
-                Toast.makeText(this, "Empty Command not allowed\n Returning to default.[fmd]", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.Toast_Empty_FMDCommand), Toast.LENGTH_LONG).show();
                 settings.set(Settings.SET_FMD_COMMAND, "fmd");
             } else {
                 settings.set(Settings.SET_FMD_COMMAND, edited.toString().toLowerCase());
@@ -97,12 +97,12 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
     public void onClick(View v) {
         if (v == buttonEnterPin) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle("PIN");
-            alert.setMessage(getString(R.string.EnterPin));
+            alert.setTitle(getString(R.string.FMDConfig_Alert_Pin));
+            alert.setMessage(getString(R.string.Settings_Enter_Pin));
             final EditText input = new EditText(this);
             input.setTransformationMethod(new PasswordTransformationMethod());
             alert.setView(input);
-            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            alert.setPositiveButton(getString(R.string.Ok), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String text = input.getText().toString();
                     if (!text.isEmpty()) {

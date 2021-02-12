@@ -1,7 +1,6 @@
 package de.nulide.findmydevice.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -64,15 +63,15 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
     public void updateViews() {
         switch (position) {
             case 0:
-                buttonGivePermission.setText(getString(R.string.A_Help));
+                buttonGivePermission.setText(getString(R.string.About_Help));
                 if ((Integer) settings.get(Settings.SET_INTRODUCTION_VERSION) > 0) {
-                    textViewInfoText.setText(getString(R.string.UpdatePermission));
+                    textViewInfoText.setText(getString(R.string.Introduction_UpdatePermission));
                 } else {
-                    textViewInfoText.setText(getString(R.string.Introduction));
+                    textViewInfoText.setText(getString(R.string.Introduction_Introduction));
                 }
                 break;
             case 1:
-                buttonGivePermission.setText(getString(R.string.Give_Permission));
+                buttonGivePermission.setText(getString(R.string.Introduction_Give_Permission));
                 textViewInfoText.setText(getString(R.string.Permission_SMS));
                 if (Permission.checkSMSPermission(this)) {
                     buttonNext.setEnabled(true);

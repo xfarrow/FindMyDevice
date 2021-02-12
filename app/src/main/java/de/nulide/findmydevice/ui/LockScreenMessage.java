@@ -42,13 +42,13 @@ public class LockScreenMessage extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        SMS.sendMessage(sender, "LockScreenMessage: Usage detected.");
+        SMS.sendMessage(sender, getString(R.string.LockScreen_Usage_detectd));
         super.onPause();
     }
 
     @Override
     public void onBackPressed() {
-        SMS.sendMessage(sender, "LockScreenMessage: Back-Button pressed.");
+        SMS.sendMessage(sender, getString(R.string.LockScreen_Backbutton_pressed));
         finish();
     }
 

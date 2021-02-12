@@ -3,6 +3,6 @@
 
     <item
         android:id="@+id/menuItemSettings"
-        android:title="@string/TAB_Settings" />
+        android:title="@string/Settings_Settings" />
 
 </menu>

@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5mm"
-                android:text="@string/A_Help" />
+                android:text="@string/About_Help" />
 
             <View
                 android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1mm"
-                    android:text="@string/ABOUT_VERSION"
+                    android:text="@string/About_Version"
                     android:textSize="16sp" />
 
                 <TextView
@@ -68,14 +68,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
-                android:text="@string/Used_APIs"
+                android:text="@string/About_Used_APIs"
                 android:textSize="16sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
-                android:text="@string/UsedApis_Content"
+                android:text="@string/About_UsedApis_Content"
                 android:textSize="12sp" />
 
 

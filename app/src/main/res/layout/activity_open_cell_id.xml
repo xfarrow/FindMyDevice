@@ -20,13 +20,13 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent"
                 android:layout_margin="1mm"
-                android:text="OpenCellID" />
+                android:text="@string/OpenCellId_OpenCellId" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
-                android:text="API-KEY:" />
+                android:text="@string/OpenCellId_API_Key_Description" />
 
             <EditText
                 android:id="@+id/editTextOpenCellIDAPIKey"

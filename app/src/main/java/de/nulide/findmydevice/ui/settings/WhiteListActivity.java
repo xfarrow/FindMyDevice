@@ -58,7 +58,7 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
         if(!(Boolean)settings.get(Settings.SET_FIRST_TIME_WHITELIST)) {
             new AlertDialog.Builder(this)
                     .setTitle("WhiteList")
-                    .setMessage(this.getString(R.string.ALERT_FIRST_TIME_WHITELIST))
+                    .setMessage(this.getString(R.string.Alert_First_time_whitelist))
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             settings.set(Settings.SET_FIRST_TIME_WHITELIST, true);
@@ -71,7 +71,7 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.setHeaderTitle(getString(R.string.Select_Action));
+        menu.setHeaderTitle(getString(R.string.WhiteList_Select_Action));
         menu.add(0, v.getId(), 0, getString(R.string.Delete));
     }
 
@@ -128,7 +128,7 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
                                 if(!(Boolean) settings.get(Settings.SET_FIRST_TIME_CONTACT_ADDED)){
                                     new AlertDialog.Builder(this)
                                             .setTitle("WhiteList")
-                                            .setMessage(this.getString(R.string.ALERT_FIRST_TIME_CONTACT_ADDED))
+                                            .setMessage(this.getString(R.string.Alert_First_Time_contact_added))
                                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     settings.set(Settings.SET_FIRST_TIME_CONTACT_ADDED, true);
@@ -138,7 +138,7 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
                                             .show();
                                 }
                             } else {
-                                Toast toast = Toast.makeText(this, getString(R.string.TOAST_DUBLICATE_CONTACT), Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(this, getString(R.string.Toast_Duplicate_contact), Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.CENTER, 0, 0);
                                 toast.show();
                             }

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="3mm"
             android:layout_gravity="bottom"
-            android:text="@string/Add_Contact" />
+            android:text="@string/WhiteList_Add_Contact" />
 
     </LinearLayout>
 
