@@ -13,26 +13,15 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textColor="@color/colorPrimary"
-                android:text="@string/Main_Title"
-                android:textSize="36sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
                 android:id="@+id/textViewFMDCommandName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
                 android:text="@string/Info_Service"
-                android:textSize="26sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="36sp"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="match_parent"
