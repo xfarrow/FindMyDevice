@@ -10,8 +10,8 @@
     <string name="S_LOG_BUTTON">Voir le journal</string>
     <string name="S_LOG_TITLE">Journal</string>
     <string name="R_STOP_RING">ARRETER DE SONNER</string>
-    <string name="ALERT_FIRST_TIME_CONTACT_ADDED">Félicitations. Vous avez ajouter votre premier contact. Vous pouvez maintenant communiquer avec FMD en envoyant un sms qui contient \"fmd\" à partir des numéros de téléphones de la liste blanche. Quand tout marchera, l\'application répondra</string>
-    <string name="ALERT_FIRST_TIME_WHITELIST">Ici vous pouvez ajouter vos contacts à la liste blanche. Les contacts de cette liste blanche seront capable de tracer votre équipement quand il écriront un sms qui contiendra \"fmd\"</string>
+    <string name="ALERT_FIRST_TIME_CONTACT_ADDED">Félicitations. Vous avez ajouté votre premier contact. Vous pouvez maintenant communiquer avec FMD en envoyant un sms qui contient \"fmd\" à partir des numéros de téléphone de la liste blanche. Quand tout marchera, l\'application répondra</string>
+    <string name="ALERT_FIRST_TIME_WHITELIST">Ici vous pouvez ajouter vos contacts à la liste blanche. Les contacts de cette liste blanche seront capable de tracer votre équipement quand il écriront un SMS qui contiendra \"fmd\"</string>
     <string name="PinAccepted">Code PIN accepté</string>
     <string name="EnterPin">Entrez le code PIN</string>
     <string name="SET_FMD_VIA_PIN_DESC">Autoriser à communiquer avec FMD avec un code PIN. Vous serez ajouté à une liste blanche temporaire.</string>
@@ -53,11 +53,11 @@
     <string name="Locked_Lock_Screen">FindMyDevice[…]</string>
     <string name="Next">Suivant</string>
     <string name="Give_Permission">Donner les permissions</string>
-    <string name="Permission_OVERLAY">Quand vous vérouillez votre équipement à distance, cette application peut afficher un message sur l\'écran de vérouillage pour la personne qui trouvera votre téléphone. Si vous ne donnez pas cette permission, cette fonctiionnalité ne sera pas activée.</string>
+    <string name="Permission_OVERLAY">Quand vous vérouillez votre équipement à distance, cette application peut afficher un message sur l\'écran de vérouillage pour la personne qui trouvera votre téléphone. Si vous ne donnez pas cette permission, cette fonctionnalité ne sera pas activée.</string>
     <string name="Permission_WRITE_SECURE_SETTINGS">Cette application est capable d\'activer le GPS même si vous l\'avez désactivé.[…]</string>
     <string name="Permission_DEVICE_ADMIN">Si vous voulez vérouiller ou réinitialiser votre téléphone perdu, cette permission est nécessaire.[…]</string>
     <string name="Permission_DND">Vous pouvez aussi faire sonner le téléphone pour vous aider à le trouver. Quand DoNotDisturb est activé, il est possible que le téléphone soit en sourdine. Si vous ne donnez pas cette permission, cette fonctionnalité ne sera pas activée.</string>
     <string name="Permission_GPS">Si vous voulez localiser votre téléphone en utilisant les coordonnées GPS, l\'application a besoin de cette permission.[…]</string>
-    <string name="Permission_CONTACTS">Tout le monde n\'est pas autorisé à réinitialiser ou localiser votre téléphone, vous devez sélectionner certains contacts qui seront autoriser à localiser votre équipement. Cette permission est nécessaire.</string>
+    <string name="Permission_CONTACTS">Tout le monde n\'est pas autorisé à réinitialiser ou localiser votre téléphone, vous devez sélectionner certains contacts qui seront autorisés à localiser votre équipement. Cette permission est nécessaire.</string>
     <string name="Permission_SMS">Pour permettre à FMD de fonctionner, vous devez lui permettre de lire vos SMS. Ces SMS ne sont utilisés que par votre appareil. Cette permission est nécessaire.[…]</string>
 </resources>
