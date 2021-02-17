@@ -45,7 +45,11 @@ public class Permission {
     }
 
     public static void requestSMSPermission(Activity activity) {
-        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS}, PERM_SMS_ID);
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_PHONE_STATE}, PERM_SMS_ID);
+        }else{
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS}, PERM_SMS_ID);
+        }
     }
 
     public static void requestGPSPermission(Activity activity) {
@@ -97,7 +101,12 @@ public class Permission {
     }
 
     public static boolean checkSMSPermission(Context context) {
-        return ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED;
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            return ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
+        }else{
+            return ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED;
+        }
     }
 
     public static boolean checkGPSPermission(Context context) {
