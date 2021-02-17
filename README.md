@@ -19,6 +19,7 @@ If you like and want to support this project, spread the info about this applica
 # Contributors
 
 John - [2br-2b](https://gitlab.com/2br-2b)
+
 nvallas - [nvallas](https://gitlab.com/nvallas)
 
 # Donate
