@@ -45,7 +45,7 @@ public class Permission {
     }
 
     public static void requestSMSPermission(Activity activity) {
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_PHONE_STATE}, PERM_SMS_ID);
         }else{
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS}, PERM_SMS_ID);
