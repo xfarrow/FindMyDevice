@@ -1,12 +1,20 @@
-package de.nulide.findmydevice.utils;
+package de.nulide.findmydevice.sender;
 
+import android.content.Context;
 import android.telephony.SmsManager;
 
 import java.util.ArrayList;
 
-public class SMS {
+public class SMS extends Sender {
 
-    public static void sendMessage(String destination, String msg) {
+    public final static String TYPE = "SMS";
+
+    public SMS(Context context, String destination) {
+        super(context, destination, TYPE);
+    }
+
+    @Override
+    protected void sendMessage(String destination, String msg) {
         SmsManager smsManager = SmsManager.getDefault();
         if (msg.length() <= 160) {
             smsManager.sendTextMessage

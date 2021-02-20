@@ -94,4 +94,5 @@
     <string name="FMDConfig_Alert_Pin">PIN</string>
     <string name="Ok">Ok</string>
     <string name="Log_Alert_LogData">LogData</string>
+    <string name="Sender_End_Of_Msg">---End of Message---</string>
 </resources>

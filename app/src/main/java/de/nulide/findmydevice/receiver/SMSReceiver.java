@@ -19,11 +19,12 @@ import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
+import de.nulide.findmydevice.sender.Sender;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.logic.MessageHandler;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
-import de.nulide.findmydevice.utils.SMS;
+import de.nulide.findmydevice.sender.SMS;
 
 public class SMSReceiver extends BroadcastReceiver {
 
@@ -60,11 +61,12 @@ public class SMSReceiver extends BroadcastReceiver {
                             msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
                         }
                         String receiver = msgs[i].getOriginatingAddress();
+                        Sender sender = new SMS(context, receiver);
                         boolean inWhitelist = false;
                         for (int iwl = 0; iwl < whiteList.size(); iwl++) {
                             if (PhoneNumberUtils.compare(whiteList.get(iwl).getNumber(), receiver)) {
                                 Logger.log("Usage", receiver + " used FMD");
-                                MessageHandler.handle(msgs[i].getOriginatingAddress(), msgs[i].getMessageBody(), context);
+                                MessageHandler.handle(sender, msgs[i].getMessageBody(), context);
                                 inWhitelist = true;
                             }
                         }
@@ -73,24 +75,27 @@ public class SMSReceiver extends BroadcastReceiver {
                             Long tempContactActiveSince = (Long) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE);
                             if (tempContactActiveSince != null && tempContactActiveSince + (5 * 60 * 1000) < time.getTimeInMillis()) {
                                 Logger.log("Session expired", receiver);
-                                SMS.sendMessage(tempContact, "FindMyDevive: Pin expired!");
+                                sender.addToQueue("FindMyDevive: Pin expired!");
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
                                 tempContact = null;
                             }
                             if (!inWhitelist && tempContact != null && PhoneNumberUtils.compare(tempContact, receiver)) {
                                 Logger.log("Usage", receiver + " used FMD");
-                                MessageHandler.handle(receiver, msgs[i].getMessageBody(), context);
+                                MessageHandler.handle(sender, msgs[i].getMessageBody(), context);
                                 inWhitelist = true;
                             }
                             if (!inWhitelist && MessageHandler.checkForPin(msgs[i].getMessageBody())) {
                                 Logger.log("Usage", receiver + " used the Pin");
-                                SMS.sendMessage(receiver, context.getString(R.string.MH_Pin_Accepted));
+                                sender.addToQueue(context.getString(R.string.MH_Pin_Accepted));
                                 Notifications.notify(context, "Pin", "The pin was used by the following number: "+receiver+"\nPlease change the Pin!", Notifications.CHANNEL_PIN);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, receiver);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, time.getTimeInMillis());
-                                MessageHandler.handle(receiver, msgs[i].getMessageBody(), context);
+                                MessageHandler.handle(sender, msgs[i].getMessageBody(), context);
                             }
+                        }
+                        if(!sender.isQueueEmpty()) {
+                            sender.send();
                         }
                     }
                 }

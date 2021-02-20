@@ -20,17 +20,18 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import de.nulide.findmydevice.R;
+import de.nulide.findmydevice.sender.Sender;
 
 public class GPS implements LocationListener {
 
     static final int WAIT_TIME = 1000 * 5;
     private final Context context;
     private final LocationManager locationManager;
-    private final String sender;
+    private final Sender sender;
     private Location currentBestLocation = null;
 
     @SuppressLint("MissingPermission")
-    public GPS(Context context, String sender) {
+    public GPS(Context context, Sender sender) {
         this.context = context;
         this.sender = sender;
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -74,7 +75,7 @@ public class GPS implements LocationListener {
         String provider = getLastBestLocation().getProvider();
         String lat = new Double(getLastBestLocation().getLatitude()).toString();
         String lon = new Double(getLastBestLocation().getLongitude()).toString();
-        SMS.sendMessage(sender, provider + ": " + lat + " " + lon + "\n\n" + Map.createMapLink(lat, lon));
+        sender.sendNow(provider + ": " + lat + " " + lon + "\n\n" + Map.createMapLink(lat, lon));
     }
 
     @Override
@@ -163,13 +164,13 @@ public class GPS implements LocationListener {
             int mcc = Integer.parseInt(operator.substring(0, 3));
             int mnc = Integer.parseInt(operator.substring(3));
             msg.append("mcc: ").append(mcc).append("\nmnc: ").append(mnc);
-            SMS.sendMessage(sender, msg.toString());
+            sender.addToQueue(msg.toString());
             sendOpenCellIdLocation(settings, sender, mcc, mnc, location.getLac(), location.getCid());
         }
         return location;
     }
 
-    public void sendOpenCellIdLocation(de.nulide.findmydevice.data.Settings settings, String sender, int mcc, int mnc, int lac, int cid) {
+    public void sendOpenCellIdLocation(de.nulide.findmydevice.data.Settings settings, Sender sender, int mcc, int mnc, int lac, int cid) {
         if (((String) settings.get(de.nulide.findmydevice.data.Settings.SET_OPENCELLID_API_KEY)).isEmpty()) {
             return;
         }

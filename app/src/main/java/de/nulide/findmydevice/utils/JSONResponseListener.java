@@ -9,13 +9,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.nulide.findmydevice.R;
+import de.nulide.findmydevice.sender.SMS;
+import de.nulide.findmydevice.sender.Sender;
 
 public class JSONResponseListener implements Response.ErrorListener, Response.Listener<JSONObject> {
-    private final String sender;
+    private final Sender sender;
     private final String url;
     private final Context context;
 
-    public JSONResponseListener(Context context, String sender, String url) {
+    public JSONResponseListener(Context context, Sender sender, String url) {
         this.sender = sender;
         this.url = url;
         this.context = context;
@@ -23,7 +25,7 @@ public class JSONResponseListener implements Response.ErrorListener, Response.Li
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        SMS.sendMessage(sender, context.getString(R.string.JSON_RL_Error) + url);
+        sender.sendNow(context.getString(R.string.JSON_RL_Error) + url);
     }
 
     @Override
@@ -32,7 +34,7 @@ public class JSONResponseListener implements Response.ErrorListener, Response.Li
             try {
                 String lat = response.getString("lat");
                 String lon = response.getString("lon");
-                SMS.sendMessage(sender, context.getString(R.string.JSON_RL_OpenCellIdLocation) + lat + " " + lon+"\n\n" + Map.createMapLink(lat, lon));
+                sender.sendNow(context.getString(R.string.JSON_RL_OpenCellIdLocation) + lat + " " + lon+"\n\n" + Map.createMapLink(lat, lon));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

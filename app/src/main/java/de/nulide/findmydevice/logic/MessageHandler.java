@@ -8,6 +8,7 @@ import android.net.wifi.ScanResult;
 import java.util.Iterator;
 import java.util.Map;
 
+import de.nulide.findmydevice.sender.Sender;
 import de.nulide.findmydevice.ui.LockScreenMessage;
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
@@ -18,7 +19,7 @@ import de.nulide.findmydevice.utils.Network;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
 import de.nulide.findmydevice.utils.Ringer;
-import de.nulide.findmydevice.utils.SMS;
+import de.nulide.findmydevice.sender.SMS;
 
 public class MessageHandler {
 
@@ -35,7 +36,7 @@ public class MessageHandler {
         settings = set;
     }
 
-    public static void handle(String sender, String msg, Context context) {
+    public static void handle(Sender sender, String msg, Context context) {
         String originalMsg = msg;
         msg = msg.toLowerCase();
         StringBuilder replyBuilder = new StringBuilder();
@@ -71,7 +72,7 @@ public class MessageHandler {
                 devicePolicyManager.lockNow();
                 Intent lockScreenMessage = new Intent(context, LockScreenMessage.class);
                 lockScreenMessage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                lockScreenMessage.putExtra(LockScreenMessage.SENDER, sender);
+                lockScreenMessage.putExtra(LockScreenMessage.SENDER, sender.getDestination());
                 if (msg.length() > ((String) settings.get(Settings.SET_FMD_COMMAND)).length() + 6) {
                     String customMessage = originalMsg.substring(((String) settings.get(Settings.SET_FMD_COMMAND)).length() + 6, msg.length());
                     lockScreenMessage.putExtra(LockScreenMessage.CUSTOM_TEXT, customMessage);
@@ -124,8 +125,8 @@ public class MessageHandler {
             if (!reply.isEmpty()) {
                 Logger.log("Command used", msg);
                 counter++;
+                sender.addToQueue(reply.toString());
                 Notifications.notify(context, "SMS-Receiver", "New Usage " + counter, Notifications.CHANNEL_USAGE);
-                SMS.sendMessage(sender, reply);
             }
         }
     }

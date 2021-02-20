@@ -11,13 +11,15 @@ import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
-import de.nulide.findmydevice.utils.SMS;
+import de.nulide.findmydevice.sender.SMS;
+import de.nulide.findmydevice.sender.Sender;
 
 public class LockScreenMessage extends AppCompatActivity {
 
     public static final String SENDER = "sender";
+    public static final String SENDER_TYPE = "type";
     public static final String CUSTOM_TEXT = "ctext";
-    private String sender;
+    private Sender sender;
 
     private TextView tvLockScreenMessage;
 
@@ -28,7 +30,11 @@ public class LockScreenMessage extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         Bundle bundle = getIntent().getExtras();
-        sender = bundle.getString(SENDER);
+        switch(bundle.getString(SENDER_TYPE)){
+            case SMS.TYPE:
+                    sender = new SMS(this, bundle.getString(SENDER));
+                break;
+        }
         Settings settings;
         IO.context = this;
         settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
@@ -42,13 +48,13 @@ public class LockScreenMessage extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        SMS.sendMessage(sender, getString(R.string.LockScreen_Usage_detectd));
+        sender.sendNow(getString(R.string.LockScreen_Usage_detectd));
         super.onPause();
     }
 
     @Override
     public void onBackPressed() {
-        SMS.sendMessage(sender, getString(R.string.LockScreen_Backbutton_pressed));
+        sender.sendNow(getString(R.string.LockScreen_Backbutton_pressed));
         finish();
     }
 
