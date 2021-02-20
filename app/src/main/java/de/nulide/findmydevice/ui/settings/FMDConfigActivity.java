@@ -3,7 +3,11 @@ package de.nulide.findmydevice.ui.settings;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,8 +33,11 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
     private CheckBox checkBoxDeviceWipe;
     private CheckBox checkBoxAccessViaPin;
     private Button buttonEnterPin;
+    private Button buttonSelectRingtone;
     private EditText editTextLockScreenMessage;
     private EditText editTextFmdCommand;
+
+    private int REQUEST_CODE_RINGTONE = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +60,9 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
 
         buttonEnterPin = findViewById(R.id.buttonEnterPin);
         buttonEnterPin.setOnClickListener(this);
+
+        buttonSelectRingtone = findViewById(R.id.buttonSelectRingTone);
+        buttonSelectRingtone.setOnClickListener(this);
 
         editTextFmdCommand = findViewById(R.id.editTextFmdCommand);
         editTextFmdCommand.setText((String) settings.get(Settings.SET_FMD_COMMAND));
@@ -111,6 +121,22 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
                 }
             });
             alert.show();
+        }else if(v == buttonSelectRingtone){
+            Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
+            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, getString(R.string.Settings_Select_Ringtone));
+            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse((String) settings.get(Settings.SET_RINGER_TONE)));
+            this.startActivityForResult(intent, REQUEST_CODE_RINGTONE);
         }
     }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_RINGTONE) {
+            Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+            settings.set(Settings.SET_RINGER_TONE, uri.toString());
+        }
+    }
+
 }

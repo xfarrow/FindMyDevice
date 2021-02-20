@@ -1,10 +1,14 @@
 package de.nulide.findmydevice.data;
 
 
+import android.media.RingtoneManager;
+import android.net.Uri;
+
 import java.util.HashMap;
 import java.util.Timer;
 
 import de.nulide.findmydevice.tasks.SaveTimerTask;
+import de.nulide.findmydevice.utils.Ringer;
 
 public class Settings extends HashMap<Integer, Object> {
 
@@ -17,6 +21,7 @@ public class Settings extends HashMap<Integer, Object> {
     public static final int SET_FMD_COMMAND = 4;
     public static final int SET_OPENCELLID_API_KEY = 5;
     public static final int SET_INTRODUCTION_VERSION = 6;
+    public static final int SET_RINGER_TONE = 7;
 
 
     public static final int SET_FIRST_TIME_WHITELIST = 301;
@@ -47,6 +52,9 @@ public class Settings extends HashMap<Integer, Object> {
                     return "fmd";
                 case SET_INTRODUCTION_VERSION:
                     return 0;
+                case SET_RINGER_TONE:
+                    return Ringer.getDefaultRingtoneAsString();
+
             }
         }
         return "";

@@ -95,4 +95,6 @@
     <string name="Ok">Ok</string>
     <string name="Log_Alert_LogData">LogData</string>
     <string name="Sender_End_Of_Msg">---End of Message---</string>
+    <string name="Settings_Ringer_Tone_Description">Select a ringtone that will be played when fmd ring is sent.</string>
+    <string name="Settings_Select_Ringtone">Select Ringtone</string>
 </resources>

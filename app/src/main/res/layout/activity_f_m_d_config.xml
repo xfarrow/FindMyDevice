@@ -96,6 +96,31 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
                 android:textColor="@color/colorAccent"
+                android:text="fmd ring" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Settings_Ringer_Tone_Description" />
+
+            <Button
+                android:id="@+id/buttonSelectRingTone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5mm"
+                android:text="@string/Settings_Select_Ringtone"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textColor="@color/colorAccent"
                 android:text="fmd lock" />
 
             <TextView
