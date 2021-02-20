@@ -75,7 +75,7 @@ public class SMSReceiver extends BroadcastReceiver {
                             Long tempContactActiveSince = (Long) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE);
                             if (tempContactActiveSince != null && tempContactActiveSince + (5 * 60 * 1000) < time.getTimeInMillis()) {
                                 Logger.log("Session expired", receiver);
-                                sender.addToQueue("FindMyDevive: Pin expired!");
+                                sender.sendNow("FindMyDevive: Pin expired!");
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
                                 tempContact = null;
@@ -87,15 +87,12 @@ public class SMSReceiver extends BroadcastReceiver {
                             }
                             if (!inWhitelist && MessageHandler.checkForPin(msgs[i].getMessageBody())) {
                                 Logger.log("Usage", receiver + " used the Pin");
-                                sender.addToQueue(context.getString(R.string.MH_Pin_Accepted));
+                                sender.sendNow(context.getString(R.string.MH_Pin_Accepted));
                                 Notifications.notify(context, "Pin", "The pin was used by the following number: "+receiver+"\nPlease change the Pin!", Notifications.CHANNEL_PIN);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, receiver);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, time.getTimeInMillis());
                                 MessageHandler.handle(sender, msgs[i].getMessageBody(), context);
                             }
-                        }
-                        if(!sender.isQueueEmpty()) {
-                            sender.send();
                         }
                     }
                 }

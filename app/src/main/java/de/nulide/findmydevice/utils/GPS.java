@@ -164,7 +164,7 @@ public class GPS implements LocationListener {
             int mcc = Integer.parseInt(operator.substring(0, 3));
             int mnc = Integer.parseInt(operator.substring(3));
             msg.append("mcc: ").append(mcc).append("\nmnc: ").append(mnc);
-            sender.addToQueue(msg.toString());
+            sender.sendNow(msg.toString());
             sendOpenCellIdLocation(settings, sender, mcc, mnc, location.getLac(), location.getCid());
         }
         return location;

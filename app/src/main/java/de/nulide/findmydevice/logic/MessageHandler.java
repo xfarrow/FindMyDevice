@@ -125,7 +125,7 @@ public class MessageHandler {
             if (!reply.isEmpty()) {
                 Logger.log("Command used", msg);
                 counter++;
-                sender.addToQueue(reply.toString());
+                sender.sendNow(reply.toString());
                 Notifications.notify(context, "SMS-Receiver", "New Usage " + counter, Notifications.CHANNEL_USAGE);
             }
         }
