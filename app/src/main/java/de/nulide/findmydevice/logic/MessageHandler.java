@@ -7,6 +7,7 @@ import android.net.wifi.ScanResult;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 import de.nulide.findmydevice.sender.Sender;
 import de.nulide.findmydevice.ui.LockScreenMessage;
@@ -73,6 +74,7 @@ public class MessageHandler {
                 Intent lockScreenMessage = new Intent(context, LockScreenMessage.class);
                 lockScreenMessage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 lockScreenMessage.putExtra(LockScreenMessage.SENDER, sender.getDestination());
+                lockScreenMessage.putExtra(LockScreenMessage.SENDER_TYPE, sender.SENDER_TYPE);
                 if (msg.length() > ((String) settings.get(Settings.SET_FMD_COMMAND)).length() + 6) {
                     String customMessage = originalMsg.substring(((String) settings.get(Settings.SET_FMD_COMMAND)).length() + 6, msg.length());
                     lockScreenMessage.putExtra(LockScreenMessage.CUSTOM_TEXT, customMessage);

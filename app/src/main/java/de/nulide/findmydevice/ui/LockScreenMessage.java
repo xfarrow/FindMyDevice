@@ -26,9 +26,9 @@ public class LockScreenMessage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lock_screen_message);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        setContentView(R.layout.activity_lock_screen_message);
         Bundle bundle = getIntent().getExtras();
         switch(bundle.getString(SENDER_TYPE)){
             case SMS.TYPE:
