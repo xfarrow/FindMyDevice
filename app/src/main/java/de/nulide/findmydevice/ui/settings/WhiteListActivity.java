@@ -19,6 +19,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Contact;
 import de.nulide.findmydevice.data.Settings;
@@ -110,43 +114,72 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
                 if (resultCode == Activity.RESULT_OK) {
                     Uri contactData = data.getData();
                     Cursor c = managedQuery(contactData, null, null, null, null);
+                    List<Contact> contacts = new LinkedList<>();
+                    List<String> numbers = new LinkedList<>();
                     if (c.moveToFirst()) {
                         String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
                         String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
                         if (hasPhone.equalsIgnoreCase("1")) {
                             Cursor phones = getContentResolver().query(
                                     ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
                                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id,
                                     null, null);
-                            phones.moveToFirst();
-                            String cNumber = phones.getString(phones.getColumnIndex("data1"));
-                            String cName = phones.getString(phones.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
-                            Contact contact = new Contact(cName, cNumber);
-                            if (!whiteList.checkForDuplicates(contact)) {
-                                whiteList.add(contact);
-                                whiteListAdapter.notifyDataSetChanged();
-                                if(!(Boolean) settings.get(Settings.SET_FIRST_TIME_CONTACT_ADDED)){
-                                    new AlertDialog.Builder(this)
-                                            .setTitle("WhiteList")
-                                            .setMessage(this.getString(R.string.Alert_First_Time_contact_added))
-                                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    settings.set(Settings.SET_FIRST_TIME_CONTACT_ADDED, true);
-                                                }
-                                            })
-                                            .setIcon(android.R.drawable.ic_dialog_info)
-                                            .show();
-                                }
-                            } else {
-                                Toast toast = Toast.makeText(this, getString(R.string.Toast_Duplicate_contact), Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.CENTER, 0, 0);
-                                toast.show();
+                            while(phones.moveToNext()) {
+                                String cNumber = phones.getString(phones.getColumnIndex("data1"));
+                                String cName = phones.getString(phones.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
+                                contacts.add(new Contact(cName, cNumber));
+                                numbers.add(cNumber);
                             }
-
                         }
                     }
+
+                    if(numbers.size() == 1){
+                        addContactToWiteList(contacts.get(0));
+                    }else{
+                        final List<Contact> finalContacts = contacts;
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setTitle(getString(R.string.WhiteList_Select_Number));
+                        String[] numbersArray = numbers.toArray(new String[numbers.size()]);
+                        builder.setItems(numbersArray, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                addContactToWiteList(finalContacts.get(which));
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+
                 }
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + reqCode);
+        }
+    }
+
+    private void addContactToWiteList(Contact contact){
+        if(contact != null) {
+            if (!whiteList.checkForDuplicates(contact)) {
+                whiteList.add(contact);
+                whiteListAdapter.notifyDataSetChanged();
+                if (!(Boolean) settings.get(Settings.SET_FIRST_TIME_CONTACT_ADDED)) {
+                    new AlertDialog.Builder(this)
+                            .setTitle("WhiteList")
+                            .setMessage(this.getString(R.string.Alert_First_Time_contact_added))
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    settings.set(Settings.SET_FIRST_TIME_CONTACT_ADDED, true);
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .show();
+                }
+            } else {
+                Toast toast = Toast.makeText(this, getString(R.string.Toast_Duplicate_contact), Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
         }
     }
 

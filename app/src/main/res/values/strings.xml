@@ -97,4 +97,5 @@
     <string name="Sender_End_Of_Msg">---End of Message---</string>
     <string name="Settings_Ringer_Tone_Description">Select a ringtone that will be played when fmd ring is sent.</string>
     <string name="Settings_Select_Ringtone">Select Ringtone</string>
+    <string name="WhiteList_Select_Number">Select one of the phonenumbers.</string>
 </resources>
