@@ -2,16 +2,21 @@ package de.nulide.findmydevice.ui.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import de.nulide.findmydevice.R;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView textViewFMDVersion;
+    private Button buttonHelp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,5 +36,14 @@ public class AboutActivity extends AppCompatActivity {
             e.printStackTrace();
             textViewFMDVersion.setText(getString(R.string.Error));
         }
+
+        buttonHelp = findViewById(R.id.buttonHelp);
+        buttonHelp.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent helpIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://gitlab.com/Nulide/findmydevice/-/wikis/home"));
+        startActivity(helpIntent);
     }
 }
