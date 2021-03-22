@@ -22,13 +22,13 @@ public class Logger implements Thread.UncaughtExceptionHandler{
     private static boolean DEBUG;
     private static LogData log;
     private static Context context;
-    private static StringBuilder logSession;
+    private static StringBuilder logText;
 
     public static void init(Thread t, Context con){
         DEBUG = false;
         log = JSONFactory.convertJSONLog(IO.read(JSONLog.class, IO.logFileName));
         context = con;
-        logSession = new StringBuilder();
+        logText = new StringBuilder();
         Logger logger = new Logger();
         t.setUncaughtExceptionHandler(logger);
     }
@@ -38,28 +38,27 @@ public class Logger implements Thread.UncaughtExceptionHandler{
     }
 
     public static void log(String title, String msg){
-        StringBuilder logText = new StringBuilder();
         logText.append(title).append(" - ").append(msg);
-        log.add(Calendar.getInstance().getTime().getTime(), logText.toString());
+        writeLog();
         if(DEBUG){
             Log.d(title, msg);
         }
     }
 
     public static void logSession(String title,String msg){
-        if(!logSession.toString().isEmpty()) {
-            logSession.append("\n");
+        if(!logText.toString().isEmpty()) {
+            logText.append("\n");
         }
-        logSession.append(title).append(" - ").append(msg);
+        logText.append(title).append(" - ").append(msg);
         if(DEBUG){
             Log.d(title, msg);
         }
     }
 
-    public static void writeLogSession(){
-        if(logSession.toString().isEmpty()) {
-            log.add(Calendar.getInstance().getTimeInMillis(), logSession.toString());
-            logSession = new StringBuilder();
+    public static void writeLog(){
+        if(!logText.toString().isEmpty()) {
+            log.add(Calendar.getInstance().getTimeInMillis(), logText.toString());
+            logText = new StringBuilder();
         }
     }
 

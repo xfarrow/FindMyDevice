@@ -104,7 +104,7 @@ public class SMSReceiver extends BroadcastReceiver {
             Notifications.notify(context, "AfterBootTest", "Receiver is working", Notifications.CHANNEL_LIFE);
             Logger.logSession("AfterBootTest", "passed");
         }
-        Logger.writeLogSession();
+        Logger.writeLog();
     }
 
     private void init(Context context) {
