@@ -22,6 +22,8 @@ John - [2br-2b](https://gitlab.com/2br-2b)
 
 nvallas - [nvallas](https://gitlab.com/nvallas)
 
+MijoHuer - [MijoHuer](https://gitlab.com/MijoHuer)
+
 # Donate
 
 <script src="https://liberapay.com/Nulide/widgets/button.js"></script>
