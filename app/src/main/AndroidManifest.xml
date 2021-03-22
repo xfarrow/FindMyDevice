@@ -48,7 +48,9 @@
         <activity
             android:name=".ui.LogActivity"
             android:label="LOG" />
-        <activity android:name=".ui.RingerActivity" />
+        <activity android:name=".ui.RingerActivity"
+            android:screenOrientation="sensorPortrait"
+            android:showOnLockScreen="true" />
         <activity android:name=".ui.IntroductionActivity" />
         <activity
             android:name=".ui.LockScreenMessage"

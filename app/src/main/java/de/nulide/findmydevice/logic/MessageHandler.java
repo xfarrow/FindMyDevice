@@ -75,8 +75,8 @@ public class MessageHandler {
                 lockScreenMessage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 lockScreenMessage.putExtra(LockScreenMessage.SENDER, sender.getDestination());
                 lockScreenMessage.putExtra(LockScreenMessage.SENDER_TYPE, sender.SENDER_TYPE);
-                if (msg.length() > ((String) settings.get(Settings.SET_FMD_COMMAND)).length() + 6) {
-                    String customMessage = originalMsg.substring(((String) settings.get(Settings.SET_FMD_COMMAND)).length() + 6, msg.length());
+                if (msg.length() > COM_LOCK.length() + 1 ) {
+                    String customMessage = originalMsg.substring(COM_LOCK.length() + 1, msg.length());
                     lockScreenMessage.putExtra(LockScreenMessage.CUSTOM_TEXT, customMessage);
                 }
                 context.startActivity(lockScreenMessage);

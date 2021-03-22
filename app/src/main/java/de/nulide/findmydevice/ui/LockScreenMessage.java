@@ -26,9 +26,10 @@ public class LockScreenMessage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         setContentView(R.layout.activity_lock_screen_message);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD|
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+
         Bundle bundle = getIntent().getExtras();
         switch(bundle.getString(SENDER_TYPE)){
             case SMS.TYPE:
@@ -44,18 +45,6 @@ public class LockScreenMessage extends AppCompatActivity {
         } else {
             tvLockScreenMessage.setText((String) settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
         }
-    }
-
-    @Override
-    protected void onPause() {
-        sender.sendNow(getString(R.string.LockScreen_Usage_detectd));
-        super.onPause();
-    }
-
-    @Override
-    public void onBackPressed() {
-        sender.sendNow(getString(R.string.LockScreen_Backbutton_pressed));
-        finish();
     }
 
 
