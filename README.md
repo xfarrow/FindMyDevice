@@ -34,8 +34,8 @@ MijoHuer - [MijoHuer](https://gitlab.com/MijoHuer)
 I am working full-time and have to learn for my tests.
 This project is my free-time and i have spent a lot of time in this and still will.
 If there are bugs i will try to fix them as soon as possible, but my full-time job has priority.
-If it takes too long to fix something you can of course try to fix it by yourself and contributes to this project.
+If it takes too long to fix something you can of course try to fix it by yourself and contribute to this project.
 
 Thanks
 
-Nulie
+Nulide
