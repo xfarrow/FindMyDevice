@@ -22,11 +22,13 @@ public class Logger implements Thread.UncaughtExceptionHandler{
     private static boolean DEBUG;
     private static LogData log;
     private static Context context;
+    private static StringBuilder logSession;
 
     public static void init(Thread t, Context con){
         DEBUG = false;
         log = JSONFactory.convertJSONLog(IO.read(JSONLog.class, IO.logFileName));
         context = con;
+        logSession = new StringBuilder();
         Logger logger = new Logger();
         t.setUncaughtExceptionHandler(logger);
     }
@@ -44,13 +46,26 @@ public class Logger implements Thread.UncaughtExceptionHandler{
         }
     }
 
+    public static void logSession(String title,String msg){
+        if(!logSession.toString().isEmpty()) {
+            logSession.append("\n");
+        }
+        logSession.append(title).append(" - ").append(msg);
+        if(DEBUG){
+            Log.d(title, msg);
+        }
+    }
+
+    public static void writeLogSession(){
+        if(logSession.toString().isEmpty()) {
+            log.add(Calendar.getInstance().getTimeInMillis(), logSession.toString());
+            logSession = new StringBuilder();
+        }
+    }
+
     @Override
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
-        StringWriter sw = new StringWriter();
-        e.printStackTrace(new PrintWriter(sw));
-
-        log(t.getName(), sw.toString());
-
+        log(t.getName(), createNiceCrashLog(e));
         Intent crash = new Intent(context, CrashedActivity.class);
         crash.putExtra(CrashedActivity.CRASH_LOG, createNiceCrashLog(e));
         context.startActivity(crash);

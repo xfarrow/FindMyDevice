@@ -65,7 +65,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         boolean inWhitelist = false;
                         for (int iwl = 0; iwl < whiteList.size(); iwl++) {
                             if (PhoneNumberUtils.compare(whiteList.get(iwl).getNumber(), receiver)) {
-                                Logger.log("Usage", receiver + " used FMD");
+                                Logger.logSession("Usage", receiver + " used FMD");
                                 MessageHandler.handle(sender, msgs[i].getMessageBody(), context);
                                 inWhitelist = true;
                             }
@@ -74,19 +74,19 @@ public class SMSReceiver extends BroadcastReceiver {
                             String tempContact = (String) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT);
                             Long tempContactActiveSince = (Long) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE);
                             if (tempContactActiveSince != null && tempContactActiveSince + (5 * 60 * 1000) < time.getTimeInMillis()) {
-                                Logger.log("Session expired", receiver);
+                                Logger.logSession("Session expired", receiver);
                                 sender.sendNow("FindMyDevive: Pin expired!");
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
                                 tempContact = null;
                             }
                             if (!inWhitelist && tempContact != null && PhoneNumberUtils.compare(tempContact, receiver)) {
-                                Logger.log("Usage", receiver + " used FMD");
+                                Logger.logSession("Usage", receiver + " used FMD");
                                 MessageHandler.handle(sender, msgs[i].getMessageBody(), context);
                                 inWhitelist = true;
                             }
                             if (!inWhitelist && MessageHandler.checkForPin(msgs[i].getMessageBody())) {
-                                Logger.log("Usage", receiver + " used the Pin");
+                                Logger.logSession("Usage", receiver + " used the Pin");
                                 sender.sendNow(context.getString(R.string.MH_Pin_Accepted));
                                 Notifications.notify(context, "Pin", "The pin was used by the following number: "+receiver+"\nPlease change the Pin!", Notifications.CHANNEL_PIN);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, receiver);
@@ -102,8 +102,9 @@ public class SMSReceiver extends BroadcastReceiver {
             }
         } else if (intent.getAction().equals(BOOT_COMPLETED)) {
             Notifications.notify(context, "AfterBootTest", "Receiver is working", Notifications.CHANNEL_LIFE);
-            Logger.log("AfterBootTest", "passed");
+            Logger.logSession("AfterBootTest", "passed");
         }
+        Logger.writeLogSession();
     }
 
     private void init(Context context) {
