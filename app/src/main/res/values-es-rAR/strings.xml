@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FindMyDevice</string>
+    <string name="Permission_SMS">Para poder poner en ejecución la aplicación, es necesario que ésta pueda ver tus mensajes de texto (SMS).</string>
+    <string name="Permission_CONTACTS">No cualquiera tiene permitido borrar o localizar tu teléfono, por eso, es necesario que elijas algunos contactos para localizar tu dispositivo. Este permiso es necesario.</string>
+    <string name="Permission_GPS">SI quieres obtener las coordenadas GPS del teléfono, la aplicación necesita acceder a tu ubicación. Por favor, permite que también la aplicación pueda trabajar en segundo plano para localizarte. Si no das este permiso, esta funcionalidad no va a ser activada.</string>
+    <string name="Permission_DND">También puedes hacer que el teléfono suene para que puedas encontrarlo. Cuando el modo no molestar está activado (DoNotDisturb On), puede ser que el teléfono quede silenciado/mudo. Si no das este permiso, esta funcionalidad no va a ser activada.</string>
+    <string name="Permission_DEVICE_ADMIN">Si quieres bloquear o borrar tu teléfono si se pierde, es necesario activar este permiso. Si no das este permiso, esta funcionalidad no va a ser activada.</string>
+    <string name="Permission_OVERLAY">Esta aplicación puede mostrar un mensaje en la pantalla del teléfono cuando lo bloquees, para que pueda leerlo si alguien lo encuentra. Si no das este permiso, esta funcionalidad no va a ser activada.</string>
+    <string name="Permission_WRITE_SECURE_SETTINGS">Esta aplicación es capaz de poder activar tu ubicación si normalmente la dejas desactivada. Si la ubicación esta desactivada, el comando fmd locate no va a funcionar. Para poder conseguir esto, la app necesita un permiso especial que tiene que ser otorgado con la ayuda de una computadora. Si no concedes este permiso, no hay problema, puedes seguir usando la app</string>
+    <string name="Settings_Permission">Permisos</string>
+
+</resources>
