@@ -16,7 +16,7 @@
     <string name="About_Help">Aide</string>
     <string name="MH_Help_delete">effacer - réinitialiser votre téléphone</string>
     <string name="MH_Help_Stats">stats - envoyer les informations du périphérique</string>
-    <string name="MH_Help_Lock">lock - vérouiller le téléphone</string>
+    <string name="MH_Help_Lock">lock - verrouiller le téléphone</string>
     <string name="MH_Help_ring">ring - faire sonner le téléphone</string>
     <string name="MH_Help_where">locate - envoyer la localisation courante</string>
     <string name="MH_Title_Help">les commandes de FindMyDevice :</string>
@@ -25,7 +25,7 @@
     <string name="MH_Delete">Au revoir …</string>
     <string name="MH_Networks">[…]</string>
     <string name="MH_Stats">Statistiques réseau […]</string>
-    <string name="MH_Locked">vérouillé</string>
+    <string name="MH_Locked">verrouillé</string>
     <string name="MH_rings">sonnerie</string>
     <string name="MH_GPS_WILL_FOLLOW">Les coordonnées GPS seront envoyées bientôt.</string>
     <string name="Toast_Duplicate_contact">Ce contact existe déjà.</string>
@@ -39,7 +39,7 @@
     <string name="WhiteList_Add_Contact">Ajouter un contact</string>
     <string name="Settings_Permissions">Permissions</string>
     <string name="Settings_FMDCommand_Description">La commande utilisée pour communiquer avec FindMyDevice.</string>
-    <string name="Settings_Lockscreenmessage_Description">Message du vérouillage de l\'écran […]</string>
+    <string name="Settings_Lockscreenmessage_Description">Message du verrouillage de l\'écran […]</string>
     <string name="Settings_Pin_Description">Code PIN : […]</string>
     <string name="Enable">Activé</string>
     <string name="About_Used_APIs">Utiliser l\'API : </string>
@@ -48,9 +48,9 @@
     <string name="Locked_Lock_Screen">FindMyDevice[…]</string>
     <string name="Introduction_Next">Suivant</string>
     <string name="Introduction_Give_Permission">Donner les permissions</string>
-    <string name="Permission_OVERLAY">Quand vous vérouillez votre équipement à distance, cette application peut afficher un message sur l\'écran de vérouillage pour la personne qui trouvera votre téléphone. Si vous ne donnez pas cette permission, cette fonctionnalité ne sera pas activée.</string>
+    <string name="Permission_OVERLAY">Quand vous verrouillez votre équipement à distance, cette application peut afficher un message sur l\'écran de verrouillage pour la personne qui trouvera votre téléphone. Si vous ne donnez pas cette permission, cette fonctionnalité ne sera pas activée.</string>
     <string name="Permission_WRITE_SECURE_SETTINGS">Cette application est capable d\'activer le GPS même si vous l\'avez désactivé.[…]</string>
-    <string name="Permission_DEVICE_ADMIN">Si vous voulez vérouiller ou réinitialiser votre téléphone perdu, cette permission est nécessaire.[…]</string>
+    <string name="Permission_DEVICE_ADMIN">Si vous voulez verrouiller ou réinitialiser votre téléphone perdu, cette permission est nécessaire.[…]</string>
     <string name="Permission_DND">Vous pouvez aussi faire sonner le téléphone pour vous aider à le trouver. Quand DoNotDisturb est activé, il est possible que le téléphone soit en sourdine. Si vous ne donnez pas cette permission, cette fonctionnalité ne sera pas activée.</string>
     <string name="Permission_GPS">Si vous voulez localiser votre téléphone en utilisant les coordonnées GPS, l\'application a besoin de cette permission.[…]</string>
     <string name="Permission_CONTACTS">Tout le monde n\'est pas autorisé à réinitialiser ou localiser votre téléphone, vous devez sélectionner certains contacts qui seront autorisés à localiser votre équipement. Cette permission est nécessaire.</string>
