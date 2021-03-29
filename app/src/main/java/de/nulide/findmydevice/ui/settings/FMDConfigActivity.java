@@ -37,6 +37,9 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
     private EditText editTextLockScreenMessage;
     private EditText editTextFmdCommand;
 
+    int colorEnabled;
+    int colorDisabled;
+
     private int REQUEST_CODE_RINGTONE = 5;
 
     @Override
@@ -58,7 +61,20 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
         editTextLockScreenMessage.setText((String) settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
         editTextLockScreenMessage.addTextChangedListener(this);
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            colorEnabled = getColor(R.color.colorEnabled);
+            colorDisabled = getColor(R.color.colorDisabled);
+        }else {
+            colorEnabled = getResources().getColor(R.color.colorEnabled);
+            colorDisabled = getResources().getColor(R.color.colorDisabled);
+        }
+
         buttonEnterPin = findViewById(R.id.buttonEnterPin);
+        if(settings.get(Settings.SET_PIN).equals("")){
+            buttonEnterPin.setBackgroundColor(colorDisabled);
+        }else{
+            buttonEnterPin.setBackgroundColor(colorEnabled);
+        }
         buttonEnterPin.setOnClickListener(this);
 
         buttonSelectRingtone = findViewById(R.id.buttonSelectRingTone);
@@ -117,6 +133,7 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
                     String text = input.getText().toString();
                     if (!text.isEmpty()) {
                         settings.set(Settings.SET_PIN, BCryptUtils.hashPassword(text));
+                        buttonEnterPin.setBackgroundColor(colorEnabled);
                     }
                 }
             });

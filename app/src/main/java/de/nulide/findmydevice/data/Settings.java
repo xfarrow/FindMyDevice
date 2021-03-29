@@ -54,6 +54,8 @@ public class Settings extends HashMap<Integer, Object> {
                     return 0;
                 case SET_RINGER_TONE:
                     return Ringer.getDefaultRingtoneAsString();
+                case SET_PIN:
+                    return "";
 
             }
         }
