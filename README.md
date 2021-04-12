@@ -26,6 +26,8 @@ MijoHuer - [MijoHuer](https://gitlab.com/MijoHuer)
 
 Rémi - [Remi-p](https://gitlab.com/Remi-p)
 
+linux.redneck - [linux-redneck](https://gitlab.com/linux-redneck)
+
 # Donate
 
 <script src="https://liberapay.com/Nulide/widgets/button.js"></script>
