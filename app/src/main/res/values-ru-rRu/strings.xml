@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name" translatable="false">FindMyDevice</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="Introduction_Introduction">FMD - это приложение, которое может помочь вам найти ваш телефон, если он потеряется.\nПриложение использует SMS (текст) для связи. Вам понадобится второе устройство или друг, чтобы вы могли отследить ваш телефон.\nПросто отправьте SMS-сообщение, которое содержит "fmd" команду.\nПриложение все еще в бета-тесте.\n\n - Nulide</string>
+    <string name="Introduction_UpdatePermission">Требуются некоторые разрешения.\nПожалуйста, предоставьте требуемые разрешения для того, чтобы продолжить пользоваться приложением, или вернитесь на предыдущую версию приложения.</string>
+    <string name="Permission_SMS">Чтобы приложение FindMyDevice распознавало ваши команды, отправляемые посредством SMS-сообщений, нужно предоставить приложению разрешение просматривать SMS-сообщения. Ваши SMS-сообщения никогда не покинут пределы вашего устройства, и никогда не будут использованы для чего-либо, кроме как для поиска вашего телефона.\nЭто обязательное разрешение.</string>
+    <string name="Permission_CONTACTS">Не каждому встречному разрешено удалять данные телефона или отслеживать его, так что вам нужно выбрать контакты людей, которые смогут отслеживать ваше устройство.\nЭто обязательное разрешение.</string>
+    <string name="Permission_GPS">Если вы хотите получать GPS-координаты телефона, то приложению нужно предоставить это разрешение. \nПожалуйста, также разрешите приложению отслеживать вас в фоновом режиме.\nЕсли вы не предоставите это разрешение, то данная функция не будет активирована.</string>
+    <string name="Permission_DND">Вы также можете послать команду \"звонок\", чтобы найти ваш телефон. Если будет активирован режим \"Не Беспокоить\", возможна такая ситуация, что телефон будет работать без звука.\nЕсли вы не предоставите это разрешение, то данная функция не будет активирована.</string>
+    <string name="Permission_DEVICE_ADMIN">Если вы хотите блокировать телефон, или удалять данные телефона, когда он потеряется, то это разрешение обязательно.\nЕсли вы не предоставите это разрешение, то данная функция не будет активирована.</string>
+    <string name="Permission_WRITE_SECURE_SETTINGS">Данное приложение способно включать геолокацию, если она отключена.\nЕсли геолокация отключена, то fmd не сможет отследить ваш телефон.\nДля того, чтобы приложение могло активировать геолокацию, вам нужно предоставить специальное разрешение с помощью вашего компьютера.\nЕсли вы не предоставите это разрешение, то ничего страшного.\nВы все еще сможете пользоваться приложением.</string>
+    <string name="Permission_OVERLAY">Если вы удаленно заблокируете устройство, то приложение сможет показать сообщение на заблокированном экране для того, кто нашел ваш телефон.\nЕсли вы не предоставите это разрешение, то данная функция не будет активирована.</string>
+    <string name="Introduction_Give_Permission">Дать разрешение</string>
+    <string name="Introduction_Next">Далее</string>
+    <string name="Locked_Lock_Screen">FindMyDevice\nЭтот телефон заблокирован!\nСообщение от владельца:</string>
+    <string name="About">О приложении</string>
+    <string name="About_Text">Спасибо за установку приложения!\nПредстоит еще много работы, но я надеюсь, что это приложение поможет вам в ситуации, в которой оказался я. Терять телефон - плохо, но терять свой телефон из-за того, что нет конфиденциальных приложений, которые могут помочь найти телефон - еще хуже.\nВклад в развитие приложения и пожертвования приветствуются! Просто зайдите в F-Droid и найдите FindMyDevice.\n\n - Nulide</string>
+    <string name="About_Used_APIs">Использованные API:\n</string>
+    <string name="About_UsedApis_Content" translatable="false">com.fasterxml.jackson.core:jackson-databind:2.10.0\ncom.android.volley:volley:1.1.1\norg.mindrot:jbcrypt:0.4\nOpenCellID\nOpenStreetMap</string>
+    <string name="Info_Service" translatable="false">FMD</string>
+    <string name="Info_CORE" translatable="false">CORE:</string>
+    <string name="Info_GPS" translatable="false">GPS:</string>
+    <string name="Info_DND" translatable="false">DND:</string>
+    <string name="Info_DEVICE_ADMIN" translatable="false">DeviceAdmin:</string>
+    <string name="Info_Overlay" translatable="false">Overlay:</string>
+    <string name="Info_SecureSettings" translatable="false">SecureSettings:</string>
+    <string name="Enable">Включить</string>
+    <string name="Settings_Pin_Description">Используется как подтверждение удаления данных устройства или для временного использования сервиса.</string>
+    <string name="Settings_Lockscreenmessage_Description">Сообщение на заблокированном экране:\nКогда устройство заблокируется, это сообщение появится на экране.</string>
+    <string name="Settings_FMDCommand_Description">Эта команда используется для связи с FindMyDevice.</string>
+    <string name="Settings_PermissionDescription">Разрешения требуются для определенных возможностей</string>
+    <string name="Settings_Permission">Разрешения</string>
+    <string name="WhiteList_Add_Contact">Добавить контакт</string>
+    <string name="Enabled">Включено</string>
+    <string name="Disabled">Отключено</string>
+    <string name="Main_Title" translatable="false">Info</string>
+    <string name="Toast_Landcode_error">Пожалуйста, допишите код страны к номеру телефона. (Например "+7", "+44", ...)</string>
+    <string name="Delete">Удалить</string>
+    <string name="WhiteList_Select_Action">Выберите действие:</string>
+    <string name="Toast_Duplicate_contact">Этот контакт уже существует.</string>
+    <string name="MH_GPS_WILL_FOLLOW">GPS-координаты скоро будут отправлены.</string>
+    <string name="MH_rings">звонки</string>
+    <string name="MH_Locked">заблокировано</string>
+    <string name="MH_Stats">Информация о сети:\nIP: \n</string>
+    <string name="MH_Networks">\nДоступные Wifi-сети:\n</string>
+    <string name="MH_Delete">Прощай...</string>
+    <string name="MH_False_Pin">Неправильный Pin!</string>
+    <string name="MH_Syntax">Синтаксис:</string>
+    <string name="MH_Title_Help">Команды FindMyDevice:</string>
+    <string name="MH_Help_where">" locate - отправляет текущее местоположение"</string>
+    <string name="MH_Help_ring">" ring - отправляет телефону команду \"звонить\""</string>
+    <string name="MH_Help_Lock">" lock - блокирует телефон"</string>
+    <string name="MH_Help_Stats">" stats - отправляет информацию о телефоне"</string>
+    <string name="MH_Help_delete">" delete - удаляет данные телефона"</string>
+    <string name="About_Help">Помощь</string>
+    <string name="Settings_FMD_via_Pin_Description">Разрешить связываться с FMD при помощи pin. Вы будете временно добавлены в Белый Список.</string>
+    <string name="Settings_Enter_Pin">Введите Pin</string>
+    <string name="MH_Pin_Accepted">Pin принят!</string>
+    <string name="Alert_First_time_whitelist">Здесь вы можете добавить ваши контакты в Белый Список. Контакты этого Белого Списка смогут отслеживать ваше устройство, если отправят SMS-сообщение с текстом \"fmd\".</string>
+    <string name="Alert_First_Time_contact_added">Поздравляем. Вы добавили ваш первый контакт. Теперь вы можете связываться с fmd при помощи SMS-сообщения с текстом \"fmd\" от разрешенных номеров. Если все работает как надо, то приложение должно ответить вам SMS-сообщением.</string>
+    <string name="R_Stop_ring">ОСТАНОВИТЬ ЗВОНОК</string>
+    <string name="Settings_Log">Лог</string>
+    <string name="Settings_Show_log">Показать Лог</string>
+    <string name="Crashed_Send_log">Отправить Лог</string>
+    <string name="MH_No_GPS">Извините, геолокация отключена.</string>
+    <string name="About_Version">Версия FMD:</string>
+    <string name="Main_OpenWhiteList" translatable="false">+</string>
+    <string name="Settings_FMDConfig">Конфигурация FMD</string>
+    <string name="Settings_WhiteList">Белый Список</string>
+    <string name="Settings_OpenCellId">OpenCellId</string>
+    <string name="Settings_Permissions">Разрешения</string>
+    <string name="Settings_Logs">Логи</string>
+    <string name="Settings_About">О приложении</string>
+    <string name="Settings_Settings">Настройки</string>
+    <string name="Error">Ошибка</string>
+    <string name="Main_WhiteListCounterText">Белый список:</string>
+    <string name="OpenCellId_OpenCellId">OpenCellId</string>
+    <string name="OpenCellId_API_Key_Description">API-КЛЮЧ:</string>
+    <string name="Notification_Usage">Использование</string>
+    <string name="Pin_Usage">Использование Pin</string>
+    <string name="Notification_Lifecycle">Жизненный цикл</string>
+    <string name="Notification_Usage_Description">Уведомление об использовании сервиса.</string>
+    <string name="Notification_Lifecycle_Description">Уведомление о Жизненном цикле сервиса.</string>
+    <string name="Notification_Pin_Usage_Description">Уведомление об использовании Pin.</string>
+    <string name="JSON_RL_Error">Ошибка получения геолокации от OpenCellID. Пожалуйста, попробуйте данную ссылку. Параметр, который вам нужен, - это долгота и широта.</string>
+    <string name="JSON_RL_OpenCellIdLocation">"OpenCellId-Геолокация: "</string>
+    <string name="GPS_GSM_Data">GSM-Cell-Data:</string>
+    <string name="LockScreen_Usage_detectd">СообщениеНаЗаблокированномЭкране: Обнаружено использование телефона.</string>
+    <string name="LockScreen_Backbutton_pressed">СообщениеНаЗаблокированномЭкране: Нажата кнопка \"Назад\".</string>
+    <string name="Toast_Empty_FMDCommand">Пустая команда недопустима\n Возврат к значению по-умолчанию.[fmd]</string>
+    <string name="FMDConfig_Alert_Pin">PIN</string>
+    <string name="Ok">Ок</string>
+    <string name="Log_Alert_LogData">Log-Данные</string>
+    <string name="Sender_End_Of_Msg">---Конец сообщения---</string>
+    <string name="Settings_Ringer_Tone_Description">Выберите рингтон, который будет играть, когда fmd-звонок будет отправлен.</string>
+    <string name="Settings_Select_Ringtone">Выберите рингтон</string>
+    <string name="WhiteList_Select_Number">Выберите один из номеров.</string>
+</resources>
