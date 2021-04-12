@@ -9,8 +9,8 @@ import de.nulide.findmydevice.data.io.JSONFactory;
 
 public class SaveTimerTask extends TimerTask {
 
-    Settings settings;
-    WhiteList whiteList;
+    private Settings settings;
+    private WhiteList whiteList;
 
     public SaveTimerTask(Settings settings) {
         this.settings = settings;

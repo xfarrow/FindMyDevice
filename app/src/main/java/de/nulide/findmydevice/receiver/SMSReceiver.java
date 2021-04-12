@@ -10,6 +10,7 @@ import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsMessage;
 
 import java.util.Calendar;
+import java.util.Timer;
 
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.ConfigSMSRec;
@@ -20,6 +21,7 @@ import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.sender.Sender;
+import de.nulide.findmydevice.tasks.TempContactExpiredTimerTask;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.logic.MessageHandler;
 import de.nulide.findmydevice.utils.Notifications;
@@ -72,14 +74,6 @@ public class SMSReceiver extends BroadcastReceiver {
                         }
                         if ((Boolean) settings.get(Settings.SET_ACCESS_VIA_PIN)) {
                             String tempContact = (String) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT);
-                            Long tempContactActiveSince = (Long) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE);
-                            if (tempContactActiveSince != null && tempContactActiveSince + (5 * 60 * 1000) < time.getTimeInMillis()) {
-                                Logger.logSession("Session expired", receiver);
-                                sender.sendNow("FindMyDevive: Pin expired!");
-                                config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
-                                config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
-                                tempContact = null;
-                            }
                             if (!inWhitelist && tempContact != null && PhoneNumberUtils.compare(tempContact, receiver)) {
                                 Logger.logSession("Usage", receiver + " used FMD");
                                 MessageHandler.handle(sender, msgs[i].getMessageBody(), context);
@@ -91,6 +85,9 @@ public class SMSReceiver extends BroadcastReceiver {
                                 Notifications.notify(context, "Pin", "The pin was used by the following number: "+receiver+"\nPlease change the Pin!", Notifications.CHANNEL_PIN);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, receiver);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, time.getTimeInMillis());
+                                Timer afterExperationTimer = new Timer();
+                                TempContactExpiredTimerTask tempContactExpiredTimerTask = new TempContactExpiredTimerTask(context, sender);
+                                afterExperationTimer.schedule(tempContactExpiredTimerTask, 600000);
                                 MessageHandler.handle(sender, msgs[i].getMessageBody(), context);
                             }
                         }
@@ -103,6 +100,8 @@ public class SMSReceiver extends BroadcastReceiver {
         } else if (intent.getAction().equals(BOOT_COMPLETED)) {
             Notifications.notify(context, "AfterBootTest", "Receiver is working", Notifications.CHANNEL_LIFE);
             Logger.logSession("AfterBootTest", "passed");
+            config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
+            config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
         }
         Logger.writeLog();
     }
