@@ -98,4 +98,8 @@
     <string name="Settings_Ringer_Tone_Description">Select a ringtone that will be played when fmd ring is sent.</string>
     <string name="Settings_Select_Ringtone">Select Ringtone</string>
     <string name="WhiteList_Select_Number">Select one of the phonenumbers.</string>
+    <string name="Settings_FMDServer_Description">By enabling the application will constantly send your location to the specified server.</string>
+    <string name="Settings_FMDServer_URL_Description">The url for accssing the server.</string>
+    <string name="Settings_FMDServer_Updattime_Description">The time in minutes in which fmd should send new location data to the server</string>
+    <string name="Settings_FMDServer">FMDServer</string>
 </resources>

@@ -9,11 +9,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import de.nulide.findmydevice.R;
-import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.ui.IntroductionActivity;
 import de.nulide.findmydevice.ui.LogActivity;
 import de.nulide.findmydevice.ui.helper.SettingsViewAdapter;
@@ -31,6 +29,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
         settingsEntries = new ArrayList<>();
         settingsEntries.add(getString(R.string.Settings_FMDConfig));
+        settingsEntries.add(getString(R.string.Settings_FMDServer));
         settingsEntries.add(getString(R.string.Settings_WhiteList));
         settingsEntries.add(getString(R.string.Settings_OpenCellId));
         settingsEntries.add(getString(R.string.Settings_Permissions));
@@ -51,23 +50,26 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                 settingIntent = new Intent(this, FMDConfigActivity.class);
                 break;
             case 1:
+                settingIntent = new Intent(this, FMDServerActivity.class);
+                break;
+            case 2:
                 settingIntent = new Intent(this, WhiteListActivity.class);
                 break;
 
-            case 2:
+            case 3:
                 settingIntent = new Intent(this, OpenCellIdActivity.class);
                 break;
 
-            case 3:
+            case 4:
                 settingIntent = new Intent(this, IntroductionActivity.class);
                 settingIntent.putExtra(IntroductionActivity.POS_KEY, 1);
                 break;
 
-            case 4:
+            case 5:
                 settingIntent = new Intent(this, LogActivity.class);
                 break;
 
-            case 5:
+            case 6:
                 settingIntent = new Intent(this, AboutActivity.class);
                 break;
         }

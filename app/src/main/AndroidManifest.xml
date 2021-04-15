@@ -17,7 +17,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-permission
         android:name="android.permission.WRITE_SECURE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -29,7 +28,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.settings.OpenCellIdActivity"></activity>
+        <activity android:name=".ui.settings.FMDServerActivity"></activity>
+        <activity android:name=".ui.settings.OpenCellIdActivity" />
         <activity
             android:name=".ui.settings.FMDConfigActivity"
             android:label="@string/Settings_FMDConfig" />
@@ -48,7 +48,8 @@
         <activity
             android:name=".ui.LogActivity"
             android:label="LOG" />
-        <activity android:name=".ui.RingerActivity"
+        <activity
+            android:name=".ui.RingerActivity"
             android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true" />
         <activity android:name=".ui.IntroductionActivity" />

@@ -23,6 +23,10 @@ public class Settings extends HashMap<Integer, Object> {
     public static final int SET_INTRODUCTION_VERSION = 6;
     public static final int SET_RINGER_TONE = 7;
 
+    public static final int SET_FMDSERVER = 101;
+    public static final int SET_FMDSERVER_URL = 102;
+    public static final int SET_FMDSERVER_UPDATE_TIME = 103;
+
 
     public static final int SET_FIRST_TIME_WHITELIST = 301;
     public static final int SET_FIRST_TIME_CONTACT_ADDED = 302;
@@ -47,9 +51,14 @@ public class Settings extends HashMap<Integer, Object> {
                 case SET_ACCESS_VIA_PIN:
                 case SET_FIRST_TIME_WHITELIST:
                 case SET_FIRST_TIME_CONTACT_ADDED:
+                case SET_FMDSERVER:
                     return false;
                 case SET_FMD_COMMAND:
                     return "fmd";
+                case SET_FMDSERVER_URL:
+                    return "0.0.0.0";
+                case SET_FMDSERVER_UPDATE_TIME:
+                    return 60;
                 case SET_INTRODUCTION_VERSION:
                     return 0;
                 case SET_RINGER_TONE:

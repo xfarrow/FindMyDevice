@@ -75,7 +75,7 @@ public class GPS implements LocationListener {
         String provider = getLastBestLocation().getProvider();
         String lat = new Double(getLastBestLocation().getLatitude()).toString();
         String lon = new Double(getLastBestLocation().getLongitude()).toString();
-        sender.sendNow(provider + ": " + lat + " " + lon + "\n\n" + Map.createMapLink(lat, lon));
+        sender.sendNow(provider + ": " + lat + " " + lon + "\n\n" + OpenStreetMap.createMapLink(lat, lon));
     }
 
     @Override

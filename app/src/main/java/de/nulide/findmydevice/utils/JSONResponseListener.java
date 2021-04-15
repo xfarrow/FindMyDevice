@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.nulide.findmydevice.R;
-import de.nulide.findmydevice.sender.SMS;
 import de.nulide.findmydevice.sender.Sender;
 
 public class JSONResponseListener implements Response.ErrorListener, Response.Listener<JSONObject> {
@@ -34,7 +33,7 @@ public class JSONResponseListener implements Response.ErrorListener, Response.Li
             try {
                 String lat = response.getString("lat");
                 String lon = response.getString("lon");
-                sender.sendNow(context.getString(R.string.JSON_RL_OpenCellIdLocation) + lat + " " + lon+"\n\n" + Map.createMapLink(lat, lon));
+                sender.sendNow(context.getString(R.string.JSON_RL_OpenCellIdLocation) + lat + " " + lon+"\n\n" + OpenStreetMap.createMapLink(lat, lon));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
