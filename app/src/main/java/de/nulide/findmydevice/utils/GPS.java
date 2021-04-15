@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import de.nulide.findmydevice.R;
+import de.nulide.findmydevice.logic.LocationHandler;
 import de.nulide.findmydevice.sender.Sender;
 
 public class GPS implements LocationListener {
@@ -75,7 +76,7 @@ public class GPS implements LocationListener {
         String provider = getLastBestLocation().getProvider();
         String lat = new Double(getLastBestLocation().getLatitude()).toString();
         String lon = new Double(getLastBestLocation().getLongitude()).toString();
-        sender.sendNow(provider + ": " + lat + " " + lon + "\n\n" + OpenStreetMap.createMapLink(lat, lon));
+        LocationHandler.newlocation(provider, lat, lon);
     }
 
     @Override

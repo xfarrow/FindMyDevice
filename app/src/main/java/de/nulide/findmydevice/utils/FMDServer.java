@@ -1,6 +1,7 @@
 package de.nulide.findmydevice.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,12 +19,12 @@ import java.util.Map;
 
 public class FMDServer {
 
-    private void sendNewLocation(Context context, String lat, String lon, String url) {
+    public static void sendNewLocation(Context context, String lat, String lon, String url) {
         RequestQueue queue = Volley.newRequestQueue(context);
 
         final JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("id", "testid");
+            jsonObject.put("id", createID());
             jsonObject.put("lon", lon);
             jsonObject.put("lat", lat);
         } catch (JSONException e) {
@@ -31,16 +32,18 @@ public class FMDServer {
         }
 
 
-        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject,
+        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url+"/newlocation", jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) {}
+                    public void onResponse(JSONObject response) {
+                        Log.d("error", response.toString());
+                    }
                 },
                 new Response.ErrorListener()
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Log.d("error", error.getMessage());
                     }
                 }){
 
@@ -67,7 +70,7 @@ public class FMDServer {
         queue.add(putRequest);
     }
 
-    public String createID(){
+    private static String createID(){
         return "test";
     }
 }

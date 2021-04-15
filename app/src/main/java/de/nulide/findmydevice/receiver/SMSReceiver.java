@@ -20,6 +20,7 @@ import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
+import de.nulide.findmydevice.logic.LocationHandler;
 import de.nulide.findmydevice.sender.Sender;
 import de.nulide.findmydevice.tasks.TempContactExpiredTimerTask;
 import de.nulide.findmydevice.utils.Logger;
@@ -64,6 +65,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         }
                         String receiver = msgs[i].getOriginatingAddress();
                         Sender sender = new SMS(context, receiver);
+                        LocationHandler.init(context, settings, sender);
                         boolean inWhitelist = false;
                         for (int iwl = 0; iwl < whiteList.size(); iwl++) {
                             if (PhoneNumberUtils.compare(whiteList.get(iwl).getNumber(), receiver)) {
