@@ -45,6 +45,58 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
                 android:textColor="@color/colorAccent"
+                android:text="@string/Settings_FMDServer_Username" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Settings_FMDServer_URL_Description" />
+
+            <EditText
+                android:id="@+id/editTextFMDServerUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_margin="1mm"
+                android:text="" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textColor="@color/colorAccent"
+                android:text="@string/Settings_FMDServer_Password" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Settings_FMDServer_URL_Description" />
+
+            <Button
+                android:id="@+id/buttonFMDServerPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_margin="1mm"
+                android:text="@string/Settings_FMDServer_Password_Button" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textColor="@color/colorAccent"
                 android:text="FMDServer URL" />
 
             <TextView

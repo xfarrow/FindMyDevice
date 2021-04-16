@@ -24,6 +24,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     private CheckBox checkBoxFMDServer;
     private EditText editTextFMDServerURL;
     private EditText editTextFMDServerUpdateTime;
+    private EditText editTextFMDServerID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,10 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
         editTextFMDServerUpdateTime = findViewById(R.id.editTextFMDServerUpdateTime);
         editTextFMDServerUpdateTime.setText(((Integer) settings.get(Settings.SET_FMDSERVER_UPDATE_TIME)).toString());
         editTextFMDServerUpdateTime.addTextChangedListener(this);
+
+        editTextFMDServerID = findViewById(R.id.editTextFMDServerUsername);
+        editTextFMDServerID.setText((String) settings.get(Settings.SET_FMDSERVER_ID));
+        editTextFMDServerID.addTextChangedListener(this);
     }
 
     @Override
@@ -72,6 +77,8 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
             } else {
                 settings.set(Settings.SET_FMDSERVER_UPDATE_TIME, Integer.parseInt(editTextFMDServerUpdateTime.getText().toString()));
             }
+        }else if(edited == editTextFMDServerID.getText()){
+            settings.set(Settings.SET_FMDSERVER_ID, edited.toString());
         }
     }
 }

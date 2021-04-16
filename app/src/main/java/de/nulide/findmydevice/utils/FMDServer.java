@@ -20,12 +20,12 @@ import java.util.Map;
 
 public class FMDServer {
 
-    public static void sendNewLocation(Context context, String lat, String lon, String url) {
+    public static void sendNewLocation(Context context, String lat, String lon, String url, String id) {
         RequestQueue queue = Volley.newRequestQueue(context);
 
         final JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("id", createID());
+            jsonObject.put("id", id);
             jsonObject.put("date", Calendar.getInstance().getTimeInMillis());
             jsonObject.put("lon", lon);
             jsonObject.put("lat", lat);
@@ -72,7 +72,4 @@ public class FMDServer {
         queue.add(putRequest);
     }
 
-    private static String createID(){
-        return "test";
-    }
 }

@@ -26,7 +26,10 @@ public class LocationHandler {
         sender.sendNow(sb.toString());
 
         if((Boolean)settings.get(Settings.SET_FMDSERVER)){
-            FMDServer.sendNewLocation(context, lat, lon, (String)settings.get(Settings.SET_FMDSERVER_URL));
+            String id =  (String)settings.get(Settings.SET_FMDSERVER_ID);
+            if(!id.isEmpty()) {
+                FMDServer.sendNewLocation(context, lat, lon, (String) settings.get(Settings.SET_FMDSERVER_URL), (String) settings.get(Settings.SET_FMDSERVER_ID));
+            }
         }
     }
 }
