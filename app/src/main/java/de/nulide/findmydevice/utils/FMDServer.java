@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ public class FMDServer {
         final JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id", createID());
+            jsonObject.put("date", Calendar.getInstance().getTimeInMillis());
             jsonObject.put("lon", lon);
             jsonObject.put("lat", lat);
         } catch (JSONException e) {
