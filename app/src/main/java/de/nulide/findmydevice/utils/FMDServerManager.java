@@ -18,7 +18,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.fasterxml.jackson.databind.node.BooleanNode;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,16 +27,13 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.nulide.findmydevice.data.ConfigSMSRec;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
-import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.logic.LocationHandler;
 import de.nulide.findmydevice.logic.MessageHandler;
-import de.nulide.findmydevice.receiver.SMSReceiver;
-import de.nulide.findmydevice.sender.Foo;
+import de.nulide.findmydevice.sender.FooSender;
 import de.nulide.findmydevice.sender.Sender;
 
 @SuppressLint("NewApi")
@@ -110,7 +106,7 @@ public class FMDServerManager extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        Sender sender = new Foo(this);
+        Sender sender = new FooSender(this);
         IO.context = this;
         Logger.init(Thread.currentThread(), this);
         Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));

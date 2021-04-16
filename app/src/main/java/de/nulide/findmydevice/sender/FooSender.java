@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 import de.nulide.findmydevice.utils.Logger;
 
-public class Foo extends Sender {
+public class FooSender extends Sender {
 
     public final static String TYPE = "FOO";
 
-    public Foo(Context context) {
+    public FooSender(Context context) {
         super(context, "", TYPE);
     }
 
