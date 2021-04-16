@@ -2,6 +2,7 @@ package de.nulide.findmydevice.ui.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +17,7 @@ import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
+import de.nulide.findmydevice.utils.FMDServerManager;
 
 public class FMDServerActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, TextWatcher {
 
@@ -54,6 +56,11 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView == checkBoxFMDServer) {
             settings.set(Settings.SET_FMDSERVER, isChecked);
+            if(isChecked){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    FMDServerManager.scheduleJob(this, 0);
+                }
+            }
         }
     }
 
