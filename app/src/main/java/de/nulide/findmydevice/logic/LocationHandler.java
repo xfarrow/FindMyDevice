@@ -4,7 +4,7 @@ import android.content.Context;
 
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.sender.Sender;
-import de.nulide.findmydevice.utils.FMDServer;
+import de.nulide.findmydevice.utils.FMDServerManager;
 import de.nulide.findmydevice.utils.OpenStreetMap;
 
 public class LocationHandler {
@@ -28,7 +28,7 @@ public class LocationHandler {
         if((Boolean)settings.get(Settings.SET_FMDSERVER)){
             String id =  (String)settings.get(Settings.SET_FMDSERVER_ID);
             if(!id.isEmpty()) {
-                FMDServer.sendNewLocation(context, lat, lon, (String) settings.get(Settings.SET_FMDSERVER_URL), (String) settings.get(Settings.SET_FMDSERVER_ID));
+                FMDServerManager.sendNewLocation(context, lat, lon, (String) settings.get(Settings.SET_FMDSERVER_URL), (String) settings.get(Settings.SET_FMDSERVER_ID));
             }
         }
     }
