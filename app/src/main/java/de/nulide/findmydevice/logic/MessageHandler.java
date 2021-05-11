@@ -7,20 +7,18 @@ import android.net.wifi.ScanResult;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
 
 import de.nulide.findmydevice.sender.Sender;
 import de.nulide.findmydevice.ui.LockScreenMessage;
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
-import de.nulide.findmydevice.utils.BCryptUtils;
+import de.nulide.findmydevice.utils.CypherUtils;
 import de.nulide.findmydevice.utils.GPS;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Network;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
 import de.nulide.findmydevice.utils.Ringer;
-import de.nulide.findmydevice.sender.SMS;
 
 public class MessageHandler {
 
@@ -98,7 +96,7 @@ public class MessageHandler {
                     DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
                     if (msg.length() > COM_DELETE.length()+1) {
                         String pin = originalMsg.substring(COM_DELETE.length()+1, msg.length());
-                        if (BCryptUtils.checkPasswordHash((String) settings.get(Settings.SET_PIN), pin)) {
+                        if (CypherUtils.checkPasswordHash((String) settings.get(Settings.SET_PIN), pin)) {
                             devicePolicyManager.wipeData(0);
                             replyBuilder.append(context.getString(R.string.MH_Delete));
                         } else {
@@ -136,7 +134,7 @@ public class MessageHandler {
     public static boolean checkForPin(String msg) {
         if (msg.length() > ((String) settings.get(Settings.SET_FMD_COMMAND)).length()) {
             String pin = msg.substring(((String) settings.get(Settings.SET_FMD_COMMAND)).length() + 1);
-            return BCryptUtils.checkPasswordHash((String) settings.get(Settings.SET_PIN), pin);
+            return CypherUtils.checkPasswordHash((String) settings.get(Settings.SET_PIN), pin);
         }
         return false;
     }

@@ -24,7 +24,7 @@ import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
-import de.nulide.findmydevice.utils.BCryptUtils;
+import de.nulide.findmydevice.utils.CypherUtils;
 
 public class FMDConfigActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, TextWatcher, View.OnClickListener {
 
@@ -132,7 +132,7 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String text = input.getText().toString();
                     if (!text.isEmpty()) {
-                        settings.set(Settings.SET_PIN, BCryptUtils.hashPassword(text));
+                        settings.set(Settings.SET_PIN, CypherUtils.hashPassword(text));
                         buttonEnterPin.setBackgroundColor(colorEnabled);
                     }
                 }
