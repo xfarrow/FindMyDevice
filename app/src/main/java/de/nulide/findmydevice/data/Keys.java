@@ -1,6 +1,5 @@
 package de.nulide.findmydevice.data;
 
-import java.security.PrivateKey;
 import java.security.PublicKey;
 
 public class Keys {

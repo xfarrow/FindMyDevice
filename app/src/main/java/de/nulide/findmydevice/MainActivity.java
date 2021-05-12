@@ -29,6 +29,7 @@ import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
+import de.nulide.findmydevice.ui.CrashedActivity;
 import de.nulide.findmydevice.ui.IntroductionActivity;
 import de.nulide.findmydevice.ui.LogActivity;
 import de.nulide.findmydevice.ui.settings.SettingsActivity;
@@ -64,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
         settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         Permission.initValues(this);
+        if(((Integer)settings.get(Settings.SET_APP_CRASHED_LOG_ENTRY)) != -1){
+            Intent crash = new Intent(this, CrashedActivity.class);
+            startActivity(crash);
+        }
         if (!settings.isIntroductionPassed() || !Permission.CORE) {
             Intent introductionIntent = new Intent(this, IntroductionActivity.class);
             startActivity(introductionIntent);

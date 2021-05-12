@@ -9,6 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import de.nulide.findmydevice.R;
+import de.nulide.findmydevice.data.LogData;
+import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.data.io.IO;
+import de.nulide.findmydevice.data.io.JSONFactory;
+import de.nulide.findmydevice.data.io.json.JSONLog;
+import de.nulide.findmydevice.data.io.json.JSONMap;
 
 public class CrashedActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,7 +29,11 @@ public class CrashedActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crashed);
-        crashLog = getIntent().getExtras().getString(CRASH_LOG);
+        IO.context = this;
+        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        LogData log = JSONFactory.convertJSONLog(IO.read(JSONLog.class, IO.logFileName));
+        crashLog = log.get((Integer)settings.get(Settings.SET_APP_CRASHED_LOG_ENTRY)).getText();
+        settings.set(Settings.SET_APP_CRASHED_LOG_ENTRY, -1);
 
         textViewCrashLog = findViewById(R.id.textViewCrash);
         textViewCrashLog.setText(crashLog);

@@ -11,7 +11,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Calendar;
 
+import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.json.JSONLog;
+import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.ui.CrashedActivity;
 import de.nulide.findmydevice.data.LogData;
 import de.nulide.findmydevice.data.io.IO;
@@ -65,8 +67,9 @@ public class Logger implements Thread.UncaughtExceptionHandler{
     @Override
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
         log(t.getName(), createNiceCrashLog(e));
+        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        settings.set(Settings.SET_APP_CRASHED_LOG_ENTRY, log.size()-1);
         Intent crash = new Intent(context, CrashedActivity.class);
-        crash.putExtra(CrashedActivity.CRASH_LOG, createNiceCrashLog(e));
         context.startActivity(crash);
     }
 

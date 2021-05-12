@@ -35,6 +35,8 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import de.nulide.findmydevice.data.Keys;
+
 public class CypherUtils {
 
     public static String hashPassword(String password) {

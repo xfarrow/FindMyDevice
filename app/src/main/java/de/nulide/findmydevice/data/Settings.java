@@ -33,6 +33,8 @@ public class Settings extends HashMap<Integer, Object> {
     public static final int SET_FIRST_TIME_WHITELIST = 301;
     public static final int SET_FIRST_TIME_CONTACT_ADDED = 302;
 
+    public static final int SET_APP_CRASHED_LOG_ENTRY = 401;
+
 
     private Timer afterChangeTimer;
 
@@ -69,7 +71,8 @@ public class Settings extends HashMap<Integer, Object> {
                 case SET_FMDSERVER_ID:
                 case SET_FMDSERVER_PASSWORD:
                     return "";
-
+                case SET_APP_CRASHED_LOG_ENTRY:
+                    return -1;
             }
         }
         return "";
