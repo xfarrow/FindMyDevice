@@ -46,6 +46,11 @@ public class Settings extends HashMap<Integer, Object> {
         write(false);
     }
 
+    public <T> void setNow(int key, T value) {
+        super.put(key, value);
+        write(true);
+    }
+
     public Object get(int key) {
         if (super.containsKey(key)) {
             return super.get(key);

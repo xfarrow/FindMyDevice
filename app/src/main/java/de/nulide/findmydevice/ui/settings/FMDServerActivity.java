@@ -55,7 +55,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView == checkBoxFMDServer) {
-            settings.set(Settings.SET_FMDSERVER, isChecked);
+            settings.setNow(Settings.SET_FMDSERVER, isChecked);
             if(isChecked){
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FMDServerManager.scheduleJob(this, 0);
