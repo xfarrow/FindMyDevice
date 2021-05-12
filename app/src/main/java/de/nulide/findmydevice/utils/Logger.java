@@ -2,6 +2,8 @@ package de.nulide.findmydevice.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
 
@@ -11,6 +13,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Calendar;
 
+import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.json.JSONLog;
 import de.nulide.findmydevice.data.io.json.JSONMap;
@@ -124,6 +127,18 @@ public class Logger implements Thread.UncaughtExceptionHandler{
         report.append(newLine);
         report.append("Incremental: ");
         report.append(Build.VERSION.INCREMENTAL);
+        report.append(newLine);
+        report.append("FMD-Version: ");
+        PackageManager manager = context.getPackageManager();
+        PackageInfo info = null;
+        try {
+            info = manager.getPackageInfo(
+                    context.getPackageName(), 0);
+            report.append(info.versionName);
+        } catch (PackageManager.NameNotFoundException nameNotFoundException) {
+            report.append("-");
+            nameNotFoundException.printStackTrace();
+        }
         report.append(newLine);
 
         return report.toString();
