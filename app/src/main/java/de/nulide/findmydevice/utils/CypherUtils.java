@@ -45,7 +45,13 @@ public class CypherUtils {
         return BCrypt.checkpw(password, hash);
     }
 
-    public static KeyPair genKeys(){
+    public static Keys genKeys(String password){
+        KeyPair keypair = genKeyPair();
+        Keys keys = new Keys(keypair.getPublic(), encryptKey(keypair.getPrivate(), password));
+        return keys;
+    }
+
+    protected static KeyPair genKeyPair(){
         try {
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
