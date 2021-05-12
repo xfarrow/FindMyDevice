@@ -12,7 +12,7 @@ public class CypherUtilsTest {
 
     @Test
     public void testKeyEncryption(){
-        KeyPair keys = CypherUtils.genKeys();
+        KeyPair keys = CypherUtils.genKeyPair();
         String msg = "The password is *****";
         byte[] encryptedMsg = CypherUtils.encryptWithKey(keys.getPublic(), msg);
         String decryptedMsg = CypherUtils.decryptWithKey(keys.getPrivate(), encryptedMsg);
@@ -31,7 +31,7 @@ public class CypherUtilsTest {
 
     @Test
     public void testPrivateKeyEncryption(){
-        KeyPair keys = CypherUtils.genKeys();
+        KeyPair keys = CypherUtils.genKeyPair();
         String password = "Snake";
         byte[] encodedPrivKey = keys.getPrivate().getEncoded();
         byte[] encryptedPrivKey = CypherUtils.encryptKey(keys.getPrivate(), password);
@@ -40,6 +40,11 @@ public class CypherUtilsTest {
         for(int i=0; i< encodedPrivKey.length; i++){
             Assert.assertEquals(encodedPrivKey[i], encodedDecryptedKey[i]);
         }
+    }
+
+    @Test
+    public void testKeysGen(){
+        CypherUtils.genKeys("test");
     }
 
 }

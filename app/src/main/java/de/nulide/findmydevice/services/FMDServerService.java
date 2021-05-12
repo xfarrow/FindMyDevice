@@ -1,4 +1,4 @@
-package de.nulide.findmydevice.utils;
+package de.nulide.findmydevice.services;
 
 import android.annotation.SuppressLint;
 import android.app.job.JobInfo;
@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.security.PublicKey;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,26 +31,33 @@ import java.util.Map;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
+import de.nulide.findmydevice.data.io.KeyIO;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.logic.LocationHandler;
 import de.nulide.findmydevice.logic.MessageHandler;
 import de.nulide.findmydevice.sender.FooSender;
 import de.nulide.findmydevice.sender.Sender;
+import de.nulide.findmydevice.utils.CypherUtils;
+import de.nulide.findmydevice.utils.Logger;
+import de.nulide.findmydevice.utils.Notifications;
+import de.nulide.findmydevice.utils.Permission;
 
 @SuppressLint("NewApi")
-public class FMDServerManager extends JobService {
+public class FMDServerService extends JobService {
 
     private static final String TAG = "FMDServerService";
 
-    public static void sendNewLocation(Context context, String lat, String lon, String url, String id) {
+    public static void sendNewLocation(Context context, String provider, String lat, String lon, String url, String id) {
+        PublicKey publicKey = KeyIO.readKeys().getPublicKey();
         RequestQueue queue = Volley.newRequestQueue(context);
 
         final JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id", id);
+            jsonObject.put("provider", provider);
             jsonObject.put("date", Calendar.getInstance().getTimeInMillis());
-            jsonObject.put("lon", lon);
-            jsonObject.put("lat", lat);
+            jsonObject.put("lon", CypherUtils.encryptWithKey(publicKey, lon));
+            jsonObject.put("lat", CypherUtils.encryptWithKey(publicKey, lat));
         } catch (JSONException e) {
 
         }
@@ -74,8 +82,8 @@ public class FMDServerManager extends JobService {
             public Map<String, String> getHeaders()
             {
                 Map<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
-                headers.put("Accept", "application/json");
+                headers.put("Content-Type", "application/text");
+                headers.put("Accept", "application/text");
                 return headers;
             }
 
@@ -95,7 +103,7 @@ public class FMDServerManager extends JobService {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static void scheduleJob(Context context, int time){
-        ComponentName serviceComponent = new ComponentName(context, FMDServerManager.class);
+        ComponentName serviceComponent = new ComponentName(context, FMDServerService.class);
         JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
         builder.setMinimumLatency(time * 1000*60);
         builder.setOverrideDeadline(time+5 * 1000*60);
@@ -110,14 +118,17 @@ public class FMDServerManager extends JobService {
         IO.context = this;
         Logger.init(Thread.currentThread(), this);
         Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
-        Notifications.init(this);
-        Permission.initValues(this);
-        MessageHandler.init(settings);
-        LocationHandler.init(this, settings, sender);
-        MessageHandler.handle(sender, ((String)settings.get(Settings.SET_FMD_COMMAND)) + " locate", this);
-        if((Boolean)settings.get(Settings.SET_FMDSERVER)){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                scheduleJob(this, (Integer)settings.get(Settings.SET_FMDSERVER_UPDATE_TIME));
+        Boolean passwordSet = (Boolean) settings.get(Settings.SET_FMDSERVER_PASSWORD_SET);
+        if(passwordSet) {
+            Notifications.init(this);
+            Permission.initValues(this);
+            MessageHandler.init(settings);
+            LocationHandler.init(this, settings, sender);
+            MessageHandler.handle(sender, ((String) settings.get(Settings.SET_FMD_COMMAND)) + " locate", this);
+            if ((Boolean) settings.get(Settings.SET_FMDSERVER)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    scheduleJob(this, (Integer) settings.get(Settings.SET_FMDSERVER_UPDATE_TIME));
+                }
             }
         }
         return false;

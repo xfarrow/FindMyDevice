@@ -13,6 +13,7 @@ import java.security.PublicKey;
 import java.security.spec.EncodedKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 
 import de.nulide.findmydevice.data.Keys;
 
@@ -21,7 +22,7 @@ public class KeyIO {
     public final static String pubKeyFile = "pub.key";
     public final static String encPrivKeyFile = "priv.key";
 
-    public void saveKeys(Keys keys){
+    public static void writeKeys(Keys keys){
         File pubFile = new File(IO.context.getFilesDir(), pubKeyFile);
         File privFile = new File(IO.context.getFilesDir(), encPrivKeyFile);
         try {
@@ -51,11 +52,11 @@ public class KeyIO {
 
     }
 
-    public Keys readKeys(){
+    public static Keys readKeys(){
         File pubFile = new File(IO.context.getFilesDir(), pubKeyFile);
         File privFile = new File(IO.context.getFilesDir(), encPrivKeyFile);
 
-        EncodedKeySpec pubKeySpec = new PKCS8EncodedKeySpec(readByteArray(pubFile));
+        EncodedKeySpec pubKeySpec = new X509EncodedKeySpec(readByteArray(pubFile));
         PublicKey publicKey = null;
         try {
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");

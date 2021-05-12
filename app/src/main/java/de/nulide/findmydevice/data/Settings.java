@@ -27,7 +27,7 @@ public class Settings extends HashMap<Integer, Object> {
     public static final int SET_FMDSERVER_URL = 102;
     public static final int SET_FMDSERVER_UPDATE_TIME = 103;
     public static final int SET_FMDSERVER_ID = 104;
-    public static final int SET_FMDSERVER_PASSWORD = 105;
+    public static final int SET_FMDSERVER_PASSWORD_SET = 105;
 
 
     public static final int SET_FIRST_TIME_WHITELIST = 301;
@@ -61,6 +61,7 @@ public class Settings extends HashMap<Integer, Object> {
                 case SET_FIRST_TIME_WHITELIST:
                 case SET_FIRST_TIME_CONTACT_ADDED:
                 case SET_FMDSERVER:
+                case SET_FMDSERVER_PASSWORD_SET:
                     return false;
                 case SET_FMD_COMMAND:
                     return "fmd";
@@ -74,7 +75,6 @@ public class Settings extends HashMap<Integer, Object> {
                     return Ringer.getDefaultRingtoneAsString();
                 case SET_PIN:
                 case SET_FMDSERVER_ID:
-                case SET_FMDSERVER_PASSWORD:
                     return "";
                 case SET_APP_CRASHED_LOG_ENTRY:
                     return -1;
