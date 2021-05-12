@@ -1,19 +1,19 @@
 package de.nulide.findmydevice.sender;
 
 import android.content.Context;
+
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 import de.nulide.findmydevice.R;
 
-public class Sender {
+public class Sender implements Serializable {
 
-    private Context context;
     private String destination;
     public final String SENDER_TYPE;
 
-    public Sender(Context context, String destination, String senderType){
-        this.context = context;
+    public Sender(String destination, String senderType){
         this.destination = destination;
         this.SENDER_TYPE = senderType;
     }
@@ -29,4 +29,5 @@ public class Sender {
     public String getDestination(){
         return destination;
     }
+
 }

@@ -3,14 +3,15 @@ package de.nulide.findmydevice.sender;
 import android.content.Context;
 import android.telephony.SmsManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SMS extends Sender {
+public class SMS extends Sender implements Serializable {
 
     public final static String TYPE = "SMS";
 
     public SMS(Context context, String destination) {
-        super(context, destination, TYPE);
+        super(destination, TYPE);
     }
 
     @Override

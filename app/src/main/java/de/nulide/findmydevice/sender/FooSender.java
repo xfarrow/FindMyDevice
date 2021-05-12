@@ -12,7 +12,7 @@ public class FooSender extends Sender {
     public final static String TYPE = "FOO";
 
     public FooSender(Context context) {
-        super(context, "", TYPE);
+        super("", TYPE);
     }
 
     @Override

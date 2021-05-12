@@ -1,6 +1,8 @@
 package de.nulide.findmydevice.receiver;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +24,7 @@ import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.logic.LocationHandler;
 import de.nulide.findmydevice.sender.Sender;
-import de.nulide.findmydevice.tasks.TempContactExpiredTimerTask;
+import de.nulide.findmydevice.services.TempContactExpiredService;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.logic.MessageHandler;
 import de.nulide.findmydevice.utils.Notifications;
@@ -87,15 +89,15 @@ public class SMSReceiver extends BroadcastReceiver {
                                 Notifications.notify(context, "Pin", "The pin was used by the following number: "+receiver+"\nPlease change the Pin!", Notifications.CHANNEL_PIN);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, receiver);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, time.getTimeInMillis());
-                                Timer afterExperationTimer = new Timer();
-                                TempContactExpiredTimerTask tempContactExpiredTimerTask = new TempContactExpiredTimerTask(context, sender);
-                                afterExperationTimer.schedule(tempContactExpiredTimerTask, 600000);
-                                MessageHandler.handle(sender, msgs[i].getMessageBody(), context);
+                                Intent tempContactExpiredService = new Intent(context, TempContactExpiredService.class);
+                                tempContactExpiredService.putExtra(TempContactExpiredService.SENDER, sender);
+                                PendingIntent pi = PendingIntent.getService(context, 0, tempContactExpiredService, PendingIntent.FLAG_ONE_SHOT);
+                                AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                                mgr.setExact(AlarmManager.RTC_WAKEUP, 60000, pi);
                             }
                         }
                     }
                 }
-
                 Calendar now = Calendar.getInstance();
                 config.set(ConfigSMSRec.CONF_LAST_USAGE, now.getTime());
             }
