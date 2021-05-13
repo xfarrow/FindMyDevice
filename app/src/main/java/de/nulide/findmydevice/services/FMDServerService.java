@@ -58,8 +58,8 @@ public class FMDServerService extends JobService {
             jsonObject.put("id", id);
             jsonObject.put("provider", provider);
             jsonObject.put("date", Calendar.getInstance().getTimeInMillis());
-            jsonObject.put("lon", CypherUtils.encryptWithKey(publicKey, lon));
-            jsonObject.put("lat", CypherUtils.encryptWithKey(publicKey, lat));
+            jsonObject.put("lon", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, lon)));
+            jsonObject.put("lat", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, lat)));
         } catch (JSONException e) {
 
         }
