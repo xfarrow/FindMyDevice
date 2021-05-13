@@ -17,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -38,6 +39,7 @@ import de.nulide.findmydevice.logic.MessageHandler;
 import de.nulide.findmydevice.sender.FooSender;
 import de.nulide.findmydevice.sender.Sender;
 import de.nulide.findmydevice.utils.CypherUtils;
+import de.nulide.findmydevice.utils.JSONResponseListener;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
@@ -82,8 +84,8 @@ public class FMDServerService extends JobService {
             public Map<String, String> getHeaders()
             {
                 Map<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/text");
-                headers.put("Accept", "application/text");
+                headers.put("Content-Type", "application/json");
+                headers.put("Accept", "application/json");
                 return headers;
             }
 
@@ -101,12 +103,51 @@ public class FMDServerService extends JobService {
         queue.add(putRequest);
     }
 
+    public static void registerOnServer(Context context, String url, String key) {
+        IO.context = context;
+        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        final String requestString = key;
+
+        StringRequest putRequest = new StringRequest(Request.Method.PUT, url+"/newDevice", new IDResponseListener(settings),
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("error", error.getMessage());
+                    }
+                }){
+
+            @Override
+            public Map<String, String> getHeaders()
+            {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/text");
+                headers.put("Accept", "application/text");
+                return headers;
+            }
+
+            @Override
+            public byte[] getBody() {
+
+                try {
+                    return requestString.getBytes("UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+        queue.add(putRequest);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static void scheduleJob(Context context, int time){
+    public static void scheduleJob(Context context, int time) {
         ComponentName serviceComponent = new ComponentName(context, FMDServerService.class);
         JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
-        builder.setMinimumLatency(time * 1000*60);
-        builder.setOverrideDeadline(time+5 * 1000*60);
+        builder.setMinimumLatency(time * 1000 * 60);
+        builder.setOverrideDeadline(time + 5 * 1000 * 60);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         jobScheduler.schedule(builder.build());
     }
@@ -137,5 +178,20 @@ public class FMDServerService extends JobService {
     @Override
     public boolean onStopJob(JobParameters params) {
         return true;
+    }
+
+    public static class IDResponseListener implements Response.Listener<String> {
+
+        private Settings settings;
+
+        public IDResponseListener(Settings settings){
+            this.settings = settings;
+        }
+
+        @Override
+        public void onResponse(String response) {
+            settings.set(Settings.SET_FMDSERVER_ID, response);
+        }
+
     }
 }

@@ -178,4 +178,13 @@ public class CypherUtils {
         return null;
     }
 
+    public static String encodeBase64(byte[] encoded){
+        return Base64.encodeToString(encoded, Base64.NO_PADDING);
+    }
+
+    public static byte[] decodeBase64(String encoded){
+        return Base64.decode(encoded, Base64.NO_PADDING);
+    }
+
+
 }

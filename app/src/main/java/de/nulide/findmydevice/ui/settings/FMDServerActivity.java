@@ -3,6 +3,7 @@ package de.nulide.findmydevice.ui.settings;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Keys;
@@ -32,11 +36,13 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     private CheckBox checkBoxFMDServer;
     private EditText editTextFMDServerURL;
     private EditText editTextFMDServerUpdateTime;
-    private EditText editTextFMDServerID;
+    private TextView textViewFMDServerID;
     private Button buttonPassword;
 
-    int colorEnabled;
-    int colorDisabled;
+    private int colorEnabled;
+    private int colorDisabled;
+
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +50,11 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
         setContentView(R.layout.activity_f_m_d_server);
 
         settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
-
+        this.context = this;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             colorEnabled = getColor(R.color.colorEnabled);
             colorDisabled = getColor(R.color.colorDisabled);
-        }else {
+        } else {
             colorEnabled = getResources().getColor(R.color.colorEnabled);
             colorDisabled = getResources().getColor(R.color.colorDisabled);
         }
@@ -66,15 +72,16 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
         editTextFMDServerUpdateTime.setText(((Integer) settings.get(Settings.SET_FMDSERVER_UPDATE_TIME)).toString());
         editTextFMDServerUpdateTime.addTextChangedListener(this);
 
-        editTextFMDServerID = findViewById(R.id.editTextFMDServerUsername);
-        editTextFMDServerID.setText((String) settings.get(Settings.SET_FMDSERVER_ID));
-        editTextFMDServerID.addTextChangedListener(this);
+        textViewFMDServerID = findViewById(R.id.textViewID);
+        if (!((String) settings.get(Settings.SET_FMDSERVER_ID)).isEmpty()) {
+            textViewFMDServerID.setText((String) settings.get(Settings.SET_FMDSERVER_ID));
+        }
 
         buttonPassword = findViewById(R.id.buttonFMDServerPassword);
         Boolean passwordSet = (Boolean) settings.get(Settings.SET_FMDSERVER_PASSWORD_SET);
-        if(passwordSet){
+        if (passwordSet) {
             buttonPassword.setBackgroundColor(colorEnabled);
-        }else{
+        } else {
             buttonPassword.setBackgroundColor(colorDisabled);
         }
         buttonPassword.setOnClickListener(this);
@@ -84,7 +91,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView == checkBoxFMDServer) {
             settings.setNow(Settings.SET_FMDSERVER, isChecked);
-            if(isChecked){
+            if (isChecked) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FMDServerService.scheduleJob(this, 0);
                 }
@@ -112,14 +119,12 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
             } else {
                 settings.set(Settings.SET_FMDSERVER_UPDATE_TIME, Integer.parseInt(editTextFMDServerUpdateTime.getText().toString()));
             }
-        }else if(edited == editTextFMDServerID.getText()){
-            settings.set(Settings.SET_FMDSERVER_ID, edited.toString());
         }
     }
 
     @Override
     public void onClick(View v) {
-        if(v == buttonPassword){
+        if (v == buttonPassword) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle(getString(R.string.FMDConfig_Alert_Pin));
             alert.setMessage(getString(R.string.Settings_Enter_Pin));
@@ -134,6 +139,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                         KeyIO.writeKeys(keys);
                         settings.set(Settings.SET_FMDSERVER_PASSWORD_SET, true);
                         buttonPassword.setBackgroundColor(colorEnabled);
+                        FMDServerService.registerOnServer(context, (String)settings.get(Settings.SET_FMDSERVER_URL), CypherUtils.encodeBase64(keys.getEncryptedPrivateKey()));
                     }
                 }
             });

@@ -180,8 +180,8 @@ public class GPS implements LocationListener {
                 .append("&lac=").append(lac).append("&cellid=").append(cid).append("&format=json");
 
         final String url = urlBuilder.toString();
-        RequestQueue ExampleRequestQueue = Volley.newRequestQueue(context);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest ExampleRequest = new JsonObjectRequest(Request.Method.GET, url, null, new JSONResponseListener(context, sender, url), new JSONResponseListener(context, sender, url));
-        ExampleRequestQueue.add(ExampleRequest);
+        requestQueue.add(ExampleRequest);
     }
 }

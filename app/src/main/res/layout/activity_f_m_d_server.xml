@@ -51,15 +51,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
-                android:text="@string/Settings_FMDServer_URL_Description" />
+                android:text="@string/Settings_FMD_Server_ID_Desc" />
 
-            <EditText
-                android:id="@+id/editTextFMDServerUsername"
+            <TextView
+                android:id="@+id/textViewID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:layout_margin="1mm"
-                android:text="" />
+                android:textAlignment="center"
+                android:layout_margin="3mm"
+                android:text="@string/NOT_AVAILABLE"
+                android:gravity="center_horizontal" />
 
             <View
                 android:layout_width="match_parent"
