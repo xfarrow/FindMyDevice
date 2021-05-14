@@ -69,14 +69,14 @@ public class FMDServerService extends JobService {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("error", response.toString());
+
                     }
                 },
                 new Response.ErrorListener()
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("error", error.getMessage());
+                        error.printStackTrace();
                     }
                 }){
 
@@ -115,7 +115,7 @@ public class FMDServerService extends JobService {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("error", error.getMessage());
+                        error.printStackTrace();
                     }
                 }){
 
@@ -161,16 +161,16 @@ public class FMDServerService extends JobService {
         Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         Boolean passwordSet = (Boolean) settings.get(Settings.SET_FMDSERVER_PASSWORD_SET);
         if(passwordSet) {
-            Notifications.init(this);
+            Notifications.init(this, true);
             Permission.initValues(this);
             MessageHandler.init(settings);
             LocationHandler.init(this, settings, sender);
-            MessageHandler.handle(sender, ((String) settings.get(Settings.SET_FMD_COMMAND)) + " locate", this);
             if ((Boolean) settings.get(Settings.SET_FMDSERVER)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     scheduleJob(this, (Integer) settings.get(Settings.SET_FMDSERVER_UPDATE_TIME));
                 }
             }
+            MessageHandler.handle(sender, ((String) settings.get(Settings.SET_FMD_COMMAND)) + " locate", this);
         }
         return false;
     }

@@ -16,18 +16,23 @@ public class Notifications {
     public static final int CHANNEL_LIFE = 43;
     public static final int CHANNEL_PIN = 44;
 
+    private static boolean silent;
+
 
     public static void notify(Context context, String title, String text, int channelID) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, new Integer(channelID).toString())
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(channelID, builder.build());
+        if (!silent) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, new Integer(channelID).toString())
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setContentTitle(title)
+                    .setContentText(text)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            notificationManager.notify(channelID, builder.build());
+        }
     }
 
-    public static void init(Context context) {
+    public static void init(Context context, boolean silentWish) {
+        silent = silentWish;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel1 = new NotificationChannel(new Integer(CHANNEL_USAGE).toString(), context.getString(R.string.Notification_Usage), NotificationManager.IMPORTANCE_DEFAULT);
             channel1.setDescription(context.getString(R.string.Notification_Usage_Description));

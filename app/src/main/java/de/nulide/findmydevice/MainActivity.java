@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         IO.context = this;
         Logger.init(Thread.currentThread(), this);
-        Notifications.init(this);
+        Notifications.init(this, false);
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
         settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         Permission.initValues(this);
