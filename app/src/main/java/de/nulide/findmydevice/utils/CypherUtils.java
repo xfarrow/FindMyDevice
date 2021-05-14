@@ -6,6 +6,7 @@ import android.util.Base64;
 import androidx.annotation.RequiresApi;
 
 import org.bouncycastle.openssl.PEMWriter;
+import org.bouncycastle.util.io.pem.PemObject;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
@@ -82,10 +83,9 @@ public class CypherUtils {
     public static byte[] encryptWithKey(PublicKey pub, String msg){
         final Cipher rsa;
         try {
-            rsa = Cipher.getInstance("RSA");
+            rsa = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             rsa.init(Cipher.ENCRYPT_MODE, pub);
-            rsa.update(msg.getBytes());
-            return rsa.doFinal();
+            return rsa.doFinal(msg.getBytes());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (NoSuchPaddingException e) {
@@ -104,10 +104,9 @@ public class CypherUtils {
     public static String decryptWithKey(PrivateKey priv, byte[] encryptedMsg){
         final Cipher rsa;
         try {
-            rsa = Cipher.getInstance("RSA");
+            rsa = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             rsa.init(Cipher.DECRYPT_MODE, priv);
-            rsa.update(encryptedMsg);
-            return new String(rsa.doFinal(), StandardCharsets.UTF_8);
+            return new String(rsa.doFinal(encryptedMsg), StandardCharsets.UTF_8);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (NoSuchPaddingException e) {
@@ -126,8 +125,9 @@ public class CypherUtils {
     public static String encryptKey(PrivateKey priv, String password){
         StringWriter sw = new StringWriter();
         PEMWriter writer = new PEMWriter(sw);
+        PemObject po = new PemObject("RSA PRIVATE KEY", priv.getEncoded());
         try {
-            writer.writeObject(priv);
+            writer.writeObject(po);
             writer.flush();
             writer.close();
         } catch (IOException e) {

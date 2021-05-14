@@ -52,7 +52,7 @@ public class FMDServerService extends JobService {
     public static void sendNewLocation(Context context, String provider, String lat, String lon, String url, String id) {
         PublicKey publicKey = KeyIO.readKeys().getPublicKey();
         RequestQueue queue = Volley.newRequestQueue(context);
-
+        String pub = CypherUtils.encodeBase64(publicKey.getEncoded());
         final JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id", id);
