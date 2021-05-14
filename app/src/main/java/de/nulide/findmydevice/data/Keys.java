@@ -4,9 +4,9 @@ import java.security.PublicKey;
 
 public class Keys {
     private PublicKey publicKey;
-    private byte[] encryptedPrivateKey;
+    private String encryptedPrivateKey;
 
-    public Keys(PublicKey publicKey, byte[] encryptedPrivateKey) {
+    public Keys(PublicKey publicKey, String encryptedPrivateKey) {
         this.publicKey = publicKey;
         this.encryptedPrivateKey = encryptedPrivateKey;
     }
@@ -19,11 +19,11 @@ public class Keys {
         this.publicKey = publicKey;
     }
 
-    public byte[] getEncryptedPrivateKey() {
+    public String getEncryptedPrivateKey() {
         return encryptedPrivateKey;
     }
 
-    public void setEncryptedPrivateKey(byte[] encryptedPrivateKey) {
+    public void setEncryptedPrivateKey(String encryptedPrivateKey) {
         this.encryptedPrivateKey = encryptedPrivateKey;
     }
 }

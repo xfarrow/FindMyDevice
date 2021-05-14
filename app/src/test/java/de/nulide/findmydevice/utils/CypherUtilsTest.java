@@ -20,21 +20,25 @@ public class CypherUtilsTest {
         Assert.assertEquals(msg, decryptedMsg);
     }
 
+
     @Test
-    public void testAESEncryption(){
-        String msg = "Another msg";
-        String password = "secure";
-        byte[] encryptedMsg = CypherUtils.encryptWithAES(msg.getBytes(), password);
-        byte[] decryptedMsg = CypherUtils.decryptWithAES(encryptedMsg, password);
-        Assert.assertEquals(msg, new String(decryptedMsg));
+    public void testBase64(){
+        KeyPair keys = CypherUtils.genKeyPair();
+        PrivateKey priv = keys.getPrivate();
+        byte[] encoded = priv.getEncoded();
+        String stringed = CypherUtils.encodeBase64(encoded);
+        byte[] encodedString = CypherUtils.decodeBase64(stringed);
+        String reencoded = CypherUtils.encodeBase64(encodedString);
+        Assert.assertEquals(stringed, reencoded);
     }
+
 
     @Test
     public void testPrivateKeyEncryption(){
         KeyPair keys = CypherUtils.genKeyPair();
         String password = "Snake";
         byte[] encodedPrivKey = keys.getPrivate().getEncoded();
-        byte[] encryptedPrivKey = CypherUtils.encryptKey(keys.getPrivate(), password);
+        String encryptedPrivKey = CypherUtils.encryptKey(keys.getPrivate(), password);
         PrivateKey decryptedKey = CypherUtils.decryptKey(encryptedPrivKey, password);
         byte[] encodedDecryptedKey = decryptedKey.getEncoded();
         for(int i=0; i< encodedPrivKey.length; i++){
@@ -45,6 +49,16 @@ public class CypherUtilsTest {
     @Test
     public void testKeysGen(){
         CypherUtils.genKeys("test");
+    }
+
+
+    @Test
+    public void testAESEncryption(){
+        String msg = "Another msg";
+        String password = "secure";
+        String encryptedMsg = CypherUtils.encryptWithAES(msg.getBytes(), password);
+        String decryptedMsg = new String(CypherUtils.decryptWithAES(encryptedMsg, password));
+        Assert.assertEquals(msg, new String(decryptedMsg));
     }
 
 }

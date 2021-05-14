@@ -1,9 +1,15 @@
 package de.nulide.findmydevice.utils;
 
+import android.os.Build;
 import android.util.Base64;
 
+import androidx.annotation.RequiresApi;
+
+import org.bouncycastle.openssl.PEMWriter;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.security.AlgorithmParameters;
 import java.security.InvalidAlgorithmParameterException;
@@ -34,10 +40,17 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 
 import de.nulide.findmydevice.data.Keys;
 
 public class CypherUtils {
+
+    private static final int IV_SIZE = 128;
+    private static final int IV_LENGTH = IV_SIZE / 4;
+    private static int keySize = 256;
+    private static int iterationCount = 1867;
+    private static int saltLength = keySize /4;
 
     public static String hashPassword(String password) {
         return BCrypt.hashpw(password, org.mindrot.jbcrypt.BCrypt.gensalt(12));
@@ -59,8 +72,6 @@ public class CypherUtils {
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
             keyGen.initialize(1024, random);
             KeyPair pair = keyGen.generateKeyPair();
-            PrivateKey priv = pair.getPrivate();
-            PublicKey pub = pair.getPublic();
             return pair;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -89,13 +100,14 @@ public class CypherUtils {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String decryptWithKey(PrivateKey priv, byte[] encryptedMsg){
         final Cipher rsa;
         try {
             rsa = Cipher.getInstance("RSA");
             rsa.init(Cipher.DECRYPT_MODE, priv);
             rsa.update(encryptedMsg);
-            return new String(rsa.doFinal());
+            return new String(rsa.doFinal(), StandardCharsets.UTF_8);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (NoSuchPaddingException e) {
@@ -110,15 +122,26 @@ public class CypherUtils {
         return null;
     }
 
-    public static byte[] encryptKey(PrivateKey priv, String password){
-        byte[] encodedKey = priv.getEncoded();
-        return encryptWithAES(encodedKey, password);
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public static String encryptKey(PrivateKey priv, String password){
+        StringWriter sw = new StringWriter();
+        PEMWriter writer = new PEMWriter(sw);
+        try {
+            writer.writeObject(priv);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String pem = sw.getBuffer().toString();
+        return encryptWithAES(pem.getBytes(), password);
     }
 
-    public static PrivateKey decryptKey(byte[] encryptedPrivKey, String password){
+    public static PrivateKey decryptKey(String encryptedPrivKey, String password){
         try {
-            byte[] encodedKey = decryptWithAES(encryptedPrivKey, password);
-            EncodedKeySpec privKeySpec = new PKCS8EncodedKeySpec(encodedKey);
+            String encodedKey = new String(decryptWithAES(encryptedPrivKey, password));
+            byte[] key = decodeBase64(encodedKey);
+            EncodedKeySpec privKeySpec = new PKCS8EncodedKeySpec(key);
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             return keyFactory.generatePrivate(privKeySpec);
         } catch (NoSuchAlgorithmException e) {
@@ -129,15 +152,18 @@ public class CypherUtils {
         return null;
     }
 
-    protected static byte[] encryptWithAES(byte[] msg, String password){
+    protected static String encryptWithAES(byte[] msg, String password){
         try {
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            KeySpec spec = new PBEKeySpec(password.toCharArray(), "lowSalt".getBytes(), 65536, 256);
-            SecretKey tmp = factory.generateSecret(spec);
-            SecretKey secret = new SecretKeySpec(tmp.getEncoded(), "AES");
-            Cipher cipher = cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, secret);
-            return cipher.doFinal(msg);
+            String salt = toHex(generateRandom(keySize / 8));
+            String iv = toHex(generateRandom(IV_SIZE / 8));
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            KeySpec spec = new PBEKeySpec(password.toCharArray(), fromHex(salt), iterationCount, keySize);
+            SecretKey secretKey = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(fromHex(iv)));
+            byte[] encrypted = cipher.doFinal(msg);
+            String encryptedBase64 = encodeBase64(encrypted);
+            return salt + iv + encryptedBase64;
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             e.printStackTrace();
         } catch (NoSuchPaddingException e) {
@@ -148,20 +174,26 @@ public class CypherUtils {
             e.printStackTrace();
         } catch (BadPaddingException e) {
             e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
         }
         return null;
     }
 
-    protected static byte[] decryptWithAES(byte[] encryptedMsg, String password){
+    protected static byte[] decryptWithAES(String encryptedMsg, String password){
         try {
-            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            KeySpec spec = new PBEKeySpec(password.toCharArray(), "lowSalt".getBytes(), 65536, 256);
-            SecretKey tmp = factory.generateSecret(spec);
-            SecretKey secret = new SecretKeySpec(tmp.getEncoded(), "AES");
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            AlgorithmParameters params = cipher.getParameters();
-            cipher.init(Cipher.DECRYPT_MODE, secret);
-            return cipher.doFinal(encryptedMsg);
+            String salt = encryptedMsg.substring(0, saltLength);
+            String iv = encryptedMsg.substring(saltLength, saltLength + IV_LENGTH);
+            String ct = encryptedMsg.substring(saltLength + IV_LENGTH);
+
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            KeySpec spec = new PBEKeySpec(password.toCharArray(), fromHex(salt), iterationCount, keySize);
+            SecretKey secretKey = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
+            byte[] encrypted = decodeBase64(ct);
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(fromHex(iv)));
+            byte[] decrypted = cipher.doFinal(encrypted);
+            return decrypted;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (InvalidKeyException e) {
@@ -174,17 +206,33 @@ public class CypherUtils {
             e.printStackTrace();
         } catch (IllegalBlockSizeException e) {
             e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
         }
         return null;
     }
 
     public static String encodeBase64(byte[] encoded){
-        return Base64.encodeToString(encoded, Base64.NO_PADDING);
+        return DatatypeConverter.printBase64Binary(encoded);
     }
 
     public static byte[] decodeBase64(String encoded){
-        return Base64.decode(encoded, Base64.NO_PADDING);
+        return DatatypeConverter.parseBase64Binary(encoded);
     }
 
+    private static byte[] fromHex(String str) {
+        return DatatypeConverter.parseHexBinary(str);
+    }
+
+    private static String toHex(byte[] ba) {
+        return DatatypeConverter.printHexBinary(ba);
+    }
+
+    private static byte[] generateRandom(int length) {
+        SecureRandom random = new SecureRandom();
+        byte[] randomBytes = new byte[length];
+        random.nextBytes(randomBytes);
+        return randomBytes;
+    }
 
 }

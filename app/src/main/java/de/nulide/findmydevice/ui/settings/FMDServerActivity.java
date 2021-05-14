@@ -139,7 +139,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                         KeyIO.writeKeys(keys);
                         settings.set(Settings.SET_FMDSERVER_PASSWORD_SET, true);
                         buttonPassword.setBackgroundColor(colorEnabled);
-                        FMDServerService.registerOnServer(context, (String)settings.get(Settings.SET_FMDSERVER_URL), CypherUtils.encodeBase64(keys.getEncryptedPrivateKey()));
+                        FMDServerService.registerOnServer(context, (String)settings.get(Settings.SET_FMDSERVER_URL), keys.getEncryptedPrivateKey());
                     }
                 }
             });

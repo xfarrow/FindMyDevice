@@ -42,7 +42,7 @@ public class KeyIO {
                 privFile.createNewFile();
             }
             fos = new FileOutputStream(privFile);
-            fos.write(keys.getEncryptedPrivateKey());
+            fos.write(keys.getEncryptedPrivateKey().getBytes());
             fos.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class KeyIO {
         }
         byte[] encPrivateKey = readByteArray(privFile);
 
-        return new Keys(publicKey, encPrivateKey);
+        return new Keys(publicKey, new String(encPrivateKey));
     }
 
 
