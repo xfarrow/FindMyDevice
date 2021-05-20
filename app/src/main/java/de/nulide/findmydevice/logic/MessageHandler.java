@@ -57,7 +57,11 @@ public class MessageHandler {
                 if(GPS.isGPSOn(context)){
                     replyBuilder.append(context.getString(R.string.MH_GPS_WILL_FOLLOW));
                     GPS gps = new GPS(context, sender);
-                    gps.sendGSMCellLocation(settings);
+                    
+                    //if option gps is set do not send gsm cell data
+                    if(!msg.contains("gps")) {
+                        gps.sendGSMCellLocation(settings);
+                    }
                 }
             } else if (msg.startsWith(COM_RING)) {
                 replyBuilder.append(context.getString(R.string.MH_rings));
