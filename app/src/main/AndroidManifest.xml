@@ -29,10 +29,12 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.settings.FMDServerActivity"></activity>
+        <activity
+            android:name=".ui.settings.FMDServerActivity"
+            android:label="@string/Settings_FMDServer"></activity>
         <activity android:name=".ui.settings.OpenCellIdActivity" />
         <activity
-            android:name=".ui.settings.FMDConfigActivity"
+            android:name=".ui.settings.FMDSMSActivity"
             android:label="@string/Settings_FMDConfig" />
         <activity
             android:name=".ui.settings.AboutActivity"

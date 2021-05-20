@@ -47,7 +47,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         Intent settingIntent = null;
         switch(position){
             case 0:
-                settingIntent = new Intent(this, FMDConfigActivity.class);
+                settingIntent = new Intent(this, FMDSMSActivity.class);
                 break;
             case 1:
                 settingIntent = new Intent(this, FMDServerActivity.class);

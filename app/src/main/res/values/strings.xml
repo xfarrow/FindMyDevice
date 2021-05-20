@@ -68,7 +68,7 @@
     <string name="MH_No_GPS">Sorry, location is turned off.</string>
     <string name="About_Version">FMD version:</string>
     <string name="Main_OpenWhiteList" translatable="false">+</string>
-    <string name="Settings_FMDConfig">FMD Configuration</string>
+    <string name="Settings_FMDConfig">FMD-SMS</string>
     <string name="Settings_WhiteList">WhiteList</string>
     <string name="Settings_OpenCellId">OpenCellId</string>
     <string name="Settings_Permissions">Permissions</string>
@@ -101,7 +101,7 @@
     <string name="Settings_FMDServer_Description">By enabling the application will constantly send your location to the specified server.</string>
     <string name="Settings_FMDServer_URL_Description">The url for accssing the server.</string>
     <string name="Settings_FMDServer_Updattime_Description">The time in minutes in which fmd should send new location data to the server</string>
-    <string name="Settings_FMDServer">FMDServer</string>
+    <string name="Settings_FMDServer">FMD-Server</string>
     <string name="Settings_FMDServer_Username">FMDServer Username</string>
     <string name="NOT_AVAILABLE">not available</string>
     <string name="Settings_FMD_Server_ID_Desc">The ID you need to search for the Device.\n\nWill be shown once ServerSettings are filled and password is set.</string>
