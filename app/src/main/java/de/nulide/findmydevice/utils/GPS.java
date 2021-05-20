@@ -160,13 +160,13 @@ public class GPS implements LocationListener {
         @SuppressLint("MissingPermission") GsmCellLocation location = (GsmCellLocation) tm.getCellLocation();
         if (location != null) {
             msg.append("cid: ").append(location.getCid()).append("\nlac: ").append(location.getLac()).append("\n");
-        }
-        if (!TextUtils.isEmpty(operator)) {
-            int mcc = Integer.parseInt(operator.substring(0, 3));
-            int mnc = Integer.parseInt(operator.substring(3));
-            msg.append("mcc: ").append(mcc).append("\nmnc: ").append(mnc);
-            sender.sendNow(msg.toString());
-            sendOpenCellIdLocation(settings, sender, mcc, mnc, location.getLac(), location.getCid());
+            if (!TextUtils.isEmpty(operator)) {
+                int mcc = Integer.parseInt(operator.substring(0, 3));
+                int mnc = Integer.parseInt(operator.substring(3));
+                msg.append("mcc: ").append(mcc).append("\nmnc: ").append(mnc);
+                sender.sendNow(msg.toString());
+                sendOpenCellIdLocation(settings, sender, mcc, mnc, location.getLac(), location.getCid());
+            }
         }
         return location;
     }
