@@ -1,4 +1,4 @@
-package de.nulide.findmydevice;
+package de.nulide.findmydevice.ui;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -23,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
