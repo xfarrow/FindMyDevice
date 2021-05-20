@@ -65,8 +65,6 @@ public class Settings extends HashMap<Integer, Object> {
                     return false;
                 case SET_FMD_COMMAND:
                     return "fmd";
-                case SET_FMDSERVER_URL:
-                    return "0.0.0.0";
                 case SET_FMDSERVER_UPDATE_TIME:
                     return 60;
                 case SET_INTRODUCTION_VERSION:
@@ -75,6 +73,7 @@ public class Settings extends HashMap<Integer, Object> {
                     return Ringer.getDefaultRingtoneAsString();
                 case SET_PIN:
                 case SET_FMDSERVER_ID:
+                case SET_FMDSERVER_URL:
                     return "";
                 case SET_APP_CRASHED_LOG_ENTRY:
                     return -1;

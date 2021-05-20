@@ -103,8 +103,7 @@
     <string name="Settings_FMDServer_Updattime_Description">The time in minutes in which fmd should send new location data to the server</string>
     <string name="Settings_FMDServer">FMDServer</string>
     <string name="Settings_FMDServer_Username">FMDServer Username</string>
-    <string name="Settings_FMDServer_Password">FMDServer Password</string>
-    <string name="Settings_FMDServer_Password_Button">Enter Password</string>
     <string name="NOT_AVAILABLE">not available</string>
     <string name="Settings_FMD_Server_ID_Desc">The ID you need to search for the Device.\n\nWill be shown once ServerSettings are filled and password is set.</string>
+    <string name="Settings_FMDServer_Register_Button">Register on Server</string>
 </resources>

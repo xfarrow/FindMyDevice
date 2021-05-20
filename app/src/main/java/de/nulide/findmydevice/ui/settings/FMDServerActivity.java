@@ -37,7 +37,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     private EditText editTextFMDServerURL;
     private EditText editTextFMDServerUpdateTime;
     private TextView textViewFMDServerID;
-    private Button buttonPassword;
+    private Button registerButton;
 
     private int colorEnabled;
     private int colorDisabled;
@@ -63,6 +63,9 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
         checkBoxFMDServer = findViewById(R.id.checkBoxFMDServer);
         checkBoxFMDServer.setChecked((Boolean) settings.get(Settings.SET_FMDSERVER));
         checkBoxFMDServer.setOnCheckedChangeListener(this);
+        if(!(Boolean)settings.get(Settings.SET_FMDSERVER_PASSWORD_SET)){
+           checkBoxFMDServer.setEnabled(false);
+        }
 
         editTextFMDServerURL = findViewById(R.id.editTextFMDServerUrl);
         editTextFMDServerURL.setText((String) settings.get(Settings.SET_FMDSERVER_URL));
@@ -77,14 +80,17 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
             textViewFMDServerID.setText((String) settings.get(Settings.SET_FMDSERVER_ID));
         }
 
-        buttonPassword = findViewById(R.id.buttonFMDServerPassword);
+        registerButton = findViewById(R.id.buttonRegisterOnServer);
         Boolean passwordSet = (Boolean) settings.get(Settings.SET_FMDSERVER_PASSWORD_SET);
         if (passwordSet) {
-            buttonPassword.setBackgroundColor(colorEnabled);
+            registerButton.setBackgroundColor(colorEnabled);
         } else {
-            buttonPassword.setBackgroundColor(colorDisabled);
+            registerButton.setBackgroundColor(colorDisabled);
         }
-        buttonPassword.setOnClickListener(this);
+        if(((String)settings.get(Settings.SET_FMDSERVER_URL)).isEmpty()){
+            registerButton.setEnabled(false);
+        }
+        registerButton.setOnClickListener(this);
     }
 
     @Override
@@ -113,6 +119,11 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     public void afterTextChanged(Editable edited) {
         if (edited == editTextFMDServerURL.getText()) {
             settings.set(Settings.SET_FMDSERVER_URL, edited.toString());
+            if(edited.toString().isEmpty()){
+                registerButton.setEnabled(false);
+            }else{
+                registerButton.setEnabled(true);
+            }
         } else if (edited == editTextFMDServerUpdateTime.getText()) {
             if (edited.toString().isEmpty()) {
                 settings.set(Settings.SET_FMDSERVER_UPDATE_TIME, 60);
@@ -124,7 +135,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
 
     @Override
     public void onClick(View v) {
-        if (v == buttonPassword) {
+        if (v == registerButton) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle(getString(R.string.FMDConfig_Alert_Pin));
             alert.setMessage(getString(R.string.Settings_Enter_Pin));
@@ -138,8 +149,9 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                         Keys keys = CypherUtils.genKeys(text);
                         KeyIO.writeKeys(keys);
                         settings.set(Settings.SET_FMDSERVER_PASSWORD_SET, true);
-                        buttonPassword.setBackgroundColor(colorEnabled);
+                        registerButton.setBackgroundColor(colorEnabled);
                         FMDServerService.registerOnServer(context, (String)settings.get(Settings.SET_FMDSERVER_URL), keys.getEncryptedPrivateKey());
+                        checkBoxFMDServer.setEnabled(true);
                     }
                 }
             });
