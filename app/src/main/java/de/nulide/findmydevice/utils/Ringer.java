@@ -27,14 +27,12 @@ public class Ringer {
             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 
         Ringtone r = RingtoneManager.getRingtone(context, Uri.parse(ringtone));
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            AudioAttributes aa = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_UNKNOWN)
-                    .setFlags(AudioAttributes.FLAG_AUDIBILITY_ENFORCED)
-                    .build();
+        AudioAttributes aa = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .setContentType(AudioAttributes.CONTENT_TYPE_UNKNOWN)
+                .setFlags(AudioAttributes.FLAG_AUDIBILITY_ENFORCED)
+                .build();
             r.setAudioAttributes(aa);
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             r.setLooping(true);
         }

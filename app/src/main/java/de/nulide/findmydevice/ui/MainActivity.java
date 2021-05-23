@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         int colorEnabled;
         int colorDisabled;
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             colorEnabled = getColor(R.color.colorEnabled);
             colorDisabled = getColor(R.color.colorDisabled);

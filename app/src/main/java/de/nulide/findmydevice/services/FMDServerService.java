@@ -142,7 +142,6 @@ public class FMDServerService extends JobService {
         queue.add(putRequest);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public static void scheduleJob(Context context, int time) {
         ComponentName serviceComponent = new ComponentName(context, FMDServerService.class);
         JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
@@ -166,9 +165,7 @@ public class FMDServerService extends JobService {
             MessageHandler.init(settings);
             LocationHandler.init(this, settings, sender);
             if ((Boolean) settings.get(Settings.SET_FMDSERVER)) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    scheduleJob(this, (Integer) settings.get(Settings.SET_FMDSERVER_UPDATE_TIME));
-                }
+                scheduleJob(this, (Integer) settings.get(Settings.SET_FMDSERVER_UPDATE_TIME));
             }
             MessageHandler.handle(sender, ((String) settings.get(Settings.SET_FMD_COMMAND)) + " locate", this);
         }

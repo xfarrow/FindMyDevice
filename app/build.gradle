@@ -11,8 +11,8 @@ android {
 
     defaultConfig {
         applicationId "de.nulide.findmydevice"
-        minSdkVersion 16
-        targetSdkVersion 29
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 11
         versionName "0.2"
         multiDexEnabled true
