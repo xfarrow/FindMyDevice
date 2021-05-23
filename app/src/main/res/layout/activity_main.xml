@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,21 +13,90 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            //CORE
             <TextView
-                android:id="@+id/textViewFMDCommandName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textSize="21sp"
+                android:textColor="@color/colorAccent"
+                android:text="Core" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:gravity="center_horizontal"
-                android:text="@string/Info_Service"
-                android:textColor="@color/colorPrimary"
-                android:textSize="36sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:text="@string/Settings_Permission"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/textViewEnabledPermissions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal"
+                    android:text="0/0"
+                    android:textSize="21sp" />
+
+            </LinearLayout>
+
+            <host.stjin.expandablecardview.ExpandableCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:title="@string/Settings_Permission"
+                app:inner_view="@layout/permission_card_layout"
+                app:expandOnClick="true"
+                app:animationDuration="300"
+                app:startExpanded="false"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
+
+            //SMS
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textSize="21sp"
+                android:textColor="@color/colorAccent"
+                android:text="SMS" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:text="@string/Info_FMD_Command"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/textViewFMDCommandName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorEnabled"
+                    android:text=""
+                    android:textSize="21sp" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,6 +139,15 @@
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
 
+            //Server
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textSize="21sp"
+                android:textColor="@color/colorAccent"
+                android:text="Server" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,11 +159,11 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
-                    android:text="@string/Info_CORE"
+                    android:text="@string/Info_Server_Enabled"
                     android:textSize="21sp" />
 
                 <TextView
-                    android:id="@+id/textViewCORE"
+                    android:id="@+id/textViewServerEnabled"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -106,124 +185,24 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
-                    android:text="@string/Info_GPS"
+                    android:text="@string/Info_Server_Registered"
                     android:textSize="21sp" />
 
                 <TextView
-                    android:id="@+id/textViewGPS"
+                    android:id="@+id/textViewRegisteredOnServer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="0.5"
                     android:gravity="center_horizontal"
-                    android:text="@string/Disabled"
+                    android:text="@string/not_registered"
                     android:textSize="21sp" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:text="@string/Info_DND"
-                    android:textSize="21sp" />
 
-                <TextView
-                    android:id="@+id/textViewDND"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:gravity="center_horizontal"
-                    android:text="@string/Disabled"
-                    android:textSize="21sp" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:text="@string/Info_DEVICE_ADMIN"
-                    android:textSize="21sp" />
-
-                <TextView
-                    android:id="@+id/textViewDeviceAdmin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:gravity="center_horizontal"
-                    android:text="@string/Disabled"
-                    android:textSize="21sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:text="@string/Info_Overlay"
-                    android:textSize="21sp" />
-
-                <TextView
-                    android:id="@+id/textViewOverlay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:gravity="center_horizontal"
-                    android:text="@string/Disabled"
-                    android:textSize="21sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:text="@string/Info_SecureSettings"
-                    android:textSize="21sp" />
-
-                <TextView
-                    android:id="@+id/textViewWriteSecureSettings"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:gravity="center_horizontal"
-                    android:text="@string/Disabled"
-                    android:textSize="21sp" />
-
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -31,7 +31,11 @@ public class Permission {
     public static boolean WRITE_SECURE_SETTINGS = false;
     public static boolean CORE = false;
 
+    public static int ENABLED_PERMISSIONS = 0;
+    public static final int AVAILABLE_PERMISSIONS = 6;
+
     public static void initValues(Context context) {
+        ENABLED_PERMISSIONS = 0;
         GPS = checkGPSPermission(context);
         DEVICE_ADMIN = checkDeviceAdminPermission(context);
         WRITE_SECURE_SETTINGS = checkWriteSecurePermission(context);
@@ -41,6 +45,24 @@ public class Permission {
         }
         if (checkContactsPermission(context) && checkSMSPermission(context)) {
             CORE = true;
+        }
+        if(GPS){
+            ENABLED_PERMISSIONS++;
+        }
+        if(DEVICE_ADMIN){
+            ENABLED_PERMISSIONS++;
+        }
+        if(DND){
+            ENABLED_PERMISSIONS++;
+        }
+        if(OVERLAY){
+            ENABLED_PERMISSIONS++;
+        }
+        if(WRITE_SECURE_SETTINGS){
+            ENABLED_PERMISSIONS++;
+        }
+        if(CORE){
+            ENABLED_PERMISSIONS++;
         }
     }
 
