@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import de.nulide.findmydevice.R;
+import de.nulide.findmydevice.data.FMDSettings;
 import de.nulide.findmydevice.data.LogData;
-import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONLog;
@@ -30,10 +30,10 @@ public class CrashedActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crashed);
         IO.context = this;
-        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        FMDSettings FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         LogData log = JSONFactory.convertJSONLog(IO.read(JSONLog.class, IO.logFileName));
-        crashLog = log.get((Integer)settings.get(Settings.SET_APP_CRASHED_LOG_ENTRY)).getText();
-        settings.set(Settings.SET_APP_CRASHED_LOG_ENTRY, -1);
+        crashLog = log.get((Integer) FMDSettings.get(FMDSettings.SET_APP_CRASHED_LOG_ENTRY)).getText();
+        FMDSettings.set(FMDSettings.SET_APP_CRASHED_LOG_ENTRY, -1);
 
         textViewCrashLog = findViewById(R.id.textViewCrash);
         textViewCrashLog.setText(crashLog);

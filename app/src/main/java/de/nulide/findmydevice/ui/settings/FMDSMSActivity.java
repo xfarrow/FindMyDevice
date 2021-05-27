@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import de.nulide.findmydevice.R;
-import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.data.FMDSettings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
@@ -28,7 +28,7 @@ import de.nulide.findmydevice.utils.CypherUtils;
 
 public class FMDSMSActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, TextWatcher, View.OnClickListener {
 
-    private Settings settings;
+    private FMDSettings FMDSettings;
 
     private CheckBox checkBoxDeviceWipe;
     private CheckBox checkBoxAccessViaPin;
@@ -47,18 +47,18 @@ public class FMDSMSActivity extends AppCompatActivity implements CompoundButton.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_f_m_d_config);
 
-        settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
 
         checkBoxDeviceWipe = findViewById(R.id.checkBoxWipeData);
-        checkBoxDeviceWipe.setChecked((Boolean) settings.get(Settings.SET_WIPE_ENABLED));
+        checkBoxDeviceWipe.setChecked((Boolean) FMDSettings.get(FMDSettings.SET_WIPE_ENABLED));
         checkBoxDeviceWipe.setOnCheckedChangeListener(this);
 
         checkBoxAccessViaPin = findViewById(R.id.checkBoxFMDviaPin);
-        checkBoxAccessViaPin.setChecked((Boolean) settings.get(Settings.SET_ACCESS_VIA_PIN));
+        checkBoxAccessViaPin.setChecked((Boolean) FMDSettings.get(FMDSettings.SET_ACCESS_VIA_PIN));
         checkBoxAccessViaPin.setOnCheckedChangeListener(this);
 
         editTextLockScreenMessage = findViewById(R.id.editTextTextLockScreenMessage);
-        editTextLockScreenMessage.setText((String) settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
+        editTextLockScreenMessage.setText((String) FMDSettings.get(FMDSettings.SET_LOCKSCREEN_MESSAGE));
         editTextLockScreenMessage.addTextChangedListener(this);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
@@ -70,7 +70,7 @@ public class FMDSMSActivity extends AppCompatActivity implements CompoundButton.
         }
 
         buttonEnterPin = findViewById(R.id.buttonEnterPin);
-        if(settings.get(Settings.SET_PIN).equals("")){
+        if(FMDSettings.get(FMDSettings.SET_PIN).equals("")){
             buttonEnterPin.setBackgroundColor(colorDisabled);
         }else{
             buttonEnterPin.setBackgroundColor(colorEnabled);
@@ -81,7 +81,7 @@ public class FMDSMSActivity extends AppCompatActivity implements CompoundButton.
         buttonSelectRingtone.setOnClickListener(this);
 
         editTextFmdCommand = findViewById(R.id.editTextFmdCommand);
-        editTextFmdCommand.setText((String) settings.get(Settings.SET_FMD_COMMAND));
+        editTextFmdCommand.setText((String) FMDSettings.get(FMDSettings.SET_FMD_COMMAND));
         editTextFmdCommand.addTextChangedListener(this);
 
     }
@@ -89,9 +89,9 @@ public class FMDSMSActivity extends AppCompatActivity implements CompoundButton.
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView == checkBoxDeviceWipe) {
-            settings.set(Settings.SET_WIPE_ENABLED, isChecked);
+            FMDSettings.set(FMDSettings.SET_WIPE_ENABLED, isChecked);
         } else if (buttonView == checkBoxAccessViaPin) {
-            settings.set(Settings.SET_ACCESS_VIA_PIN, isChecked);
+            FMDSettings.set(FMDSettings.SET_ACCESS_VIA_PIN, isChecked);
         }
     }
 
@@ -108,13 +108,13 @@ public class FMDSMSActivity extends AppCompatActivity implements CompoundButton.
     @Override
     public void afterTextChanged(Editable edited) {
         if (edited == editTextLockScreenMessage.getText()) {
-            settings.set(Settings.SET_LOCKSCREEN_MESSAGE, edited.toString());
+            FMDSettings.set(FMDSettings.SET_LOCKSCREEN_MESSAGE, edited.toString());
         } else if (edited == editTextFmdCommand.getText()) {
             if (edited.toString().isEmpty()) {
                 Toast.makeText(this, getString(R.string.Toast_Empty_FMDCommand), Toast.LENGTH_LONG).show();
-                settings.set(Settings.SET_FMD_COMMAND, "fmd");
+                FMDSettings.set(FMDSettings.SET_FMD_COMMAND, "fmd");
             } else {
-                settings.set(Settings.SET_FMD_COMMAND, edited.toString().toLowerCase());
+                FMDSettings.set(FMDSettings.SET_FMD_COMMAND, edited.toString().toLowerCase());
             }
         }
     }
@@ -132,7 +132,7 @@ public class FMDSMSActivity extends AppCompatActivity implements CompoundButton.
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String text = input.getText().toString();
                     if (!text.isEmpty()) {
-                        settings.set(Settings.SET_PIN, CypherUtils.hashPassword(text));
+                        FMDSettings.set(FMDSettings.SET_PIN, CypherUtils.hashPassword(text));
                         buttonEnterPin.setBackgroundColor(colorEnabled);
                     }
                 }
@@ -142,7 +142,7 @@ public class FMDSMSActivity extends AppCompatActivity implements CompoundButton.
             Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
             intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
             intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, getString(R.string.Settings_Select_Ringtone));
-            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse((String) settings.get(Settings.SET_RINGER_TONE)));
+            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse((String) FMDSettings.get(FMDSettings.SET_RINGER_TONE)));
             this.startActivityForResult(intent, REQUEST_CODE_RINGTONE);
         }
     }
@@ -152,7 +152,7 @@ public class FMDSMSActivity extends AppCompatActivity implements CompoundButton.
         super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_RINGTONE) {
             Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
-            settings.set(Settings.SET_RINGER_TONE, uri.toString());
+            FMDSettings.set(FMDSettings.SET_RINGER_TONE, uri.toString());
         }
     }
 

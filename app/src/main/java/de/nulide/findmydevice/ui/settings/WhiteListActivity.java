@@ -19,13 +19,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Contact;
-import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.data.FMDSettings;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
@@ -36,7 +35,7 @@ import de.nulide.findmydevice.ui.helper.WhiteListViewAdapter;
 public class WhiteListActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private WhiteList whiteList;
-    private Settings settings;
+    private FMDSettings FMDSettings;
 
     private ListView listWhiteList;
     private WhiteListViewAdapter whiteListAdapter;
@@ -48,7 +47,7 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_white_list);
 
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
-        settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
 
         listWhiteList = findViewById(R.id.listWhiteList);
         whiteListAdapter = new WhiteListViewAdapter(this, whiteList);
@@ -59,13 +58,13 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
         buttonAddContact = findViewById(R.id.buttonAddContact);
         buttonAddContact.setOnClickListener(this);
 
-        if(!(Boolean)settings.get(Settings.SET_FIRST_TIME_WHITELIST)) {
+        if(!(Boolean) FMDSettings.get(FMDSettings.SET_FIRST_TIME_WHITELIST)) {
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.Settings_WhiteList))
                     .setMessage(this.getString(R.string.Alert_First_time_whitelist))
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            settings.set(Settings.SET_FIRST_TIME_WHITELIST, true);
+                            FMDSettings.set(FMDSettings.SET_FIRST_TIME_WHITELIST, true);
                         }
                     })
                     .setIcon(android.R.drawable.ic_dialog_info)
@@ -163,13 +162,13 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
             if (!whiteList.checkForDuplicates(contact)) {
                 whiteList.add(contact);
                 whiteListAdapter.notifyDataSetChanged();
-                if (!(Boolean) settings.get(Settings.SET_FIRST_TIME_CONTACT_ADDED)) {
+                if (!(Boolean) FMDSettings.get(FMDSettings.SET_FIRST_TIME_CONTACT_ADDED)) {
                     new AlertDialog.Builder(this)
                             .setTitle("WhiteList")
                             .setMessage(this.getString(R.string.Alert_First_Time_contact_added))
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    settings.set(Settings.SET_FIRST_TIME_CONTACT_ADDED, true);
+                                    FMDSettings.set(FMDSettings.SET_FIRST_TIME_CONTACT_ADDED, true);
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_info)

@@ -10,7 +10,7 @@ import java.util.Timer;
 import de.nulide.findmydevice.tasks.SaveTimerTask;
 import de.nulide.findmydevice.utils.Ringer;
 
-public class Settings extends HashMap<Integer, Object> {
+public class FMDSettings extends HashMap<Integer, Object> {
 
     public static final int newestIntroductionVersion = 2;
 
@@ -35,10 +35,12 @@ public class Settings extends HashMap<Integer, Object> {
 
     public static final int SET_APP_CRASHED_LOG_ENTRY = 401;
 
+    public static final int SET_GPS_STATE_BEFORE = 501;
+
 
     private Timer afterChangeTimer;
 
-    public Settings() {
+    public FMDSettings() {
     }
 
     public <T> void set(int key, T value) {
@@ -76,7 +78,8 @@ public class Settings extends HashMap<Integer, Object> {
                 case SET_FMDSERVER_URL:
                     return "";
                 case SET_APP_CRASHED_LOG_ENTRY:
-                    return -1;
+                case SET_GPS_STATE_BEFORE:
+                    return 1;
             }
         }
         return "";

@@ -8,10 +8,10 @@ import android.net.wifi.ScanResult;
 import java.util.Iterator;
 import java.util.Map;
 
+import de.nulide.findmydevice.data.FMDSettings;
 import de.nulide.findmydevice.sender.Sender;
 import de.nulide.findmydevice.ui.LockScreenMessage;
 import de.nulide.findmydevice.R;
-import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.utils.CypherUtils;
 import de.nulide.findmydevice.utils.GPS;
 import de.nulide.findmydevice.utils.Logger;
@@ -29,9 +29,9 @@ public class MessageHandler {
     private static String COM_STATS = "stats";
 
     private static int counter = 0;
-    private static Settings settings;
+    private static FMDSettings settings;
 
-    public static void init(Settings set) {
+    public static void init(FMDSettings set) {
         settings = set;
     }
 
@@ -39,8 +39,8 @@ public class MessageHandler {
         String originalMsg = msg;
         msg = msg.toLowerCase();
         StringBuilder replyBuilder = new StringBuilder();
-        if(msg.startsWith((String)settings.get(Settings.SET_FMD_COMMAND))) {
-            int cutLength = ((String) settings.get(Settings.SET_FMD_COMMAND)).length();
+        if(msg.startsWith((String) settings.get(settings.SET_FMD_COMMAND))) {
+            int cutLength = ((String) settings.get(settings.SET_FMD_COMMAND)).length();
             if(msg.length() > cutLength){
                 cutLength+=1;
             }
@@ -49,14 +49,15 @@ public class MessageHandler {
             if (msg.startsWith(COM_LOCATE) && Permission.GPS) {
                 if (!GPS.isGPSOn(context)) {
                     if (Permission.WRITE_SECURE_SETTINGS) {
-                        GPS.turnOnGPS(context);
+                        settings.set(settings.SET_GPS_STATE_BEFORE, 0);
+                        GPS.turnGPS(context, true);
                     }else{
                         replyBuilder.append(context.getString(R.string.MH_No_GPS));
                     }
                 }
                 if(GPS.isGPSOn(context)){
                     replyBuilder.append(context.getString(R.string.MH_GPS_WILL_FOLLOW));
-                    GPS gps = new GPS(context, sender);
+                    GPS gps = new GPS(context, sender, settings);
 
                     //if option gps is set do not send gsm cell data
                     if(!msg.contains("gps")) {
@@ -96,32 +97,32 @@ public class MessageHandler {
                     replyBuilder.append(sr.SSID).append("\n");
                 }
             } else if (msg.startsWith(COM_DELETE) && Permission.DEVICE_ADMIN) {
-                if ((Boolean) settings.get(Settings.SET_WIPE_ENABLED)) {
+                if ((Boolean) settings.get(settings.SET_WIPE_ENABLED)) {
                     DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
                     if (msg.length() > COM_DELETE.length()+1) {
                         String pin = originalMsg.substring(COM_DELETE.length()+1, msg.length());
-                        if (CypherUtils.checkPasswordHash((String) settings.get(Settings.SET_PIN), pin)) {
+                        if (CypherUtils.checkPasswordHash((String) settings.get(settings.SET_PIN), pin)) {
                             devicePolicyManager.wipeData(0);
                             replyBuilder.append(context.getString(R.string.MH_Delete));
                         } else {
                             replyBuilder.append(context.getString(R.string.MH_False_Pin));
                         }
                     } else {
-                        replyBuilder.append(context.getString(R.string.MH_Syntax)).append((String) settings.get(Settings.SET_FMD_COMMAND)).append(" delete [pin]");
+                        replyBuilder.append(context.getString(R.string.MH_Syntax)).append((String) settings.get(settings.SET_FMD_COMMAND)).append(" delete [pin]");
                     }
                 }
             } else {
                 replyBuilder.append(context.getString(R.string.MH_Title_Help)).append("\n");
                 if (Permission.GPS) {
-                    replyBuilder.append((String) settings.get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_where)).append("\n");
+                    replyBuilder.append((String) settings.get(settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_where)).append("\n");
                 }
-                replyBuilder.append((String) settings.get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_ring)).append("\n");
+                replyBuilder.append((String) settings.get(settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_ring)).append("\n");
                 if (Permission.DEVICE_ADMIN) {
-                    replyBuilder.append((String) settings.get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_Lock)).append("\n");
+                    replyBuilder.append((String) settings.get(settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_Lock)).append("\n");
                 }
-                replyBuilder.append((String) settings.get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_Stats));
-                if ((Boolean) settings.get(Settings.SET_WIPE_ENABLED)) {
-                    replyBuilder.append("\n").append((String) settings.get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_delete));
+                replyBuilder.append((String) settings.get(settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_Stats));
+                if ((Boolean) settings.get(settings.SET_WIPE_ENABLED)) {
+                    replyBuilder.append("\n").append((String) settings.get(settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_delete));
                 }
             }
 
@@ -136,9 +137,9 @@ public class MessageHandler {
     }
 
     public static boolean checkForPin(String msg) {
-        if (msg.length() > ((String) settings.get(Settings.SET_FMD_COMMAND)).length()) {
-            String pin = msg.substring(((String) settings.get(Settings.SET_FMD_COMMAND)).length() + 1);
-            return CypherUtils.checkPasswordHash((String) settings.get(Settings.SET_PIN), pin);
+        if (msg.length() > ((String) settings.get(settings.SET_FMD_COMMAND)).length()) {
+            String pin = msg.substring(((String) settings.get(settings.SET_FMD_COMMAND)).length() + 1);
+            return CypherUtils.checkPasswordHash((String) settings.get(settings.SET_PIN), pin);
         }
         return false;
     }

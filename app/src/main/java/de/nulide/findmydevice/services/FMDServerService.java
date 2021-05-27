@@ -7,10 +7,6 @@ import android.app.job.JobScheduler;
 import android.app.job.JobService;
 import android.content.ComponentName;
 import android.content.Context;
-import android.os.Build;
-import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,7 +25,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.data.FMDSettings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.KeyIO;
@@ -39,7 +35,6 @@ import de.nulide.findmydevice.logic.MessageHandler;
 import de.nulide.findmydevice.sender.FooSender;
 import de.nulide.findmydevice.sender.Sender;
 import de.nulide.findmydevice.utils.CypherUtils;
-import de.nulide.findmydevice.utils.JSONResponseListener;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
@@ -106,12 +101,12 @@ public class FMDServerService extends JobService {
 
     public static void registerOnServer(Context context, String url, String key) {
         IO.context = context;
-        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        FMDSettings FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         RequestQueue queue = Volley.newRequestQueue(context);
 
         final String requestString = key;
 
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, url+"/newDevice", new IDResponseListener(settings),
+        StringRequest putRequest = new StringRequest(Request.Method.PUT, url+"/newDevice", new IDResponseListener(FMDSettings),
                 new Response.ErrorListener()
                 {
                     @Override
@@ -158,17 +153,17 @@ public class FMDServerService extends JobService {
         Sender sender = new FooSender(this);
         IO.context = this;
         Logger.init(Thread.currentThread(), this);
-        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
-        Boolean passwordSet = (Boolean) settings.get(Settings.SET_FMDSERVER_PASSWORD_SET);
+        FMDSettings FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        Boolean passwordSet = (Boolean) FMDSettings.get(FMDSettings.SET_FMDSERVER_PASSWORD_SET);
         if(passwordSet) {
             Notifications.init(this, true);
             Permission.initValues(this);
-            MessageHandler.init(settings);
-            LocationHandler.init(this, settings, sender);
-            if ((Boolean) settings.get(Settings.SET_FMDSERVER)) {
-                scheduleJob(this, (Integer) settings.get(Settings.SET_FMDSERVER_UPDATE_TIME));
+            MessageHandler.init(FMDSettings);
+            LocationHandler.init(this, FMDSettings, sender);
+            if ((Boolean) FMDSettings.get(FMDSettings.SET_FMDSERVER)) {
+                scheduleJob(this, (Integer) FMDSettings.get(FMDSettings.SET_FMDSERVER_UPDATE_TIME));
             }
-            MessageHandler.handle(sender, ((String) settings.get(Settings.SET_FMD_COMMAND)) + " locate", this);
+            MessageHandler.handle(sender, ((String) FMDSettings.get(FMDSettings.SET_FMD_COMMAND)) + " locate", this);
         }
         return false;
     }
@@ -180,15 +175,15 @@ public class FMDServerService extends JobService {
 
     public static class IDResponseListener implements Response.Listener<String> {
 
-        private Settings settings;
+        private FMDSettings FMDSettings;
 
-        public IDResponseListener(Settings settings){
-            this.settings = settings;
+        public IDResponseListener(FMDSettings FMDSettings){
+            this.FMDSettings = FMDSettings;
         }
 
         @Override
         public void onResponse(String response) {
-            settings.set(Settings.SET_FMDSERVER_ID, response);
+            FMDSettings.set(FMDSettings.SET_FMDSERVER_ID, response);
         }
 
     }

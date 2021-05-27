@@ -9,12 +9,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Calendar;
 
-import de.nulide.findmydevice.R;
-import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.data.FMDSettings;
 import de.nulide.findmydevice.data.io.json.JSONLog;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.ui.CrashedActivity;
@@ -70,8 +67,8 @@ public class Logger implements Thread.UncaughtExceptionHandler{
     @Override
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
         log(t.getName(), createNiceCrashLog(e));
-        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
-        settings.set(Settings.SET_APP_CRASHED_LOG_ENTRY, log.size()-1);
+        FMDSettings FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        FMDSettings.set(FMDSettings.SET_APP_CRASHED_LOG_ENTRY, log.size()-1);
         Intent crash = new Intent(context, CrashedActivity.class);
         context.startActivity(crash);
     }
