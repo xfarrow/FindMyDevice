@@ -40,6 +40,7 @@ import de.nulide.findmydevice.ui.settings.WhiteListActivity;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
+import host.stjin.expandablecardview.ExpandableCardView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,10 +52,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewDeviceAdmin;
     private TextView textViewWriteSecureSettings;
     private TextView textViewOverlay;
-    private TextView textViewPermissionStats;
     private TextView textViewServerServiceEnabled;
     private TextView textViewServerRegistered;
     private Button buttonOpenWhitelist;
+    private ExpandableCardView expandableCardViewPermissions;
 
     private WhiteList whiteList;
     private Settings settings;
@@ -93,9 +94,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewOverlay = findViewById(R.id.textViewOverlay);
         buttonOpenWhitelist = findViewById(R.id.buttonOpenWhiteList);
         buttonOpenWhitelist.setOnClickListener(this);
-        textViewPermissionStats = findViewById(R.id.textViewEnabledPermissions);
         textViewServerServiceEnabled = findViewById(R.id.textViewServerEnabled);
         textViewServerRegistered = findViewById(R.id.textViewRegisteredOnServer);
+        expandableCardViewPermissions = findViewById(R.id.expandableCardViewPermissions);
     }
 
     public void updateViews() {
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViewOverlay.setTextColor(colorDisabled);
         }
 
-        textViewPermissionStats.setText(Permission.ENABLED_PERMISSIONS + "/" + Permission.AVAILABLE_PERMISSIONS);
+        expandableCardViewPermissions.setTitle(-1, getString(R.string.Settings_Permissions) + " " + Permission.ENABLED_PERMISSIONS + "/" + Permission.AVAILABLE_PERMISSIONS);
 
         if((Boolean) settings.get(Settings.SET_FMDSERVER)){
             textViewServerServiceEnabled.setText(getString(R.string.Enabled));

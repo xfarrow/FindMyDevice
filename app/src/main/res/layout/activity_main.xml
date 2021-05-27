@@ -22,33 +22,8 @@
                 android:textColor="@color/colorAccent"
                 android:text="Core" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:text="@string/Settings_Permission"
-                    android:textSize="21sp" />
-
-                <TextView
-                    android:id="@+id/textViewEnabledPermissions"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"
-                    android:gravity="center_horizontal"
-                    android:text="0/0"
-                    android:textSize="21sp" />
-
-            </LinearLayout>
-
             <host.stjin.expandablecardview.ExpandableCardView
+                android:id="@+id/expandableCardViewPermissions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:title="@string/Settings_Permission"
