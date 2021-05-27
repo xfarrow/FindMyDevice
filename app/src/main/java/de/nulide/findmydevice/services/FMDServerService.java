@@ -7,6 +7,7 @@ import android.app.job.JobScheduler;
 import android.app.job.JobService;
 import android.content.ComponentName;
 import android.content.Context;
+import android.os.BatteryManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -48,12 +49,15 @@ public class FMDServerService extends JobService {
     public static void sendNewLocation(Context context, String provider, String lat, String lon, String url, String id) {
         PublicKey publicKey = KeyIO.readKeys().getPublicKey();
         RequestQueue queue = Volley.newRequestQueue(context);
-        String pub = CypherUtils.encodeBase64(publicKey.getEncoded());
+        BatteryManager bm = (BatteryManager) context.getSystemService(BATTERY_SERVICE);
+        String batLevel = new Integer(bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)).toString();
+
         final JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id", id);
             jsonObject.put("provider", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey,provider)));
             jsonObject.put("date", Calendar.getInstance().getTimeInMillis());
+            jsonObject.put("bat", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, batLevel)));
             jsonObject.put("lon", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, lon)));
             jsonObject.put("lat", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, lat)));
         } catch (JSONException e) {
