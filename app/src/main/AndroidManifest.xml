@@ -80,7 +80,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".receiver.SMSReceiver"
+            android:name=".receiver.BCReceiver"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true">
