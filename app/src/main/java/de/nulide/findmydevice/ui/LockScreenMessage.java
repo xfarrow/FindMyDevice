@@ -33,7 +33,7 @@ public class LockScreenMessage extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         switch(bundle.getString(SENDER_TYPE)){
             case SMS.TYPE:
-                    sender = new SMS(this, bundle.getString(SENDER));
+                    sender = new SMS(bundle.getString(SENDER));
                 break;
         }
         Settings settings;

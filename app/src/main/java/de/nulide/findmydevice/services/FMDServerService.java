@@ -48,6 +48,7 @@ import de.nulide.findmydevice.utils.Permission;
 public class FMDServerService extends JobService {
 
     private static final String TAG = "FMDServerService";
+    private static final int JOB_ID = 108;
 
     public static void sendNewLocation(Context context, String provider, String lat, String lon, String url, String id) {
         PublicKey publicKey = KeyIO.readKeys().getPublicKey();
@@ -144,7 +145,7 @@ public class FMDServerService extends JobService {
 
     public static void scheduleJob(Context context, int time) {
         ComponentName serviceComponent = new ComponentName(context, FMDServerService.class);
-        JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
+        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, serviceComponent);
         builder.setMinimumLatency(time * 1000 * 60);
         builder.setOverrideDeadline(time + 5 * 1000 * 60);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);

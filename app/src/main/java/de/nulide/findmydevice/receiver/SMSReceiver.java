@@ -66,7 +66,7 @@ public class SMSReceiver extends BroadcastReceiver {
                             msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
                         }
                         String receiver = msgs[i].getOriginatingAddress();
-                        Sender sender = new SMS(context, receiver);
+                        Sender sender = new SMS(receiver);
                         LocationHandler.init(context, settings, sender);
                         boolean inWhitelist = false;
                         for (int iwl = 0; iwl < whiteList.size(); iwl++) {
@@ -89,11 +89,7 @@ public class SMSReceiver extends BroadcastReceiver {
                                 Notifications.notify(context, "Pin", "The pin was used by the following number: "+receiver+"\nPlease change the Pin!", Notifications.CHANNEL_PIN);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, receiver);
                                 config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, time.getTimeInMillis());
-                                Intent tempContactExpiredService = new Intent(context, TempContactExpiredService.class);
-                                tempContactExpiredService.putExtra(TempContactExpiredService.SENDER, sender);
-                                PendingIntent pi = PendingIntent.getService(context, 0, tempContactExpiredService, PendingIntent.FLAG_ONE_SHOT);
-                                AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                                mgr.setExact(AlarmManager.RTC_WAKEUP, 60000, pi);
+                                TempContactExpiredService.scheduleJob(context, sender);
                             }
                         }
                     }

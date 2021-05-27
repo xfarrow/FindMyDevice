@@ -6,11 +6,11 @@ import android.telephony.SmsManager;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SMS extends Sender implements Serializable {
+public class SMS extends Sender {
 
     public final static String TYPE = "SMS";
 
-    public SMS(Context context, String destination) {
+    public SMS(String destination) {
         super(destination, TYPE);
     }
 
