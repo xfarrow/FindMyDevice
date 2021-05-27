@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import de.nulide.findmydevice.R;
+import de.nulide.findmydevice.data.FMDSettings;
 import de.nulide.findmydevice.logic.LocationHandler;
 import de.nulide.findmydevice.sender.Sender;
 
@@ -29,12 +30,14 @@ public class GPS implements LocationListener {
     private final Context context;
     private final LocationManager locationManager;
     private final Sender sender;
+    private FMDSettings settings;
     private Location currentBestLocation = null;
 
     @SuppressLint("MissingPermission")
-    public GPS(Context context, Sender sender) {
+    public GPS(Context context, Sender sender, FMDSettings settings) {
         this.context = context;
         this.sender = sender;
+        this.settings = settings;
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         Looper m = Looper.myLooper();
         for (String providor : locationManager.getAllProviders()) {
@@ -42,14 +45,12 @@ public class GPS implements LocationListener {
         }
     }
 
-    public static void turnOnGPS(Context context) {
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_MODE, new Integer(Settings.Secure.LOCATION_MODE_HIGH_ACCURACY).toString());
-        }else{
-            Intent intent = new Intent("android.location.GPS_ENABLED_CHANGE");
-            intent.putExtra("enabled", true);
-            context.sendBroadcast(intent);
-        }
+    public static void turnGPS(Context context, boolean enable) {
+            if(enable) {
+                Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_MODE, new Integer(Settings.Secure.LOCATION_MODE_HIGH_ACCURACY).toString());
+            }else{
+                Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_MODE, new Integer(Settings.Secure.LOCATION_MODE_OFF).toString());
+            }
     }
 
     public static boolean isGPSOn(Context context) {
@@ -77,6 +78,10 @@ public class GPS implements LocationListener {
         String lat = new Double(getLastBestLocation().getLatitude()).toString();
         String lon = new Double(getLastBestLocation().getLongitude()).toString();
         LocationHandler.newlocation(provider, lat, lon);
+        if(((Integer)settings.get(FMDSettings.SET_GPS_STATE_BEFORE) == 0)){
+            turnGPS(context, false);
+            settings.set(FMDSettings.SET_GPS_STATE_BEFORE, 1);
+        }
     }
 
     @Override
@@ -152,7 +157,7 @@ public class GPS implements LocationListener {
         } else return isNewer && !isSignificantlyLessAccurate && isFromSameProvider;
     }
 
-    public GsmCellLocation sendGSMCellLocation(de.nulide.findmydevice.data.Settings settings) {
+    public GsmCellLocation sendGSMCellLocation(FMDSettings FMDSettings) {
         StringBuilder msg = new StringBuilder(context.getString(R.string.GPS_GSM_Data));
         msg.append("\n");
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -165,18 +170,18 @@ public class GPS implements LocationListener {
                 int mnc = Integer.parseInt(operator.substring(3));
                 msg.append("mcc: ").append(mcc).append("\nmnc: ").append(mnc);
                 sender.sendNow(msg.toString());
-                sendOpenCellIdLocation(settings, sender, mcc, mnc, location.getLac(), location.getCid());
+                sendOpenCellIdLocation(FMDSettings, sender, mcc, mnc, location.getLac(), location.getCid());
             }
         }
         return location;
     }
 
-    public void sendOpenCellIdLocation(de.nulide.findmydevice.data.Settings settings, Sender sender, int mcc, int mnc, int lac, int cid) {
-        if (((String) settings.get(de.nulide.findmydevice.data.Settings.SET_OPENCELLID_API_KEY)).isEmpty()) {
+    public void sendOpenCellIdLocation(FMDSettings FMDSettings, Sender sender, int mcc, int mnc, int lac, int cid) {
+        if (((String) FMDSettings.get(FMDSettings.SET_OPENCELLID_API_KEY)).isEmpty()) {
             return;
         }
         StringBuilder urlBuilder = new StringBuilder("https://opencellid.org/cell/get?key=")
-                .append((String) settings.get(de.nulide.findmydevice.data.Settings.SET_OPENCELLID_API_KEY)).append("&mcc=").append(mcc).append("&mnc=").append(mnc)
+                .append((String) FMDSettings.get(FMDSettings.SET_OPENCELLID_API_KEY)).append("&mcc=").append(mcc).append("&mnc=").append(mnc)
                 .append("&lac=").append(lac).append("&cellid=").append(cid).append("&format=json");
 
         final String url = urlBuilder.toString();

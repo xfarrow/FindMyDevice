@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import de.nulide.findmydevice.R;
-import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.data.FMDSettings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
@@ -36,14 +36,14 @@ public class LockScreenMessage extends AppCompatActivity {
                     sender = new SMS(bundle.getString(SENDER));
                 break;
         }
-        Settings settings;
+        FMDSettings FMDSettings;
         IO.context = this;
-        settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         tvLockScreenMessage = findViewById(R.id.textViewLockScreenMessage);
         if (bundle.containsKey(CUSTOM_TEXT)) {
             tvLockScreenMessage.setText(bundle.getString(CUSTOM_TEXT));
         } else {
-            tvLockScreenMessage.setText((String) settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
+            tvLockScreenMessage.setText((String) FMDSettings.get(FMDSettings.SET_LOCKSCREEN_MESSAGE));
         }
     }
 

@@ -1,41 +1,24 @@
 package de.nulide.findmydevice.ui;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.tabs.TabLayout;
 
 import de.nulide.findmydevice.R;
-import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.data.FMDSettings;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
-import de.nulide.findmydevice.ui.CrashedActivity;
-import de.nulide.findmydevice.ui.IntroductionActivity;
-import de.nulide.findmydevice.ui.LogActivity;
 import de.nulide.findmydevice.ui.settings.SettingsActivity;
-import de.nulide.findmydevice.ui.helper.WhiteListViewAdapter;
 import de.nulide.findmydevice.ui.settings.WhiteListActivity;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Notifications;
@@ -58,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ExpandableCardView expandableCardViewPermissions;
 
     private WhiteList whiteList;
-    private Settings settings;
+    private FMDSettings FMDSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +52,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Logger.init(Thread.currentThread(), this);
         Notifications.init(this, false);
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
-        settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         Permission.initValues(this);
-        if(((Integer)settings.get(Settings.SET_APP_CRASHED_LOG_ENTRY)) != -1){
+        if(((Integer) FMDSettings.get(FMDSettings.SET_APP_CRASHED_LOG_ENTRY)) != -1){
             Intent crash = new Intent(this, CrashedActivity.class);
             startActivity(crash);
         }
-        if (!settings.isIntroductionPassed() || !Permission.CORE) {
+        if (!FMDSettings.isIntroductionPassed() || !Permission.CORE) {
             Intent introductionIntent = new Intent(this, IntroductionActivity.class);
             startActivity(introductionIntent);
         }
@@ -100,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void updateViews() {
-        textViewFMDCommandName.setText((String) settings.get(Settings.SET_FMD_COMMAND));
+        textViewFMDCommandName.setText((String) FMDSettings.get(FMDSettings.SET_FMD_COMMAND));
         textViewWhiteListCount.setText(Integer.valueOf(whiteList.size()).toString());
 
 
@@ -166,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         expandableCardViewPermissions.setTitle(-1, getString(R.string.Settings_Permissions) + " " + Permission.ENABLED_PERMISSIONS + "/" + Permission.AVAILABLE_PERMISSIONS);
 
-        if((Boolean) settings.get(Settings.SET_FMDSERVER)){
+        if((Boolean) FMDSettings.get(FMDSettings.SET_FMDSERVER)){
             textViewServerServiceEnabled.setText(getString(R.string.Enabled));
             textViewServerServiceEnabled.setTextColor(colorEnabled);
         }else{
@@ -174,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViewServerServiceEnabled.setTextColor(colorDisabled);
         }
 
-        if((Boolean) settings.get(Settings.SET_FMDSERVER_PASSWORD_SET)){
+        if((Boolean) FMDSettings.get(FMDSettings.SET_FMDSERVER_PASSWORD_SET)){
             textViewServerRegistered.setText(getString(R.string.Enabled));
             textViewServerRegistered.setTextColor(colorEnabled);
         }else{
@@ -204,8 +187,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         Permission.initValues(this);
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
-        settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
-        if (!settings.isIntroductionPassed() || !Permission.CORE) {
+        FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        if (!FMDSettings.isIntroductionPassed() || !Permission.CORE) {
             Intent introductionIntent = new Intent(this, IntroductionActivity.class);
             startActivity(introductionIntent);
         }

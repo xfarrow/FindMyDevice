@@ -1,8 +1,6 @@
 package de.nulide.findmydevice.receiver;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,11 +10,10 @@ import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsMessage;
 
 import java.util.Calendar;
-import java.util.Timer;
 
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.ConfigSMSRec;
-import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.data.FMDSettings;
 import de.nulide.findmydevice.data.WhiteList;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
@@ -37,7 +34,7 @@ public class SMSReceiver extends BroadcastReceiver {
     public static final String BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
 
     private WhiteList whiteList;
-    private Settings settings;
+    private FMDSettings FMDSettings;
     private ConfigSMSRec config;
 
     public SMSReceiver() {
@@ -67,7 +64,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         }
                         String receiver = msgs[i].getOriginatingAddress();
                         Sender sender = new SMS(receiver);
-                        LocationHandler.init(context, settings, sender);
+                        LocationHandler.init(context, FMDSettings, sender);
                         boolean inWhitelist = false;
                         for (int iwl = 0; iwl < whiteList.size(); iwl++) {
                             if (PhoneNumberUtils.compare(whiteList.get(iwl).getNumber(), receiver)) {
@@ -76,7 +73,7 @@ public class SMSReceiver extends BroadcastReceiver {
                                 inWhitelist = true;
                             }
                         }
-                        if ((Boolean) settings.get(Settings.SET_ACCESS_VIA_PIN)) {
+                        if ((Boolean) FMDSettings.get(FMDSettings.SET_ACCESS_VIA_PIN)) {
                             String tempContact = (String) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT);
                             if (!inWhitelist && tempContact != null && PhoneNumberUtils.compare(tempContact, receiver)) {
                                 Logger.logSession("Usage", receiver + " used FMD");
@@ -110,7 +107,7 @@ public class SMSReceiver extends BroadcastReceiver {
         IO.context = context;
         Logger.init(Thread.currentThread(), context);
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
-        settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         config = JSONFactory.convertJSONConfig(IO.read(JSONMap.class, IO.SMSReceiverTempData));
         if (config.get(ConfigSMSRec.CONF_LAST_USAGE) == null) {
             Calendar cal = Calendar.getInstance();
@@ -119,7 +116,7 @@ public class SMSReceiver extends BroadcastReceiver {
         }
         Notifications.init(context, false);
         Permission.initValues(context);
-        MessageHandler.init(settings);
+        MessageHandler.init(FMDSettings);
     }
 
 }

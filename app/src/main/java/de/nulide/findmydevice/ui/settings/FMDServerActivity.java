@@ -17,11 +17,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import de.nulide.findmydevice.R;
+import de.nulide.findmydevice.data.FMDSettings;
 import de.nulide.findmydevice.data.Keys;
-import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.KeyIO;
@@ -31,7 +29,7 @@ import de.nulide.findmydevice.utils.CypherUtils;
 
 public class FMDServerActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, TextWatcher, View.OnClickListener {
 
-    private Settings settings;
+    private FMDSettings FMDSettings;
 
     private CheckBox checkBoxFMDServer;
     private EditText editTextFMDServerURL;
@@ -49,7 +47,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_f_m_d_server);
 
-        settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         this.context = this;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             colorEnabled = getColor(R.color.colorEnabled);
@@ -61,33 +59,33 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
 
 
         checkBoxFMDServer = findViewById(R.id.checkBoxFMDServer);
-        checkBoxFMDServer.setChecked((Boolean) settings.get(Settings.SET_FMDSERVER));
+        checkBoxFMDServer.setChecked((Boolean) FMDSettings.get(FMDSettings.SET_FMDSERVER));
         checkBoxFMDServer.setOnCheckedChangeListener(this);
-        if(!(Boolean)settings.get(Settings.SET_FMDSERVER_PASSWORD_SET)){
+        if(!(Boolean) FMDSettings.get(FMDSettings.SET_FMDSERVER_PASSWORD_SET)){
            checkBoxFMDServer.setEnabled(false);
         }
 
         editTextFMDServerURL = findViewById(R.id.editTextFMDServerUrl);
-        editTextFMDServerURL.setText((String) settings.get(Settings.SET_FMDSERVER_URL));
+        editTextFMDServerURL.setText((String) FMDSettings.get(FMDSettings.SET_FMDSERVER_URL));
         editTextFMDServerURL.addTextChangedListener(this);
 
         editTextFMDServerUpdateTime = findViewById(R.id.editTextFMDServerUpdateTime);
-        editTextFMDServerUpdateTime.setText(((Integer) settings.get(Settings.SET_FMDSERVER_UPDATE_TIME)).toString());
+        editTextFMDServerUpdateTime.setText(((Integer) FMDSettings.get(FMDSettings.SET_FMDSERVER_UPDATE_TIME)).toString());
         editTextFMDServerUpdateTime.addTextChangedListener(this);
 
         textViewFMDServerID = findViewById(R.id.textViewID);
-        if (!((String) settings.get(Settings.SET_FMDSERVER_ID)).isEmpty()) {
-            textViewFMDServerID.setText((String) settings.get(Settings.SET_FMDSERVER_ID));
+        if (!((String) FMDSettings.get(FMDSettings.SET_FMDSERVER_ID)).isEmpty()) {
+            textViewFMDServerID.setText((String) FMDSettings.get(FMDSettings.SET_FMDSERVER_ID));
         }
 
         registerButton = findViewById(R.id.buttonRegisterOnServer);
-        Boolean passwordSet = (Boolean) settings.get(Settings.SET_FMDSERVER_PASSWORD_SET);
+        Boolean passwordSet = (Boolean) FMDSettings.get(FMDSettings.SET_FMDSERVER_PASSWORD_SET);
         if (passwordSet) {
             registerButton.setBackgroundColor(colorEnabled);
         } else {
             registerButton.setBackgroundColor(colorDisabled);
         }
-        if(((String)settings.get(Settings.SET_FMDSERVER_URL)).isEmpty()){
+        if(((String) FMDSettings.get(FMDSettings.SET_FMDSERVER_URL)).isEmpty()){
             registerButton.setEnabled(false);
         }
         registerButton.setOnClickListener(this);
@@ -96,7 +94,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView == checkBoxFMDServer) {
-            settings.setNow(Settings.SET_FMDSERVER, isChecked);
+            FMDSettings.setNow(FMDSettings.SET_FMDSERVER, isChecked);
             if (isChecked) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FMDServerService.scheduleJob(this, 0);
@@ -118,7 +116,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     @Override
     public void afterTextChanged(Editable edited) {
         if (edited == editTextFMDServerURL.getText()) {
-            settings.set(Settings.SET_FMDSERVER_URL, edited.toString());
+            FMDSettings.set(FMDSettings.SET_FMDSERVER_URL, edited.toString());
             if(edited.toString().isEmpty()){
                 registerButton.setEnabled(false);
             }else{
@@ -126,9 +124,9 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
             }
         } else if (edited == editTextFMDServerUpdateTime.getText()) {
             if (edited.toString().isEmpty()) {
-                settings.set(Settings.SET_FMDSERVER_UPDATE_TIME, 60);
+                FMDSettings.set(FMDSettings.SET_FMDSERVER_UPDATE_TIME, 60);
             } else {
-                settings.set(Settings.SET_FMDSERVER_UPDATE_TIME, Integer.parseInt(editTextFMDServerUpdateTime.getText().toString()));
+                FMDSettings.set(FMDSettings.SET_FMDSERVER_UPDATE_TIME, Integer.parseInt(editTextFMDServerUpdateTime.getText().toString()));
             }
         }
     }
@@ -148,9 +146,9 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                     if (!text.isEmpty()) {
                         Keys keys = CypherUtils.genKeys(text);
                         KeyIO.writeKeys(keys);
-                        settings.set(Settings.SET_FMDSERVER_PASSWORD_SET, true);
+                        FMDSettings.set(FMDSettings.SET_FMDSERVER_PASSWORD_SET, true);
                         registerButton.setBackgroundColor(colorEnabled);
-                        FMDServerService.registerOnServer(context, (String)settings.get(Settings.SET_FMDSERVER_URL), keys.getEncryptedPrivateKey());
+                        FMDServerService.registerOnServer(context, (String) FMDSettings.get(FMDSettings.SET_FMDSERVER_URL), keys.getEncryptedPrivateKey());
                         checkBoxFMDServer.setEnabled(true);
                     }
                 }
