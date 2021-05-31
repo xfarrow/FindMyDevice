@@ -14,6 +14,8 @@ import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -26,12 +28,12 @@ import de.nulide.findmydevice.sender.Sender;
 
 public class GPS implements LocationListener {
 
-    static final int WAIT_TIME = 1000 * 5;
     private final Context context;
-    private final LocationManager locationManager;
     private final Sender sender;
+    private final LocationManager locationManager;
     private FMDSettings settings;
-    private Location currentBestLocation = null;
+    private int providerSize = 0;
+    private int providerIndex = 0;
 
     @SuppressLint("MissingPermission")
     public GPS(Context context, Sender sender, FMDSettings settings) {
@@ -39,9 +41,9 @@ public class GPS implements LocationListener {
         this.sender = sender;
         this.settings = settings;
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        Looper m = Looper.myLooper();
-        for (String providor : locationManager.getAllProviders()) {
-            locationManager.requestSingleUpdate(providor, this, m);
+        for (String provider : locationManager.getAllProviders()) {
+            providerSize++;
+            locationManager.requestLocationUpdates(provider, 0, 0, this);
         }
     }
 
@@ -68,18 +70,13 @@ public class GPS implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        if (isBetterLocation(location, currentBestLocation)) {
-            currentBestLocation = location;
-        }
-        if (currentBestLocation == null) {
-            currentBestLocation = location;
-        }
         if(location != null) {
-            String provider = getLastBestLocation().getProvider();
-            String lat = new Double(getLastBestLocation().getLatitude()).toString();
-            String lon = new Double(getLastBestLocation().getLongitude()).toString();
+            String provider = location.getProvider();
+            String lat = new Double(location.getLatitude()).toString();
+            String lon = new Double(location.getLongitude()).toString();
+            providerIndex++;
             LocationHandler.newlocation(provider, lat, lon);
-            if (((Integer) settings.get(FMDSettings.SET_GPS_STATE_BEFORE) == 0)) {
+            if (providerSize <= providerIndex && ((Integer) settings.get(FMDSettings.SET_GPS_STATE_BEFORE) == 0)) {
                 turnGPS(context, false);
                 settings.set(FMDSettings.SET_GPS_STATE_BEFORE, 1);
             }
@@ -92,71 +89,13 @@ public class GPS implements LocationListener {
     }
 
     @Override
-    public void onProviderEnabled(String provider) {
+    public void onProviderEnabled(@NonNull String provider) {
 
     }
 
     @Override
-    public void onProviderDisabled(String provider) {
-
-    }
-
-    public Location getLastBestLocation() {
-        @SuppressLint("MissingPermission") Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        @SuppressLint("MissingPermission") Location locationNet = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-        long GPSLocationTime = 0;
-        if (null != locationGPS) {
-            GPSLocationTime = locationGPS.getTime();
-        }
-
-        long NetLocationTime = 0;
-
-        if (null != locationNet) {
-            NetLocationTime = locationNet.getTime();
-        }
-
-        if (0 < GPSLocationTime - NetLocationTime) {
-            return locationGPS;
-        } else {
-            return locationNet;
-        }
-    }
-
-    protected boolean isBetterLocation(Location location, Location currentBestLocation) {
-        if (currentBestLocation == null) {
-            return true;
-        }
-
-        long timeDelta = location.getTime() - currentBestLocation.getTime();
-        boolean isSignificantlyNewer = timeDelta > WAIT_TIME;
-        boolean isSignificantlyOlder = timeDelta < -WAIT_TIME;
-        boolean isNewer = timeDelta > 0;
-
-        if (isSignificantlyNewer) {
-            return true;
-        } else if (isSignificantlyOlder) {
-            return false;
-        }
-
-        int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
-        boolean isLessAccurate = accuracyDelta > 0;
-        boolean isMoreAccurate = accuracyDelta < 0;
-        boolean isSignificantlyLessAccurate = accuracyDelta > 200;
-
-        String provider1 = location.getProvider();
-        String provider2 = currentBestLocation.getProvider();
-        if (provider1 == null) {
-            return provider2 == null;
-        }
-        boolean isFromSameProvider = provider1.equals(provider2);
-
-        // Determine location quality using a combination of timeliness and accuracy
-        if (isMoreAccurate) {
-            return true;
-        } else if (isNewer && !isLessAccurate) {
-            return true;
-        } else return isNewer && !isSignificantlyLessAccurate && isFromSameProvider;
+    public void onProviderDisabled(@NonNull String provider) {
+        locationManager.removeUpdates(this);
     }
 
     public GsmCellLocation sendGSMCellLocation(FMDSettings FMDSettings) {
