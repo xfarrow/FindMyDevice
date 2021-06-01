@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import de.nulide.findmydevice.R;
-import de.nulide.findmydevice.data.FMDSettings;
+import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
@@ -25,7 +25,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
     private Button buttonNext;
     private Button buttonGivePermission;
     private int position = 0;
-    private FMDSettings FMDSettings;
+    private Settings Settings;
 
     private int colorEnabled;
     private int colorDisabled;
@@ -39,7 +39,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
             position = bundle.getInt(POS_KEY);
         }
         IO.context = this;
-        FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        Settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
 
         textViewInfoText = findViewById(R.id.textViewInfoText);
         buttonGivePermission = findViewById(R.id.buttonGivePermission);
@@ -63,7 +63,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
         switch (position) {
             case 0:
                 buttonGivePermission.setText(getString(R.string.About_Help));
-                if ((Integer) FMDSettings.get(FMDSettings.SET_INTRODUCTION_VERSION) > 0) {
+                if ((Integer) Settings.get(Settings.SET_INTRODUCTION_VERSION) > 0) {
                     textViewInfoText.setText(getString(R.string.Introduction_UpdatePermission));
                 } else {
                     textViewInfoText.setText(getString(R.string.Introduction_Introduction));
@@ -136,7 +136,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                 }
                 break;
             case 8:
-                FMDSettings.setIntroductionPassed();
+                Settings.setIntroductionPassed();
                 Intent myIntent = new Intent(this, MainActivity.class);
                 finish();
                 startActivity(myIntent);

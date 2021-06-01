@@ -1,4 +1,4 @@
-package de.nulide.findmydevice.utils;
+package de.nulide.findmydevice.logic.command.helper;
 
 import android.content.Context;
 import android.content.Intent;

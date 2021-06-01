@@ -8,14 +8,14 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import de.nulide.findmydevice.R;
-import de.nulide.findmydevice.data.FMDSettings;
+import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 
 public class OpenCellIdActivity extends AppCompatActivity implements TextWatcher {
 
-    private FMDSettings FMDSettings;
+    private Settings Settings;
 
     private EditText editTextOpenCellIdKey;
 
@@ -25,10 +25,10 @@ public class OpenCellIdActivity extends AppCompatActivity implements TextWatcher
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_cell_id);
 
-        FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        Settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
 
         editTextOpenCellIdKey = findViewById(R.id.editTextOpenCellIDAPIKey);
-        editTextOpenCellIdKey.setText((String) FMDSettings.get(FMDSettings.SET_OPENCELLID_API_KEY));
+        editTextOpenCellIdKey.setText((String) Settings.get(Settings.SET_OPENCELLID_API_KEY));
         editTextOpenCellIdKey.addTextChangedListener(this);
 
     }
@@ -46,7 +46,7 @@ public class OpenCellIdActivity extends AppCompatActivity implements TextWatcher
     @Override
     public void afterTextChanged(Editable edited) {
         if (edited == editTextOpenCellIdKey.getText()) {
-            FMDSettings.set(FMDSettings.SET_OPENCELLID_API_KEY, edited.toString());
+            Settings.set(Settings.SET_OPENCELLID_API_KEY, edited.toString());
         }
     }
 }
