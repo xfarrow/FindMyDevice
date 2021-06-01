@@ -86,7 +86,7 @@
     <string name="Notification_Lifecycle_Description">Notification about the Lifecycle of the Service.</string>
     <string name="Notification_Pin_Usage_Description">Notification about the pin usage.</string>
     <string name="JSON_RL_Error">Error gaining location from OpenCellID. Please try the following link. The parameter you want are lon and lat.</string>
-    <string name="JSON_RL_OpenCellIdLocation">"OpenCellId-Location: "</string>
+    <string name="JSON_RL_OpenCellIdLocation">"OpenCellId-Location"</string>
     <string name="GPS_GSM_Data">GSM-Cell-Data:</string>
     <string name="LockScreen_Usage_detectd">LockScreenMessage: Usage detected.</string>
     <string name="LockScreen_Backbutton_pressed">LockScreenMessage: Back-Button pressed.</string>
