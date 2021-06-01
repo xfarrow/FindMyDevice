@@ -47,6 +47,13 @@ public class MessageHandler {
             originalMsg = originalMsg.substring(cutLength, msg.length());
             msg = msg.substring(cutLength);
             if (msg.startsWith(COM_LOCATE) && Permission.GPS) {
+                if(msg.contains("last")){
+                    if((Integer)ch.getSettings().get(Settings.SET_LAST_KNOWN_LOCATION_LAT) != -1) {
+                        ch.getLocationHandler().sendLastKnownLocation();
+                    }else{
+                        ch.getSender().sendNow(ch.getContext().getString(R.string.MH_LAST_KNOWN_LOCATION_NOT_AVAILABLE));
+                    }
+                }
                 if (!GPS.isGPSOn(context)) {
                     if (Permission.WRITE_SECURE_SETTINGS) {
                         ch.getSettings().set(Settings.SET_GPS_STATE_BEFORE, 0);

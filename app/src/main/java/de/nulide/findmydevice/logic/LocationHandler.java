@@ -1,21 +1,29 @@
 package de.nulide.findmydevice.logic;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.services.FMDServerService;
 
 public class LocationHandler {
 
-    ComponentHandler ch;
+    private ComponentHandler ch;
 
 
     public LocationHandler(ComponentHandler ch){
         this.ch = ch;
     }
 
-    public void newlocation(String provider, String lat, String lon){
+    public void newLocation(String provider, String lat, String lon){
         StringBuilder sb = new StringBuilder(provider);
         sb.append(": Lat: ").append(lat).append(" Lon: ").append(lat).append("\n\n").append(createMapLink(lat, lon));
         ch.getSender().sendNow(sb.toString());
+
+        ch.getSettings().set(Settings.SET_LAST_KNOWN_LOCATION_LAT, lat);
+        ch.getSettings().set(Settings.SET_LAST_KNOWN_LOCATION_LAT, lon);
+        ch.getSettings().set(Settings.SET_LAST_KNOWN_LOCATION_TIME, Calendar.getInstance().getTimeInMillis());
 
         if((Boolean) ch.getSettings().get(Settings.SET_FMDSERVER)){
             String id =  (String) ch.getSettings().get(Settings.SET_FMDSERVER_ID);
@@ -23,6 +31,17 @@ public class LocationHandler {
                 FMDServerService.sendNewLocation(ch.getContext(), provider, lat, lon, (String) ch.getSettings().get(Settings.SET_FMDSERVER_URL), (String) ch.getSettings().get(Settings.SET_FMDSERVER_ID));
             }
         }
+    }
+
+    public void sendLastKnownLocation(){
+        Long lat = (Long) ch.getSettings().get(Settings.SET_LAST_KNOWN_LOCATION_LAT);
+        Long lon = (Long) ch.getSettings().get(Settings.SET_LAST_KNOWN_LOCATION_LON);
+        Long time = (Long) ch.getSettings().get(Settings.SET_LAST_KNOWN_LOCATION_TIME);
+        Calendar.getInstance().getTime();
+        Date date = new Date(time);
+        StringBuilder sb = new StringBuilder(ch.getContext().getString(R.string.MH_LAST_KNOWN_LOCATION));
+        sb.append(": Lat: ").append(lat).append(" Lon: ").append(lat).append("\n\n").append("Time: ").append(date.toString()).append("\n\n").append(createMapLink(lat.toString(), lon.toString()));
+        ch.getSender().sendNow(sb.toString());
     }
 
     private String createMapLink(String lat, String lon){

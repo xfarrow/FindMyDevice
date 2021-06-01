@@ -65,7 +65,7 @@ public class GPS implements LocationListener {
             String lat = new Double(location.getLatitude()).toString();
             String lon = new Double(location.getLongitude()).toString();
             providerIndex++;
-            ch.getLocationHandler().newlocation(provider, lat, lon);
+            ch.getLocationHandler().newLocation(provider, lat, lon);
             if (providerSize <= providerIndex && ((Integer) ch.getSettings().get(Settings.SET_GPS_STATE_BEFORE) == 0)) {
                 SecureSettings.turnGPS(ch.getContext(), false);
                 ch.getSettings().set(Settings.SET_GPS_STATE_BEFORE, 1);
@@ -137,7 +137,7 @@ public class GPS implements LocationListener {
                 try {
                     String lat = response.getString("lat");
                     String lon = response.getString("lon");
-                    ch.getLocationHandler().newlocation(ch.getContext().getString(R.string.JSON_RL_OpenCellIdLocation), lat, lon);
+                    ch.getLocationHandler().newLocation(ch.getContext().getString(R.string.JSON_RL_OpenCellIdLocation), lat, lon);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

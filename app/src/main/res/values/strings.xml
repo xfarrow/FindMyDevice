@@ -113,4 +113,6 @@
     <string name="value_true">true</string>
     <string name="registered">registered</string>
     <string name="not_registered">not registered</string>
+    <string name="MH_LAST_KNOWN_LOCATION">Last known location</string>
+    <string name="MH_LAST_KNOWN_LOCATION_NOT_AVAILABLE">Last location is not available.</string>
 </resources>
