@@ -1,35 +1,33 @@
 package de.nulide.findmydevice.logic;
 
-import android.content.Context;
-
-import de.nulide.findmydevice.data.FMDSettings;
-import de.nulide.findmydevice.sender.Sender;
+import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.services.FMDServerService;
-import de.nulide.findmydevice.utils.OpenStreetMap;
 
 public class LocationHandler {
 
-    private static FMDSettings FMDSettings;
-    private static Sender sender;
-    private static Context context;
+    ComponentHandler ch;
 
 
-    public static void init(Context c, FMDSettings set, Sender send){
-        FMDSettings = set;
-        context = c;
-        sender = send;
+    public LocationHandler(ComponentHandler ch){
+        this.ch = ch;
     }
 
-    public static void newlocation(String provider, String lat, String lon){
+    public void newlocation(String provider, String lat, String lon){
         StringBuilder sb = new StringBuilder(provider);
-        sb.append(": Lat: ").append(lat).append(" Lon: ").append(lat).append("\n\n").append(OpenStreetMap.createMapLink(lat, lon));
-        sender.sendNow(sb.toString());
+        sb.append(": Lat: ").append(lat).append(" Lon: ").append(lat).append("\n\n").append(createMapLink(lat, lon));
+        ch.getSender().sendNow(sb.toString());
 
-        if((Boolean) FMDSettings.get(FMDSettings.SET_FMDSERVER)){
-            String id =  (String) FMDSettings.get(FMDSettings.SET_FMDSERVER_ID);
+        if((Boolean) ch.getSettings().get(Settings.SET_FMDSERVER)){
+            String id =  (String) ch.getSettings().get(Settings.SET_FMDSERVER_ID);
             if(!id.isEmpty()) {
-                FMDServerService.sendNewLocation(context, provider, lat, lon, (String) FMDSettings.get(FMDSettings.SET_FMDSERVER_URL), (String) FMDSettings.get(FMDSettings.SET_FMDSERVER_ID));
+                FMDServerService.sendNewLocation(ch.getContext(), provider, lat, lon, (String) ch.getSettings().get(Settings.SET_FMDSERVER_URL), (String) ch.getSettings().get(Settings.SET_FMDSERVER_ID));
             }
         }
+    }
+
+    private String createMapLink(String lat, String lon){
+        StringBuilder link = new StringBuilder("https://www.openstreetmap.org/?mlat=");
+        link.append(lat).append("&mlon=").append(lon).append("#map=14/").append(lat).append("/").append(lon);
+        return link.toString();
     }
 }

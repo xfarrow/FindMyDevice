@@ -1,16 +1,13 @@
 package de.nulide.findmydevice.data;
 
 
-import android.media.RingtoneManager;
-import android.net.Uri;
-
 import java.util.HashMap;
 import java.util.Timer;
 
 import de.nulide.findmydevice.tasks.SaveTimerTask;
-import de.nulide.findmydevice.utils.Ringer;
+import de.nulide.findmydevice.logic.command.helper.Ringer;
 
-public class FMDSettings extends HashMap<Integer, Object> {
+public class Settings extends HashMap<Integer, Object> {
 
     public static final int newestIntroductionVersion = 2;
 
@@ -34,13 +31,14 @@ public class FMDSettings extends HashMap<Integer, Object> {
     public static final int SET_FIRST_TIME_CONTACT_ADDED = 302;
 
     public static final int SET_APP_CRASHED_LOG_ENTRY = 401;
+    public static final int SET_FMDSMS_COUNTER = 402;
 
     public static final int SET_GPS_STATE_BEFORE = 501;
 
 
     private Timer afterChangeTimer;
 
-    public FMDSettings() {
+    public Settings() {
     }
 
     public <T> void set(int key, T value) {
@@ -70,6 +68,7 @@ public class FMDSettings extends HashMap<Integer, Object> {
                 case SET_FMDSERVER_UPDATE_TIME:
                     return 60;
                 case SET_INTRODUCTION_VERSION:
+                case SET_FMDSMS_COUNTER:
                     return 0;
                 case SET_RINGER_TONE:
                     return Ringer.getDefaultRingtoneAsString();

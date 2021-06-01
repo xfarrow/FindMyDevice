@@ -11,11 +11,11 @@ import android.widget.Button;
 import java.util.Timer;
 
 import de.nulide.findmydevice.R;
-import de.nulide.findmydevice.data.FMDSettings;
+import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
-import de.nulide.findmydevice.utils.Ringer;
+import de.nulide.findmydevice.logic.command.helper.Ringer;
 import de.nulide.findmydevice.tasks.RingerTimerTask;
 
 public class RingerActivity extends AppCompatActivity implements View.OnClickListener {
@@ -25,7 +25,7 @@ public class RingerActivity extends AppCompatActivity implements View.OnClickLis
     private RingerTimerTask ringerTask;
     private Button buttonStopRinging;
 
-    private FMDSettings FMDSettings;
+    private Settings Settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +39,9 @@ public class RingerActivity extends AppCompatActivity implements View.OnClickLis
         Bundle bundle = getIntent().getExtras();
 
         IO.context = this;
-        FMDSettings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        Settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
 
-        Ringtone ringtone = Ringer.getRingtone(this, (String) FMDSettings.get(FMDSettings.SET_RINGER_TONE));
+        Ringtone ringtone = Ringer.getRingtone(this, (String) Settings.get(Settings.SET_RINGER_TONE));
 
         Timer t = new Timer();
         ringerTask = new RingerTimerTask(t, ringtone, this);

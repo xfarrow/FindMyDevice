@@ -2,7 +2,7 @@ package de.nulide.findmydevice.data.io;
 
 import de.nulide.findmydevice.data.ConfigSMSRec;
 import de.nulide.findmydevice.data.Contact;
-import de.nulide.findmydevice.data.FMDSettings;
+import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.LogData;
 import de.nulide.findmydevice.data.LogEntry;
 import de.nulide.findmydevice.data.WhiteList;
@@ -14,17 +14,17 @@ import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 
 public class JSONFactory {
 
-    public static FMDSettings convertJSONSettings(JSONMap jsonSettings) {
-        FMDSettings FMDSettings = new FMDSettings();
+    public static Settings convertJSONSettings(JSONMap jsonSettings) {
+        Settings Settings = new Settings();
         if(jsonSettings != null) {
-            FMDSettings.putAll(jsonSettings);
+            Settings.putAll(jsonSettings);
         }
-        return FMDSettings;
+        return Settings;
     }
 
-    public static JSONMap convertSettings(FMDSettings FMDSettings) {
+    public static JSONMap convertSettings(Settings Settings) {
         JSONMap jsonSettings = new JSONMap();
-        jsonSettings.putAll(FMDSettings);
+        jsonSettings.putAll(Settings);
         return jsonSettings;
     }
 
