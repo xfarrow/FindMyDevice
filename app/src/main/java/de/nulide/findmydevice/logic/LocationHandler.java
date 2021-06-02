@@ -22,7 +22,7 @@ public class LocationHandler {
         ch.getSender().sendNow(sb.toString());
 
         ch.getSettings().set(Settings.SET_LAST_KNOWN_LOCATION_LAT, lat);
-        ch.getSettings().set(Settings.SET_LAST_KNOWN_LOCATION_LAT, lon);
+        ch.getSettings().set(Settings.SET_LAST_KNOWN_LOCATION_LON, lon);
         ch.getSettings().set(Settings.SET_LAST_KNOWN_LOCATION_TIME, Calendar.getInstance().getTimeInMillis());
 
         if((Boolean) ch.getSettings().get(Settings.SET_FMDSERVER)){
@@ -34,8 +34,8 @@ public class LocationHandler {
     }
 
     public void sendLastKnownLocation(){
-        Long lat = (Long) ch.getSettings().get(Settings.SET_LAST_KNOWN_LOCATION_LAT);
-        Long lon = (Long) ch.getSettings().get(Settings.SET_LAST_KNOWN_LOCATION_LON);
+        String lat = (String) ch.getSettings().get(Settings.SET_LAST_KNOWN_LOCATION_LAT);
+        String lon = (String) ch.getSettings().get(Settings.SET_LAST_KNOWN_LOCATION_LON);
         Long time = (Long) ch.getSettings().get(Settings.SET_LAST_KNOWN_LOCATION_TIME);
         Calendar.getInstance().getTime();
         Date date = new Date(time);

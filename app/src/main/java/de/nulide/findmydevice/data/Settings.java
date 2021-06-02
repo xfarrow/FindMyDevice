@@ -79,12 +79,12 @@ public class Settings extends HashMap<Integer, Object> {
                 case SET_PIN:
                 case SET_FMDSERVER_ID:
                 case SET_FMDSERVER_URL:
+                case SET_LAST_KNOWN_LOCATION_LAT:
+                case SET_LAST_KNOWN_LOCATION_LON:
                     return "";
                 case SET_APP_CRASHED_LOG_ENTRY:
                 case SET_GPS_STATE_BEFORE:
                     return 1;
-                case SET_LAST_KNOWN_LOCATION_LAT:
-                case SET_LAST_KNOWN_LOCATION_LON:
                 case SET_LAST_KNOWN_LOCATION_TIME:
                     return -1;
             }

@@ -48,7 +48,7 @@ public class MessageHandler {
             msg = msg.substring(cutLength);
             if (msg.startsWith(COM_LOCATE) && Permission.GPS) {
                 if(msg.contains("last")){
-                    if((Integer)ch.getSettings().get(Settings.SET_LAST_KNOWN_LOCATION_LAT) != -1) {
+                    if(!((String)ch.getSettings().get(Settings.SET_LAST_KNOWN_LOCATION_LAT)).isEmpty()) {
                         ch.getLocationHandler().sendLastKnownLocation();
                     }else{
                         ch.getSender().sendNow(ch.getContext().getString(R.string.MH_LAST_KNOWN_LOCATION_NOT_AVAILABLE));
