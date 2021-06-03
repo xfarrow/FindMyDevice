@@ -78,7 +78,6 @@ public class Settings extends HashMap<Integer, Object> {
                     return Ringer.getDefaultRingtoneAsString();
                 case SET_PIN:
                 case SET_FMDSERVER_ID:
-                case SET_FMDSERVER_URL:
                 case SET_LAST_KNOWN_LOCATION_LAT:
                 case SET_LAST_KNOWN_LOCATION_LON:
                     return "";
@@ -87,6 +86,8 @@ public class Settings extends HashMap<Integer, Object> {
                     return 1;
                 case SET_LAST_KNOWN_LOCATION_TIME:
                     return -1;
+                case SET_FMDSERVER_URL:
+                    return "https://fmd.nulidede:1008";
             }
         }
         return "";
