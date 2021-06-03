@@ -102,7 +102,7 @@
     <string name="Settings_FMDServer_URL_Description">The url for accssing the server.</string>
     <string name="Settings_FMDServer_Updattime_Description">The time in minutes in which fmd should send new location data to the server</string>
     <string name="Settings_FMDServer">FMD-Server</string>
-    <string name="Settings_FMDServer_Username">FMDServer Username</string>
+    <string name="Settings_FMDServer_ID">FMDServer ID</string>
     <string name="NOT_AVAILABLE">not available</string>
     <string name="Settings_FMD_Server_ID_Desc">The ID you need to search for the Device.\n\nWill be shown once ServerSettings are filled and password is set.</string>
     <string name="Settings_FMDServer_Register_Button">Register on Server</string>
@@ -115,4 +115,5 @@
     <string name="not_registered">not registered</string>
     <string name="MH_LAST_KNOWN_LOCATION">Last known location</string>
     <string name="MH_LAST_KNOWN_LOCATION_NOT_AVAILABLE">Last location is not available.</string>
+    <string name="Alert_First_time_fmdserver">Here you can configure the application to communicate with fmdserver. If you want to configure a different server than default you can do so by changing the url. If you press register you can register the application to the server. Afterwards you can enable the server functionality. If you do so, your phone will send you location data to the specified server. You can check your phones location by entereing the ID and the passoword on the page.</string>
 </resources>
