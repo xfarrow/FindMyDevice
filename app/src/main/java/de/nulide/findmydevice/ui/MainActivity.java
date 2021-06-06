@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViewServerServiceEnabled.setTextColor(colorDisabled);
         }
 
-        if((Boolean) Settings.get(Settings.SET_FMDSERVER_PASSWORD_SET)){
+        if(!((String) Settings.get(Settings.SET_FMDSERVER_ID)).isEmpty()){
             textViewServerRegistered.setText(getString(R.string.Enabled));
             textViewServerRegistered.setTextColor(colorEnabled);
         }else{

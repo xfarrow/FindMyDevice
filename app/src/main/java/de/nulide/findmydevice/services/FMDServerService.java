@@ -36,6 +36,7 @@ import de.nulide.findmydevice.logic.LocationHandler;
 import de.nulide.findmydevice.logic.MessageHandler;
 import de.nulide.findmydevice.sender.FooSender;
 import de.nulide.findmydevice.sender.Sender;
+import de.nulide.findmydevice.ui.settings.FMDServerActivity;
 import de.nulide.findmydevice.utils.CypherUtils;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Notifications;
@@ -150,6 +151,11 @@ public class FMDServerService extends JobService {
         builder.setOverrideDeadline(time + 5 * 1000 * 60);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         jobScheduler.schedule(builder.build());
+    }
+
+    public static void cancleAll(Context context) {
+        JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
+        jobScheduler.cancelAll();
     }
 
 
