@@ -89,7 +89,7 @@ public class Settings extends HashMap<Integer, Object> {
                 case SET_LAST_KNOWN_LOCATION_TIME:
                     return -1;
                 case SET_FMDSERVER_URL:
-                    return "https://fmd.nulidede:1008";
+                    return "https://fmd.nulide.de:1008";
             }
         }
         return "";
