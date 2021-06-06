@@ -62,8 +62,8 @@ public class TempContactExpiredService extends JobService {
     public static void scheduleJob(Context context, Sender sender) {
         ComponentName serviceComponent = new ComponentName(context, TempContactExpiredService.class);
         JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
-        builder.setMinimumLatency(1 * 1000 * 60);
-        builder.setOverrideDeadline(2 * 1000 * 60);
+        builder.setMinimumLatency(10 * 1000 * 60);
+        builder.setOverrideDeadline(15 * 1000 * 60);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         PersistableBundle bundle = new PersistableBundle();
         bundle.putString(SENDER_TYPE, sender.SENDER_TYPE);
