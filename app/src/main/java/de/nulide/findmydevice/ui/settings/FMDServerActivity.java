@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
@@ -162,9 +163,15 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                         Keys keys = CypherUtils.genKeys(text);
                         KeyIO.writeKeys(keys);
                         settings.set(Settings.SET_FMDSERVER_PASSWORD_SET, true);
-                        registerButton.setBackgroundColor(colorEnabled);
                         FMDServerService.registerOnServer(context, (String) settings.get(Settings.SET_FMDSERVER_URL), keys.getEncryptedPrivateKey());
-                        checkBoxFMDServer.setEnabled(true);
+                        finish();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                                startActivity(getIntent());
+                            }
+                        }, 1500);
                     }
                 }
             });
