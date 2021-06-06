@@ -167,8 +167,8 @@ public class FMDServerService extends JobService {
         Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         ComponentHandler ch = new ComponentHandler(settings, this);
         ch.setSender(sender);
-        Boolean passwordSet = (Boolean) ch.getSettings().get(Settings.SET_FMDSERVER_PASSWORD_SET);
-        if(passwordSet) {
+        Boolean registered = !((String) ch.getSettings().get(Settings.SET_FMDSERVER_ID)).isEmpty();
+        if(registered) {
             Notifications.init(this, true);
             Permission.initValues(this);
             if ((Boolean) ch.getSettings().get(settings.SET_FMDSERVER)) {
