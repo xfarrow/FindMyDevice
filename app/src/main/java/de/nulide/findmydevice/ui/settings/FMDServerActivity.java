@@ -61,7 +61,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
         checkBoxFMDServer = findViewById(R.id.checkBoxFMDServer);
         checkBoxFMDServer.setChecked((Boolean) settings.get(Settings.SET_FMDSERVER));
         checkBoxFMDServer.setOnCheckedChangeListener(this);
-        if(!(Boolean) settings.get(Settings.SET_FMDSERVER_PASSWORD_SET)){
+        if(((String) settings.get(Settings.SET_FMDSERVER_ID)).isEmpty()){
            checkBoxFMDServer.setEnabled(false);
         }
 
@@ -112,6 +112,8 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FMDServerService.scheduleJob(this, 0);
                 }
+            }else{
+                FMDServerService.cancleAll(this);
             }
         }
     }
