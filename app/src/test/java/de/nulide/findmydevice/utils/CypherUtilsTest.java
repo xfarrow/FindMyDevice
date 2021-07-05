@@ -32,20 +32,6 @@ public class CypherUtilsTest {
         Assert.assertEquals(stringed, reencoded);
     }
 
-
-    @Test
-    public void testPrivateKeyEncryption(){
-        KeyPair keys = CypherUtils.genKeyPair();
-        String password = "Snake";
-        byte[] encodedPrivKey = keys.getPrivate().getEncoded();
-        String encryptedPrivKey = CypherUtils.encryptKey(keys.getPrivate(), password);
-        PrivateKey decryptedKey = CypherUtils.decryptKey(encryptedPrivKey, password);
-        byte[] encodedDecryptedKey = decryptedKey.getEncoded();
-        for(int i=0; i< encodedPrivKey.length; i++){
-            Assert.assertEquals(encodedPrivKey[i], encodedDecryptedKey[i]);
-        }
-    }
-
     @Test
     public void testKeysGen(){
         CypherUtils.genKeys("test");
