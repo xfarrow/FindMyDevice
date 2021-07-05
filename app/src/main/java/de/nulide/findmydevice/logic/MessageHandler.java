@@ -61,6 +61,8 @@ public class MessageHandler {
                     }else{
                         replyBuilder.append(context.getString(R.string.MH_No_GPS));
                     }
+                }else{
+                    ch.getSettings().set(Settings.SET_GPS_STATE_BEFORE, 1);
                 }
                 if(GPS.isGPSOn(context)){
                     replyBuilder.append(context.getString(R.string.MH_GPS_WILL_FOLLOW));

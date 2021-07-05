@@ -37,29 +37,15 @@ public class GPS implements LocationListener {
     private ComponentHandler ch;
     private LocationManager locationManager;
     private int sizeToReach = 0;
-    private List<GPS> listeners;
     private String provider;
-    private GPS listenerHandler;
 
     @SuppressLint("MissingPermission")
     public GPS(ComponentHandler ch) {
         this.ch = ch;
         locationManager = (LocationManager) ch.getContext().getSystemService(Context.LOCATION_SERVICE);
-        listeners = new LinkedList<>();
         for (String provider : locationManager.getAllProviders()) {
-            GPS listener = new GPS(ch, provider, this);
-            listeners.add(listener);
-            locationManager.requestLocationUpdates(provider, 0, 0, listener);
+            locationManager.requestLocationUpdates(provider, 0, 0, this);
         }
-        sizeToReach = listeners.size()-1;
-    }
-
-    public GPS(ComponentHandler ch, String provider, GPS boss){
-        this.ch = ch;
-        locationManager = (LocationManager) ch.getContext().getSystemService(Context.LOCATION_SERVICE);
-        this.provider = provider;
-        listeners = new LinkedList<>();
-        listenerHandler = boss;
     }
 
     public static boolean isGPSOn(Context context) {
@@ -83,23 +69,10 @@ public class GPS implements LocationListener {
             String lon = new Double(location.getLongitude()).toString();
             ch.getLocationHandler().newLocation(provider, lat, lon);
             locationManager.removeUpdates(this);
-            listenerHandler.onListenerDone(provider);
-        }
-    }
-
-    public void onListenerDone(String provider){
-        for(GPS listener: listeners){
-            if(listener.getProvider().equals(provider)){
-                listeners.remove(listener);
-                if (sizeToReach >= listeners.size() && ((Integer) ch.getSettings().get(Settings.SET_GPS_STATE_BEFORE) == 0)) {
-                    SecureSettings.turnGPS(ch.getContext(), false);
-                    ch.getSettings().set(Settings.SET_GPS_STATE_BEFORE, 1);
-                    for(GPS toRemove: listeners){
-                        locationManager.removeUpdates(toRemove);
-                    }
-                }
-                return;
+            if ((Integer) ch.getSettings().get(Settings.SET_GPS_STATE_BEFORE) == 0) {
+                SecureSettings.turnGPS(ch.getContext(), false);
             }
+            locationManager.removeUpdates(this);
         }
     }
 
@@ -115,11 +88,7 @@ public class GPS implements LocationListener {
 
     @Override
     public void onProviderDisabled(@NonNull String provider) {
-        for(GPS listener: listeners){
-            if(listener.getProvider().equals(provider)){
-                locationManager.removeUpdates(listener);
-            }
-        }
+        locationManager.removeUpdates(this);
     }
 
     public GsmCellLocation sendGSMCellLocation() {

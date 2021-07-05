@@ -34,7 +34,7 @@ public class Settings extends HashMap<Integer, Object> {
     public static final int SET_APP_CRASHED_LOG_ENTRY = 401;
     public static final int SET_FMDSMS_COUNTER = 402;
 
-    public static final int SET_GPS_STATE_BEFORE = 501;
+    public static final int SET_GPS_STATE_BEFORE = 501;         // 1=GPS was on 0=GPS was off
     public static final int SET_LAST_KNOWN_LOCATION_LAT = 502;
     public static final int SET_LAST_KNOWN_LOCATION_LON = 503;
     public static final int SET_LAST_KNOWN_LOCATION_TIME = 504;
