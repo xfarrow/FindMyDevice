@@ -171,6 +171,7 @@ public class FMDServerService extends JobService {
         if(registered) {
             Notifications.init(this, true);
             Permission.initValues(this);
+            ch.getMessageHandler().setSilent(true);
             if ((Boolean) ch.getSettings().get(settings.SET_FMDSERVER)) {
                 scheduleJob(this, (Integer) ch.getSettings().get(Settings.SET_FMDSERVER_UPDATE_TIME));
             }

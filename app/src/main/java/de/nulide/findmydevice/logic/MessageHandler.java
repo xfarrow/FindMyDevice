@@ -29,7 +29,9 @@ public class MessageHandler {
     private final String COM_DELETE = "delete";
     private final String COM_STATS = "stats";
 
-    ComponentHandler ch;
+    private ComponentHandler ch;
+
+    private boolean silent = false;
 
     public MessageHandler(ComponentHandler ch) {
         this.ch = ch;
@@ -136,7 +138,7 @@ public class MessageHandler {
             }
 
             String reply = replyBuilder.toString();
-            if (!reply.isEmpty()) {
+            if (!reply.isEmpty() && !silent) {
                 Logger.logSession("Command used", msg);
                 int counter = (Integer) ch.getSettings().get(Settings.SET_FMDSMS_COUNTER);
                 counter++;
@@ -145,6 +147,10 @@ public class MessageHandler {
                 Notifications.notify(context, "SMS-Receiver", "New Usage " + counter, Notifications.CHANNEL_USAGE);
             }
         }
+    }
+
+    public void setSilent(boolean silent){
+        this.silent = silent;
     }
 
     public boolean checkForPin(String msg) {
