@@ -18,7 +18,7 @@ public class LocationHandler {
 
     public void newLocation(String provider, String lat, String lon){
         StringBuilder sb = new StringBuilder(provider);
-        sb.append(": Lat: ").append(lat).append(" Lon: ").append(lat).append("\n\n").append(createMapLink(lat, lon));
+        sb.append(": Lat: ").append(lat).append(" Lon: ").append(lon).append("\n\n").append(createMapLink(lat, lon));
         ch.getSender().sendNow(sb.toString());
 
         ch.getSettings().set(Settings.SET_LAST_KNOWN_LOCATION_LAT, lat);
@@ -40,7 +40,7 @@ public class LocationHandler {
         Calendar.getInstance().getTime();
         Date date = new Date(time);
         StringBuilder sb = new StringBuilder(ch.getContext().getString(R.string.MH_LAST_KNOWN_LOCATION));
-        sb.append(": Lat: ").append(lat).append(" Lon: ").append(lat).append("\n\n").append("Time: ").append(date.toString()).append("\n\n").append(createMapLink(lat.toString(), lon.toString()));
+        sb.append(": Lat: ").append(lat).append(" Lon: ").append(lon).append("\n\n").append("Time: ").append(date.toString()).append("\n\n").append(createMapLink(lat.toString(), lon.toString()));
         ch.getSender().sendNow(sb.toString());
     }
 
