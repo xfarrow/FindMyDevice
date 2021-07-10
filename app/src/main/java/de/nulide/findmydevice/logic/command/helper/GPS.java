@@ -30,6 +30,7 @@ import java.util.List;
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.logic.ComponentHandler;
+import de.nulide.findmydevice.services.GPSTimeOutService;
 import de.nulide.findmydevice.utils.SecureSettings;
 
 public class GPS implements LocationListener {
@@ -39,13 +40,14 @@ public class GPS implements LocationListener {
     private int sizeToReach = 0;
     private String provider;
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint({"MissingPermission", "NewApi"})
     public GPS(ComponentHandler ch) {
         this.ch = ch;
         locationManager = (LocationManager) ch.getContext().getSystemService(Context.LOCATION_SERVICE);
         for (String provider : locationManager.getAllProviders()) {
             locationManager.requestLocationUpdates(provider, 0, 0, this);
         }
+        GPSTimeOutService.scheduleJob(ch.getContext());
     }
 
     public static boolean isGPSOn(Context context) {
