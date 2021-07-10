@@ -34,19 +34,18 @@ public class TempContactExpiredService extends JobService {
     @Override
     public boolean onStartJob(JobParameters params) {
         Sender sender = null;
-        if(params.getExtras().getString(SENDER_TYPE) != null) {
-            switch (params.getExtras().getString(SENDER_TYPE)) {
-                case SMS.TYPE:
-                    sender = new SMS(params.getExtras().getString(DESTINATION));
-            }
+        ConfigSMSRec config = JSONFactory.convertJSONConfig(IO.read(JSONMap.class, IO.SMSReceiverTempData));
+        String destination = (String) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT);
+        if(destination != null && !destination.isEmpty()) {
+            sender = new SMS(destination);
         }
+
         IO.context = this;
         Logger.init(Thread.currentThread(), this);
         if(sender != null) {
             sender.sendNow("FindMyDevive: Pin expired!");
             Logger.logSession("Session expired", sender.getDestination());
         }
-        ConfigSMSRec config = JSONFactory.convertJSONConfig(IO.read(JSONMap.class, IO.SMSReceiverTempData));
         config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
         config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
 
@@ -65,9 +64,6 @@ public class TempContactExpiredService extends JobService {
         builder.setMinimumLatency(10 * 1000 * 60);
         builder.setOverrideDeadline(15 * 1000 * 60);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
-        PersistableBundle bundle = new PersistableBundle();
-        bundle.putString(SENDER_TYPE, sender.SENDER_TYPE);
-        bundle.putString(DESTINATION, sender.getDestination());
         jobScheduler.schedule(builder.build());
     }
 
