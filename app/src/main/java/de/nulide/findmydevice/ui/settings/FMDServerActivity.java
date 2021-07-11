@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -150,13 +151,16 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     @Override
     public void onClick(View v) {
         if (v == registerButton) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle(getString(R.string.FMDConfig_Alert_Pin));
-            alert.setMessage(getString(R.string.Settings_Enter_Pin));
+            WebView webView = new WebView(context);
+            webView.loadUrl(editTextFMDServerURL.getText().toString()+"/ds.html");
+
+            final AlertDialog.Builder pinAlert = new AlertDialog.Builder(this);
+            pinAlert.setTitle(getString(R.string.FMDConfig_Alert_Pin));
+            pinAlert.setMessage(getString(R.string.Settings_Enter_Pin));
             final EditText input = new EditText(this);
             input.setTransformationMethod(new PasswordTransformationMethod());
-            alert.setView(input);
-            alert.setPositiveButton(getString(R.string.Ok), new DialogInterface.OnClickListener() {
+            pinAlert.setView(input);
+            pinAlert.setPositiveButton(getString(R.string.Ok), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     String text = input.getText().toString();
                     if (!text.isEmpty()) {
@@ -175,7 +179,19 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                     }
                 }
             });
-            alert.show();
+
+            AlertDialog.Builder privacyPolicy = new AlertDialog.Builder(context);
+            privacyPolicy.setTitle(getString(R.string.Settings_FMDServer_Alert_PrivacyPolicy_Title))
+                    .setView(webView)
+                    .setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            pinAlert.show();
+
+                        }
+                    })
+                    .setNegativeButton(getString(R.string.cancle), null)
+                    .show();
         }
     }
 }
