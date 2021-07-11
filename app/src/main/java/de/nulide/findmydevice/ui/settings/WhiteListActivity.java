@@ -1,8 +1,5 @@
 package de.nulide.findmydevice.ui.settings;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +15,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -81,7 +81,7 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v == buttonAddContact) {
-            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
             startActivityForResult(intent, 1);
         }
     }
@@ -112,21 +112,24 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
             case (1):
                 if (resultCode == Activity.RESULT_OK) {
                     Uri contactData = data.getData();
-                    Cursor c = managedQuery(contactData, null, null, null, null);
+                    String[] projection = new String[]{
+                            ContactsContract.Contacts.DISPLAY_NAME,
+                            ContactsContract.CommonDataKinds.Phone.NUMBER
+                    };
+                    Cursor c = managedQuery(contactData, projection, null, null, null);
                     List<Contact> contacts = new LinkedList<>();
                     List<String> numbers = new LinkedList<>();
                     if (c.moveToFirst()) {
-                        String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
-                        String hasPhone = c.getString(c.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+                        String name = c.getString(c.getColumnIndexOrThrow(ContactsContract.Data.DISPLAY_NAME));
+                        String phoneNumber = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
-                        if (hasPhone.equalsIgnoreCase("1")) {
-                            Cursor phones = getContentResolver().query(
-                                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-                                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id,
-                                    null, null);
-                            while(phones.moveToNext()) {
-                                String cNumber = phones.getString(phones.getColumnIndex("data1"));
-                                String cName = phones.getString(phones.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
+                        contacts.add(new Contact(name, phoneNumber));
+                        numbers.add(phoneNumber);
+
+                        while (c.moveToNext()) {
+                            String cNumber = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                            String cName = c.getString(c.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+                            if (!cNumber.isEmpty()) {
                                 contacts.add(new Contact(cName, cNumber));
                                 numbers.add(cNumber);
                             }
