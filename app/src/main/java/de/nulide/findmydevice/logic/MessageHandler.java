@@ -154,7 +154,7 @@ public class MessageHandler {
     }
 
     public boolean checkForPin(String msg) {
-        if (msg.length() > ((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).length()) {
+        if (msg.length() > ((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).length()+1) {
             String pin = msg.substring(((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).length() + 1);
             return CypherUtils.checkPasswordHash((String) ch.getSettings().get(Settings.SET_PIN), pin);
         }

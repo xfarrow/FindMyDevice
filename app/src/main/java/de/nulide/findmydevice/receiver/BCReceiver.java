@@ -75,7 +75,7 @@ public class BCReceiver extends BroadcastReceiver {
                                 inWhitelist = true;
                             }
                         }
-                        if ((Boolean) ch.getSettings().get(Settings.SET_ACCESS_VIA_PIN)) {
+                        if ((Boolean) ch.getSettings().get(Settings.SET_ACCESS_VIA_PIN) && !((String)ch.getSettings().get(Settings.SET_PIN)).isEmpty()) {
                             String tempContact = (String) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT);
                             if (!inWhitelist && tempContact != null && PhoneNumberUtils.compare(tempContact, receiver)) {
                                 Logger.logSession("Usage", receiver + " used FMD");
