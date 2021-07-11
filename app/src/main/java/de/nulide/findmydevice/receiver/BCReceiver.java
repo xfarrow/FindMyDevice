@@ -22,6 +22,7 @@ import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.logic.ComponentHandler;
 import de.nulide.findmydevice.logic.LocationHandler;
 import de.nulide.findmydevice.sender.Sender;
+import de.nulide.findmydevice.services.FMDSMSService;
 import de.nulide.findmydevice.services.FMDServerService;
 import de.nulide.findmydevice.services.TempContactExpiredService;
 import de.nulide.findmydevice.utils.Logger;
@@ -66,31 +67,7 @@ public class BCReceiver extends BroadcastReceiver {
                             msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
                         }
                         String receiver = msgs[i].getOriginatingAddress();
-                        ch.setSender(new SMS(receiver));
-                        boolean inWhitelist = false;
-                        for (int iwl = 0; iwl < whiteList.size(); iwl++) {
-                            if (PhoneNumberUtils.compare(whiteList.get(iwl).getNumber(), receiver)) {
-                                Logger.logSession("Usage", receiver + " used FMD");
-                                ch.getMessageHandler().handle(ch.getSender(), msgs[i].getMessageBody(), context);
-                                inWhitelist = true;
-                            }
-                        }
-                        if ((Boolean) ch.getSettings().get(Settings.SET_ACCESS_VIA_PIN) && !((String)ch.getSettings().get(Settings.SET_PIN)).isEmpty()) {
-                            String tempContact = (String) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT);
-                            if (!inWhitelist && tempContact != null && PhoneNumberUtils.compare(tempContact, receiver)) {
-                                Logger.logSession("Usage", receiver + " used FMD");
-                                ch.getMessageHandler().handle(ch.getSender(), msgs[i].getMessageBody(), context);
-                                inWhitelist = true;
-                            }
-                            if (!inWhitelist && ch.getMessageHandler().checkForPin(msgs[i].getMessageBody())) {
-                                Logger.logSession("Usage", receiver + " used the Pin");
-                                ch.getSender().sendNow(context.getString(R.string.MH_Pin_Accepted));
-                                Notifications.notify(context, "Pin", "The pin was used by the following number: "+receiver+"\nPlease change the Pin!", Notifications.CHANNEL_PIN);
-                                config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, receiver);
-                                config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, time.getTimeInMillis());
-                                TempContactExpiredService.scheduleJob(context, ch.getSender());
-                            }
-                        }
+                        FMDSMSService.scheduleJob(context, receiver, msgs[i].getMessageBody(), time.getTimeInMillis());
                     }
                 }
                 Calendar now = Calendar.getInstance();

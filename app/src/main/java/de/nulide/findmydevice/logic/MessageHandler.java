@@ -23,11 +23,11 @@ import de.nulide.findmydevice.utils.SecureSettings;
 
 public class MessageHandler {
 
-    private final String COM_LOCATE = "locate";
-    private final String COM_RING = "ring";
-    private final String COM_LOCK = "lock";
-    private final String COM_DELETE = "delete";
-    private final String COM_STATS = "stats";
+    public static final String COM_LOCATE = "locate";
+    public static final String COM_RING = "ring";
+    public static final String COM_LOCK = "lock";
+    public static final String COM_DELETE = "delete";
+    public static final String COM_STATS = "stats";
 
     private ComponentHandler ch;
 
@@ -37,7 +37,8 @@ public class MessageHandler {
         this.ch = ch;
     }
 
-    public void handle(Sender sender, String msg, Context context) {
+    public String handle(Sender sender, String msg, Context context) {
+        String executedCommand = "";
         String originalMsg = msg;
         msg = msg.toLowerCase();
         StringBuilder replyBuilder = new StringBuilder();
@@ -49,6 +50,7 @@ public class MessageHandler {
             originalMsg = originalMsg.substring(cutLength, msg.length());
             msg = msg.substring(cutLength);
             if (msg.startsWith(COM_LOCATE) && Permission.GPS) {
+                executedCommand = COM_LOCATE;
                 if(msg.contains("last")){
                     if(!((String)ch.getSettings().get(Settings.SET_LAST_KNOWN_LOCATION_LAT)).isEmpty()) {
                         ch.getLocationHandler().sendLastKnownLocation();
@@ -76,6 +78,7 @@ public class MessageHandler {
                     }
                 }
             } else if (msg.startsWith(COM_RING)) {
+                executedCommand = COM_RING;
                 replyBuilder.append(context.getString(R.string.MH_rings));
                 if (msg.contains("long")) {
                     Ringer.ring(context, 180);
@@ -83,6 +86,7 @@ public class MessageHandler {
                     Ringer.ring(context, 15);
                 }
             } else if (msg.startsWith(COM_LOCK) && Permission.DEVICE_ADMIN) {
+                executedCommand = COM_LOCK;
                 DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
                 devicePolicyManager.lockNow();
                 Intent lockScreenMessage = new Intent(context, LockScreenMessage.class);
@@ -96,6 +100,7 @@ public class MessageHandler {
                 context.startActivity(lockScreenMessage);
                 replyBuilder.append(context.getString(R.string.MH_Locked));
             } else if (msg.startsWith(COM_STATS)) {
+                executedCommand = COM_STATS;
                 replyBuilder.append(context.getString(R.string.MH_Stats));
                 Map<String, String> ips = Network.getAllIP();
                 Iterator<String> it = ips.keySet().iterator();
@@ -108,6 +113,7 @@ public class MessageHandler {
                     replyBuilder.append(sr.SSID).append("\n");
                 }
             } else if (msg.startsWith(COM_DELETE) && Permission.DEVICE_ADMIN) {
+                executedCommand = COM_DELETE;
                 if ((Boolean) ch.getSettings().get(Settings.SET_WIPE_ENABLED)) {
                     DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
                     if (msg.length() > COM_DELETE.length()+1) {
@@ -147,6 +153,7 @@ public class MessageHandler {
                 Notifications.notify(context, "SMS-Receiver", "New Usage " + counter, Notifications.CHANNEL_USAGE);
             }
         }
+        return executedCommand;
     }
 
     public void setSilent(boolean silent){
