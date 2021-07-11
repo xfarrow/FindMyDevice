@@ -177,7 +177,7 @@ public class FMDServerService extends JobService {
             }
             ch.getMessageHandler().handle(sender, ((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)) + " locate gps", this);
         }
-        return false;
+        return true;
     }
 
     @Override

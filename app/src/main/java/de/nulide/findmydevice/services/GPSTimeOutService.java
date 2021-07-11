@@ -29,6 +29,7 @@ public class GPSTimeOutService extends JobService {
         if(((Integer)settings.get(Settings.SET_GPS_STATE_BEFORE)) == 0){
             SecureSettings.turnGPS(this, false);
         }
+        FMDServerService.cancleAll(this);
         return false;
     }
 
