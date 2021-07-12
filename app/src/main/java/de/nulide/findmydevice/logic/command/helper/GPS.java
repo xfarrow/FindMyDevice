@@ -37,15 +37,13 @@ public class GPS implements LocationListener {
 
     private ComponentHandler ch;
     private LocationManager locationManager;
-    private int sizeToReach = 0;
-    private String provider;
 
     @SuppressLint({"MissingPermission", "NewApi"})
     public GPS(ComponentHandler ch) {
         this.ch = ch;
         locationManager = (LocationManager) ch.getContext().getSystemService(Context.LOCATION_SERVICE);
         for (String provider : locationManager.getAllProviders()) {
-            locationManager.requestLocationUpdates(provider, 0, 0, this);
+            locationManager.requestLocationUpdates(provider, 1000, 0, this);
         }
         GPSTimeOutService.scheduleJob(ch.getContext());
     }
@@ -74,7 +72,7 @@ public class GPS implements LocationListener {
             if ((Integer) ch.getSettings().get(Settings.SET_GPS_STATE_BEFORE) == 0) {
                 SecureSettings.turnGPS(ch.getContext(), false);
             }
-            locationManager.removeUpdates(this);
+            ch.finishJob();
         }
     }
 
@@ -91,6 +89,7 @@ public class GPS implements LocationListener {
     @Override
     public void onProviderDisabled(@NonNull String provider) {
         locationManager.removeUpdates(this);
+        ch.finishJob();
     }
 
     public GsmCellLocation sendGSMCellLocation() {
@@ -148,9 +147,5 @@ public class GPS implements LocationListener {
                 }
             }
         }
-    }
-
-    public String getProvider(){
-        return provider;
     }
 }

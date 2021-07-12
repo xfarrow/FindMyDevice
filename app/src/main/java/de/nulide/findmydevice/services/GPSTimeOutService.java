@@ -1,5 +1,6 @@
 package de.nulide.findmydevice.services;
 
+import android.app.Service;
 import android.app.job.JobInfo;
 import android.app.job.JobParameters;
 import android.app.job.JobScheduler;
@@ -29,7 +30,6 @@ public class GPSTimeOutService extends JobService {
         if(((Integer)settings.get(Settings.SET_GPS_STATE_BEFORE)) == 0){
             SecureSettings.turnGPS(this, false);
         }
-        FMDServerService.cancleAll(this);
         return false;
     }
 

@@ -107,7 +107,7 @@ public class BCReceiver extends BroadcastReceiver {
         }
         Notifications.init(context, false);
         Permission.initValues(context);
-        ch = new ComponentHandler(settings, context);
+        ch = new ComponentHandler(settings, context, null, null);
     }
 
 }

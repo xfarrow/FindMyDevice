@@ -63,7 +63,19 @@ public class FMDSMSService extends JobService {
     @SuppressLint("NewApi")
     @Override
     public boolean onStartJob(JobParameters params) {
-        init(this);
+        IO.context = this;
+        Logger.init(Thread.currentThread(), this);
+        whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
+        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        config = JSONFactory.convertJSONConfig(IO.read(JSONMap.class, IO.SMSReceiverTempData));
+        if (config.get(ConfigSMSRec.CONF_LAST_USAGE) == null) {
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MINUTE, -5);
+            config.set(ConfigSMSRec.CONF_LAST_USAGE, cal.getTimeInMillis());
+        }
+        Notifications.init(this, false);
+        Permission.initValues(this);
+        ch = new ComponentHandler(settings, this, this, params);
         String receiver = params.getExtras().getString(DESTINATION);
         String msg = params.getExtras().getString(MESSAGE);
         Long time = params.getExtras().getLong(TIME);
@@ -104,21 +116,4 @@ public class FMDSMSService extends JobService {
     public boolean onStopJob(JobParameters params) {
         return false;
     }
-
-    private void init(Context context) {
-        IO.context = context;
-        Logger.init(Thread.currentThread(), context);
-        whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
-        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
-        config = JSONFactory.convertJSONConfig(IO.read(JSONMap.class, IO.SMSReceiverTempData));
-        if (config.get(ConfigSMSRec.CONF_LAST_USAGE) == null) {
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.MINUTE, -5);
-            config.set(ConfigSMSRec.CONF_LAST_USAGE, cal.getTimeInMillis());
-        }
-        Notifications.init(context, false);
-        Permission.initValues(context);
-        ch = new ComponentHandler(settings, context);
-    }
-
 }

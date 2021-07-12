@@ -168,7 +168,7 @@ public class FMDServerService extends JobService {
         Logger.init(Thread.currentThread(), this);
         Logger.logSession("FMDServerService", "started");
         Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
-        ComponentHandler ch = new ComponentHandler(settings, this);
+        ComponentHandler ch = new ComponentHandler(settings, this, this, params);
         ch.setSender(sender);
         Boolean registered = !((String) ch.getSettings().get(Settings.SET_FMDSERVER_ID)).isEmpty();
         if(registered) {
@@ -187,7 +187,8 @@ public class FMDServerService extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters params) {
-        return true;
+        Logger.logSession("FMDServerService", "job stopped by system");
+        return false;
     }
 
     public static class IDResponseListener implements Response.Listener<String> {
