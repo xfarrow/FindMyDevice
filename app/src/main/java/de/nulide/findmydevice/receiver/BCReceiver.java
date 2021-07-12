@@ -35,6 +35,7 @@ public class BCReceiver extends BroadcastReceiver {
 
     public static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
     public static final String BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
+    public static final String APP_UPDATED = "android.intent.action.PACKAGE_REPLACED";
 
     private WhiteList whiteList;
     private ConfigSMSRec config;
@@ -76,6 +77,14 @@ public class BCReceiver extends BroadcastReceiver {
         } else if (intent.getAction().equals(BOOT_COMPLETED)) {
             Notifications.notify(context, "AfterBootTest", "Receiver is working", Notifications.CHANNEL_LIFE);
             Logger.logSession("AfterBootTest", "passed");
+            config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
+            config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
+            if((Boolean)ch.getSettings().get(Settings.SET_FMDSERVER)){
+                FMDServerService.scheduleJob(context, 0);
+            }
+        } else if (intent.getAction().equals(APP_UPDATED)){
+            Notifications.notify(context, "App Update", "Receiver is working", Notifications.CHANNEL_LIFE);
+            Logger.logSession("AppUpdate", "restarted");
             config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
             config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
             if((Boolean)ch.getSettings().get(Settings.SET_FMDSERVER)){
