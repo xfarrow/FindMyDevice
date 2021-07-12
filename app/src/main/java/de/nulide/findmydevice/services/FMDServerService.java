@@ -151,6 +151,8 @@ public class FMDServerService extends JobService {
         builder.setOverrideDeadline(time * 1000 * 60 * 2);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         jobScheduler.schedule(builder.build());
+        Logger.logSession("FMDServerService", "scheduled new job");
+
     }
 
     public static void cancleAll(Context context) {
@@ -164,6 +166,7 @@ public class FMDServerService extends JobService {
         Sender sender = new FooSender(this);
         IO.context = this;
         Logger.init(Thread.currentThread(), this);
+        Logger.logSession("FMDServerService", "started");
         Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         ComponentHandler ch = new ComponentHandler(settings, this);
         ch.setSender(sender);
@@ -177,6 +180,8 @@ public class FMDServerService extends JobService {
             }
             ch.getMessageHandler().handle(sender, ((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)) + " locate gps", this);
         }
+        Logger.logSession("FMDServerService", "finished job, waiting for location");
+        Logger.writeLog();
         return true;
     }
 
