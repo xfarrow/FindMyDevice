@@ -47,4 +47,12 @@ public class CypherUtilsTest {
         Assert.assertEquals(msg, new String(decryptedMsg));
     }
 
+    @Test
+    public void testHashWithPKBDF2(){
+        String password = "honey";
+        String hashedOne = CypherUtils.hashWithPKBDF2(password);
+        String hashedTwo = CypherUtils.hashWithPKBDF2(password);
+        Assert.assertEquals(hashedOne, hashedTwo);
+    }
+
 }

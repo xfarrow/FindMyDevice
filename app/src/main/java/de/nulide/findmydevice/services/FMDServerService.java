@@ -14,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -105,14 +106,20 @@ public class FMDServerService extends JobService {
         queue.add(putRequest);
     }
 
-    public static void registerOnServer(Context context, String url, String key) {
+    public static void registerOnServer(Context context, String url, String key, String hashedPW) {
         IO.context = context;
         Settings Settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        final String requestString = key;
+        final JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("hashpw", hashedPW);
+            jsonObject.put("privkey", key);
+        }catch (JSONException e){
 
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, url+"/newDevice", new IDResponseListener(Settings),
+        }
+
+        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url+"/newDevice", jsonObject, new IDResponseListener(Settings),
                 new Response.ErrorListener()
                 {
                     @Override
@@ -125,8 +132,8 @@ public class FMDServerService extends JobService {
             public Map<String, String> getHeaders()
             {
                 Map<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/text");
-                headers.put("Accept", "application/text");
+                headers.put("Content-Type", "application/json");
+                headers.put("Accept", "application/json");
                 return headers;
             }
 
@@ -134,7 +141,7 @@ public class FMDServerService extends JobService {
             public byte[] getBody() {
 
                 try {
-                    return requestString.getBytes("UTF-8");
+                    return jsonObject.toString().getBytes("UTF-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -191,7 +198,7 @@ public class FMDServerService extends JobService {
         return false;
     }
 
-    public static class IDResponseListener implements Response.Listener<String> {
+    public static class IDResponseListener implements Response.Listener<JSONObject> {
 
         private Settings Settings;
 
@@ -200,8 +207,12 @@ public class FMDServerService extends JobService {
         }
 
         @Override
-        public void onResponse(String response) {
-            Settings.set(Settings.SET_FMDSERVER_ID, response);
+        public void onResponse(JSONObject response) {
+            try {
+                Settings.set(Settings.SET_FMDSERVER_ID, response.get("DeviceId"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }

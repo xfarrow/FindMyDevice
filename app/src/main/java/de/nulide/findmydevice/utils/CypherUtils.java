@@ -61,6 +61,19 @@ public class CypherUtils {
         return BCrypt.checkpw(password, hash);
     }
 
+    public static String hashWithPKBDF2(String password){
+        try {
+            PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), fromHex("cafe"), iterationCount, keySize);
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            return toHex(factory.generateSecret(spec).getEncoded());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public static Keys genKeys(String password){
         KeyPair keypair = genKeyPair();
         Keys keys = new Keys(keypair.getPublic(), encryptKey(keypair.getPrivate(), password));

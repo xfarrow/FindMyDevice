@@ -19,6 +19,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.mindrot.jbcrypt.BCrypt;
+
+import java.util.Calendar;
+
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.Keys;
@@ -167,7 +171,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                         Keys keys = CypherUtils.genKeys(text);
                         KeyIO.writeKeys(keys);
                         settings.set(Settings.SET_FMDSERVER_PASSWORD_SET, true);
-                        FMDServerService.registerOnServer(context, (String) settings.get(Settings.SET_FMDSERVER_URL), keys.getEncryptedPrivateKey());
+                        FMDServerService.registerOnServer(context, (String) settings.get(Settings.SET_FMDSERVER_URL), keys.getEncryptedPrivateKey(), CypherUtils.hashWithPKBDF2(text));
                         finish();
                         new Handler().postDelayed(new Runnable() {
                             @Override
