@@ -1,10 +1,17 @@
 package de.nulide.findmydevice.data.io;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -17,14 +24,18 @@ import java.security.spec.X509EncodedKeySpec;
 
 import de.nulide.findmydevice.data.Keys;
 
+import static de.nulide.findmydevice.data.io.IO.context;
+
 public class KeyIO {
 
     public final static String pubKeyFile = "pub.key";
     public final static String encPrivKeyFile = "priv.key";
 
+    public final static String hashedPWFile = "hashedPW";
+
     public static void writeKeys(Keys keys){
-        File pubFile = new File(IO.context.getFilesDir(), pubKeyFile);
-        File privFile = new File(IO.context.getFilesDir(), encPrivKeyFile);
+        File pubFile = new File(context.getFilesDir(), pubKeyFile);
+        File privFile = new File(context.getFilesDir(), encPrivKeyFile);
         try {
             if (!pubFile.exists()) {
                 pubFile.createNewFile();
@@ -53,8 +64,8 @@ public class KeyIO {
     }
 
     public static Keys readKeys(){
-        File pubFile = new File(IO.context.getFilesDir(), pubKeyFile);
-        File privFile = new File(IO.context.getFilesDir(), encPrivKeyFile);
+        File pubFile = new File(context.getFilesDir(), pubKeyFile);
+        File privFile = new File(context.getFilesDir(), encPrivKeyFile);
 
         EncodedKeySpec pubKeySpec = new X509EncodedKeySpec(readByteArray(pubFile));
         PublicKey publicKey = null;
@@ -86,5 +97,40 @@ public class KeyIO {
             e.printStackTrace();
         }
         return data;
+    }
+
+    public static void writeHashedPassword(String hashedPW) {
+        File file = new File(context.getFilesDir(), hashedPWFile);
+        try {
+            PrintWriter out = new PrintWriter(file);
+            out.write(hashedPW);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String readHashedPW() {
+        File file = new File(context.getFilesDir(), hashedPWFile);
+        if(file.exists()) {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                StringBuilder pw = new StringBuilder();
+                try {
+                    String line;
+
+                    while ((line = br.readLine()) != null) {
+                        pw.append(line);
+                    }
+                    br.close();
+                    return pw.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

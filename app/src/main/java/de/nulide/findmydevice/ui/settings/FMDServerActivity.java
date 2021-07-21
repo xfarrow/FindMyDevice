@@ -170,8 +170,10 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                     if (!text.isEmpty()) {
                         Keys keys = CypherUtils.genKeys(text);
                         KeyIO.writeKeys(keys);
+                        String hashedPW = CypherUtils.hashWithPKBDF2(text);
+                        KeyIO.writeHashedPassword(hashedPW);
                         settings.set(Settings.SET_FMDSERVER_PASSWORD_SET, true);
-                        FMDServerService.registerOnServer(context, (String) settings.get(Settings.SET_FMDSERVER_URL), keys.getEncryptedPrivateKey(), CypherUtils.hashWithPKBDF2(text));
+                        FMDServerService.registerOnServer(context, (String) settings.get(Settings.SET_FMDSERVER_URL), keys.getEncryptedPrivateKey(), hashedPW);
                         finish();
                         new Handler().postDelayed(new Runnable() {
                             @Override

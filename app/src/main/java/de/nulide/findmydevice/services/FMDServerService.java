@@ -14,14 +14,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.PublicKey;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -33,11 +32,8 @@ import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.KeyIO;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.logic.ComponentHandler;
-import de.nulide.findmydevice.logic.LocationHandler;
-import de.nulide.findmydevice.logic.MessageHandler;
 import de.nulide.findmydevice.sender.FooSender;
 import de.nulide.findmydevice.sender.Sender;
-import de.nulide.findmydevice.ui.settings.FMDServerActivity;
 import de.nulide.findmydevice.utils.CypherUtils;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Notifications;
@@ -49,39 +45,38 @@ public class FMDServerService extends JobService {
     private static final String TAG = "FMDServerService";
     private static final int JOB_ID = 108;
 
-    public static void sendNewLocation(Context context, String provider, String lat, String lon, String url, String id) {
+    public static void sendNewLocation(Context context, String provider, String lat, String lon, String url, String id, String hashedpw) {
         PublicKey publicKey = KeyIO.readKeys().getPublicKey();
         RequestQueue queue = Volley.newRequestQueue(context);
         BatteryManager bm = (BatteryManager) context.getSystemService(BATTERY_SERVICE);
         String batLevel = new Integer(bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)).toString();
 
-        final JSONObject jsonObject = new JSONObject();
+        final JSONObject requestAccessObject = new JSONObject();
         try {
-            jsonObject.put("id", id);
-            jsonObject.put("provider", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey,provider)));
-            jsonObject.put("date", Calendar.getInstance().getTimeInMillis());
-            jsonObject.put("bat", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, batLevel)));
-            jsonObject.put("lon", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, lon)));
-            jsonObject.put("lat", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, lat)));
+            requestAccessObject.put("DeviceId", id);
+            requestAccessObject.put("HashedPassword", hashedpw);
         } catch (JSONException e) {
 
         }
 
+        final JSONObject locationDataObject = new JSONObject();
+        try {
+            locationDataObject.put("provider", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, provider)));
+            locationDataObject.put("date", Calendar.getInstance().getTimeInMillis());
+            locationDataObject.put("bat", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, batLevel)));
+            locationDataObject.put("lon", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, lon)));
+            locationDataObject.put("lat", CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, lat)));
+        } catch (JSONException e) {
 
-        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url+"/newlocation", jsonObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+        }
 
-                    }
-                },
-                new Response.ErrorListener()
-                {
+        JsonObjectRequest accessRequest = new JsonObjectRequest(Request.Method.PUT, url + "/requestAccess", requestAccessObject, new AccesssTokenListener(context, locationDataObject, url),
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
                     }
-                }){
+                }) {
 
             @Override
             public Map<String, String> getHeaders()
@@ -94,16 +89,12 @@ public class FMDServerService extends JobService {
 
             @Override
             public byte[] getBody() {
-
-                try {
-                    return jsonObject.toString().getBytes("UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                return null;
+                return requestAccessObject.toString().getBytes(StandardCharsets.UTF_8);
             }
         };
-        queue.add(putRequest);
+        queue.add(accessRequest);
+
+
     }
 
     public static void registerOnServer(Context context, String url, String key, String hashedPW) {
@@ -214,6 +205,61 @@ public class FMDServerService extends JobService {
                 e.printStackTrace();
             }
         }
+
+    }
+
+    public static class AccesssTokenListener implements Response.Listener<JSONObject> {
+
+        private final Context context;
+        private final JSONObject locationDataObject;
+        private final String url;
+
+        public AccesssTokenListener(Context context, JSONObject locationDataObject, String url) {
+            this.context = context;
+            this.locationDataObject = locationDataObject;
+            this.url = url;
+        }
+
+        @Override
+        public void onResponse(JSONObject response) {
+            if (response.has("AccessToken")) {
+                try {
+                    locationDataObject.put("AccessToken", response.get("AccessToken"));
+                    RequestQueue queue = Volley.newRequestQueue(context);
+                    JsonObjectRequest locationPutRequest = new JsonObjectRequest(Request.Method.PUT, url + "/newlocation", locationDataObject,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    error.printStackTrace();
+                                }
+                            }) {
+
+                        @Override
+                        public Map<String, String> getHeaders() {
+                            Map<String, String> headers = new HashMap<String, String>();
+                            headers.put("Content-Type", "application/json");
+                            headers.put("Accept", "application/json");
+                            return headers;
+                        }
+
+                        @Override
+                        public byte[] getBody() {
+                            return locationDataObject.toString().getBytes(StandardCharsets.UTF_8);
+                        }
+                    };
+                    queue.add(locationPutRequest);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
 
     }
 }

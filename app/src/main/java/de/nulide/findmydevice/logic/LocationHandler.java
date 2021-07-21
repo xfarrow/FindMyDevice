@@ -5,6 +5,7 @@ import java.util.Date;
 
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.data.io.KeyIO;
 import de.nulide.findmydevice.services.FMDServerService;
 
 public class LocationHandler {
@@ -28,7 +29,7 @@ public class LocationHandler {
         if((Boolean) ch.getSettings().get(Settings.SET_FMDSERVER)){
             String id =  (String) ch.getSettings().get(Settings.SET_FMDSERVER_ID);
             if(!id.isEmpty()) {
-                FMDServerService.sendNewLocation(ch.getContext(), provider, lat, lon, (String) ch.getSettings().get(Settings.SET_FMDSERVER_URL), (String) ch.getSettings().get(Settings.SET_FMDSERVER_ID));
+                FMDServerService.sendNewLocation(ch.getContext(), provider, lat, lon, (String) ch.getSettings().get(Settings.SET_FMDSERVER_URL), (String) ch.getSettings().get(Settings.SET_FMDSERVER_ID), KeyIO.readHashedPW());
             }
         }
     }
