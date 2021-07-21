@@ -113,7 +113,7 @@ public class FMDServerService extends JobService {
 
         final JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("hashpw", hashedPW);
+            jsonObject.put("hashedPassword", hashedPW);
             jsonObject.put("privkey", key);
         }catch (JSONException e){
 
