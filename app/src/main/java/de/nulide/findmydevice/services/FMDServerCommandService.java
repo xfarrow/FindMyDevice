@@ -1,5 +1,6 @@
 package de.nulide.findmydevice.services;
 
+import android.annotation.SuppressLint;
 import android.app.job.JobInfo;
 import android.app.job.JobParameters;
 import android.app.job.JobScheduler;
@@ -42,6 +43,8 @@ public class FMDServerCommandService extends JobService {
 
     private static final int JOB_ID = 109;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @SuppressLint("NewApi")
     @Override
     public boolean onStartJob(JobParameters params) {
         IO.context = this;
@@ -90,7 +93,7 @@ public class FMDServerCommandService extends JobService {
         queue.add(accessRequest);
 
 
-
+        //scheduleJob(this);
         return true;
     }
 
@@ -104,7 +107,7 @@ public class FMDServerCommandService extends JobService {
         ComponentName serviceComponent = new ComponentName(context, FMDServerCommandService.class);
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, serviceComponent);
         builder.setMinimumLatency(0 * 1000 * 60);
-        builder.setOverrideDeadline(1 * 1000 * 60 * 2);
+        builder.setOverrideDeadline(10 * 1000 * 60);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         jobScheduler.schedule(builder.build());
 
@@ -131,6 +134,7 @@ public class FMDServerCommandService extends JobService {
             this.accessToken = accessToken;
         }
 
+        @SuppressLint("NewApi")
         @Override
         public void onResponse(JSONObject response) {
             if(accessToken.equals("")){
@@ -188,6 +192,7 @@ public class FMDServerCommandService extends JobService {
                         ch.getMessageHandler().setSilent(true);
                         String fmdCommand = (String)settings.get(Settings.SET_FMD_COMMAND);
                         ch.getMessageHandler().handle(sender, fmdCommand + " " + command, context);
+                        scheduleJob(context);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
