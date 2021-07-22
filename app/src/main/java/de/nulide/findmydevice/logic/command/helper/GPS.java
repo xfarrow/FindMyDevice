@@ -38,14 +38,9 @@ public class GPS implements LocationListener {
     private ComponentHandler ch;
     private LocationManager locationManager;
 
-    @SuppressLint({"MissingPermission", "NewApi"})
     public GPS(ComponentHandler ch) {
         this.ch = ch;
         locationManager = (LocationManager) ch.getContext().getSystemService(Context.LOCATION_SERVICE);
-        for (String provider : locationManager.getAllProviders()) {
-            locationManager.requestLocationUpdates(provider, 1000, 0, this);
-        }
-        GPSTimeOutService.scheduleJob(ch.getContext());
     }
 
     public static boolean isGPSOn(Context context) {
@@ -90,6 +85,14 @@ public class GPS implements LocationListener {
     public void onProviderDisabled(@NonNull String provider) {
         locationManager.removeUpdates(this);
         ch.finishJob();
+    }
+
+    @SuppressLint({"MissingPermission", "NewApi"})
+    public void sendGPSLocation(){
+        for (String provider : locationManager.getAllProviders()) {
+            locationManager.requestLocationUpdates(provider, 1000, 0, this);
+        }
+        GPSTimeOutService.scheduleJob(ch.getContext());
     }
 
     public GsmCellLocation sendGSMCellLocation() {

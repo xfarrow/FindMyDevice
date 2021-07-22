@@ -75,6 +75,11 @@ public class MessageHandler {
                     replyBuilder.append(context.getString(R.string.MH_GPS_WILL_FOLLOW));
                     GPS gps = new GPS(ch);
 
+                    //if options cell is set do not send gps data
+                    if(!msg.contains("cell")){
+                        gps.sendGPSLocation();
+                    }
+
                     //if option gps is set do not send gsm cell data
                     if(!msg.contains("gps")) {
                         gps.sendGSMCellLocation();
