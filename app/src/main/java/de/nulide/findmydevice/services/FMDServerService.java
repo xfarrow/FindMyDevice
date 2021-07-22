@@ -97,7 +97,7 @@ public class FMDServerService extends JobService {
 
     }
 
-    public static void registerOnServer(Context context, String url, String key, String hashedPW) {
+    public static void registerOnServer(Context context, String url, String privKey, String pubKey, String hashedPW) {
         IO.context = context;
         Settings Settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -105,7 +105,8 @@ public class FMDServerService extends JobService {
         final JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("hashedPassword", hashedPW);
-            jsonObject.put("privkey", key);
+            jsonObject.put("pubkey", pubKey);
+            jsonObject.put("privkey", privKey);
         }catch (JSONException e){
 
         }

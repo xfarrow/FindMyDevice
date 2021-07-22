@@ -2,6 +2,8 @@ package de.nulide.findmydevice.data;
 
 import java.security.PublicKey;
 
+import de.nulide.findmydevice.utils.CypherUtils;
+
 public class Keys {
     private PublicKey publicKey;
     private String encryptedPrivateKey;
@@ -21,6 +23,10 @@ public class Keys {
 
     public String getEncryptedPrivateKey() {
         return encryptedPrivateKey;
+    }
+
+    public String getBase64PublicKey() {
+        return CypherUtils.encodeBase64(publicKey.getEncoded());
     }
 
     public void setEncryptedPrivateKey(String encryptedPrivateKey) {
