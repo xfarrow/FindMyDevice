@@ -125,6 +125,39 @@
                 android:layout_margin="1mm"
                 android:text="0" />
 
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textColor="@color/colorAccent"
+                android:text="Location Data" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Settings_FMDServer_LocationData_Description" />
+
+            <CheckBox
+                android:id="@+id/checkBoxFMDServerGPS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/GPS" />
+
+            <CheckBox
+                android:id="@+id/checkBoxFMDServerCell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Cell" />
+
         </LinearLayout>
     </ScrollView>
 

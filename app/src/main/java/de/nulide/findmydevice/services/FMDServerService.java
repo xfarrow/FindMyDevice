@@ -176,7 +176,16 @@ public class FMDServerService extends JobService {
             if ((Boolean) ch.getSettings().get(settings.SET_FMDSERVER)) {
                 scheduleJob(this, (Integer) ch.getSettings().get(Settings.SET_FMDSERVER_UPDATE_TIME));
             }
-            ch.getMessageHandler().handle(sender, ((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)) + " locate gps", this);
+            String locateCommand = "locate";
+            switch((Integer)ch.getSettings().get(Settings.SET_FMDSERVER_LOCATION_TYPE)){
+                case 0:
+                    locateCommand += " gps";
+                    break;
+                case 1:
+                    locateCommand += " cell";
+                    break;
+            }
+            ch.getMessageHandler().handle(sender, ((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)) + locateCommand, this);
         }
         Logger.logSession("FMDServerService", "finished job, waiting for location");
         Logger.writeLog();

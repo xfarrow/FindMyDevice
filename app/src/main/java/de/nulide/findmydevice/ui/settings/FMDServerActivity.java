@@ -42,6 +42,8 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     private EditText editTextFMDServerUpdateTime;
     private TextView textViewFMDServerID;
     private Button registerButton;
+    private CheckBox checkBoxFMDServerGPS;
+    private CheckBox checkBoxFMDServerCell;
 
     private int colorEnabled;
     private int colorDisabled;
@@ -108,6 +110,23 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                     .setIcon(android.R.drawable.ic_dialog_info)
                     .show();
         }
+
+        checkBoxFMDServerGPS = findViewById(R.id.checkBoxFMDServerGPS);
+        checkBoxFMDServerCell = findViewById(R.id.checkBoxFMDServerCell);
+        switch((Integer)settings.get(Settings.SET_FMDSERVER_LOCATION_TYPE)){
+            case 0:
+                checkBoxFMDServerGPS.setChecked(true);
+                break;
+            case 1:
+                checkBoxFMDServerCell.setChecked(true);
+                break;
+            case 2:
+                checkBoxFMDServerGPS.setChecked(true);
+                checkBoxFMDServerCell.setChecked(true);
+        }
+        checkBoxFMDServerGPS.setOnCheckedChangeListener(this);
+        checkBoxFMDServerCell.setOnCheckedChangeListener(this);
+
     }
 
     @Override
@@ -120,6 +139,16 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                 }
             }else{
                 FMDServerService.cancleAll(this);
+            }
+        }else if(buttonView == checkBoxFMDServerCell || buttonView == checkBoxFMDServerGPS){
+            if(checkBoxFMDServerGPS.isChecked() && checkBoxFMDServerCell.isChecked()){
+                settings.set(Settings.SET_FMDSERVER_LOCATION_TYPE, 2);
+            }else if(checkBoxFMDServerGPS.isChecked()){
+                settings.set(Settings.SET_FMDSERVER_LOCATION_TYPE, 0);
+            }else if(checkBoxFMDServerCell.isChecked()){
+                settings.set(Settings.SET_FMDSERVER_LOCATION_TYPE, 1);
+            }else{
+                settings.set(Settings.SET_FMDSERVER_LOCATION_TYPE, 0);
             }
         }
     }
