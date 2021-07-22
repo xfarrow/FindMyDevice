@@ -110,7 +110,7 @@ public class FMDServerService extends JobService {
 
         }
 
-        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url+"/newDevice", jsonObject, new IDResponseListener(Settings),
+        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url+"/device", jsonObject, new IDResponseListener(Settings),
                 new Response.ErrorListener()
                 {
                     @Override
