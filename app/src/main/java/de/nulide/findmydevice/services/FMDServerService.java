@@ -42,7 +42,6 @@ import de.nulide.findmydevice.utils.Permission;
 @SuppressLint("NewApi")
 public class FMDServerService extends JobService {
 
-    private static final String TAG = "FMDServerService";
     private static final int JOB_ID = 108;
 
     public static void sendNewLocation(Context context, String provider, String lat, String lon, String url, String id, String hashedpw) {

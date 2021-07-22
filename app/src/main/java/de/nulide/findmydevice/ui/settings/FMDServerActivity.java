@@ -30,6 +30,7 @@ import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.KeyIO;
 import de.nulide.findmydevice.data.io.json.JSONMap;
+import de.nulide.findmydevice.services.FMDServerCommandService;
 import de.nulide.findmydevice.services.FMDServerService;
 import de.nulide.findmydevice.utils.CypherUtils;
 
@@ -136,6 +137,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
             if (isChecked) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FMDServerService.scheduleJob(this, 0);
+                    FMDServerCommandService.scheduleJob(this);
                 }
             }else{
                 FMDServerService.cancleAll(this);
