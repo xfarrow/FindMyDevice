@@ -89,7 +89,14 @@ public class MessageHandler {
                 if (msg.contains("long")) {
                     Ringer.ring(context, 180);
                 } else {
-                    Ringer.ring(context, 30);
+                    if(msg.length() > COM_RING.length()+1){
+                        String time = msg.substring(COM_RING.length()+1);
+                        if (time.matches("[0-9]+")) {
+                            Ringer.ring(context, Integer.parseInt(time));
+                        }
+                    }else {
+                        Ringer.ring(context, 30);
+                    }
                 }
 
             //LOCK
