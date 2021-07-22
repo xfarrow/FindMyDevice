@@ -235,7 +235,7 @@ public class FMDServerService extends JobService {
                 try {
                     locationDataObject.put("AccessToken", response.get("AccessToken"));
                     RequestQueue queue = Volley.newRequestQueue(context);
-                    JsonObjectRequest locationPutRequest = new JsonObjectRequest(Request.Method.PUT, url + "/newlocation", locationDataObject,
+                    JsonObjectRequest locationPutRequest = new JsonObjectRequest(Request.Method.POST, url + "/location", locationDataObject,
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
