@@ -52,7 +52,7 @@ public class FMDServerCommandService extends JobService {
 
         final JSONObject requestAccessObject = new JSONObject();
         try {
-            requestAccessObject.put("DeviceId", settings.get(Settings.SET_FMDSERVER_ID));
+            requestAccessObject.put("DeviceId", (String)settings.get(Settings.SET_FMDSERVER_ID));
             requestAccessObject.put("HashedPassword", KeyIO.readHashedPW());
         } catch (JSONException e) {
 
@@ -186,7 +186,8 @@ public class FMDServerCommandService extends JobService {
                         ComponentHandler ch = new ComponentHandler(settings, context, service, params);
                         ch.setSender(sender);
                         ch.getMessageHandler().setSilent(true);
-                        ch.getMessageHandler().handle(sender, command, context);
+                        String fmdCommand = (String)settings.get(Settings.SET_FMD_COMMAND);
+                        ch.getMessageHandler().handle(sender, fmdCommand + " " + command, context);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
