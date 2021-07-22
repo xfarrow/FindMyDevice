@@ -49,6 +49,9 @@ public class MessageHandler {
             }
             originalMsg = originalMsg.substring(cutLength, msg.length());
             msg = msg.substring(cutLength);
+
+            //LOCATE
+
             if (msg.startsWith(COM_LOCATE) && Permission.GPS) {
                 executedCommand = COM_LOCATE;
                 if(msg.contains("last")){
@@ -77,14 +80,20 @@ public class MessageHandler {
                         gps.sendGSMCellLocation();
                     }
                 }
+
+            //RING
+
             } else if (msg.startsWith(COM_RING)) {
                 executedCommand = COM_RING;
                 replyBuilder.append(context.getString(R.string.MH_rings));
                 if (msg.contains("long")) {
                     Ringer.ring(context, 180);
                 } else {
-                    Ringer.ring(context, 15);
+                    Ringer.ring(context, 30);
                 }
+
+            //LOCK
+
             } else if (msg.startsWith(COM_LOCK) && Permission.DEVICE_ADMIN) {
                 executedCommand = COM_LOCK;
                 DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -99,6 +108,9 @@ public class MessageHandler {
                 }
                 context.startActivity(lockScreenMessage);
                 replyBuilder.append(context.getString(R.string.MH_Locked));
+
+            //STATS
+
             } else if (msg.startsWith(COM_STATS)) {
                 executedCommand = COM_STATS;
                 replyBuilder.append(context.getString(R.string.MH_Stats));
@@ -112,6 +124,9 @@ public class MessageHandler {
                 for (ScanResult sr : Network.getWifiNetworks(context)) {
                     replyBuilder.append(sr.SSID).append("\n");
                 }
+
+            //DELETE
+
             } else if (msg.startsWith(COM_DELETE) && Permission.DEVICE_ADMIN) {
                 executedCommand = COM_DELETE;
                 if ((Boolean) ch.getSettings().get(Settings.SET_WIPE_ENABLED)) {
