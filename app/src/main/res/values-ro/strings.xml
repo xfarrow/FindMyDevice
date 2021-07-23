@@ -2,7 +2,7 @@
     <string name="app_name" translatable="false">FindMyDevice</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Salut fragment gol</string>
 
     <string name="Introduction_Introduction">FMD este o aplicație care te poate ajuta să îți găsești telefonul în caz ca l-ai pierdut. \nAceastă aplicație folosește SMS pentru a comunica. Ai nevoie de un al doilea telefon sau de un prieten pentru a localiza telefonul pierdut. \nTot ce trebuie să faci este sa trimiți un SMS ce conține comanda "fmd". \nAplicația încă este în beta. \n\n - Nulide </string>
     <string name="Introduction_UpdatePermission">Some new permissions are needed.\nPlease check the following permissions in order to continue using this app, or change back to an older version of the app.</string>
