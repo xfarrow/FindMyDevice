@@ -14,11 +14,11 @@
     <string name="Settings_Enter_Pin">Entrez le code PIN</string>
     <string name="Settings_FMD_via_Pin_Description">Autoriser à communiquer avec FMD avec un code PIN. Vous serez ajouté à une liste blanche temporaire.</string>
     <string name="About_Help">Aide</string>
-    <string name="MH_Help_delete"> delete - réinitialiser votre téléphone</string>
-    <string name="MH_Help_Stats"> stats - envoyer les informations du périphérique</string>
-    <string name="MH_Help_Lock"> lock - verrouiller le téléphone</string>
-    <string name="MH_Help_ring"> ring - faire sonner le téléphone</string>
-    <string name="MH_Help_where"> locate - envoyer la localisation courante</string>
+    <string name="MH_Help_delete">" delete - réinitialiser votre téléphone"</string>
+    <string name="MH_Help_Stats">" stats - envoyer les informations du périphérique"</string>
+    <string name="MH_Help_Lock">" lock - verrouiller le téléphone"</string>
+    <string name="MH_Help_ring">" ring - faire sonner le téléphone"</string>
+    <string name="MH_Help_where">" locate - envoyer la localisation courante"</string>
     <string name="MH_Title_Help">les commandes de FindMyDevice :</string>
     <string name="MH_Syntax">Syntaxe :</string>
     <string name="MH_False_Pin">Mauvais code PIN !</string>
