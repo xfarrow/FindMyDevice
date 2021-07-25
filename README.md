@@ -30,6 +30,8 @@ linux.redneck - [linux-redneck](https://gitlab.com/linux-redneck)
 
 Michael Mozart - [mozartro](https://gitlab.com/mozartro)
 
+Kalytio _  - [Kalytio](https://gitlab.com/Kalytio)
+
 # Donate
 
 <script src="https://liberapay.com/Nulide/widgets/button.js"></script>
