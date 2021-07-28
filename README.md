@@ -1,5 +1,12 @@
 # FindMyDevice
 
+# Vulnerability detected
+Everybody who wants to use the server needs to reregister.
+Details are in Issue 20
+
+
+
+
 Find your Device via SMS.
 This applications goal is to track your device when it's lost and should be a secure open source application and a alternative to Googles FindMyDevice.
 
