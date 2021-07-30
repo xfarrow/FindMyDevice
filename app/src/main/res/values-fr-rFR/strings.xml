@@ -5,8 +5,7 @@
     <string name="Introduction_UpdatePermission">De nouvelles permissions sont nécessaires […]</string>
     <string name="About_Version">Version de FMD :</string>
     <string name="MH_No_GPS">Désolé, la localisation est éteinte.</string>
-    <string name="Crashed_Send_log">Envoyer le journal</string>
-    <string name="Settings_Log">Journal</string>
+    <string name="Crashed_Send_log">Envoyer les logs</string>
     <string name="R_Stop_ring">ARRETER DE SONNER</string>
     <string name="Alert_First_Time_contact_added">Félicitations. Vous avez ajouté votre premier contact. Vous pouvez maintenant communiquer avec FMD en envoyant un sms qui contient \"fmd\" à partir des numéros de téléphone de la liste blanche. Quand tout marchera, l\'application répondra</string>
     <string name="Alert_First_time_whitelist">Ici vous pouvez ajouter vos contacts à la liste blanche. Les contacts de cette liste blanche seront capable de tracer votre équipement quand il écriront un SMS qui contiendra \"fmd\"</string>
@@ -80,4 +79,14 @@
     <string name="accept">Accepter</string>
     <string name="cancle">Retour</string>
     <string name="Settings_FMDServer_LocationData_Description">Veuillez sélectionner les données de localisation à envoyer au serveur. (Une doit être sélectionnée)</string>
+    <string name="hello_blank_fragment">Bonjour, fragment vierge</string>
+    <string name="Settings_Show_log">Voir les logs</string>
+    <string name="Error">Erreur</string>
+    <string name="Settings_Settings">Paramètres</string>
+    <string name="Notification_Usage">Usage</string>
+    <string name="Notification_Lifecycle">Cycle de vie</string>
+    <string name="Pin_Usage">PinUsage</string>
+    <string name="Sender_End_Of_Msg">---Fin du Message---</string>
+    <string name="Info_Server_Enabled">Service:</string>
+    <string name="value_true">Vrai</string>
 </resources>
