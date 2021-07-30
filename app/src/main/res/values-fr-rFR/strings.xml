@@ -63,12 +63,12 @@
     <string name="Settings_Ringer_Tone_Description">Sélectionnez une sonnerie qui sera jouée lors de l\'envoi de la commande fmd ring</string>
     <string name="Settings_Select_Ringtone">Sélectionnez une sonnerie.</string>
     <string name="WhiteList_Select_Number">Sélectionnez l\'un des numéros de téléphones.</string>
-    <string name="Settings_FMDServer_Description">En activant, l\'application enverra votre position au serveur spécifié.</string>
+    <string name="Settings_FMDServer_Description">En activant, l\'application enverra constamment votre position au serveur spécifié.</string>
     <string name="Settings_FMDServer_URL_Description">Url pour accéder au serveur.</string>
-    <string name="Settings_FMDServer_Updattime_Description">Intervalle en minutes pendant lequel fmd doit envoyer de nouvelles données de localisation au serveur.</string>
+    <string name="Settings_FMDServer_Updattime_Description">Le temps en minutes pendant lequel fmd doit envoyer de nouvelles données de localisation au serveur</string>
     <string name="NOT_AVAILABLE">indisponible</string>
-    <string name="Settings_FMD_Server_ID_Desc">Il s\'agit de l\'ID dont vous avez besoin pour rechercher l\'appareil.  Il sera affiché une fois que ServerSettings sera rempli et le mot de passe défini.</string>
-    <string name="Settings_FMDServer_Register_Button">S\'inscrire sur le serveur</string>
+    <string name="Settings_FMD_Server_ID_Desc">Il s'agit de l\'ID dont vous avez besoin pour rechercher l\'appareil.  Il sera affiché une fois que ServerSettings sera rempli et le mot de passe défini.</string>
+    <string name="Settings_FMDServer_Register_Button">S\'inscrire sur le serveur.</string>
     <string name="Info_Permission_Stats">Permissions activées.</string>
     <string name="Info_Server_Registered">Inscrit.</string>
     <string name="registered">Inscrit</string>
@@ -78,7 +78,7 @@
     <string name="Alert_First_time_fmdserver">Ici, vous pouvez configurer l\'application pour communiquer avec fmdserver. Si vous souhaitez configurer un serveur différent de celui par défaut, vous pouvez le faire en modifiant l\'URL. Si vous appuyez sur enregistrer, vous pouvez enregistrer l\'application sur le serveur. Ensuite, vous pouvez activer la fonctionnalité de serveur. Si vous le faites, votre téléphone vous enverra des données de localisation au serveur spécifié. Vous pouvez vérifier l\'emplacement de votre téléphone en entrant l\'ID et le mot de passe sur la page.</string>
     <string name="accept">Accepter</string>
     <string name="cancle">Retour</string>
-    <string name="Settings_FMDServer_LocationData_Description">Veuillez sélectionner les données de localisation à envoyer au serveur. (Au moins une doit être cochée.)</string>
+    <string name="Settings_FMDServer_LocationData_Description">Veuillez sélectionner les données de localisation à envoyer au serveur. (Une doit être sélectionnée)</string>
     <string name="hello_blank_fragment">Bonjour, fragment vierge</string>
     <string name="Settings_Show_log">Voir les logs</string>
     <string name="Error">Erreur</string>
@@ -89,5 +89,4 @@
     <string name="Sender_End_Of_Msg">---Fin du Message---</string>
     <string name="Info_Server_Enabled">Service:</string>
     <string name="value_true">Vrai</string>
-    <string name="Settings_FMDServer_Alert_PrivacyPolicy_Title">Politique de confidentialité</string>
 </resources>

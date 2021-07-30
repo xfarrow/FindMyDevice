@@ -1,5 +1,12 @@
 # FindMyDevice
 
+# Vulnerability detected
+Everybody who wants to use the server needs to reregister.
+Details are in Issue 20
+
+
+
+
 Find your Device via SMS.
 This applications goal is to track your device when it's lost and should be a secure open source application and a alternative to Googles FindMyDevice.
 
@@ -16,7 +23,7 @@ But why the heck did nobody created an open source application to find a lost de
 
 If you like and want to support this project, spread the info about this application or donate.
 
-# Contributors
+# Contributors - Translation
 
 John - [2br-2b](https://gitlab.com/2br-2b)
 
@@ -29,6 +36,8 @@ Rémi - [Remi-p](https://gitlab.com/Remi-p)
 linux.redneck - [linux-redneck](https://gitlab.com/linux-redneck)
 
 Michael Mozart - [mozartro](https://gitlab.com/mozartro)
+
+Kalytio _  - [Kalytio](https://gitlab.com/Kalytio)
 
 # Donate
 
