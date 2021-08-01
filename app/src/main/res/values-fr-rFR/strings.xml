@@ -67,7 +67,7 @@
     <string name="Settings_FMDServer_URL_Description">Url pour accéder au serveur.</string>
     <string name="Settings_FMDServer_Updattime_Description">Le temps en minutes pendant lequel fmd doit envoyer de nouvelles données de localisation au serveur</string>
     <string name="NOT_AVAILABLE">indisponible</string>
-    <string name="Settings_FMD_Server_ID_Desc">Il s'agit de l\'ID dont vous avez besoin pour rechercher l\'appareil.  Il sera affiché une fois que ServerSettings sera rempli et le mot de passe défini.</string>
+    <string name="Settings_FMD_Server_ID_Desc">Il s\'agit de l\'ID dont vous avez besoin pour rechercher l\'appareil.  Il sera affiché une fois que ServerSettings sera rempli et le mot de passe défini.</string>
     <string name="Settings_FMDServer_Register_Button">S\'inscrire sur le serveur.</string>
     <string name="Info_Permission_Stats">Permissions activées.</string>
     <string name="Info_Server_Registered">Inscrit.</string>
