@@ -59,8 +59,9 @@ public class GPS implements LocationListener {
             String lon = new Double(location.getLongitude()).toString();
             ch.getLocationHandler().newLocation(provider, lat, lon);
             locationManager.removeUpdates(this);
-            if ((Integer) ch.getSettings().get(Settings.SET_GPS_STATE_BEFORE) == 0) {
+            if ((Integer) ch.getSettings().get(Settings.SET_GPS_STATE) == 2) {
                 SecureSettings.turnGPS(ch.getContext(), false);
+                ch.getSettings().set(Settings.SET_GPS_STATE, 0);
             }
             ch.finishJob();
         }

@@ -63,13 +63,15 @@ public class MessageHandler {
                 }
                 if (!GPS.isGPSOn(context)) {
                     if (Permission.WRITE_SECURE_SETTINGS) {
-                        ch.getSettings().set(Settings.SET_GPS_STATE_BEFORE, 0);
+                        ch.getSettings().set(Settings.SET_GPS_STATE, 2);
                         SecureSettings.turnGPS(context, true);
                     }else{
                         replyBuilder.append(context.getString(R.string.MH_No_GPS));
                     }
                 }else{
-                    ch.getSettings().set(Settings.SET_GPS_STATE_BEFORE, 1);
+                    if((Integer)ch.getSettings().get(Settings.SET_GPS_STATE) != 2) {
+                        ch.getSettings().set(Settings.SET_GPS_STATE, 1);
+                    }
                 }
                 if(GPS.isGPSOn(context)){
                     replyBuilder.append(context.getString(R.string.MH_GPS_WILL_FOLLOW));

@@ -34,7 +34,7 @@ public class Settings extends HashMap<Integer, Object> {
     public static final int SET_APP_CRASHED_LOG_ENTRY = 401;
     public static final int SET_FMDSMS_COUNTER = 402;
 
-    public static final int SET_GPS_STATE_BEFORE = 501;         // 1=GPS was on 0=GPS was off
+    public static final int SET_GPS_STATE = 501;         // 0=GPS is off 1=GPS is on 2=GPS is turned on by FMD
     public static final int SET_LAST_KNOWN_LOCATION_LAT = 502;
     public static final int SET_LAST_KNOWN_LOCATION_LON = 503;
     public static final int SET_LAST_KNOWN_LOCATION_TIME = 504;
@@ -84,7 +84,7 @@ public class Settings extends HashMap<Integer, Object> {
                 case SET_LAST_KNOWN_LOCATION_LAT:
                 case SET_LAST_KNOWN_LOCATION_LON:
                     return "";
-                case SET_GPS_STATE_BEFORE:
+                case SET_GPS_STATE:
                     return 1;
                 case SET_APP_CRASHED_LOG_ENTRY:
                 case SET_LAST_KNOWN_LOCATION_TIME:
