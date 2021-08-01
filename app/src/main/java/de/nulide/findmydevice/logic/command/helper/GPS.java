@@ -48,12 +48,7 @@ public class GPS implements LocationListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             return lm.isLocationEnabled();
         }
-        for(String provider : lm.getAllProviders()){
-            if(lm.isProviderEnabled(provider)){
-                return true;
-            }
-        }
-        return false;
+        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER) || lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
     @Override
