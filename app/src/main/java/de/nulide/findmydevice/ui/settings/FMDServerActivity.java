@@ -137,7 +137,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
             if (isChecked) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FMDServerService.scheduleJob(this, 0);
-                    //FMDServerCommandService.scheduleJob(this);
+                    FMDServerCommandService.scheduleJob(this);
                 }
             }else{
                 FMDServerService.cancleAll(this);

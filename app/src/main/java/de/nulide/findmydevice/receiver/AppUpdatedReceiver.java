@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import de.nulide.findmydevice.data.ConfigSMSRec;
 import de.nulide.findmydevice.data.Settings;
+import de.nulide.findmydevice.services.FMDServerCommandService;
 import de.nulide.findmydevice.services.FMDServerService;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Notifications;
@@ -36,6 +37,7 @@ public class AppUpdatedReceiver extends SuperReceiver {
 
             if((Boolean)ch.getSettings().get(Settings.SET_FMDSERVER)){
                 FMDServerService.scheduleJob(context, 0);
+                FMDServerCommandService.scheduleJob(context);
             }
         }
     }

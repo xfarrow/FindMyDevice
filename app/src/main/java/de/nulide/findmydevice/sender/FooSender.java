@@ -11,7 +11,7 @@ public class FooSender extends Sender {
 
     public final static String TYPE = "FOO";
 
-    public FooSender(Context context) {
+    public FooSender() {
         super("", TYPE);
     }
 

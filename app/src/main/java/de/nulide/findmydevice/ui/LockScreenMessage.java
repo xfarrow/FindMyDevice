@@ -11,6 +11,7 @@ import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
+import de.nulide.findmydevice.sender.FooSender;
 import de.nulide.findmydevice.sender.SMS;
 import de.nulide.findmydevice.sender.Sender;
 
@@ -35,6 +36,8 @@ public class LockScreenMessage extends AppCompatActivity {
             case SMS.TYPE:
                     sender = new SMS(bundle.getString(SENDER));
                 break;
+            default:
+                sender = new FooSender();
         }
         Settings Settings;
         IO.context = this;

@@ -43,7 +43,6 @@ public class FMDServerCommandService extends JobService {
 
     private static final int JOB_ID = 109;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("NewApi")
     @Override
     public boolean onStartJob(JobParameters params) {
@@ -93,7 +92,7 @@ public class FMDServerCommandService extends JobService {
         queue.add(accessRequest);
 
 
-        //scheduleJob(this);
+        scheduleJob(this);
         return true;
     }
 
@@ -102,12 +101,11 @@ public class FMDServerCommandService extends JobService {
         return false;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public static void scheduleJob(Context context) {
         ComponentName serviceComponent = new ComponentName(context, FMDServerCommandService.class);
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, serviceComponent);
-        builder.setMinimumLatency(0 * 1000 * 60);
-        builder.setOverrideDeadline(10 * 1000 * 60);
+        builder.setMinimumLatency(15 * 1000 * 60);
+        builder.setOverrideDeadline(30 * 1000 * 60);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         jobScheduler.schedule(builder.build());
 
@@ -185,7 +183,7 @@ public class FMDServerCommandService extends JobService {
                 try {
                     String command = response.getString("Command");
                     if (!command.equals("")) {
-                        Sender sender = new FooSender(context);
+                        Sender sender = new FooSender();
                         Logger.init(Thread.currentThread(), context);
                         ComponentHandler ch = new ComponentHandler(settings, context, service, params);
                         ch.setSender(sender);

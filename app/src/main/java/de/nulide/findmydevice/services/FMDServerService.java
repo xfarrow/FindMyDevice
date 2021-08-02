@@ -161,7 +161,7 @@ public class FMDServerService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        Sender sender = new FooSender(this);
+        Sender sender = new FooSender();
         IO.context = this;
         Logger.init(Thread.currentThread(), this);
         Logger.logSession("FMDServerService", "started");
