@@ -106,7 +106,7 @@ public class FMDServerCommandService extends JobService {
     public static void scheduleJob(Context context) {
         ComponentName serviceComponent = new ComponentName(context, FMDServerCommandService.class);
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, serviceComponent);
-        builder.setMinimumLatency(15 * 1000 * 1);
+        builder.setMinimumLatency(15 * 1000 * 60);
         builder.setOverrideDeadline(30 * 1000 * 60);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         jobScheduler.schedule(builder.build());
