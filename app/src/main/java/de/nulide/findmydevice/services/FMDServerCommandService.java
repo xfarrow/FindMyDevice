@@ -37,6 +37,7 @@ import de.nulide.findmydevice.sender.Sender;
 import de.nulide.findmydevice.utils.CypherUtils;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Notifications;
+import de.nulide.findmydevice.utils.PatchedVolley;
 import de.nulide.findmydevice.utils.Permission;
 
 public class FMDServerCommandService extends JobService {
@@ -46,10 +47,10 @@ public class FMDServerCommandService extends JobService {
     @SuppressLint("NewApi")
     @Override
     public boolean onStartJob(JobParameters params) {
-        IO.context = this;
+            IO.context = this;
         Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         String url = (String)settings.get(Settings.SET_FMDSERVER_URL);
-        RequestQueue queue = Volley.newRequestQueue(this);
+        RequestQueue queue = PatchedVolley.newRequestQueue(this);
 
 
         final JSONObject requestAccessObject = new JSONObject();
@@ -101,10 +102,11 @@ public class FMDServerCommandService extends JobService {
         return false;
     }
 
+    @SuppressLint("NewApi")
     public static void scheduleJob(Context context) {
         ComponentName serviceComponent = new ComponentName(context, FMDServerCommandService.class);
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, serviceComponent);
-        builder.setMinimumLatency(15 * 1000 * 60);
+        builder.setMinimumLatency(15 * 1000 * 1);
         builder.setOverrideDeadline(30 * 1000 * 60);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         jobScheduler.schedule(builder.build());
@@ -139,7 +141,7 @@ public class FMDServerCommandService extends JobService {
                 try {
                     accessToken = response.getString("AccessToken");
                     if(!accessToken.equals("")){
-                        RequestQueue queue = Volley.newRequestQueue(context);
+                        RequestQueue queue = PatchedVolley.newRequestQueue(context);
                         final JSONObject requestDataObject = new JSONObject();
                         try {
                             requestDataObject.put("id", -1);
