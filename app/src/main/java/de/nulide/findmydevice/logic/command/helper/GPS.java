@@ -31,6 +31,7 @@ import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.logic.ComponentHandler;
 import de.nulide.findmydevice.services.GPSTimeOutService;
+import de.nulide.findmydevice.utils.PatchedVolley;
 import de.nulide.findmydevice.utils.SecureSettings;
 
 public class GPS implements LocationListener {
@@ -110,7 +111,7 @@ public class GPS implements LocationListener {
                             .append("&lac=").append(location.getLac()).append("&cellid=").append(location.getCid()).append("&format=json");
 
                     final String url = urlBuilder.toString();
-                    RequestQueue requestQueue = Volley.newRequestQueue(ch.getContext());
+                    RequestQueue requestQueue = PatchedVolley.newRequestQueue(ch.getContext());
                     JsonObjectRequest ExampleRequest = new JsonObjectRequest(Request.Method.GET, url, null, new LocationResponseListener(ch, url), new LocationResponseListener(ch, url));
                     requestQueue.add(ExampleRequest);
                 }

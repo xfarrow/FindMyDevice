@@ -37,6 +37,7 @@ import de.nulide.findmydevice.sender.Sender;
 import de.nulide.findmydevice.utils.CypherUtils;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Notifications;
+import de.nulide.findmydevice.utils.PatchedVolley;
 import de.nulide.findmydevice.utils.Permission;
 
 @SuppressLint("NewApi")
@@ -46,7 +47,7 @@ public class FMDServerService extends JobService {
 
     public static void sendNewLocation(Context context, String provider, String lat, String lon, String url, String id, String hashedpw) {
         PublicKey publicKey = KeyIO.readKeys().getPublicKey();
-        RequestQueue queue = Volley.newRequestQueue(context);
+        RequestQueue queue = PatchedVolley.newRequestQueue(context);
         BatteryManager bm = (BatteryManager) context.getSystemService(BATTERY_SERVICE);
         String batLevel = new Integer(bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)).toString();
 
@@ -99,7 +100,7 @@ public class FMDServerService extends JobService {
     public static void registerOnServer(Context context, String url, String privKey, String pubKey, String hashedPW) {
         IO.context = context;
         Settings Settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
-        RequestQueue queue = Volley.newRequestQueue(context);
+        RequestQueue queue = PatchedVolley.newRequestQueue(context);
 
         final JSONObject jsonObject = new JSONObject();
         try {
@@ -234,7 +235,7 @@ public class FMDServerService extends JobService {
             if (response.has("AccessToken")) {
                 try {
                     locationDataObject.put("AccessToken", response.get("AccessToken"));
-                    RequestQueue queue = Volley.newRequestQueue(context);
+                    RequestQueue queue = PatchedVolley.newRequestQueue(context);
                     JsonObjectRequest locationPutRequest = new JsonObjectRequest(Request.Method.POST, url + "/location", locationDataObject,
                             new Response.Listener<JSONObject>() {
                                 @Override
