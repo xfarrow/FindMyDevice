@@ -29,6 +29,10 @@ public class MessageHandler {
     public static final String COM_DELETE = "delete";
     public static final String COM_STATS = "stats";
 
+    public static final String COM_EXPERT = "expert";
+    public static final String COM_EXPERT_GPS = "gps";
+
+
     private ComponentHandler ch;
 
     private boolean silent = false;
@@ -157,7 +161,30 @@ public class MessageHandler {
                         replyBuilder.append(context.getString(R.string.MH_Syntax)).append((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).append(" delete [pin]");
                     }
                 }
-            } else {
+
+            //EXPERT
+
+            } else if (msg.startsWith(COM_EXPERT)) {
+                executedCommand = COM_DELETE;
+                replyBuilder.append((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_Expert_GPS)).append("\n");
+
+
+            //GPS
+            } else if(msg.startsWith(COM_EXPERT_GPS)) {
+
+                if(Permission.WRITE_SECURE_SETTINGS){
+                    if(msg.contains("on")){
+                        SecureSettings.turnGPS(context, true);
+                        ch.getSettings().set(Settings.SET_GPS_STATE, 1);
+                    }else if(msg.contains("off")){
+                        SecureSettings.turnGPS(context, false);
+                        ch.getSettings().set(Settings.SET_GPS_STATE, 0);
+                    }
+                }else{
+                    replyBuilder.append(context.getString(R.string.MH_NO_SECURE_SETTINGS));
+                }
+
+            }else {
                 replyBuilder.append(context.getString(R.string.MH_Title_Help)).append("\n");
                 if (Permission.GPS) {
                     replyBuilder.append((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_where)).append("\n");
@@ -170,6 +197,8 @@ public class MessageHandler {
                 if ((Boolean) ch.getSettings().get(Settings.SET_WIPE_ENABLED)) {
                     replyBuilder.append("\n").append((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_delete));
                 }
+                replyBuilder.append("\n").append((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_expert));
+
             }
 
             String reply = replyBuilder.toString();

@@ -122,4 +122,7 @@
     <string name="Settings_FMDServer_LocationData_Description">Please select what location data to send to the server. (One needs to be selected)</string>
     <string name="GPS">GPS</string>
     <string name="Cell">Cell</string>
+    <string name="MH_Help_Expert_GPS">" gps (on/off) - turns on/off the gps"</string>
+    <string name="MH_NO_SECURE_SETTINGS">Sorry the application is not allowed to do so.</string>
+    <string name="MH_Help_expert">" expert - help page for expert commands"</string>
 </resources>
