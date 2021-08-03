@@ -186,7 +186,7 @@ public class FMDServerService extends JobService {
                     locateCommand += " cell";
                     break;
             }
-            ch.getMessageHandler().handle(sender, ((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)) + locateCommand, this);
+            ch.getMessageHandler().handle(((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)) + locateCommand, this);
         }
         Logger.logSession("FMDServerService", "finished job, waiting for location");
         Logger.writeLog();

@@ -85,7 +85,7 @@ public class FMDSMSService extends JobService {
         for (int iwl = 0; iwl < whiteList.size(); iwl++) {
             if (PhoneNumberUtils.compare(whiteList.get(iwl).getNumber(), receiver)) {
                 Logger.logSession("Usage", receiver + " used FMD");
-                executedCommand = ch.getMessageHandler().handle(ch.getSender(), msg, this);
+                executedCommand = ch.getMessageHandler().handle(msg, this);
                 inWhitelist = true;
             }
         }
@@ -93,7 +93,7 @@ public class FMDSMSService extends JobService {
             String tempContact = (String) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT);
             if (!inWhitelist && tempContact != null && PhoneNumberUtils.compare(tempContact, receiver)) {
                 Logger.logSession("Usage", receiver + " used FMD");
-                executedCommand = ch.getMessageHandler().handle(ch.getSender(), msg, this);
+                executedCommand = ch.getMessageHandler().handle(msg, this);
                 inWhitelist = true;
             }
             if (!inWhitelist && ch.getMessageHandler().checkForPin(msg)) {

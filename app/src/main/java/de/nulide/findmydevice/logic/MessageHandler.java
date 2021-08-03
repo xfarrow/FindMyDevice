@@ -41,7 +41,7 @@ public class MessageHandler {
         this.ch = ch;
     }
 
-    public String handle(Sender sender, String msg, Context context) {
+    public String handle(String msg, Context context) {
         String executedCommand = "";
         String originalMsg = msg;
         msg = msg.toLowerCase();
@@ -118,8 +118,8 @@ public class MessageHandler {
                 devicePolicyManager.lockNow();
                 Intent lockScreenMessage = new Intent(context, LockScreenMessage.class);
                 lockScreenMessage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                lockScreenMessage.putExtra(LockScreenMessage.SENDER, sender.getDestination());
-                lockScreenMessage.putExtra(LockScreenMessage.SENDER_TYPE, sender.SENDER_TYPE);
+                lockScreenMessage.putExtra(LockScreenMessage.SENDER, ch.getSender().getDestination());
+                lockScreenMessage.putExtra(LockScreenMessage.SENDER_TYPE, ch.getSender().SENDER_TYPE);
                 if (msg.length() > COM_LOCK.length() + 1 ) {
                     String customMessage = originalMsg.substring(COM_LOCK.length() + 1, msg.length());
                     lockScreenMessage.putExtra(LockScreenMessage.CUSTOM_TEXT, customMessage);
@@ -207,7 +207,7 @@ public class MessageHandler {
                 int counter = (Integer) ch.getSettings().get(Settings.SET_FMDSMS_COUNTER);
                 counter++;
                 ch.getSettings().set(Settings.SET_FMDSMS_COUNTER, counter);
-                sender.sendNow(reply.toString());
+                ch.getSender().sendNow(reply.toString());
                 Notifications.notify(context, "SMS-Receiver", "New Usage " + counter, Notifications.CHANNEL_USAGE);
             }
         }

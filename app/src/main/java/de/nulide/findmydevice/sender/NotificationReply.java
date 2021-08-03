@@ -23,8 +23,6 @@ public class NotificationReply extends Sender {
 
     @Override
     protected void sendMessage(String destination, String msg) {
-        Notification.Action actions[] = sbn.getNotification().actions;
-
         Action action = NotificationUtils.getQuickReplyAction(sbn.getNotification(), context.getPackageName());
         if (action != null) {
             try {

@@ -14,9 +14,7 @@ import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
 import de.nulide.findmydevice.logic.ComponentHandler;
-import de.nulide.findmydevice.sender.FooSender;
 import de.nulide.findmydevice.sender.NotificationReply;
-import de.nulide.findmydevice.sender.Sender;
 import de.nulide.findmydevice.utils.Logger;
 import de.nulide.findmydevice.utils.Notifications;
 import de.nulide.findmydevice.utils.Permission;
@@ -50,13 +48,14 @@ public class ThirdPartyAccessService extends NotificationListenerService {
         Logger.log("test", "test");
         NotificationReply sender = new NotificationReply(this, sbn);
         if(sender.canSend()){
+            ch.setSender(sender);
             String msg = sbn.getNotification().extras.getCharSequence("android.text").toString();
             String fmdcommand = (String)ch.getSettings().get(Settings.SET_FMD_COMMAND);
             if(msg.contains(fmdcommand)){
-                ch.getMessageHandler().handle(sender, msg, this);
+                ch.getMessageHandler().handle(msg, this);
             }
         }
-
+        cancelNotification(sbn.getKey());
 
     }
 

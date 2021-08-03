@@ -191,7 +191,7 @@ public class FMDServerCommandService extends JobService {
                         ch.setSender(sender);
                         ch.getMessageHandler().setSilent(true);
                         String fmdCommand = (String)settings.get(Settings.SET_FMD_COMMAND);
-                        ch.getMessageHandler().handle(sender, fmdCommand + " " + command, context);
+                        ch.getMessageHandler().handle(fmdCommand + " " + command, context);
                         scheduleJob(context);
                     }
                 } catch (JSONException e) {
