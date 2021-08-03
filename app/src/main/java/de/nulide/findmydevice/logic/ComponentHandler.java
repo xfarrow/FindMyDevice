@@ -52,6 +52,8 @@ public class ComponentHandler {
     }
 
     public void finishJob(){
-        service.jobFinished(serviceParams, false);
+        if(service != null) {
+            service.jobFinished(serviceParams, false);
+        }
     }
 }
