@@ -229,11 +229,11 @@ public class MessageHandler {
 
     public String checkAndRemovePin(String msg){
         String[] splited = msg.split(" ");
-        String newMsg = new String();
+        String pin = (String) ch.getSettings().get(Settings.SET_PIN);
         boolean isPinValid = false;
-        newMsg = splited[0];
+        String newMsg = splited[0];
         for( int i=1; i< splited.length; i++){
-            if(checkForPin(splited[i])){
+            if(CypherUtils.checkPasswordHash(pin, splited[i])){
                 isPinValid = true;
             }else{
                 newMsg += " " + splited[i];

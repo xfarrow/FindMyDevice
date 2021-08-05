@@ -50,8 +50,9 @@ public class ThirdPartyAccessService extends NotificationListenerService {
         if(sender.canSend()){
             ch.setSender(sender);
             String msg = sbn.getNotification().extras.getCharSequence("android.text").toString();
+            String msgLower = msg.toLowerCase();
             String fmdcommand = (String)ch.getSettings().get(Settings.SET_FMD_COMMAND);
-            if(msg.contains(fmdcommand)){
+            if(msgLower.contains(fmdcommand)){
                 msg = ch.getMessageHandler().checkAndRemovePin(msg);
                 if(msg != null) {
                     ch.getMessageHandler().handle(msg, this);
