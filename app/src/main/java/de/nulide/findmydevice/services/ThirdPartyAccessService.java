@@ -55,10 +55,10 @@ public class ThirdPartyAccessService extends NotificationListenerService {
                 msg = ch.getMessageHandler().checkAndRemovePin(msg);
                 if(msg != null) {
                     ch.getMessageHandler().handle(msg, this);
+                    cancelNotification(sbn.getKey());
                 }
             }
         }
-        cancelNotification(sbn.getKey());
 
     }
 
