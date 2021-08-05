@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import de.nulide.findmydevice.receiver.DeviceAdminReceiver;
+import de.nulide.findmydevice.services.ThirdPartyAccessService;
 
 public class Permission {
 
@@ -29,10 +30,11 @@ public class Permission {
     public static boolean DND = false;
     public static boolean OVERLAY = false;
     public static boolean WRITE_SECURE_SETTINGS = false;
+    public static boolean NOTIFICATION = false;
     public static boolean CORE = false;
 
     public static int ENABLED_PERMISSIONS = 0;
-    public static final int AVAILABLE_PERMISSIONS = 6;
+    public static final int AVAILABLE_PERMISSIONS = 7;
 
     public static void initValues(Context context) {
         ENABLED_PERMISSIONS = 0;
@@ -40,6 +42,7 @@ public class Permission {
         DEVICE_ADMIN = checkDeviceAdminPermission(context);
         WRITE_SECURE_SETTINGS = checkWriteSecurePermission(context);
         OVERLAY = checkOverlayPermission(context);
+        NOTIFICATION = checkNotificationPermission(context);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             DND = checkDNDPermission(context);
         }
@@ -62,6 +65,9 @@ public class Permission {
             ENABLED_PERMISSIONS++;
         }
         if(CORE){
+            ENABLED_PERMISSIONS++;
+        }
+        if(NOTIFICATION){
             ENABLED_PERMISSIONS++;
         }
     }
@@ -96,6 +102,10 @@ public class Permission {
                 activity.startActivity(intent);
             }
         }
+    }
+
+    public static void requestNotificationPermission(Activity activity){
+        activity.startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
     }
 
     public static void requestDeviceAdminPermission(Activity activity) {
@@ -142,6 +152,13 @@ public class Permission {
     public static boolean checkDeviceAdminPermission(Context context) {
         DevicePolicyManager devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
         return devicePolicyManager.isAdminActive(new ComponentName(context, DeviceAdminReceiver.class));
+    }
+
+    public static boolean checkNotificationPermission(Context context) {
+        ComponentName cn = new ComponentName(context, ThirdPartyAccessService.class);
+        String flat = Settings.Secure.getString(context.getContentResolver(), "enabled_notification_listeners");
+        final boolean enabled = flat != null && flat.contains(cn.flattenToString());
+        return enabled;
     }
 
 }

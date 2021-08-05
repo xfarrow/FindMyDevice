@@ -136,6 +136,14 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                 }
                 break;
             case 8:
+                textViewInfoText.setText(getString(R.string.Permission_Notification));
+                if (Permission.checkNotificationPermission(this)) {
+                    buttonGivePermission.setBackgroundColor(colorEnabled);
+                } else {
+                    buttonGivePermission.setBackgroundColor(colorDisabled);
+                }
+                break;
+            case 9:
                 Settings.setIntroductionPassed();
                 Intent myIntent = new Intent(this, MainActivity.class);
                 finish();
@@ -181,6 +189,8 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                     startActivity(intent);
                     updateViews();
                     break;
+                case 8:
+                    Permission.requestNotificationPermission(this);
             }
         } else if (v == buttonNext) {
             position++;

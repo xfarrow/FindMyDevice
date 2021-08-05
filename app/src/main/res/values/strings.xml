@@ -125,4 +125,6 @@
     <string name="MH_Help_Expert_GPS">" gps (on/off) - turns on/off the gps"</string>
     <string name="MH_NO_SECURE_SETTINGS">Sorry the application is not allowed to do so.</string>
     <string name="MH_Help_expert">" expert - help page for expert commands"</string>
+    <string name="Permission_Notification">If you want the app to handle mesages from other apps(Telegram, Whatsap, ...) you can give the app access to notification, so the messages can be evaluated.</string>
+    <string name="Info_Notification">Notification</string>
 </resources>

@@ -164,6 +164,32 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="0.5"
+                android:text="@string/Info_Notification"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/textViewNotification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="0.5"
+                android:gravity="center_horizontal"
+                android:text="@string/Disabled"
+                android:textSize="21sp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

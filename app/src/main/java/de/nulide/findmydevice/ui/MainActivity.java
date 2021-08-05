@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewDeviceAdmin;
     private TextView textViewWriteSecureSettings;
     private TextView textViewOverlay;
+    private TextView textViewNotification;
     private TextView textViewServerServiceEnabled;
     private TextView textViewServerRegistered;
     private Button buttonOpenWhitelist;
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewDeviceAdmin = findViewById(R.id.textViewDeviceAdmin);
         textViewWriteSecureSettings = findViewById(R.id.textViewWriteSecureSettings);
         textViewOverlay = findViewById(R.id.textViewOverlay);
+        textViewNotification = findViewById(R.id.textViewNotification);
         buttonOpenWhitelist = findViewById(R.id.buttonOpenWhiteList);
         buttonOpenWhitelist.setOnClickListener(this);
         textViewServerServiceEnabled = findViewById(R.id.textViewServerEnabled);
@@ -146,7 +148,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViewOverlay.setText(getString(R.string.Disabled));
             textViewOverlay.setTextColor(colorDisabled);
         }
-
+        if(Permission.NOTIFICATION){
+            textViewNotification.setText(getString(R.string.Enabled));
+            textViewNotification.setTextColor(colorEnabled);
+        } else {
+            textViewNotification.setText(getString(R.string.Disabled));
+            textViewNotification.setTextColor(colorDisabled);
+        }
         expandableCardViewPermissions.setTitle(-1, getString(R.string.Settings_Permissions) + " " + Permission.ENABLED_PERMISSIONS + "/" + Permission.AVAILABLE_PERMISSIONS);
 
         if((Boolean) Settings.get(Settings.SET_FMDSERVER)){
