@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.wifi.ScanResult;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 
 import de.nulide.findmydevice.data.Settings;
@@ -224,6 +225,24 @@ public class MessageHandler {
             return CypherUtils.checkPasswordHash((String) ch.getSettings().get(Settings.SET_PIN), pin);
         }
         return false;
+    }
+
+    public String checkAndRemovePin(String msg){
+        String[] splited = msg.split(" ");
+        String newMsg = new String();
+        boolean isPinValid = false;
+        newMsg = splited[0];
+        for( int i=1; i< splited.length; i++){
+            if(checkForPin(splited[i])){
+                isPinValid = true;
+            }else{
+                newMsg += " " + splited[i];
+            }
+        }
+        if(isPinValid){
+            return  newMsg;
+        }
+        return null;
     }
 
 }
