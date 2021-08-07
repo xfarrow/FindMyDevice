@@ -15,6 +15,7 @@ public class Notifications {
     public static final int CHANNEL_USAGE = 42;
     public static final int CHANNEL_LIFE = 43;
     public static final int CHANNEL_PIN = 44;
+    public static final int CHANNEL_SERVER = 45;
 
     private static boolean silent;
 
@@ -40,10 +41,13 @@ public class Notifications {
             channel2.setDescription(context.getString(R.string.Notification_Lifecycle_Description));
             NotificationChannel channel3 = new NotificationChannel(new Integer(CHANNEL_PIN).toString(), context.getString(R.string.Pin_Usage), NotificationManager.IMPORTANCE_DEFAULT);
             channel2.setDescription(context.getString(R.string.Notification_Pin_Usage_Description));
+            NotificationChannel channel4 = new NotificationChannel(new Integer(CHANNEL_SERVER).toString(), context.getString(R.string.Notification_Server), NotificationManager.IMPORTANCE_DEFAULT);
+            channel2.setDescription(context.getString(R.string.NotificationServer_Description));
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel1);
             notificationManager.createNotificationChannel(channel2);
             notificationManager.createNotificationChannel(channel3);
+            notificationManager.createNotificationChannel(channel4);
         }
     }
 

@@ -1,6 +1,7 @@
 package de.nulide.findmydevice.services;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
 import android.app.job.JobInfo;
 import android.app.job.JobParameters;
 import android.app.job.JobScheduler;
@@ -191,7 +192,12 @@ public class FMDServerCommandService extends JobService {
                         ch.setSender(sender);
                         ch.getMessageHandler().setSilent(true);
                         String fmdCommand = (String)settings.get(Settings.SET_FMD_COMMAND);
-                        ch.getMessageHandler().handle(fmdCommand + " " + command, context);
+                        if(command.startsWith("423")){
+                            Notifications.init(context, false);
+                            Notifications.notify(context, "Serveraccess", "Somebody tried three times in a row to log in the server. Acess is locked for 10 minutes", Notifications.CHANNEL_SERVER);
+                        }else {
+                            ch.getMessageHandler().handle(fmdCommand + " " + command, context);
+                        }
                         scheduleJob(context);
                     }
                 } catch (JSONException e) {

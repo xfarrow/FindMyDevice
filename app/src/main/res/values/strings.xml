@@ -127,4 +127,6 @@
     <string name="MH_Help_expert">" expert - help page for expert commands"</string>
     <string name="Permission_Notification">If you want the app to handle mesages from other apps(Telegram, Whatsap, ...) you can give the app access to notification, so the messages can be evaluated.</string>
     <string name="Info_Notification">Notification</string>
+    <string name="Notification_Server">Server</string>
+    <string name="NotificationServer_Description">Display notifications send from the server.</string>
 </resources>
