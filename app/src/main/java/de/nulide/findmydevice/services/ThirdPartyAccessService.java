@@ -45,7 +45,6 @@ public class ThirdPartyAccessService extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         init(this);
-        Logger.log("test", "test");
         NotificationReply sender = new NotificationReply(this, sbn);
         if(sender.canSend()){
             ch.setSender(sender);
