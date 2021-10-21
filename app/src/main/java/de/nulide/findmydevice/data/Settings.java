@@ -69,8 +69,9 @@ public class Settings extends HashMap<Integer, Object> {
                 case SET_FIRST_TIME_FMD_SERVER:
                 case SET_FMDSERVER_UPLOAD_SERVICE:
                 case SET_FMDSERVER_PASSWORD_SET:
-                case SET_FMDSERVER_AUTO_UPLOAD:
                     return false;
+                case SET_FMDSERVER_AUTO_UPLOAD:
+                    return true;
                 case SET_FMD_COMMAND:
                     return "fmd";
                 case SET_FMDSERVER_UPDATE_TIME:

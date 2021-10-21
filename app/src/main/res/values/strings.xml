@@ -129,4 +129,5 @@
     <string name="Info_Notification">Notification</string>
     <string name="Notification_Server">Server</string>
     <string name="NotificationServer_Description">Display notifications send from the server.</string>
+    <string name="Settings_FMDServer_AutoUpload_Description">When the location is requested by sms or any other future method, the location can also be transmitted to the server when this option is enabled.</string>
 </resources>

@@ -45,6 +45,31 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
                 android:textColor="@color/colorAccent"
+                android:text="FMDServer Auto Upload" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Settings_FMDServer_AutoUpload_Description" />
+
+            <CheckBox
+                android:id="@+id/checkBoxFMDServerAutoUpload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Enable" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textColor="@color/colorAccent"
                 android:text="@string/Settings_FMDServer_ID" />
 
             <TextView

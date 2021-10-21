@@ -39,6 +39,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     private Settings settings;
 
     private CheckBox checkBoxFMDServer;
+    private CheckBox checkBoxFMDServerAutoUpload;
     private EditText editTextFMDServerURL;
     private EditText editTextFMDServerUpdateTime;
     private TextView textViewFMDServerID;
@@ -73,6 +74,10 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
         if(((String) settings.get(Settings.SET_FMDSERVER_ID)).isEmpty()){
            checkBoxFMDServer.setEnabled(false);
         }
+
+        checkBoxFMDServerAutoUpload = findViewById(R.id.checkBoxFMDServerAutoUpload);
+        checkBoxFMDServerAutoUpload.setChecked((Boolean) settings.get(Settings.SET_FMDSERVER_AUTO_UPLOAD));
+        checkBoxFMDServer.setOnCheckedChangeListener(this);
 
         editTextFMDServerURL = findViewById(R.id.editTextFMDServerUrl);
         editTextFMDServerURL.setText((String) settings.get(Settings.SET_FMDSERVER_URL));
@@ -142,6 +147,8 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
             }else{
                 FMDServerService.cancleAll(this);
             }
+        }else if(buttonView == checkBoxFMDServerAutoUpload){
+            settings.set(Settings.SET_FMDSERVER_AUTO_UPLOAD, isChecked);
         }else if(buttonView == checkBoxFMDServerCell || buttonView == checkBoxFMDServerGPS){
             if(checkBoxFMDServerGPS.isChecked() && checkBoxFMDServerCell.isChecked()){
                 settings.set(Settings.SET_FMDSERVER_LOCATION_TYPE, 2);
