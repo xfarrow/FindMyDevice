@@ -23,7 +23,7 @@ public class BootReceiver extends SuperReceiver{
             config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
             config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
             ch.getSettings().set(Settings.SET_GPS_STATE, 1);
-            if((Boolean)ch.getSettings().get(Settings.SET_FMDSERVER)){
+            if((Boolean)ch.getSettings().get(Settings.SET_FMDSERVER_UPLOAD_SERVICE)){
                 FMDServerService.scheduleJob(context, 0);
                 FMDServerCommandService.scheduleJob(context);
             }

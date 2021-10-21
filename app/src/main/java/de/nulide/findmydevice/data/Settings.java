@@ -20,12 +20,13 @@ public class Settings extends HashMap<Integer, Object> {
     public static final int SET_INTRODUCTION_VERSION = 6;
     public static final int SET_RINGER_TONE = 7;
 
-    public static final int SET_FMDSERVER = 101;
+    public static final int SET_FMDSERVER_UPLOAD_SERVICE = 101;
     public static final int SET_FMDSERVER_URL = 102;
     public static final int SET_FMDSERVER_UPDATE_TIME = 103;
     public static final int SET_FMDSERVER_ID = 104;
     public static final int SET_FMDSERVER_PASSWORD_SET = 105;
     public static final int SET_FMDSERVER_LOCATION_TYPE = 106; // 0=GPS, 1=CELL, 2=ALL
+    public static final int SET_FMDSERVER_AUTO_UPLOAD = 107;
 
     public static final int SET_FIRST_TIME_WHITELIST = 301;
     public static final int SET_FIRST_TIME_CONTACT_ADDED = 302;
@@ -66,8 +67,9 @@ public class Settings extends HashMap<Integer, Object> {
                 case SET_FIRST_TIME_WHITELIST:
                 case SET_FIRST_TIME_CONTACT_ADDED:
                 case SET_FIRST_TIME_FMD_SERVER:
-                case SET_FMDSERVER:
+                case SET_FMDSERVER_UPLOAD_SERVICE:
                 case SET_FMDSERVER_PASSWORD_SET:
+                case SET_FMDSERVER_AUTO_UPLOAD:
                     return false;
                 case SET_FMD_COMMAND:
                     return "fmd";

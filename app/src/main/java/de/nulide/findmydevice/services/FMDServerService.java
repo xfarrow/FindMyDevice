@@ -162,35 +162,36 @@ public class FMDServerService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
+
         Sender sender = new FooSender();
         IO.context = this;
         Logger.init(Thread.currentThread(), this);
         Logger.logSession("FMDServerService", "started");
         Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
-        ComponentHandler ch = new ComponentHandler(settings, this, this, params);
-        ch.setSender(sender);
-        Boolean registered = !((String) ch.getSettings().get(Settings.SET_FMDSERVER_ID)).isEmpty();
-        if(registered) {
-            Notifications.init(this, true);
-            Permission.initValues(this);
-            ch.getMessageHandler().setSilent(true);
-            if ((Boolean) ch.getSettings().get(settings.SET_FMDSERVER)) {
-                scheduleJob(this, (Integer) ch.getSettings().get(Settings.SET_FMDSERVER_UPDATE_TIME));
+        if ((Boolean) settings.get(settings.SET_FMDSERVER_UPLOAD_SERVICE)) {
+            ComponentHandler ch = new ComponentHandler(settings, this, this, params);
+            ch.setSender(sender);
+            Boolean registered = !((String) ch.getSettings().get(Settings.SET_FMDSERVER_ID)).isEmpty();
+            if (registered) {
+                Notifications.init(this, true);
+                Permission.initValues(this);
+                ch.getMessageHandler().setSilent(true);
+                String locateCommand = " locate";
+                switch ((Integer) ch.getSettings().get(Settings.SET_FMDSERVER_LOCATION_TYPE)) {
+                    case 0:
+                        locateCommand += " gps";
+                        break;
+                    case 1:
+                        locateCommand += " cell";
+                        break;
+                }
+                ch.getMessageHandler().handle(((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)) + locateCommand, this);
             }
-            String locateCommand = " locate";
-            switch((Integer)ch.getSettings().get(Settings.SET_FMDSERVER_LOCATION_TYPE)){
-                case 0:
-                    locateCommand += " gps";
-                    break;
-                case 1:
-                    locateCommand += " cell";
-                    break;
-            }
-            ch.getMessageHandler().handle(((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)) + locateCommand, this);
+            Logger.logSession("FMDServerService", "finished job, waiting for location");
+            Logger.writeLog();
+            return true;
         }
-        Logger.logSession("FMDServerService", "finished job, waiting for location");
-        Logger.writeLog();
-        return true;
+        return false;
     }
 
     @Override

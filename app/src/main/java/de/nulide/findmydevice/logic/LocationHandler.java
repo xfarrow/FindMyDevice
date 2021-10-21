@@ -26,7 +26,7 @@ public class LocationHandler {
         ch.getSettings().set(Settings.SET_LAST_KNOWN_LOCATION_LON, lon);
         ch.getSettings().set(Settings.SET_LAST_KNOWN_LOCATION_TIME, Calendar.getInstance().getTimeInMillis());
 
-        if((Boolean) ch.getSettings().get(Settings.SET_FMDSERVER)){
+        if((Boolean) ch.getSettings().get(Settings.SET_FMDSERVER_UPLOAD_SERVICE)){
             String id =  (String) ch.getSettings().get(Settings.SET_FMDSERVER_ID);
             if(!id.isEmpty()) {
                 FMDServerService.sendNewLocation(ch.getContext(), provider, lat, lon, (String) ch.getSettings().get(Settings.SET_FMDSERVER_URL), (String) ch.getSettings().get(Settings.SET_FMDSERVER_ID), KeyIO.readHashedPW());
