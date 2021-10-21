@@ -39,6 +39,8 @@ Michael Mozart - [mozartro](https://gitlab.com/mozartro)
 
 Kalytio _  - [Kalytio](https://gitlab.com/Kalytio)
 
+teemue - [teemue](https://gitlab.com/teemue)
+
 # Donate
 
 <script src="https://liberapay.com/Nulide/widgets/button.js"></script>

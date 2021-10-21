@@ -1,0 +1,132 @@
+<resources>
+    <string name="app_name" translatable="false">FindMyDevice</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hei tyhjä katkelma</string>
+
+    <string name="Introduction_Introduction">FMD on sovellus, joka auttaa löytämään kadonneen puhelimesi.\nSovellus käyttää SMS-viestejä kommunikointiin. Laitetta voit seurata toiselta, kuten ystäväsi, laitteelta.\nKirjoita vain tekstiviesti, joka sisältää "fmd"-komennon.\nSovellus on yhä beta-vaiheessa.\n\n - Nulide</string>
+    <string name="Introduction_UpdatePermission">Sovellus vaatii joitain uusia käyttöoikeuksia.\nOle hyvä ja tarkista seuraavat käyttöoikeudet jatkaaksesi sovelluksen käyttöä. Vaihtoehtoisesti voit palata vanhempaan sovellusversioon.</string>
+    <string name="Permission_SMS">Sovelluksen tekstiviestiohjausta varten sovellus tarvitsee käyttöoikeuden tekstiviestien lukemiseen.\nViestejä ei koskaan toimiteta eteenpäin ja niitä käytetään vain komentojen toteuttamiseen.</string>
+    <string name="Permission_CONTACTS">Oikeus puhelimesi ohjaamiseen ja paikantamiseen on vain etukäteen määritetyillä yhteystiedoilla.\nYhteystietojen käyttöön tarvitaan käyttöoikeus.</string>
+    <string name="Permission_GPS">Puhelimen GPS-paikantamiseen tarvitaan sijainnin käyttöoikeus.\nOle hyvä ja anna sovellukselle käyttöoikeus paikantamiseen myös taustalla.\nIlman käyttöoikeutta paikannusta ei voida aktivoida.</string>
+    <string name="Permission_DND">Voit myös ohjata puhelimen toistamaan soittoääntä löytääksesi sen. Jos Älä häiritse-tila on käytössä, on mahdollista että puhelin on vaimennettu.\nIlman käyttöoikeutta soittoäänitoimintoa ei voida aktivoida.</string>
+    <string name="Permission_DEVICE_ADMIN">Kadonneen puhelimen lukitseminen tai tyhjentäminen vaatii käyttöoikeuden.\nIlman käyttöoikeutta toimintoja ei voida aktivoida.</string>
+    <string name="Permission_WRITE_SECURE_SETTINGS">Jos puhelimen sijaintitoiminto on pois päältä, sovellus ei voi välittää sijaintitietoja.\nSovellus voi kytkeä pois päältä olevan sijaistoiminnon automaattisesti päälle, jos annat sille tähän erityiskäyttöoikeuden.\nKäyttöoikeuden myöntämistä varten puhelin tulee kytkeä tietokoneeseen.\nSovellusta voi käyttää myös ilman käyttöoikeutta.</string>
+    <string name="Permission_OVERLAY">Kun etälukitset puhelimen, sovellus voi näyttää viestin lukitusnäytöllä puhelimen löytäjälle.\nViestin näyttäminen vaatii käyttöoikeuden.</string>
+    <string name="Introduction_Give_Permission">Myönnä käyttöoikeus</string>
+    <string name="Introduction_Next">Seuraava</string>
+    <string name="Locked_Lock_Screen">FindMyDevice\nTämä puhelin on lukittu!\nViesti omistajalta:</string>
+    <string name="About">Tietoa</string>
+    <string name="About_Text">Kiitos sovelluksen lataamisesta!\nVaikka sovelluksessa on vielä paljon kehitettävää, toivon että se auttaa sinua, jos joudut samaan tilanteeseen kuin minä. Puhelimen hävittäminen on tylsää, mutta puhelimen hävittäminen sen vuoksi ettei ole yksityisyyttä kunnioittavia sovelluksia sen löytämiseen on vielä pahempaa.\nKontribuutiot ja lahjoitukset ovat tervetulleita! Mene vain F-Droidiin ja etsi sovellukseni.\n\n - Nulide</string>
+    <string name="About_Used_APIs">Käytetyt API:t:\n</string>
+    <string name="About_UsedApis_Content" translatable="false">com.fasterxml.jackson.core:jackson-databind:2.10.0\ncom.android.volley:volley:1.1.1\norg.mindrot:jbcrypt:0.4\nOpenCellID\nOpenStreetMap</string>
+    <string name="Info_Service" translatable="false">FMD</string>
+    <string name="Info_CORE" translatable="false">CORE:</string>
+    <string name="Info_GPS" translatable="false">GPS:</string>
+    <string name="Info_DND" translatable="false">DND:</string>
+    <string name="Info_DEVICE_ADMIN" translatable="false">DeviceAdmin:</string>
+    <string name="Info_Overlay" translatable="false">Overlay:</string>
+    <string name="Info_SecureSettings" translatable="false">SecureSettings:</string>
+    <string name="Enable">Ota käyttöön</string>
+    <string name="Settings_Pin_Description">Käytetään varmistamiseen ennen laitteen tyhjennystä tai väliaikaista palvelun käyttöä.</string>
+    <string name="Settings_Lockscreenmessage_Description">Lukitusnäytön viesti.\nKun laite lukitaan, tämä viesti näkyy lukitusnäytöllä:</string>
+    <string name="Settings_FMDCommand_Description">FindMyDevicen ohjaamiseen käytettävä komento.</string>
+    <string name="Settings_PermissionDescription">Tiettyihin toimintoihin vaadittavat käyttöoikeudet</string>
+    <string name="Settings_Permission">Käyttöoikeudet</string>
+    <string name="WhiteList_Add_Contact">Lisää yhteystieto</string>
+    <string name="Enabled">Käytössä</string>
+    <string name="Disabled">Ei käytössä</string>
+    <string name="Main_Title" translatable="false">Info</string>
+    <string name="Toast_Landcode_error">Lisää maakoodi numeroon. (Kuten "+358", "+44"...)</string>
+    <string name="Delete">Poista</string>
+    <string name="WhiteList_Select_Action">Valitse toiminto:</string>
+    <string name="Toast_Duplicate_contact">Yhteystieto on jo olemassa.</string>
+    <string name="MH_GPS_WILL_FOLLOW">GPS-koordinaatit lähetetään pian.</string>
+    <string name="MH_rings">soi</string>
+    <string name="MH_Locked">lukittu</string>
+    <string name="MH_Stats">Verkkotiedot:\nIP\'s: \n</string>
+    <string name="MH_Networks">\nKäytettävät WiFi-verkot:\n</string>
+    <string name="MH_Delete">Hyvästi...</string>
+    <string name="MH_False_Pin">Virheellinen PIN!</string>
+    <string name="MH_Syntax">Syntaksi:</string>
+    <string name="MH_Title_Help">FindMyDevice-komennot:</string>
+    <string name="MH_Help_where">" locate - lähettää nykyisen sijainnin"</string>
+    <string name="MH_Help_ring">" ring - soita puhelimen soittoääntä"</string>
+    <string name="MH_Help_Lock">" lock - lukitsee puhelimen"</string>
+    <string name="MH_Help_Stats">" stats - lähettää laitteen tiedot"</string>
+    <string name="MH_Help_delete">" delete - nollaa puhelimen"</string>
+    <string name="About_Help">Ohje</string>
+    <string name="Settings_FMD_via_Pin_Description">Kommunikoi FMD:n kanssa PIN-koodia käyttäen. Sinut lisätään väliaikaiselle valkoiselle listalle.</string>
+    <string name="Settings_Enter_Pin">Syötä PIN-koodi</string>
+    <string name="MH_Pin_Accepted">PIN-koodi hyväksytty!</string>
+    <string name="Alert_First_time_whitelist">Täällä voit lisätä yhteystietoja valkoiselle listalle. Listalla olevista yhteystiedoista voidaan seurata laitettasi lähettämällä SMS, joka sisältää komennon \"fmd\".</string>
+    <string name="Alert_First_Time_contact_added">Onneksi olkoon, olet lisännyt ensimmäisen yhteystiedon! Voit nyt kommunikoida FMD:n kanssa lähettämällä yhteystiedon puhelinnumerosta SMS-viestin, joka sisältää komennon \"fmd\". Sovellus vastaa SMS-viestiin.</string>
+    <string name="R_Stop_ring">PYSÄYTÄ SOITTO</string>
+    <string name="Settings_Log">Loki</string>
+    <string name="Settings_Show_log">Näytä loki</string>
+    <string name="Crashed_Send_log">Lähetä loki</string>
+    <string name="MH_No_GPS">Pahoittelut, sijainti on poissa käytöstä.</string>
+    <string name="About_Version">FMD:n versio:</string>
+    <string name="Main_OpenWhiteList" translatable="false">+</string>
+    <string name="Settings_FMDConfig">FMD-SMS</string>
+    <string name="Settings_WhiteList">Valkoinen lista</string>
+    <string name="Settings_OpenCellId">OpenCelliD</string>
+    <string name="Settings_Permissions">Käyttöoikeudet</string>
+    <string name="Settings_Logs">Lokit</string>
+    <string name="Settings_About">Tietoa</string>
+    <string name="Settings_Settings">Asetukset</string>
+    <string name="Error">Virhe</string>
+    <string name="Main_WhiteListCounterText">Valkoinen lista:</string>
+    <string name="OpenCellId_OpenCellId">OpenCelliD</string>
+    <string name="OpenCellId_API_Key_Description">API-KEY:</string>
+    <string name="Notification_Usage">Käyttö</string>
+    <string name="Pin_Usage">PIN-koodin käyttö</string>
+    <string name="Notification_Lifecycle">Palvelimen tila</string>
+    <string name="Notification_Usage_Description">Ilmoitus FMD:n käytöstä.</string>
+    <string name="Notification_Lifecycle_Description">Ilmoitus FindMyDevicen tilasta.</string>
+    <string name="Notification_Pin_Usage_Description">Ilmoitus PIN-koodin käytöstä.</string>
+    <string name="JSON_RL_Error">Virhe OpenCelliD:n sijaintitiedon saamisessa. Ole hyvä ja koita seuraavaa linkkiä. Lon- ja lat-parametrit vaaditaan.</string>
+    <string name="JSON_RL_OpenCellIdLocation">"OpenCelliD-sijainti"</string>
+    <string name="GPS_GSM_Data">GSM-Cell-Tiedot:</string>
+    <string name="LockScreen_Usage_detectd">FMD: Käyttö havaittu.</string>
+    <string name="LockScreen_Backbutton_pressed">FMD: Takaisin-painiketta painettu.</string>
+    <string name="Toast_Empty_FMDCommand">Tyhjää komentoa ei hyväksytä\n Palautetaan oletus.[fmd]</string>
+    <string name="FMDConfig_Alert_Pin">PIN</string>
+    <string name="Ok">Ok</string>
+    <string name="Log_Alert_LogData">Lokitiedot</string>
+    <string name="Sender_End_Of_Msg">---Viestin loppu---</string>
+    <string name="Settings_Ringer_Tone_Description">Valitse soittoääni, joka soitetaan fmd ring-komennosta.</string>
+    <string name="Settings_Select_Ringtone">Valitse soittoääni</string>
+    <string name="WhiteList_Select_Number">Valitse yksi puhelinnumeroista.</string>
+    <string name="Settings_FMDServer_Description">Käyttöönotettuna sovellus lähettää sijainnin valitsemallesi palvelimelle säännöllisesti.</string>
+    <string name="Settings_FMDServer_URL_Description">Palvelimen URL-osoite.</string>
+    <string name="Settings_FMDServer_Updattime_Description">Aikaväli sijainnin lähettämiseen palvelimelle minuutteina</string>
+    <string name="Settings_FMDServer">FMD-palvelin</string>
+    <string name="Settings_FMDServer_ID">FMD-palvelimen ID</string>
+    <string name="NOT_AVAILABLE">ei saatavilla</string>
+    <string name="Settings_FMD_Server_ID_Desc">ID-tunnus, jota käytetään laitteen etsimiseen.\n\nNäytetään, kun palvelinasetukset ja salasana ovat asetettu.</string>
+    <string name="Settings_FMDServer_Register_Button">Rekisteröidy palvelimelle</string>
+    <string name="Info_FMD_Command">FMD-Komento:</string>
+    <string name="Info_Permission_Stats">Annetut käyttöoikeudet:</string>
+    <string name="Info_Server_Enabled">Palvelin:</string>
+    <string name="Info_Server_Registered">Rekisteröity:</string>
+    <string name="value_true">tosi</string>
+    <string name="registered">rekisteröity</string>
+    <string name="not_registered">ei rekisteröity</string>
+    <string name="MH_LAST_KNOWN_LOCATION">Viimeisin sijainti</string>
+    <string name="MH_LAST_KNOWN_LOCATION_NOT_AVAILABLE">Viimeisintä sijaintitietoa ei ole saatavilla.</string>
+    <string name="Settings_FMDServer_Alert_PrivacyPolicy_Title">Privacy Policy</string>
+    <string name="Alert_First_time_fmdserver">Täällä voit määrittää sovelluksen yhteyden FMD-palvelimeen. Voit valita oletuspalvelimen tilalle toisen palvelimen syöttämällä sen URL-osoitteen. Rekisteröidy palvelimelle painamalla rekisteröidy-painiketta, sen jälkeen voit ottaa käyttöön palvelimen toimintoja. Siten puhelimesi lähettää sijaintitietosi määrittelemällesi palvelimelle. Voit tarkistaa puhelimesi sijainnin syöttämäll ID:n ja salasanan palvelimen verkkosivulla.</string>
+    <string name="accept">Hyväksy</string>
+    <string name="cancle">Peru</string>
+    <string name="Settings_FMDServer_LocationData_Description">Valitse, mitä sijaintitietoja lähetetään palvelimelle (ainakin toinen pitää olla valittuna).</string>
+    <string name="GPS">GPS</string>
+    <string name="Cell">Tukiasema</string>
+    <string name="MH_Help_Expert_GPS">" gps (on/off) - GPS päälle/pois"</string>
+    <string name="MH_NO_SECURE_SETTINGS">Pahoittelut, sovelluksella ei ole käyttöoikeutta tähän.</string>
+    <string name="MH_Help_expert">" expert - ohjesivu asiantuntijakomennoille"</string>
+    <string name="Permission_Notification">Sovellus tarjoaa mahdollisuuden vastaanottaa komentoja SMS-viestien lisäksi myös muista viestisovelluksista (kuten Telegram, WhatsApp...). Viestien lukuun vaaditaan pääsy ilmoitusksien käyttöoikeus.</string>
+    <string name="Info_Notification">Ilmoitukset</string>
+    <string name="Notification_Server">Palvelin</string>
+    <string name="NotificationServer_Description">Näytä palvelimelta lähetetyt ilmoitukset.</string>
+</resources>
