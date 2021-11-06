@@ -56,15 +56,8 @@ public class FMDServerCommandService extends JobService {
 
         final JSONObject requestAccessObject = new JSONObject();
         try {
-            requestAccessObject.put("DeviceId", (String)settings.get(Settings.SET_FMDSERVER_ID));
-            requestAccessObject.put("HashedPassword", KeyIO.readHashedPW());
-        } catch (JSONException e) {
-
-        }
-
-        final JSONObject locationDataObject = new JSONObject();
-        try {
-            locationDataObject.put("id", -1);
+            requestAccessObject.put("IDT", (String)settings.get(Settings.SET_FMDSERVER_ID));
+            requestAccessObject.put("Data", KeyIO.readHashedPW());
         } catch (JSONException e) {
 
         }
@@ -140,13 +133,13 @@ public class FMDServerCommandService extends JobService {
         public void onResponse(JSONObject response) {
             if(accessToken.equals("")){
                 try {
-                    accessToken = response.getString("AccessToken");
+                    accessToken = response.getString("IDT");
                     if(!accessToken.equals("")){
                         RequestQueue queue = PatchedVolley.newRequestQueue(context);
                         final JSONObject requestDataObject = new JSONObject();
                         try {
-                            requestDataObject.put("id", -1);
-                            requestDataObject.put("AccessToken", accessToken);
+                            requestDataObject.put("IDT", accessToken);
+                            requestDataObject.put("data", -1);
                         } catch (JSONException e) {
 
                         }
@@ -184,7 +177,7 @@ public class FMDServerCommandService extends JobService {
             }else {
 
                 try {
-                    String command = response.getString("Command");
+                    String command = response.getString("Data");
                     if (!command.equals("")) {
                         Sender sender = new FooSender();
                         Logger.init(Thread.currentThread(), context);

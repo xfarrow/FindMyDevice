@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.unifiedpush.android.connector.Registration;
+
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.WhiteList;
@@ -18,6 +20,7 @@ import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
+import de.nulide.findmydevice.receiver.PushReceiver;
 import de.nulide.findmydevice.ui.settings.SettingsActivity;
 import de.nulide.findmydevice.ui.settings.WhiteListActivity;
 import de.nulide.findmydevice.utils.Logger;
@@ -65,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         reloadViews();
         updateViews();
+
+        Registration reg = new Registration();
+        reg.registerAppWithDialog(this);
+        new PushReceiver();
     }
 
     public void reloadViews() {

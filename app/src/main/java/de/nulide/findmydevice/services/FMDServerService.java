@@ -53,8 +53,8 @@ public class FMDServerService extends JobService {
 
         final JSONObject requestAccessObject = new JSONObject();
         try {
-            requestAccessObject.put("DeviceId", id);
-            requestAccessObject.put("HashedPassword", hashedpw);
+            requestAccessObject.put("IDT", id);
+            requestAccessObject.put("Data", hashedpw);
         } catch (JSONException e) {
 
         }
@@ -233,9 +233,9 @@ public class FMDServerService extends JobService {
 
         @Override
         public void onResponse(JSONObject response) {
-            if (response.has("AccessToken")) {
+            if (response.has("Data")) {
                 try {
-                    locationDataObject.put("AccessToken", response.get("AccessToken"));
+                    locationDataObject.put("AccessToken", response.get("Data"));
                     RequestQueue queue = PatchedVolley.newRequestQueue(context);
                     JsonObjectRequest locationPutRequest = new JsonObjectRequest(Request.Method.POST, url + "/location", locationDataObject,
                             new Response.Listener<JSONObject>() {
