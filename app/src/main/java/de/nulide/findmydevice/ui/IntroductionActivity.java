@@ -92,10 +92,13 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                 break;
             case 3:
                 textViewInfoText.setText(getString(R.string.Permission_GPS));
-                if (Permission.checkGPSPermission(this)) {
+                if (Permission.checkGPSBackgroundPermission(this)) {
                     buttonGivePermission.setBackgroundColor(colorEnabled);
                 } else {
                     buttonGivePermission.setBackgroundColor(colorDisabled);
+                }
+                if(Permission.checkGPSForegroundPermission(this)){
+                    Permission.requestGPSBackgroundPermission(this);
                 }
                 break;
             case 4:
@@ -173,7 +176,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                     Permission.requestContactPermission(this);
                     break;
                 case 3:
-                    Permission.requestGPSPermission(this);
+                    Permission.requestGPSForegroundPermission(this);
                     break;
                 case 4:
                     Permission.requestDNDPermission(this);

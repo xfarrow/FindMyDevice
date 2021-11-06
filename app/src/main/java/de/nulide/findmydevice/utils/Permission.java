@@ -38,7 +38,7 @@ public class Permission {
 
     public static void initValues(Context context) {
         ENABLED_PERMISSIONS = 0;
-        GPS = checkGPSPermission(context);
+        GPS = checkGPSForegroundPermission(context) && checkGPSBackgroundPermission(context);
         DEVICE_ADMIN = checkDeviceAdminPermission(context);
         WRITE_SECURE_SETTINGS = checkWriteSecurePermission(context);
         OVERLAY = checkOverlayPermission(context);
@@ -80,8 +80,12 @@ public class Permission {
         }
     }
 
-    public static void requestGPSPermission(Activity activity) {
-        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION}, PERM_GPS_ID);
+    public static void requestGPSForegroundPermission(Activity activity) {
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERM_GPS_ID);
+    }
+
+    public static void requestGPSBackgroundPermission(Activity activity) {
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, PERM_GPS_ID);
     }
 
     public static void requestContactPermission(Activity activity) {
@@ -141,8 +145,12 @@ public class Permission {
         }
     }
 
-    public static boolean checkGPSPermission(Context context) {
+    public static boolean checkGPSForegroundPermission(Context context) {
         return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static boolean checkGPSBackgroundPermission(Context context) {
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     public static boolean checkContactsPermission(Context context) {
