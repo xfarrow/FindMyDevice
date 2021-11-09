@@ -48,7 +48,7 @@ public class FMDServerCommandService extends JobService {
     @SuppressLint("NewApi")
     @Override
     public boolean onStartJob(JobParameters params) {
-            IO.context = this;
+        IO.context = this;
         Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         String url = (String)settings.get(Settings.SET_FMDSERVER_URL);
         RequestQueue queue = PatchedVolley.newRequestQueue(this);
@@ -104,7 +104,16 @@ public class FMDServerCommandService extends JobService {
         builder.setOverrideDeadline(30 * 1000 * 60);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         jobScheduler.schedule(builder.build());
+    }
 
+    @SuppressLint("NewApi")
+    public static void scheduleJobNow(Context context) {
+        ComponentName serviceComponent = new ComponentName(context, FMDServerCommandService.class);
+        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, serviceComponent);
+        builder.setMinimumLatency(0);
+        builder.setOverrideDeadline(1000);
+        JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
+        jobScheduler.schedule(builder.build());
     }
 
     private class AccesssTokenAndCommandListener implements Response.Listener<JSONObject> {
@@ -133,13 +142,13 @@ public class FMDServerCommandService extends JobService {
         public void onResponse(JSONObject response) {
             if(accessToken.equals("")){
                 try {
-                    accessToken = response.getString("IDT");
+                    accessToken = response.getString("Data");
                     if(!accessToken.equals("")){
                         RequestQueue queue = PatchedVolley.newRequestQueue(context);
                         final JSONObject requestDataObject = new JSONObject();
                         try {
                             requestDataObject.put("IDT", accessToken);
-                            requestDataObject.put("data", -1);
+                            requestDataObject.put("Data", "");
                         } catch (JSONException e) {
 
                         }
