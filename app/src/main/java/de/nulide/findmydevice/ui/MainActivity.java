@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewNotification;
     private TextView textViewServerServiceEnabled;
     private TextView textViewServerRegistered;
+    private TextView textViewPush;
     private Button buttonOpenWhitelist;
     private ExpandableCardView expandableCardViewPermissions;
 
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonOpenWhitelist.setOnClickListener(this);
         textViewServerServiceEnabled = findViewById(R.id.textViewServerEnabled);
         textViewServerRegistered = findViewById(R.id.textViewRegisteredOnServer);
+        textViewPush = findViewById(R.id.textViewPushAvailable);
         expandableCardViewPermissions = findViewById(R.id.expandableCardViewPermissions);
     }
 
@@ -174,6 +176,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else{
             textViewServerRegistered.setText(getString(R.string.Disabled));
             textViewServerRegistered.setTextColor(colorDisabled);
+        }
+
+        Registration reg = new Registration();
+        if(reg.getDistributors(this).size() > 0){
+            textViewPush.setText(R.string.Available);
+            textViewPush.setTextColor(colorEnabled);
+        }else{
+            textViewPush.setTextColor(colorDisabled);
+            textViewPush.setText(R.string.NOT_AVAILABLE);
         }
 
     }

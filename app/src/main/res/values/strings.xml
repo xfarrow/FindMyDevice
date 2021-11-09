@@ -103,7 +103,8 @@
     <string name="Settings_FMDServer_Updattime_Description">The time in minutes in which fmd should send new location data to the server</string>
     <string name="Settings_FMDServer">FMD-Server</string>
     <string name="Settings_FMDServer_ID">FMDServer ID</string>
-    <string name="NOT_AVAILABLE">not available</string>
+    <string name="NOT_AVAILABLE">Not Available</string>
+    <string name="Available">Available</string>
     <string name="Settings_FMD_Server_ID_Desc">The ID you need to search for the Device.\n\nWill be shown once ServerSettings are filled and password is set.</string>
     <string name="Settings_FMDServer_Register_Button">Register on Server</string>
     <string name="Info_FMD_Command">FMD-Command:</string>
@@ -130,4 +131,5 @@
     <string name="Notification_Server">Server</string>
     <string name="NotificationServer_Description">Display notifications send from the server.</string>
     <string name="Settings_FMDServer_AutoUpload_Description">When the location is requested by sms or any other future method, the location can also be transmitted to the server when this option is enabled.</string>
+    <string name="Info_Server_Push">Push</string>
 </resources>

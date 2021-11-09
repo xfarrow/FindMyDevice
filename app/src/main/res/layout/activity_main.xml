@@ -175,6 +175,32 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:text="@string/Info_Server_Push"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/textViewPushAvailable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal"
+                    android:text="@string/NOT_AVAILABLE"
+                    android:textSize="21sp" />
+
+            </LinearLayout>
+
 
 
 
