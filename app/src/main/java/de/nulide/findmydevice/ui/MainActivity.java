@@ -68,10 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         reloadViews();
         updateViews();
-
-        Registration reg = new Registration();
-        reg.registerAppWithDialog(this);
-        new PushReceiver();
     }
 
     public void reloadViews() {

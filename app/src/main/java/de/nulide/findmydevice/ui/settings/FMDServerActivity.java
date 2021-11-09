@@ -1,8 +1,5 @@
 package de.nulide.findmydevice.ui.settings;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
@@ -19,18 +16,19 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.mindrot.jbcrypt.BCrypt;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Calendar;
+import org.unifiedpush.android.connector.Registration;
 
 import de.nulide.findmydevice.R;
-import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.Keys;
+import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.KeyIO;
 import de.nulide.findmydevice.data.io.json.JSONMap;
-import de.nulide.findmydevice.services.FMDServerCommandService;
+import de.nulide.findmydevice.receiver.PushReceiver;
 import de.nulide.findmydevice.services.FMDServerService;
 import de.nulide.findmydevice.utils.CypherUtils;
 
@@ -142,7 +140,9 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
             if (isChecked) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FMDServerService.scheduleJob(this, 0);
-                    FMDServerCommandService.scheduleJob(this);
+                    Registration reg = new Registration();
+                    reg.registerAppWithDialog(context);
+                    new PushReceiver();
                 }
             }else{
                 FMDServerService.cancleAll(this);

@@ -86,24 +86,12 @@ public class FMDServerCommandService extends JobService {
         };
         queue.add(accessRequest);
 
-
-        scheduleJob(this);
         return true;
     }
 
     @Override
     public boolean onStopJob(JobParameters params) {
         return false;
-    }
-
-    @SuppressLint("NewApi")
-    public static void scheduleJob(Context context) {
-        ComponentName serviceComponent = new ComponentName(context, FMDServerCommandService.class);
-        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, serviceComponent);
-        builder.setMinimumLatency(15 * 1000 * 60);
-        builder.setOverrideDeadline(30 * 1000 * 60);
-        JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
-        jobScheduler.schedule(builder.build());
     }
 
     @SuppressLint("NewApi")
@@ -200,7 +188,6 @@ public class FMDServerCommandService extends JobService {
                         }else {
                             ch.getMessageHandler().handle(fmdCommand + " " + command, context);
                         }
-                        scheduleJob(context);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
