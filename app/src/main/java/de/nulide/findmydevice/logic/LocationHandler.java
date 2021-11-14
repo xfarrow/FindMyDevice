@@ -13,6 +13,8 @@ public class LocationHandler {
 
     private ComponentHandler ch;
 
+    private boolean sendToServer;
+
 
     public LocationHandler(ComponentHandler ch){
         this.ch = ch;
@@ -27,7 +29,7 @@ public class LocationHandler {
         ch.getSettings().set(Settings.SET_LAST_KNOWN_LOCATION_LON, lon);
         ch.getSettings().set(Settings.SET_LAST_KNOWN_LOCATION_TIME, Calendar.getInstance().getTimeInMillis());
 
-        if((Boolean) ch.getSettings().get(Settings.SET_FMDSERVER_AUTO_UPLOAD)){
+        if(sendToServer || (Boolean) ch.getSettings().get(Settings.SET_FMDSERVER_AUTO_UPLOAD)){
             String id =  (String) ch.getSettings().get(Settings.SET_FMDSERVER_ID);
             if(!id.isEmpty()) {
                 FMDServerService.sendNewLocation(ch.getContext(), provider, lat, lon, (String) ch.getSettings().get(Settings.SET_FMDSERVER_URL), (String) ch.getSettings().get(Settings.SET_FMDSERVER_ID), KeyIO.readHashedPW());
@@ -50,5 +52,9 @@ public class LocationHandler {
         StringBuilder link = new StringBuilder("https://www.openstreetmap.org/?mlat=");
         link.append(lat).append("&mlon=").append(lon).append("#map=14/").append(lat).append("/").append(lon);
         return link.toString();
+    }
+
+    public void setSendToServer(boolean sendToServer) {
+        this.sendToServer = sendToServer;
     }
 }
