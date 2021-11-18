@@ -97,7 +97,7 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                 } else {
                     buttonGivePermission.setBackgroundColor(colorDisabled);
                 }
-                if(Permission.checkGPSForegroundPermission(this)){
+                if(Permission.checkGPSForegroundPermission(this) && !Permission.checkGPSBackgroundPermission(this)){
                     Permission.requestGPSBackgroundPermission(this);
                 }
                 break;
