@@ -132,4 +132,7 @@
     <string name="NotificationServer_Description">Display notifications send from the server.</string>
     <string name="Settings_FMDServer_AutoUpload_Description">When the location is requested by sms or any other future method, the location can also be transmitted to the server when this option is enabled.</string>
     <string name="Info_Server_Push">Push</string>
+    <string name="Settings_FMDServer_Delete_Button">Delete Data</string>
+    <string name="Settings_FMDServer_Alert_DeleteData">Delete Data</string>
+    <string name="Settings_FMDServer_Alert_DeleteData_Desc">This will delete all Data from the Server. Are you sure?</string>
 </resources>

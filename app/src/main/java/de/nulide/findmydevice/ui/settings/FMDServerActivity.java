@@ -42,6 +42,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     private EditText editTextFMDServerUpdateTime;
     private TextView textViewFMDServerID;
     private Button registerButton;
+    private Button deleteButton;
     private CheckBox checkBoxFMDServerGPS;
     private CheckBox checkBoxFMDServerCell;
 
@@ -86,8 +87,14 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
         editTextFMDServerUpdateTime.addTextChangedListener(this);
 
         textViewFMDServerID = findViewById(R.id.textViewID);
+
+        deleteButton = findViewById(R.id.buttonDeleteData);
+        deleteButton.setOnClickListener(this);
+
         if (!((String) settings.get(Settings.SET_FMDSERVER_ID)).isEmpty()) {
             textViewFMDServerID.setText((String) settings.get(Settings.SET_FMDSERVER_ID));
+            deleteButton.setVisibility(View.VISIBLE);
+            deleteButton.setEnabled(true);
         }
 
         registerButton = findViewById(R.id.buttonRegisterOnServer);
@@ -236,6 +243,30 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                     })
                     .setNegativeButton(getString(R.string.cancle), null)
                     .show();
+        }else if(v == deleteButton){
+            AlertDialog.Builder privacyPolicy = new AlertDialog.Builder(context);
+            privacyPolicy.setTitle(getString(R.string.Settings_FMDServer_Alert_DeleteData))
+                    .setMessage(R.string.Settings_FMDServer_Alert_DeleteData_Desc)
+                    .setPositiveButton(getString(R.string.Ok), new DialogClickListenerForUnregistration(this))
+                    .setNegativeButton(getString(R.string.cancle), null)
+                    .show();
         }
     }
+
+    private class DialogClickListenerForUnregistration implements DialogInterface.OnClickListener{
+
+        private Context context;
+
+        public DialogClickListenerForUnregistration(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            FMDServerService.unregisterOnServer(context);
+            finish();
+            startActivity(getIntent());
+        }
+    }
+
 }

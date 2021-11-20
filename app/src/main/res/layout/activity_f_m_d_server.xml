@@ -88,6 +88,16 @@
                 android:text="@string/NOT_AVAILABLE"
                 android:gravity="center_horizontal" />
 
+            <Button
+                android:id="@+id/buttonDeleteData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:enabled="false"
+                android:ems="10"
+                android:layout_margin="1mm"
+                android:text="@string/Settings_FMDServer_Delete_Button" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

@@ -14,7 +14,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,7 +69,7 @@ public class FMDServerService extends JobService {
 
         }
 
-        JsonObjectRequest accessRequest = new JsonObjectRequest(Request.Method.PUT, url + "/requestAccess", requestAccessObject, new AccesssTokenListener(context, locationDataObject, url),
+        JsonObjectRequest accessRequest = new JsonObjectRequest(Request.Method.PUT, url + "/requestAccess", requestAccessObject, new AccesssTokenListenerForLocation(context, locationDataObject, url),
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -141,6 +140,47 @@ public class FMDServerService extends JobService {
             }
         };
         queue.add(putRequest);
+    }
+
+    public static void unregisterOnServer(Context context) {
+        IO.context = context;
+        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        RequestQueue queue = PatchedVolley.newRequestQueue(context);
+        String url = (String)settings.get(Settings.SET_FMDSERVER_URL);
+        final JSONObject requestAccessObject = new JSONObject();
+        try {
+            requestAccessObject.put("IDT", (String)settings.get(Settings.SET_FMDSERVER_ID));
+            requestAccessObject.put("Data", KeyIO.readHashedPW());
+        } catch (JSONException e) {
+
+        }
+
+        JsonObjectRequest accessRequest = new JsonObjectRequest(Request.Method.PUT, url + "/requestAccess", requestAccessObject, new FMDServerService.AccesssTokenListenerForUnregistratioon(context, url),
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getHeaders()
+            {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Accept", "application/json");
+                return headers;
+            }
+
+            @Override
+            public byte[] getBody() {
+                return requestAccessObject.toString().getBytes(StandardCharsets.UTF_8);
+            }
+        };
+        queue.add(accessRequest);
+        settings.set(Settings.SET_FMDSERVER_ID, "");
+        settings.set(Settings.SET_FMDSERVER_AUTO_UPLOAD, false);
+        settings.setNow(Settings.SET_FMDSERVER_UPLOAD_SERVICE, false);
     }
 
     public static void scheduleJob(Context context, int time) {
@@ -221,13 +261,13 @@ public class FMDServerService extends JobService {
 
     }
 
-    public static class AccesssTokenListener implements Response.Listener<JSONObject> {
+    public static class AccesssTokenListenerForLocation implements Response.Listener<JSONObject> {
 
         private final Context context;
         private final JSONObject locationDataObject;
         private final String url;
 
-        public AccesssTokenListener(Context context, JSONObject locationDataObject, String url) {
+        public AccesssTokenListenerForLocation(Context context, JSONObject locationDataObject, String url) {
             this.context = context;
             this.locationDataObject = locationDataObject;
             this.url = url;
@@ -270,6 +310,61 @@ public class FMDServerService extends JobService {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        }
+
+
+    }
+
+    public static class AccesssTokenListenerForUnregistratioon implements Response.Listener<JSONObject> {
+
+        private final Context context;
+        private final String url;
+
+        public AccesssTokenListenerForUnregistratioon(Context context, String url) {
+            this.context = context;
+            this.url = url;
+        }
+
+        @Override
+        public void onResponse(JSONObject response) {
+            if (response.has("Data")) {
+                final JSONObject deletionRequestJSON = new JSONObject();
+                try {
+                    deletionRequestJSON.put("IDT", response.get("Data"));
+                    deletionRequestJSON.put("Data", "");
+                } catch (JSONException e) {
+
+                }
+                RequestQueue queue = PatchedVolley.newRequestQueue(context);
+                JsonObjectRequest deletionRequest = new JsonObjectRequest(Request.Method.POST, url + "/device", deletionRequestJSON,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                error.printStackTrace();
+                            }
+                        }) {
+
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("Accept", "application/json");
+                        return headers;
+                    }
+
+                    @Override
+                    public byte[] getBody() {
+                        return deletionRequestJSON.toString().getBytes(StandardCharsets.UTF_8);
+                    }
+                };
+                queue.add(deletionRequest);
             }
         }
 
