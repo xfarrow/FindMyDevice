@@ -40,7 +40,7 @@
             android:label="@string/Settings_FMDServer"></activity>
         <activity android:name=".ui.settings.OpenCellIdActivity" />
         <activity
-            android:name=".ui.settings.FMDSMSActivity"
+            android:name=".ui.settings.FMDConfigActivity"
             android:label="@string/Settings_FMDConfig" />
         <activity
             android:name=".ui.settings.AboutActivity"

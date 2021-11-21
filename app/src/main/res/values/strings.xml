@@ -68,7 +68,7 @@
     <string name="MH_No_GPS">Sorry, location is turned off.</string>
     <string name="About_Version">FMD version:</string>
     <string name="Main_OpenWhiteList" translatable="false">+</string>
-    <string name="Settings_FMDConfig">FMD-SMS</string>
+    <string name="Settings_FMDConfig">FMD-Config</string>
     <string name="Settings_WhiteList">WhiteList</string>
     <string name="Settings_OpenCellId">OpenCellId</string>
     <string name="Settings_Permissions">Permissions</string>
@@ -135,4 +135,5 @@
     <string name="Settings_FMDServer_Delete_Button">Delete Data</string>
     <string name="Settings_FMDServer_Alert_DeleteData">Delete Data</string>
     <string name="Settings_FMDServer_Alert_DeleteData_Desc">This will delete all Data from the Server. Are you sure?</string>
+    <string name="Settings_FMD_Send_Loc_on_Boot">Send you location when the device boots up.</string>
 </resources>
