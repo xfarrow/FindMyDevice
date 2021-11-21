@@ -25,8 +25,8 @@ public class GPSTimeOutService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        Logger.init(Thread.currentThread(), this);
         IO.context = this;
+        Logger.init(Thread.currentThread(), this);
         Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         Logger.logSession("GPS", "GPS timed out.");
         if(((Integer)settings.get(Settings.SET_GPS_STATE)) == 2){
