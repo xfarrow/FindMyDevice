@@ -3,6 +3,7 @@ package de.nulide.findmydevice.ui.settings;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -81,8 +82,23 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v == buttonAddContact) {
+            PackageManager packageManager = getPackageManager();
             Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-            startActivityForResult(intent, 1);
+
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivityForResult(intent, 1);
+            } else {
+                intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivityForResult(intent, 1);
+                } else {
+                    Toast.makeText(this, getString(R.string.not_possible), 5);
+                }
+
+
+            }
+
+
         }
     }
 
