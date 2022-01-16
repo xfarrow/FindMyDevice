@@ -1,5 +1,6 @@
 package de.nulide.findmydevice.logic;
 
+import android.app.NotificationManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +33,7 @@ public class MessageHandler {
 
     public static final String COM_EXPERT = "expert";
     public static final String COM_EXPERT_GPS = "gps";
+    public static final String COM_EXPERT_SOUND = "sound";
 
 
     private ComponentHandler ch;
@@ -168,9 +170,11 @@ public class MessageHandler {
             } else if (msg.startsWith(COM_EXPERT)) {
                 executedCommand = COM_DELETE;
                 replyBuilder.append((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_Expert_GPS)).append("\n");
+                replyBuilder.append((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_Expert_Sound)).append("\n");
 
 
-            //GPS
+
+                //GPS
             } else if(msg.startsWith(COM_EXPERT_GPS)) {
 
                 if(Permission.WRITE_SECURE_SETTINGS){
@@ -185,7 +189,16 @@ public class MessageHandler {
                     replyBuilder.append(context.getString(R.string.MH_NO_SECURE_SETTINGS));
                 }
 
-            }else {
+            }else if(msg.startsWith(COM_EXPERT_SOUND)) {
+                if(Permission.DND){
+                    NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    if(msg.contains("on")){
+                        nm.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL);
+                    }else if(msg.contains("off")){
+                        nm.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE);
+                    }
+                }
+            }else{
                 replyBuilder.append(context.getString(R.string.MH_Title_Help)).append("\n");
                 if (Permission.GPS) {
                     replyBuilder.append((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_where)).append("\n");

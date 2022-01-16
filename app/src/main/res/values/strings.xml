@@ -138,4 +138,5 @@
     <string name="Settings_FMD_Send_Loc_on_Boot">Send you location when the device boots up.</string>
     <string name="FMDConfig_Alert_Password">Password</string>
     <string name="Settings_Enter_Password">Please enter a password.</string>
+    <string name="MH_Help_Expert_Sound">" sound (on/off) - turns on/off the sound"</string>
 </resources>

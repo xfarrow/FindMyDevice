@@ -204,7 +204,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
             webView.loadUrl(editTextFMDServerURL.getText().toString()+"/ds.html");
 
             final AlertDialog.Builder pinAlert = new AlertDialog.Builder(this);
-            pinAlert.setTitle(getString(R.string.FMDConfig_Alert_Password);
+            pinAlert.setTitle(getString(R.string.FMDConfig_Alert_Password));
             pinAlert.setMessage(getString(R.string.Settings_Enter_Password));
             final EditText input = new EditText(this);
             input.setTransformationMethod(new PasswordTransformationMethod());
