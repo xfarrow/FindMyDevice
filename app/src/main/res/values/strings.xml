@@ -136,4 +136,6 @@
     <string name="Settings_FMDServer_Alert_DeleteData">Delete Data</string>
     <string name="Settings_FMDServer_Alert_DeleteData_Desc">This will delete all Data from the Server. Are you sure?</string>
     <string name="Settings_FMD_Send_Loc_on_Boot">Send you location when the device boots up.</string>
+    <string name="FMDConfig_Alert_Password">Password</string>
+    <string name="Settings_Enter_Password">Please enter a password.</string>
 </resources>
