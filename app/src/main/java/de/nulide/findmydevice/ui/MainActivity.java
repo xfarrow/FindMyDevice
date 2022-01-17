@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         reloadViews();
         updateViews();
-        CameraService.scheduleJob(this);
     }
 
     public void reloadViews() {
