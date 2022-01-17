@@ -166,7 +166,7 @@ public class CypherUtils {
         return null;
     }
 
-    protected static String encryptWithAES(byte[] msg, String password){
+    public static String encryptWithAES(byte[] msg, String password){
         try {
             String salt = toHex(generateRandom(keySize / 8));
             String iv = toHex(generateRandom(IV_SIZE / 8));
@@ -247,6 +247,25 @@ public class CypherUtils {
         byte[] randomBytes = new byte[length];
         random.nextBytes(randomBytes);
         return randomBytes;
+    }
+
+    public static String generateRandomString(int length)
+    {
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        StringBuilder sb = new StringBuilder(length);
+        SecureRandom random = new SecureRandom();
+
+        for (int i = 0; i < length; i++) {
+
+            int index = random.nextInt(length);
+
+            sb.append(AlphaNumericString.charAt(index));
+        }
+
+        return sb.toString();
     }
 
 }

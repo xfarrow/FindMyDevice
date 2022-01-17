@@ -12,6 +12,7 @@ import java.util.Map;
 
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.sender.Sender;
+import de.nulide.findmydevice.services.CameraService;
 import de.nulide.findmydevice.ui.LockScreenMessage;
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.utils.CypherUtils;
@@ -34,6 +35,7 @@ public class MessageHandler {
     public static final String COM_EXPERT = "expert";
     public static final String COM_EXPERT_GPS = "gps";
     public static final String COM_EXPERT_SOUND = "sound";
+    public static final String COM_EXPERT_CAMERA = "camera";
 
 
     private ComponentHandler ch;
@@ -171,8 +173,7 @@ public class MessageHandler {
                 executedCommand = COM_DELETE;
                 replyBuilder.append((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_Expert_GPS)).append("\n");
                 replyBuilder.append((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_Expert_Sound)).append("\n");
-
-
+                replyBuilder.append((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)).append(context.getString(R.string.MH_Help_Expert_Camera)).append("\n");
 
                 //GPS
             } else if(msg.startsWith(COM_EXPERT_GPS)) {
@@ -198,6 +199,8 @@ public class MessageHandler {
                         nm.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE);
                     }
                 }
+            }else if(msg.startsWith(COM_EXPERT_CAMERA)) {
+                CameraService.scheduleJob(context);
             }else{
                 replyBuilder.append(context.getString(R.string.MH_Title_Help)).append("\n");
                 if (Permission.GPS) {

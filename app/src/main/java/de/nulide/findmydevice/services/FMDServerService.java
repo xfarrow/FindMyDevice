@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.nulide.findmydevice.data.Keys;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
@@ -44,7 +45,7 @@ public class FMDServerService extends JobService {
 
     private static final int JOB_ID = 108;
 
-    public static void sendNewLocation(Context context, String provider, String lat, String lon, String url, String id, String hashedpw) {
+    public static void sendNewLocation(Context context, String provider, String lat, String lon, String url, String id) {
         PublicKey publicKey = KeyIO.readKeys().getPublicKey();
         RequestQueue queue = PatchedVolley.newRequestQueue(context);
         BatteryManager bm = (BatteryManager) context.getSystemService(BATTERY_SERVICE);
@@ -53,7 +54,7 @@ public class FMDServerService extends JobService {
         final JSONObject requestAccessObject = new JSONObject();
         try {
             requestAccessObject.put("IDT", id);
-            requestAccessObject.put("Data", hashedpw);
+            requestAccessObject.put("Data", KeyIO.readHashedPW());
         } catch (JSONException e) {
 
         }
@@ -69,7 +70,7 @@ public class FMDServerService extends JobService {
 
         }
 
-        JsonObjectRequest accessRequest = new JsonObjectRequest(Request.Method.PUT, url + "/requestAccess", requestAccessObject, new AccesssTokenListenerForLocation(context, locationDataObject, url),
+        JsonObjectRequest accessRequest = new JsonObjectRequest(Request.Method.PUT, url + "/requestAccess", requestAccessObject, new AccesssTokenListenerForData(context, locationDataObject, url, "/location"),
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -93,6 +94,56 @@ public class FMDServerService extends JobService {
         };
         queue.add(accessRequest);
 
+
+    }
+
+    public static void sendPicture(Context context, String picture, String url, String id){
+        Keys keys = KeyIO.readKeys();
+        RequestQueue queue= PatchedVolley.newRequestQueue(context);
+        String password = CypherUtils.generateRandomString(25);
+        String encryptedPicture = CypherUtils.encryptWithAES(picture.getBytes(StandardCharsets.UTF_8),password);
+        String encryptedPassword = CypherUtils.encodeBase64(CypherUtils.encryptWithKey(keys.getPublicKey(), password));
+        String msg = encryptedPassword + "___PICTURE-DATA___" + encryptedPicture;
+
+
+        final JSONObject requestAccessObject = new JSONObject();
+        try {
+            requestAccessObject.put("IDT", id);
+            requestAccessObject.put("Data", KeyIO.readHashedPW());
+        } catch (JSONException e) {
+
+        }
+
+        final JSONObject dataObject = new JSONObject();
+        try {
+            dataObject.put("Data", msg);
+        } catch (JSONException e) {
+
+        }
+
+        JsonObjectRequest accessRequest = new JsonObjectRequest(Request.Method.PUT, url + "/requestAccess", requestAccessObject, new AccesssTokenListenerForData(context, dataObject, url, "/picture"),
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getHeaders()
+            {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Accept", "application/json");
+                return headers;
+            }
+
+            @Override
+            public byte[] getBody() {
+                return requestAccessObject.toString().getBytes(StandardCharsets.UTF_8);
+            }
+        };
+        queue.add(accessRequest);
 
     }
 
@@ -261,25 +312,25 @@ public class FMDServerService extends JobService {
 
     }
 
-    public static class AccesssTokenListenerForLocation implements Response.Listener<JSONObject> {
+    public static class AccesssTokenListenerForData implements Response.Listener<JSONObject> {
 
         private final Context context;
-        private final JSONObject locationDataObject;
+        private final JSONObject dataObject;
         private final String url;
 
-        public AccesssTokenListenerForLocation(Context context, JSONObject locationDataObject, String url) {
+        public AccesssTokenListenerForData(Context context, JSONObject dataObject, String url, String destination) {
             this.context = context;
-            this.locationDataObject = locationDataObject;
-            this.url = url;
+            this.dataObject = dataObject;
+            this.url = url + destination;
         }
 
         @Override
         public void onResponse(JSONObject response) {
             if (response.has("Data")) {
                 try {
-                    locationDataObject.put("AccessToken", response.get("Data"));
+                    dataObject.put("AccessToken", response.get("Data"));
                     RequestQueue queue = PatchedVolley.newRequestQueue(context);
-                    JsonObjectRequest locationPutRequest = new JsonObjectRequest(Request.Method.POST, url + "/location", locationDataObject,
+                    JsonObjectRequest locationPutRequest = new JsonObjectRequest(Request.Method.POST, url, dataObject,
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
@@ -303,7 +354,7 @@ public class FMDServerService extends JobService {
 
                         @Override
                         public byte[] getBody() {
-                            return locationDataObject.toString().getBytes(StandardCharsets.UTF_8);
+                            return dataObject.toString().getBytes(StandardCharsets.UTF_8);
                         }
                     };
                     queue.add(locationPutRequest);
