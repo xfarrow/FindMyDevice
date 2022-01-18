@@ -204,6 +204,11 @@ public class MessageHandler {
             }else if(msg.startsWith(COM_EXPERT_CAMERA)) {
                 Intent dummyCameraActivity = new Intent(context, DummyCameraActivity.class);
                 dummyCameraActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                if(msg.contains("front")){
+                    dummyCameraActivity.putExtra(DummyCameraActivity.CAMERA, 1);
+                }else {
+                    dummyCameraActivity.putExtra(DummyCameraActivity.CAMERA, 0);
+                }
                 context.startActivity(dummyCameraActivity);
             }else{
                 replyBuilder.append(context.getString(R.string.MH_Title_Help)).append("\n");

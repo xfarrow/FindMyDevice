@@ -12,6 +12,8 @@ import de.nulide.findmydevice.services.CameraService;
 
 public class DummyCameraActivity extends AppCompatActivity {
 
+    public static String CAMERA = "camera";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +23,12 @@ public class DummyCameraActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        CameraService.startService(this);
+        int camera = 0;
+        Bundle bundle = getIntent().getExtras();
+        if(!bundle.isEmpty()){
+            camera = bundle.getInt(CAMERA);
+        }
+        CameraService.startService(this, camera);
 
         Handler handler = new Handler();
 

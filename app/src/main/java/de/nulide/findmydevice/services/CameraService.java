@@ -29,6 +29,7 @@ import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.KeyIO;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
+import de.nulide.findmydevice.ui.DummyCameraActivity;
 import de.nulide.findmydevice.ui.MainActivity;
 import de.nulide.findmydevice.ui.settings.OpenCellIdActivity;
 import de.nulide.findmydevice.utils.CypherUtils;
@@ -44,6 +45,7 @@ public class CameraService extends Service implements Camera.PictureCallback {
         IO.context = this;
         Logger.init(Thread.currentThread(), this);
         settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        int camera = intent.getExtras().getInt(DummyCameraActivity.CAMERA);
 
         PendingIntent action = PendingIntent.getActivity(this,
                 0, new Intent(this, MainActivity.class),
@@ -56,7 +58,7 @@ public class CameraService extends Service implements Camera.PictureCallback {
             startForeground(45, notification);
         }
 
-        Camera mCamera = Camera.open();
+        Camera mCamera = Camera.open(camera);
         SurfaceTexture st = new SurfaceTexture(10);
 
 
@@ -84,8 +86,9 @@ public class CameraService extends Service implements Camera.PictureCallback {
         return START_NOT_STICKY;
     }
 
-    public static void startService(Context context) {
+    public static void startService(Context context, int camera) {
         Intent intent = new Intent(context, CameraService.class);
+        intent.putExtra(DummyCameraActivity.CAMERA, camera);
         context.startForegroundService(intent);
     }
 
