@@ -13,8 +13,10 @@ import java.util.Map;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.sender.Sender;
 import de.nulide.findmydevice.services.CameraService;
+import de.nulide.findmydevice.ui.DummyCameraActivity;
 import de.nulide.findmydevice.ui.LockScreenMessage;
 import de.nulide.findmydevice.R;
+import de.nulide.findmydevice.ui.RingerActivity;
 import de.nulide.findmydevice.utils.CypherUtils;
 import de.nulide.findmydevice.logic.command.helper.GPS;
 import de.nulide.findmydevice.utils.Logger;
@@ -200,7 +202,9 @@ public class MessageHandler {
                     }
                 }
             }else if(msg.startsWith(COM_EXPERT_CAMERA)) {
-                CameraService.scheduleJob(context);
+                Intent dummyCameraActivity = new Intent(context, DummyCameraActivity.class);
+                dummyCameraActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(dummyCameraActivity);
             }else{
                 replyBuilder.append(context.getString(R.string.MH_Title_Help)).append("\n");
                 if (Permission.GPS) {

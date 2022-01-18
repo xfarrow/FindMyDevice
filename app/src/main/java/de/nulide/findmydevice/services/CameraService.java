@@ -1,5 +1,7 @@
 package de.nulide.findmydevice.services;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.app.job.JobInfo;
 import android.app.job.JobParameters;
@@ -8,8 +10,10 @@ import android.app.job.JobService;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ServiceInfo;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.IBinder;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -25,19 +29,32 @@ import de.nulide.findmydevice.data.io.JSONFactory;
 import de.nulide.findmydevice.data.io.KeyIO;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.data.io.json.JSONWhiteList;
+import de.nulide.findmydevice.ui.MainActivity;
 import de.nulide.findmydevice.ui.settings.OpenCellIdActivity;
 import de.nulide.findmydevice.utils.CypherUtils;
 import de.nulide.findmydevice.utils.Logger;
+import de.nulide.findmydevice.utils.Notifications;
 
-public class CameraService extends JobService implements Camera.PictureCallback {
+public class CameraService extends Service implements Camera.PictureCallback {
 
     private Settings settings;
 
     @Override
-    public boolean onStartJob(JobParameters params) {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         IO.context = this;
         Logger.init(Thread.currentThread(), this);
         settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+
+        PendingIntent action = PendingIntent.getActivity(this,
+                0, new Intent(this, MainActivity.class),
+                0);
+
+        Notification notification = Notifications.getForegroundNotification(this).setContentTitle("FMD Camera").setContentIntent(action).build();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            startForeground(45, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA);
+        }else{
+            startForeground(45, notification);
+        }
 
         Camera mCamera = Camera.open();
         SurfaceTexture st = new SurfaceTexture(10);
@@ -64,27 +81,25 @@ public class CameraService extends JobService implements Camera.PictureCallback 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return START_NOT_STICKY;
     }
 
-    @Override
-    public boolean onStopJob(JobParameters params) {
-        return false;
-    }
-
-    public static void scheduleJob(Context context) {
-        ComponentName serviceComponent = new ComponentName(context, CameraService.class);
-        JobInfo.Builder builder = new JobInfo.Builder(2848, serviceComponent);
-        builder.setMinimumLatency(0);
-        builder.setOverrideDeadline(0);
-        JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
-        jobScheduler.schedule(builder.build());
+    public static void startService(Context context) {
+        Intent intent = new Intent(context, CameraService.class);
+        context.startForegroundService(intent);
     }
 
     @Override
     public void onPictureTaken(byte[] data, Camera camera) {
         String picture = CypherUtils.encodeBase64(data);
         FMDServerService.sendPicture(this, picture, (String) settings.get(Settings.SET_FMDSERVER_URL), (String) settings.get(Settings.SET_FMDSERVER_ID));
+        stopForeground(true);
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }
 
