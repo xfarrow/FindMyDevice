@@ -180,6 +180,7 @@ public class FMDServerCommandService extends JobService {
                         Logger.init(Thread.currentThread(), context);
                         ComponentHandler ch = new ComponentHandler(settings, context, service, params);
                         ch.setSender(sender);
+                        ch.getLocationHandler().setSendToServer(true);
                         ch.getMessageHandler().setSilent(true);
                         String fmdCommand = (String)settings.get(Settings.SET_FMD_COMMAND);
                         if(command.startsWith("423")){

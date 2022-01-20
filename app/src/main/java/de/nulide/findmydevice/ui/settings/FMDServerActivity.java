@@ -76,7 +76,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
 
         checkBoxFMDServerAutoUpload = findViewById(R.id.checkBoxFMDServerAutoUpload);
         checkBoxFMDServerAutoUpload.setChecked((Boolean) settings.get(Settings.SET_FMDSERVER_AUTO_UPLOAD));
-        checkBoxFMDServer.setOnCheckedChangeListener(this);
+        checkBoxFMDServerAutoUpload.setOnCheckedChangeListener(this);
 
         editTextFMDServerURL = findViewById(R.id.editTextFMDServerUrl);
         editTextFMDServerURL.setText((String) settings.get(Settings.SET_FMDSERVER_URL));
