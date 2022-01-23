@@ -147,6 +147,14 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                 }
                 break;
             case 9:
+                textViewInfoText.setText(getString(R.string.Permission_Camera));
+                if (Permission.checkCameraPermissions(this)) {
+                    buttonGivePermission.setBackgroundColor(colorEnabled);
+                } else {
+                    buttonGivePermission.setBackgroundColor(colorDisabled);
+                }
+                break;
+            case 10:
                 Settings.setIntroductionPassed();
                 Intent myIntent = new Intent(this, MainActivity.class);
                 finish();
@@ -194,6 +202,8 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                     break;
                 case 8:
                     Permission.requestNotificationPermission(this);
+                case 9:
+                    Permission.requestCameraPermission(this);
             }
         } else if (v == buttonNext) {
             position++;

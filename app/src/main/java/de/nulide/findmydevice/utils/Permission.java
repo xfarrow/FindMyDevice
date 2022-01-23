@@ -24,6 +24,7 @@ public class Permission {
     private static final int PERM_SMS_ID = 61341;
     private static final int PERM_GPS_ID = 61342;
     private static final int PERM_CONTACT_ID = 61343;
+    private static final int PERM_CAMERA_ID = 61344;
 
     public static boolean GPS = false;
     public static boolean DEVICE_ADMIN = false;
@@ -31,10 +32,11 @@ public class Permission {
     public static boolean OVERLAY = false;
     public static boolean WRITE_SECURE_SETTINGS = false;
     public static boolean NOTIFICATION = false;
+    public static boolean CAMERA = false;
     public static boolean CORE = false;
 
     public static int ENABLED_PERMISSIONS = 0;
-    public static final int AVAILABLE_PERMISSIONS = 7;
+    public static final int AVAILABLE_PERMISSIONS = 8;
 
     public static void initValues(Context context) {
         ENABLED_PERMISSIONS = 0;
@@ -43,6 +45,7 @@ public class Permission {
         WRITE_SECURE_SETTINGS = checkWriteSecurePermission(context);
         OVERLAY = checkOverlayPermission(context);
         NOTIFICATION = checkNotificationPermission(context);
+        CAMERA = checkCameraPermissions(context);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             DND = checkDNDPermission(context);
         }
@@ -70,6 +73,9 @@ public class Permission {
         if(NOTIFICATION){
             ENABLED_PERMISSIONS++;
         }
+        if(CAMERA){
+            ENABLED_PERMISSIONS++;
+        }
     }
 
     public static void requestSMSPermission(Activity activity) {
@@ -90,6 +96,10 @@ public class Permission {
 
     public static void requestContactPermission(Activity activity) {
         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CONTACTS}, PERM_CONTACT_ID);
+    }
+
+    public static void requestCameraPermission(Activity activity) {
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA}, PERM_CONTACT_ID);
     }
 
     public static void requestOverlayPermission(Activity activity) {
@@ -155,6 +165,10 @@ public class Permission {
 
     public static boolean checkContactsPermission(Context context) {
         return ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static boolean checkCameraPermissions(Context context) {
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     }
 
     public static boolean checkDeviceAdminPermission(Context context) {

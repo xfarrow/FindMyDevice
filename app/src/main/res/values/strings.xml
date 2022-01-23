@@ -142,4 +142,6 @@
     <string name="not_possible">This action was not possible.</string>
     <string name="MH_Help_Expert_Camera">" camera (front/back) - takes a picture and sends it to fmdserver"</string>
     <string name="Notification_ForegroundService">Notification for specific services that will run in the background. Like camera, ...</string>
+    <string name="Permission_Camera">If you want to remotely receive pictures of your phone, the camera permission is needed.</string>
+    <string name="Info_Camera">Camera</string>
 </resources>
