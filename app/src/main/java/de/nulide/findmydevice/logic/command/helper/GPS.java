@@ -81,9 +81,6 @@ public class GPS implements LocationListener {
     @Override
     public void onProviderDisabled(@NonNull String provider) {
         locationManager.removeUpdates(this);
-        if(!isGPSOn(ch.getContext())){
-            ch.finishJob();
-        }
     }
 
     @SuppressLint({"MissingPermission", "NewApi"})
