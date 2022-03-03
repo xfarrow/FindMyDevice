@@ -1,6 +1,9 @@
 package de.nulide.findmydevice.receiver;
 
 import android.content.Context;
+import android.content.Intent;
+
+import androidx.annotation.NonNull;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,10 +16,10 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.unifiedpush.android.connector.MessagingReceiver;
-import org.unifiedpush.android.connector.MessagingReceiverHandler;
-import org.unifiedpush.android.connector.Registration;
+import org.unifiedpush.android.connector.UnifiedPush;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,16 +36,11 @@ import de.nulide.findmydevice.utils.PatchedVolley;
 public class PushReceiver extends MessagingReceiver {
 
     public PushReceiver() {
-        super(new handler());
+        super();
     }
 
-}
-
-class handler implements MessagingReceiverHandler {
-
-
     @Override
-    public void onMessage(@Nullable Context context, @NotNull String s, @NotNull String s1) {
+    public void onMessage(@NonNull Context context, @NonNull byte[] message, @NonNull String instance) {
         FMDServerCommandService.scheduleJobNow(
                 context);
     }
@@ -94,11 +92,6 @@ class handler implements MessagingReceiverHandler {
     }
 
     @Override
-    public void onRegistrationRefused(@Nullable Context context, @NotNull String s) {
-
-    }
-
-    @Override
     public void onUnregistered(@Nullable Context context, @NotNull String s) {
 
     }
@@ -132,6 +125,13 @@ class handler implements MessagingReceiverHandler {
 
             JsonObjectRequest accessRequest = new JsonObjectRequest(Request.Method.PUT, url + "/push", dataPackage, null, null);
             queue.add(accessRequest);
+        }
+    }
+
+    public static void Register(Context c){
+        if(UnifiedPush.getDistributors(c, new ArrayList<String>()).size() > 0){
+            UnifiedPush.registerAppWithDialog(c, "", "", new ArrayList<String>(), "");
+            new PushReceiver();
         }
     }
 }

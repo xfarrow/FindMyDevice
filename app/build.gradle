@@ -50,5 +50,5 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.github.Stjinchan:ExpandableCardView:1.3.0-beta02'
     implementation 'com.github.iamrobj:NotificationHelperLibrary:2.0.5'
-    implementation 'com.github.UnifiedPush:android-connector:1.2.2'
+    implementation 'com.github.UnifiedPush:android-connector:2.0.0'
 }

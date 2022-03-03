@@ -11,7 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.unifiedpush.android.connector.Registration;
+
+import org.unifiedpush.android.connector.UnifiedPush;
+
+import java.util.ArrayList;
 
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
@@ -187,8 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViewServerRegistered.setTextColor(colorDisabled);
         }
 
-        Registration reg = new Registration();
-        if(reg.getDistributors(this).size() > 0){
+        if(UnifiedPush.getDistributors(this, new ArrayList<String>()).size() > 0){
             textViewPush.setText(R.string.Available);
             textViewPush.setTextColor(colorEnabled);
         }else{

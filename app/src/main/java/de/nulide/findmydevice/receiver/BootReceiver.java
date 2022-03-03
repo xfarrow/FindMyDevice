@@ -3,7 +3,8 @@ package de.nulide.findmydevice.receiver;
 import android.content.Context;
 import android.content.Intent;
 
-import org.unifiedpush.android.connector.Registration;
+
+import org.unifiedpush.android.connector.UnifiedPush;
 
 import de.nulide.findmydevice.data.ConfigSMSRec;
 import de.nulide.findmydevice.data.Settings;
@@ -27,11 +28,7 @@ public class BootReceiver extends SuperReceiver{
             ch.getSettings().set(Settings.SET_GPS_STATE, 1);
             if((Boolean)ch.getSettings().get(Settings.SET_FMDSERVER_UPLOAD_SERVICE)){
                 FMDServerService.scheduleJob(context, 0);
-                Registration reg = new Registration();
-                if(reg.getDistributors(context).size() > 0) {
-                    reg.registerAppWithDialog(context);
-                    new PushReceiver();
-                }
+                PushReceiver.Register(context);
             }
         }
     }

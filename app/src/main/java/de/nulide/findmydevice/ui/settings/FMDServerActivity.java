@@ -19,7 +19,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.unifiedpush.android.connector.Registration;
+
+import org.unifiedpush.android.connector.UnifiedPush;
 
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Keys;
@@ -147,9 +148,8 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
             if (isChecked) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     FMDServerService.scheduleJob(this, 0);
-                    Registration reg = new Registration();
-                    reg.registerAppWithDialog(context);
-                    new PushReceiver();
+                    PushReceiver.Register(context);
+
                 }
             }else{
                 FMDServerService.cancleAll(this);
