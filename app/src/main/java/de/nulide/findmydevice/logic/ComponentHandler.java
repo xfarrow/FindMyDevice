@@ -3,6 +3,7 @@ package de.nulide.findmydevice.logic;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Context;
+import android.os.Handler;
 
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.sender.Sender;
@@ -53,7 +54,12 @@ public class ComponentHandler {
 
     public void finishJob(){
         if(service != null) {
-            service.jobFinished(serviceParams, false);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    service.jobFinished(serviceParams, false);
+                }
+            }, 15000);
         }
     }
 }
