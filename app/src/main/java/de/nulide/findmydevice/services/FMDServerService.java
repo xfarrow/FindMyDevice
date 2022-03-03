@@ -260,6 +260,7 @@ public class FMDServerService extends JobService {
         Logger.logSession("FMDServerService", "started");
         Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         if ((Boolean) settings.get(settings.SET_FMDSERVER_UPLOAD_SERVICE)) {
+
             ComponentHandler ch = new ComponentHandler(settings, this, this, params);
             ch.setSender(sender);
             Boolean registered = !((String) ch.getSettings().get(Settings.SET_FMDSERVER_ID)).isEmpty();
@@ -279,9 +280,9 @@ public class FMDServerService extends JobService {
                 }
                 ch.getMessageHandler().handle(((String) ch.getSettings().get(Settings.SET_FMD_COMMAND)) + locateCommand, this);
             }
-            scheduleJob(this, (Integer)settings.get(Settings.SET_FMDSERVER_UPDATE_TIME));
             Logger.logSession("FMDServerService", "finished job, waiting for location");
             Logger.writeLog();
+
             return true;
         }
         return false;
@@ -290,6 +291,8 @@ public class FMDServerService extends JobService {
     @Override
     public boolean onStopJob(JobParameters params) {
         Logger.logSession("FMDServerService", "job stopped by system");
+        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        scheduleJob(this, (Integer)settings.get(Settings.SET_FMDSERVER_UPDATE_TIME));
         return false;
     }
 

@@ -35,6 +35,7 @@ public class GPSTimeOutService extends JobService {
             Logger.logSession("GPS", "turned off");
         }
         Logger.writeLog();
+        FMDServerService.scheduleJob(this, (Integer)settings.get(Settings.SET_FMDSERVER_UPDATE_TIME));
         return false;
     }
 
