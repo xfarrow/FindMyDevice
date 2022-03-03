@@ -57,9 +57,9 @@ public class ComponentHandler {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    //service.jobFinished(serviceParams, false);
+                    service.jobFinished(serviceParams, false);
                 }
-            }, 15000);
+            }, 10000);
         }
     }
 }

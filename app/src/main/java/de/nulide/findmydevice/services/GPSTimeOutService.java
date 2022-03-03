@@ -23,6 +23,8 @@ import de.nulide.findmydevice.utils.SecureSettings;
 
 public class GPSTimeOutService extends JobService {
 
+    private static final int JOB_ID = 409;
+
     @Override
     public boolean onStartJob(JobParameters params) {
         IO.context = this;
@@ -47,9 +49,9 @@ public class GPSTimeOutService extends JobService {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static void scheduleJob(Context context) {
         ComponentName serviceComponent = new ComponentName(context, GPSTimeOutService.class);
-        JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
-        builder.setMinimumLatency(15 * 1000 * 60);
-        builder.setOverrideDeadline(30 * 1000 * 60);
+        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, serviceComponent);
+        builder.setMinimumLatency(5 * 1000 * 60);
+        builder.setOverrideDeadline(10 * 1000 * 60);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         jobScheduler.schedule(builder.build());
     }
