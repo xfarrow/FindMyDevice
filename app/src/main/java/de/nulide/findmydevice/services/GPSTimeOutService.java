@@ -50,9 +50,16 @@ public class GPSTimeOutService extends JobService {
     public static void scheduleJob(Context context) {
         ComponentName serviceComponent = new ComponentName(context, GPSTimeOutService.class);
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, serviceComponent);
-        builder.setMinimumLatency(5 * 1000 * 60);
+        builder.setMinimumLatency(7 * 1000 * 60);
         builder.setOverrideDeadline(10 * 1000 * 60);
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         jobScheduler.schedule(builder.build());
+    }
+
+    public static void cancleJob(Context context){
+        JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
+        if(jobScheduler.getPendingJob(JOB_ID) != null) {
+            jobScheduler.cancel(JOB_ID);
+        }
     }
 }

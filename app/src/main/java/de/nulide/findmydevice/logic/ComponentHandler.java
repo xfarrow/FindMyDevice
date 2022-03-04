@@ -7,14 +7,15 @@ import android.os.Handler;
 
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.sender.Sender;
+import de.nulide.findmydevice.services.GPSTimeOutService;
 
 public class ComponentHandler {
 
     private Settings settings;
     private Sender sender;
     private Context context;
-    private JobService service;
-    private JobParameters serviceParams;
+    private JobService FmdServerService;
+    private JobParameters FmdServerServiceParams;
 
     private LocationHandler locationHandler;
     private MessageHandler messageHandler;
@@ -24,8 +25,8 @@ public class ComponentHandler {
         this.context = context;
         messageHandler = new MessageHandler(this);
         locationHandler = new LocationHandler(this);
-        this.service = service;
-        this.serviceParams = serviceParams;
+        this.FmdServerService = service;
+        this.FmdServerServiceParams = serviceParams;
     }
 
     public Settings getSettings() {
@@ -53,11 +54,12 @@ public class ComponentHandler {
     }
 
     public void finishJob(){
-        if(service != null) {
+        if(FmdServerService != null) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    service.jobFinished(serviceParams, false);
+                    FmdServerService.jobFinished(FmdServerServiceParams, false);
+                    GPSTimeOutService.cancleJob(context);
                 }
             }, 10000);
         }
