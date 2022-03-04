@@ -43,6 +43,8 @@ teemue - [teemue](https://gitlab.com/teemue)
 
 Herbert Reiter - [moasda](https://gitlab.com/moasda)
 
+Freetime FM  - [awesomea380](https://gitlab.com/awesomea380)
+
 # Donate
 
 <script src="https://liberapay.com/Nulide/widgets/button.js"></script>
