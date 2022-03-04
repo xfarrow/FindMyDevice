@@ -290,7 +290,7 @@ public class FMDServerService extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters params) {
-        Logger.logSession("FMDServerService", "job stopped by system");
+        Logger.log("FMDServerService", "job stopped by system");
         Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         scheduleJob(this, (Integer)settings.get(Settings.SET_FMDSERVER_UPDATE_TIME));
         return false;
