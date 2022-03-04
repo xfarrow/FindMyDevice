@@ -263,6 +263,7 @@ public class FMDServerService extends JobService {
 
             ComponentHandler ch = new ComponentHandler(settings, this, this, params);
             ch.setSender(sender);
+            ch.setReschedule(true);
             Boolean registered = !((String) ch.getSettings().get(Settings.SET_FMDSERVER_ID)).isEmpty();
             if (registered) {
                 Notifications.init(this, true);

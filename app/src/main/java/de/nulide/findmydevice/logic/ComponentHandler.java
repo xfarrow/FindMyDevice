@@ -14,8 +14,9 @@ public class ComponentHandler {
     private Settings settings;
     private Sender sender;
     private Context context;
-    private JobService FmdServerService;
-    private JobParameters FmdServerServiceParams;
+    private JobService service;
+    private JobParameters serviceParams;
+    private boolean reschedule;
 
     private LocationHandler locationHandler;
     private MessageHandler messageHandler;
@@ -25,12 +26,17 @@ public class ComponentHandler {
         this.context = context;
         messageHandler = new MessageHandler(this);
         locationHandler = new LocationHandler(this);
-        this.FmdServerService = service;
-        this.FmdServerServiceParams = serviceParams;
+        this.service = service;
+        this.serviceParams = serviceParams;
+        this.reschedule = false;
     }
 
     public Settings getSettings() {
         return settings;
+    }
+
+    public void setReschedule(boolean reschedule){
+        this.reschedule = reschedule;
     }
 
     public Sender getSender() {
@@ -54,11 +60,11 @@ public class ComponentHandler {
     }
 
     public void finishJob(){
-        if(FmdServerService != null) {
+        if(service != null) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    FmdServerService.jobFinished(FmdServerServiceParams, false);
+                    service.jobFinished(serviceParams, reschedule);
                     GPSTimeOutService.cancleJob(context);
                 }
             }, 10000);
