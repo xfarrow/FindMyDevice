@@ -58,7 +58,12 @@ public class CypherUtils {
     }
 
     public static boolean checkPasswordHash(String hash, String password) {
-        return BCrypt.checkpw(password, hash);
+        if(!hash.isEmpty()) {
+            if(!password.isEmpty()) {
+                return BCrypt.checkpw(password, hash);
+            }
+        }
+        return false;
     }
 
     public static String hashWithPKBDF2(String password){
