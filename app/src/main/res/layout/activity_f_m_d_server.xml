@@ -156,8 +156,8 @@
                 android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:layout_margin="1mm"
+                android:maxLength="8"
                 android:text="0" />
 
 
