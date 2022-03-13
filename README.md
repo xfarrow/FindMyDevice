@@ -1,10 +1,9 @@
 # FindMyDevice
 
-# Vulnerability detected
-Everybody who wants to use the server needs to reregister.
-Details are in Issue 20
-
-
+# Bug in Version 0.2.4
+In the last version fmd deletes all data on the server, due to a vulnerbility. I am sorry but i forgot to remove this codeline from the new release, so every phone deletes it's registration data.
+This only happens if the app is installed via an appstore.
+If the app is compiled and installed via adb this will not happen(this is also the reason why i didn't notice anything about this.)
 
 
 Find your Device via SMS.
