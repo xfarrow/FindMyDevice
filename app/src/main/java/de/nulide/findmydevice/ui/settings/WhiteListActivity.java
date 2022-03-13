@@ -1,6 +1,7 @@
 package de.nulide.findmydevice.ui.settings;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -85,16 +86,15 @@ public class WhiteListActivity extends AppCompatActivity implements View.OnClick
             PackageManager packageManager = getPackageManager();
             Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
 
-            if (intent.resolveActivity(packageManager) != null) {
+            try {
                 startActivityForResult(intent, 1);
-            } else {
+            }catch(ActivityNotFoundException e) {
                 intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                if (intent.resolveActivity(packageManager) != null) {
+                try {
                     startActivityForResult(intent, 1);
-                } else {
-                    Toast.makeText(this, getString(R.string.not_possible), 5);
+                }catch(ActivityNotFoundException e2){
+                    Toast.makeText(this, getString(R.string.not_possible), Toast.LENGTH_LONG);
                 }
-
 
             }
 
