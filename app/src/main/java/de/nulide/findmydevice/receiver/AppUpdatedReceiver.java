@@ -24,7 +24,6 @@ public class AppUpdatedReceiver extends SuperReceiver {
     public void onReceive(Context context, Intent intent) {
     init(context);
     if (intent.getAction().equals(APP_UPDATED)){
-            Notifications.notify(context, "App Update", "Receiver is working", Notifications.CHANNEL_LIFE);
             Logger.logSession("AppUpdate", "restarted");
             config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
             config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
