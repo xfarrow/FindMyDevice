@@ -144,4 +144,6 @@
     <string name="Notification_ForegroundService">Notification for specific services that will run in the background. Like camera, ...</string>
     <string name="Permission_Camera">If you want to remotely receive pictures from your phone, the camera permission is needed.</string>
     <string name="Info_Camera">Camera</string>
+    <string name="Settings_Import">Import Settings</string>
+    <string name="Settings_Export">Export Settings</string>
 </resources>
