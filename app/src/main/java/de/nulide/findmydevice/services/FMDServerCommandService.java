@@ -30,7 +30,6 @@ import java.util.Map;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
-import de.nulide.findmydevice.data.io.KeyIO;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.logic.ComponentHandler;
 import de.nulide.findmydevice.sender.FooSender;
@@ -57,7 +56,7 @@ public class FMDServerCommandService extends JobService {
         final JSONObject requestAccessObject = new JSONObject();
         try {
             requestAccessObject.put("IDT", (String)settings.get(Settings.SET_FMDSERVER_ID));
-            requestAccessObject.put("Data", KeyIO.readHashedPW());
+            requestAccessObject.put("Data", (String)settings.get(Settings.SET_FMD_CRYPT_HPW));
         } catch (JSONException e) {
 
         }

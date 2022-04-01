@@ -29,7 +29,6 @@ import de.nulide.findmydevice.data.Keys;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
-import de.nulide.findmydevice.data.io.KeyIO;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.logic.ComponentHandler;
 import de.nulide.findmydevice.sender.FooSender;
@@ -46,7 +45,8 @@ public class FMDServerService extends JobService {
     private static final int JOB_ID = 108;
 
     public static void sendNewLocation(Context context, String provider, String lat, String lon, String url, String id) {
-        PublicKey publicKey = KeyIO.readKeys().getPublicKey();
+        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        PublicKey publicKey = settings.getKeys().getPublicKey();
         RequestQueue queue = PatchedVolley.newRequestQueue(context);
         BatteryManager bm = (BatteryManager) context.getSystemService(BATTERY_SERVICE);
         String batLevel = new Integer(bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)).toString();
@@ -54,7 +54,7 @@ public class FMDServerService extends JobService {
         final JSONObject requestAccessObject = new JSONObject();
         try {
             requestAccessObject.put("IDT", id);
-            requestAccessObject.put("Data", KeyIO.readHashedPW());
+            requestAccessObject.put("Data", (String)settings.get(Settings.SET_FMD_CRYPT_HPW));
         } catch (JSONException e) {
 
         }
@@ -98,18 +98,19 @@ public class FMDServerService extends JobService {
     }
 
     public static void sendPicture(Context context, String picture, String url, String id){
-        Keys keys = KeyIO.readKeys();
+        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        PublicKey publicKey = settings.getKeys().getPublicKey();
         RequestQueue queue= PatchedVolley.newRequestQueue(context);
         String password = CypherUtils.generateRandomString(25);
         String encryptedPicture = CypherUtils.encryptWithAES(picture.getBytes(StandardCharsets.UTF_8),password);
-        String encryptedPassword = CypherUtils.encodeBase64(CypherUtils.encryptWithKey(keys.getPublicKey(), password));
+        String encryptedPassword = CypherUtils.encodeBase64(CypherUtils.encryptWithKey(publicKey, password));
         String msg = encryptedPassword + "___PICTURE-DATA___" + encryptedPicture;
 
 
         final JSONObject requestAccessObject = new JSONObject();
         try {
             requestAccessObject.put("IDT", id);
-            requestAccessObject.put("Data", KeyIO.readHashedPW());
+            requestAccessObject.put("Data", (String)settings.get(Settings.SET_FMD_CRYPT_HPW));
         } catch (JSONException e) {
 
         }
@@ -201,7 +202,7 @@ public class FMDServerService extends JobService {
         final JSONObject requestAccessObject = new JSONObject();
         try {
             requestAccessObject.put("IDT", (String)settings.get(Settings.SET_FMDSERVER_ID));
-            requestAccessObject.put("Data", KeyIO.readHashedPW());
+            requestAccessObject.put("Data", (String)settings.get(Settings.SET_FMD_CRYPT_HPW));
         } catch (JSONException e) {
 
         }

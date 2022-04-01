@@ -28,6 +28,7 @@ public class AppUpdatedReceiver extends SuperReceiver {
             Logger.logSession("AppUpdate", "restarted");
             config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT, null);
             config.set(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT_ACTIVE_SINCE, null);
+            settings.updateSettings();
 
             if((Boolean)ch.getSettings().get(Settings.SET_FMDSERVER_UPLOAD_SERVICE)){
                 FMDServerService.scheduleJob(context, 0);

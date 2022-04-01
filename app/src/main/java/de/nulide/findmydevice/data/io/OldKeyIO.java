@@ -1,8 +1,6 @@
 package de.nulide.findmydevice.data.io;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static de.nulide.findmydevice.data.io.IO.context;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,28 +10,23 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.Key;
 import java.security.KeyFactory;
-import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.EncodedKeySpec;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 import de.nulide.findmydevice.data.Keys;
 
-import static de.nulide.findmydevice.data.io.IO.context;
-
-public class KeyIO {
+public class OldKeyIO {
 
     public final static String pubKeyFile = "pub.key";
     public final static String encPrivKeyFile = "priv.key";
 
     public final static String hashedPWFile = "hashedPW";
 
-    public static void writeKeys(Keys keys){
+    public static void writeKeys(Keys keys) {
         File pubFile = new File(context.getFilesDir(), pubKeyFile);
         File privFile = new File(context.getFilesDir(), encPrivKeyFile);
         try {

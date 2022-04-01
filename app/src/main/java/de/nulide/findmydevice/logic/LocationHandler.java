@@ -6,7 +6,6 @@ import java.util.Date;
 
 import de.nulide.findmydevice.R;
 import de.nulide.findmydevice.data.Settings;
-import de.nulide.findmydevice.data.io.KeyIO;
 import de.nulide.findmydevice.services.FMDServerService;
 
 public class LocationHandler {

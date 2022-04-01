@@ -22,6 +22,7 @@ abstract class SuperReceiver extends BroadcastReceiver {
 
     protected WhiteList whiteList;
     protected ConfigSMSRec config;
+    protected Settings settings;
 
     protected ComponentHandler ch;
 
@@ -29,7 +30,7 @@ abstract class SuperReceiver extends BroadcastReceiver {
         IO.context = context;
         Logger.init(Thread.currentThread(), context);
         whiteList = JSONFactory.convertJSONWhiteList(IO.read(JSONWhiteList.class, IO.whiteListFileName));
-        Settings settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
+        settings = JSONFactory.convertJSONSettings(IO.read(JSONMap.class, IO.settingsFileName));
         config = JSONFactory.convertJSONConfig(IO.read(JSONMap.class, IO.SMSReceiverTempData));
         if (config.get(ConfigSMSRec.CONF_LAST_USAGE) == null) {
             Calendar cal = Calendar.getInstance();

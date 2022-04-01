@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent crash = new Intent(this, CrashedActivity.class);
             startActivity(crash);
         }
+        Settings.updateSettings();
         if (!Settings.isIntroductionPassed() || !Permission.CORE) {
             Intent introductionIntent = new Intent(this, IntroductionActivity.class);
             startActivity(introductionIntent);

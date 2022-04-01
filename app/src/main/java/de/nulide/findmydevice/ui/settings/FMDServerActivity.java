@@ -27,7 +27,6 @@ import de.nulide.findmydevice.data.Keys;
 import de.nulide.findmydevice.data.Settings;
 import de.nulide.findmydevice.data.io.IO;
 import de.nulide.findmydevice.data.io.JSONFactory;
-import de.nulide.findmydevice.data.io.KeyIO;
 import de.nulide.findmydevice.data.io.json.JSONMap;
 import de.nulide.findmydevice.receiver.PushReceiver;
 import de.nulide.findmydevice.services.FMDServerService;
@@ -214,9 +213,9 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
                     String text = input.getText().toString();
                     if (!text.isEmpty()) {
                         Keys keys = CypherUtils.genKeys(text);
-                        KeyIO.writeKeys(keys);
+                        settings.setKeys(keys);
                         String hashedPW = CypherUtils.hashWithPKBDF2(text);
-                        KeyIO.writeHashedPassword(hashedPW);
+                        settings.set(Settings.SET_FMD_CRYPT_HPW, hashedPW);
                         settings.setNow(Settings.SET_FMDSERVER_PASSWORD_SET, true);
                         FMDServerService.registerOnServer(context, (String) settings.get(Settings.SET_FMDSERVER_URL), keys.getEncryptedPrivateKey(), keys.getBase64PublicKey(), hashedPW);
                         finish();
