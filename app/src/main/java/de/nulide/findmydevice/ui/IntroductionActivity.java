@@ -202,8 +202,10 @@ public class IntroductionActivity extends AppCompatActivity implements View.OnCl
                     break;
                 case 8:
                     Permission.requestNotificationPermission(this);
+                    break;
                 case 9:
                     Permission.requestCameraPermission(this);
+                    break;
             }
         } else if (v == buttonNext) {
             position++;

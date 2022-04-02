@@ -162,6 +162,8 @@ public class Settings extends HashMap<Integer, Object> {
                 setKeys(keys);
                 set(SET_FMD_CRYPT_HPW, HashedPW);
                 set(SET_SET_VERSION, settingsVersion);
+            }else{
+                set(SET_SET_VERSION, settingsVersion);
             }
         }
     }

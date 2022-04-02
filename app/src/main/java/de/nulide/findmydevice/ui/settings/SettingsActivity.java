@@ -147,8 +147,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                             Settings settings = mapper.readValue(text, Settings.class);
                             settings.setNow(Settings.SET_INTRODUCTION_VERSION, settings.get(Settings.SET_INTRODUCTION_VERSION));
                             finish();
-                            startActivity(getIntent());
-
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
