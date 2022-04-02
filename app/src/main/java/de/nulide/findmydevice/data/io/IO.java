@@ -17,7 +17,8 @@ public class IO {
 
     public static final String whiteListFileName = "whitelist.json";
     public static final String SMSReceiverTempData = "temp_smsrec.json";
-    public static final String settingsFileName = "settings-001.json";
+    public static final String oldSettingsFileName = "settings-001.json";
+    public static final String settingsFileName = "settings.json";
     public static final String logFileName = "log.json";
 
     public static Context context;

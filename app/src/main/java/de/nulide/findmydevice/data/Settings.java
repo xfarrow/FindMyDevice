@@ -155,12 +155,14 @@ public class Settings extends HashMap<Integer, Object> {
     }
 
     public void updateSettings() {
-        if (((Integer) get(SET_SET_VERSION)) < settingsVersion) {
-            Keys keys = OldKeyIO.readKeys();
-            String HashedPW = OldKeyIO.readHashedPW();
-            setKeys(keys);
-            set(SET_FMD_CRYPT_HPW, HashedPW);
-            set(SET_SET_VERSION, settingsVersion);
+        if (((Integer) get(SET_SET_VERSION)) < settingsVersion && ((Integer) get(SET_INTRODUCTION_VERSION)) > 0){
+            if (!((String)get(SET_FMDSERVER_ID)).isEmpty()) {
+                Keys keys = OldKeyIO.readKeys();
+                String HashedPW = OldKeyIO.readHashedPW();
+                setKeys(keys);
+                set(SET_FMD_CRYPT_HPW, HashedPW);
+                set(SET_SET_VERSION, settingsVersion);
+            }
         }
     }
 
