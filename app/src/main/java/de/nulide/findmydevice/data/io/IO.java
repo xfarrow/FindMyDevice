@@ -68,6 +68,10 @@ public class IO {
             } catch (InstantiationException e) {
                 e.printStackTrace();
             }
+        }else{
+            if(fileName.equals(settingsFileName)){
+                return read(type, oldSettingsFileName);
+            }
         }
         return null;
     }
