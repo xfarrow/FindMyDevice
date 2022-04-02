@@ -151,7 +151,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
 
                 }
             }else{
-                FMDServerService.cancleAll(this);
+                FMDServerService.cancelAll(this);
             }
         }else if(buttonView == checkBoxFMDServerAutoUpload){
             settings.set(Settings.SET_FMDSERVER_AUTO_UPLOAD, isChecked);
@@ -240,14 +240,14 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
 
                         }
                     })
-                    .setNegativeButton(getString(R.string.cancle), null)
+                    .setNegativeButton(getString(R.string.cancel), null)
                     .show();
         }else if(v == deleteButton){
             AlertDialog.Builder privacyPolicy = new AlertDialog.Builder(context);
             privacyPolicy.setTitle(getString(R.string.Settings_FMDServer_Alert_DeleteData))
                     .setMessage(R.string.Settings_FMDServer_Alert_DeleteData_Desc)
                     .setPositiveButton(getString(R.string.Ok), new DialogClickListenerForUnregistration(this))
-                    .setNegativeButton(getString(R.string.cancle), null)
+                    .setNegativeButton(getString(R.string.cancel), null)
                     .show();
         }
     }

@@ -56,7 +56,7 @@ public class GPSTimeOutService extends JobService {
         jobScheduler.schedule(builder.build());
     }
 
-    public static void cancleJob(Context context){
+    public static void cancelJob(Context context){
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         if(jobScheduler.getPendingJob(JOB_ID) != null) {
             jobScheduler.cancel(JOB_ID);

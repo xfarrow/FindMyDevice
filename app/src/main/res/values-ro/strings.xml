@@ -118,7 +118,7 @@
     <string name="Alert_First_time_fmdserver">Here you can configure the application to communicate with fmdserver. If you want to configure a different server than default you can do so by changing the url. If you press register you can register the application to the server. Afterwards you can enable the server functionality. If you do so, your phone will send you location data to the specified server. You can check your phones location by entereing the ID and the passoword on the page.</string>
     <string name="Settings_FMDServer_Alert_PrivacyPolicy_Title">Privacy Policy</string>
     <string name="accept">accept</string>
-    <string name="cancle">cancle</string>
+    <string name="cancel">cancel</string>
     <string name="Settings_FMDServer_LocationData_Description">Please select what location data to send to the server. (One needs to be selected)</string>
     <string name="GPS">GPS</string>
     <string name="Cell">Cell</string>
