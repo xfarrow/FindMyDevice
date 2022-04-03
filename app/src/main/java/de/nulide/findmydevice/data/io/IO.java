@@ -61,7 +61,7 @@ public class IO {
                 e.printStackTrace();
             }
             try {
-                return type.getDeclaredConstructor().newInstance();
+                return type.newInstance();
 
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
