@@ -146,4 +146,5 @@
     <string name="Info_Camera">Camera</string>
     <string name="Settings_Import">Import Settings</string>
     <string name="Settings_Export">Export Settings</string>
+    <string name="MH_CAM_CAPTURE">"The device will soon send a picture to fmdserver. You can view it here soon: "</string>
 </resources>
