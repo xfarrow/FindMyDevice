@@ -246,7 +246,7 @@ public class FMDServerService extends JobService {
 
     }
 
-    public static void cancleAll(Context context) {
+    public static void cancelAll(Context context) {
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         jobScheduler.cancelAll();
     }

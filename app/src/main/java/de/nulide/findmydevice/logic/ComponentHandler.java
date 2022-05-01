@@ -65,7 +65,7 @@ public class ComponentHandler {
                 @Override
                 public void run() {
                     service.jobFinished(serviceParams, reschedule);
-                    GPSTimeOutService.cancleJob(context);
+                    GPSTimeOutService.cancelJob(context);
                 }
             }, 10000);
         }

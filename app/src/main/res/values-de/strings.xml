@@ -106,7 +106,7 @@
     <string name="Alert_First_time_fmdserver">Hier können Sie die Anwendung für die Kommunikation mit fmdserver konfigurieren. Wenn Sie einen anderen Server als den Standard-Server konfigurieren möchten, können Sie dies durch Ändern der URL tun. Wenn Sie auf Anmelden drücken, können Sie die Anwendung beim Server anmelden. Anschließend können Sie die Serverfunktionalität aktivieren. Wenn Sie dies tun, sendet Ihr Telefon Standortdaten an den angegebenen Server. Sie können den Standort Ihres Telefons überprüfen, indem Sie die ID und das Kennwort auf der Seite eingeben.</string>
     <string name="Settings_FMDServer_Alert_PrivacyPolicy_Title">Datenschutzbestimmungen</string>
     <string name="accept">akzeptieren</string>
-    <string name="cancle">abbrechen</string>
+    <string name="cancel">abbrechen</string>
     <string name="Settings_FMDServer_LocationData_Description">Bitte wählen Sie aus, welche Standortdaten an den Server gesendet werden sollen. (Eine muss ausgewählt werden)</string>
     <string name="GPS">GPS</string>
     <string name="Cell">GMS-Zelle</string>

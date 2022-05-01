@@ -118,7 +118,7 @@
     <string name="Settings_FMDServer_Alert_PrivacyPolicy_Title">Privacy Policy</string>
     <string name="Alert_First_time_fmdserver">Täällä voit määrittää sovelluksen yhteyden FMD-palvelimeen. Voit valita oletuspalvelimen tilalle toisen palvelimen syöttämällä sen URL-osoitteen. Rekisteröidy palvelimelle painamalla rekisteröidy-painiketta, sen jälkeen voit ottaa käyttöön palvelimen toimintoja. Siten puhelimesi lähettää sijaintitietosi määrittelemällesi palvelimelle. Voit tarkistaa puhelimesi sijainnin syöttämäll ID:n ja salasanan palvelimen verkkosivulla.</string>
     <string name="accept">Hyväksy</string>
-    <string name="cancle">Peru</string>
+    <string name="cancel">Peru</string>
     <string name="Settings_FMDServer_LocationData_Description">Valitse, mitä sijaintitietoja lähetetään palvelimelle (ainakin toinen pitää olla valittuna).</string>
     <string name="GPS">GPS</string>
     <string name="Cell">Tukiasema</string>
