@@ -26,6 +26,15 @@ public class LogActivity extends AppCompatActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_log);
 
         logData = JSONFactory.convertJSONLog(IO.read(JSONLog.class, IO.logFileName));
+        LogData correctedLogData = new LogData();
+
+        if(logData.size() != 0) {
+            for (int x = logData.size() - 1; x >= 0; x--) {
+                correctedLogData.add(logData.get(x));
+            }
+        }
+        logData = correctedLogData;
+
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
                 logData.getDates());
