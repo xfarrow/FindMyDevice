@@ -184,7 +184,7 @@ public class FMDServerCommandService extends JobService {
                         String fmdCommand = (String)settings.get(Settings.SET_FMD_COMMAND);
                         if(command.startsWith("423")){
                             Notifications.init(context, false);
-                            Notifications.notify(context, "Serveraccess", "Somebody tried three times in a row to log in the server. Acess is locked for 10 minutes", Notifications.CHANNEL_SERVER);
+                            Notifications.notify(context, "Serveraccess", "Somebody tried three times in a row to log in the server. Access is locked for 10 minutes", Notifications.CHANNEL_SERVER);
                         }else {
                             ch.getMessageHandler().handle(fmdCommand + " " + command, context);
                         }

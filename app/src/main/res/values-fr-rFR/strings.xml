@@ -77,7 +77,7 @@
     <string name="MH_LAST_KNOWN_LOCATION_NOT_AVAILABLE">La denrière localisation n\'est pas disponible.</string>
     <string name="Alert_First_time_fmdserver">Ici, vous pouvez configurer l\'application pour communiquer avec fmdserver. Si vous souhaitez configurer un serveur différent de celui par défaut, vous pouvez le faire en modifiant l\'URL. Si vous appuyez sur enregistrer, vous pouvez enregistrer l\'application sur le serveur. Ensuite, vous pouvez activer la fonctionnalité de serveur. Si vous le faites, votre téléphone vous enverra des données de localisation au serveur spécifié. Vous pouvez vérifier l\'emplacement de votre téléphone en entrant l\'ID et le mot de passe sur la page.</string>
     <string name="accept">Accepter</string>
-    <string name="cancle">Retour</string>
+    <string name="cancel">Retour</string>
     <string name="Settings_FMDServer_LocationData_Description">Veuillez sélectionner les données de localisation à envoyer au serveur. (Une doit être sélectionnée)</string>
     <string name="hello_blank_fragment">Bonjour, fragment vierge</string>
     <string name="Settings_Show_log">Voir les logs</string>
