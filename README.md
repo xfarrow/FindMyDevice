@@ -55,7 +55,7 @@ Freetime FM  - [awesomea380](https://gitlab.com/awesomea380)
 
 # Why is it taking that long to fix x?
 
-I am working full-time and have to learn for my tests.
+I am working full-time.
 This project is my free-time and i have spent a lot of time in this and still will.
 If there are bugs i will try to fix them as soon as possible, but my full-time job has priority.
 If it takes too long to fix something you can of course try to fix it by yourself and contribute to this project.
