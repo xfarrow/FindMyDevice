@@ -46,7 +46,6 @@ public class ThirdPartyAccessService extends NotificationListenerService {
     public void onNotificationPosted(StatusBarNotification sbn) {
         init(this);
         NotificationReply sender = new NotificationReply(this, sbn);
-        if(sender.canSend()){
             ch.setSender(sender);
             String msg = sbn.getNotification().extras.getCharSequence("android.text").toString();
             String msgLower = msg.toLowerCase();
@@ -57,7 +56,6 @@ public class ThirdPartyAccessService extends NotificationListenerService {
                     ch.getMessageHandler().handle(msg, this);
                     cancelNotification(sbn.getKey());
                 }
-            }
         }
 
     }

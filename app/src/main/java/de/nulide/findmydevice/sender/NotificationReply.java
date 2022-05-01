@@ -23,12 +23,14 @@ public class NotificationReply extends Sender {
 
     @Override
     protected void sendMessage(String destination, String msg) {
-        Action action = NotificationUtils.getQuickReplyAction(sbn.getNotification(), context.getPackageName());
-        if (action != null) {
-            try {
-                action.sendReply(context, msg);
-            } catch (PendingIntent.CanceledException e) {
-                e.printStackTrace();
+        if(canSend()) {
+            Action action = NotificationUtils.getQuickReplyAction(sbn.getNotification(), context.getPackageName());
+            if (action != null) {
+                try {
+                    action.sendReply(context, msg);
+                } catch (PendingIntent.CanceledException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
