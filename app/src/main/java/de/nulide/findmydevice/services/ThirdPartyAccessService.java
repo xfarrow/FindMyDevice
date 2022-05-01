@@ -45,19 +45,22 @@ public class ThirdPartyAccessService extends NotificationListenerService {
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         init(this);
-        NotificationReply sender = new NotificationReply(this, sbn);
+        CharSequence msgCS = sbn.getNotification().extras.getCharSequence("android.text");
+        if(msgCS != null) {
+            NotificationReply sender = new NotificationReply(this, sbn);
             ch.setSender(sender);
-            String msg = sbn.getNotification().extras.getCharSequence("android.text").toString();
+            String msg = msgCS.toString();
             String msgLower = msg.toLowerCase();
-            String fmdcommand = (String)ch.getSettings().get(Settings.SET_FMD_COMMAND);
-            if(msgLower.contains(fmdcommand)){
+            String fmdcommand = (String) ch.getSettings().get(Settings.SET_FMD_COMMAND);
+            if (msgLower.contains(fmdcommand)) {
                 msg = ch.getMessageHandler().checkAndRemovePin(msg);
-                if(msg != null) {
+                if (msg != null) {
                     ch.getMessageHandler().handle(msg, this);
                     cancelNotification(sbn.getKey());
                 }
-        }
+            }
 
+        }
     }
 
     @Override
