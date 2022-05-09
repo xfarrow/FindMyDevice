@@ -45,6 +45,7 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
     private Button deleteButton;
     private CheckBox checkBoxFMDServerGPS;
     private CheckBox checkBoxFMDServerCell;
+    private CheckBox checkBoxLowBat;
 
     private int colorEnabled;
     private int colorDisabled;
@@ -138,6 +139,14 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
         checkBoxFMDServerGPS.setOnCheckedChangeListener(this);
         checkBoxFMDServerCell.setOnCheckedChangeListener(this);
 
+        checkBoxLowBat = findViewById(R.id.checkBoxFMDServerLowBatUpload);
+        if((Boolean)settings.get(Settings.SET_FMD_LOW_BAT_SEND)){
+            checkBoxLowBat.setChecked(true);
+        }else{
+            checkBoxLowBat.setChecked(false);
+        }
+        checkBoxLowBat.setOnCheckedChangeListener(this);
+
     }
 
     @Override
@@ -165,6 +174,8 @@ public class FMDServerActivity extends AppCompatActivity implements CompoundButt
             }else{
                 settings.set(Settings.SET_FMDSERVER_LOCATION_TYPE, 0);
             }
+        }else if(buttonView == checkBoxLowBat){
+            settings.set(Settings.SET_FMD_LOW_BAT_SEND, isChecked);
         }
     }
 

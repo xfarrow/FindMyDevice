@@ -193,6 +193,31 @@
                 android:layout_margin="1mm"
                 android:text="@string/Cell" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:textColor="@color/colorAccent"
+                android:text="LOW BAT Upload" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Settings_FMDServer_LOW_BAT_Upload_Description" />
+
+            <CheckBox
+                android:id="@+id/checkBoxFMDServerLowBatUpload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Enable" />
+
         </LinearLayout>
     </ScrollView>
 

@@ -41,6 +41,7 @@ public class Settings extends HashMap<Integer, Object> {
     public static final int SET_FMD_CRYPT_PUBKEY = 108;
     public static final int SET_FMD_CRYPT_PRIVKEY = 109;
     public static final int SET_FMD_CRYPT_HPW = 110;
+    public static final int SET_FMD_LOW_BAT_SEND = 111;
 
     public static final int SET_FIRST_TIME_WHITELIST = 301;
     public static final int SET_FIRST_TIME_CONTACT_ADDED = 302;
@@ -83,6 +84,7 @@ public class Settings extends HashMap<Integer, Object> {
                 case SET_FIRST_TIME_FMD_SERVER:
                 case SET_FMDSERVER_UPLOAD_SERVICE:
                 case SET_FMDSERVER_PASSWORD_SET:
+                case SET_FMD_LOW_BAT_SEND:
                     return false;
                 case SET_FMDSERVER_AUTO_UPLOAD:
                     return true;

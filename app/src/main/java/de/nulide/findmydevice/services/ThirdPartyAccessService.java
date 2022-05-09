@@ -48,18 +48,28 @@ public class ThirdPartyAccessService extends NotificationListenerService {
         CharSequence msgCS = sbn.getNotification().extras.getCharSequence("android.text");
         if(msgCS != null) {
             NotificationReply sender = new NotificationReply(this, sbn);
-            ch.setSender(sender);
-            String msg = msgCS.toString();
-            String msgLower = msg.toLowerCase();
-            String fmdcommand = (String) ch.getSettings().get(Settings.SET_FMD_COMMAND);
-            if (msgLower.contains(fmdcommand)) {
-                msg = ch.getMessageHandler().checkAndRemovePin(msg);
-                if (msg != null) {
-                    ch.getMessageHandler().handle(msg, this);
-                    cancelNotification(sbn.getKey());
+            if(sender.canSend()) {
+                ch.setSender(sender);
+                String msg = msgCS.toString();
+                String msgLower = msg.toLowerCase();
+                String fmdcommand = (String) ch.getSettings().get(Settings.SET_FMD_COMMAND);
+                if (msgLower.contains(fmdcommand)) {
+                    msg = ch.getMessageHandler().checkAndRemovePin(msg);
+                    if (msg != null) {
+                        ch.getMessageHandler().handle(msg, this);
+                        cancelNotification(sbn.getKey());
+                    }
                 }
             }
-
+            if((Boolean)ch.getSettings().get(Settings.SET_FMD_LOW_BAT_SEND)) {
+                if (sbn.getPackageName().equals("com.android.systemui")) {
+                    if (sbn.getTag().equals("low_battery")) {
+                        ch.setSender(sender);
+                        String fmdcommand = (String) ch.getSettings().get(Settings.SET_FMD_COMMAND);
+                        ch.getMessageHandler().handle(fmdcommand + " locate", this);
+                    }
+                }
+            }
         }
     }
 
