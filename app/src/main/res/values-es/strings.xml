@@ -1,9 +1,7 @@
- <resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
     <string name="app_name" translatable="false">FindMyDevice</string>
-	
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hola fragmento en blanco</string>
-	
     <string name="Introduction_Introduction">FindMyDevice (FMD) es una aplicación que puede ayudarlo a encontrar su teléfono cuando se pierda.\nUtiliza SMS (mensajes de texto) para comunicarse y enviar comandos desde un segundo dispositivo para que pueda rastrear su teléfono.\nSolo envíe un mensaje SMS que contenga el comando fmd.\nPor favor, tenga en cuenta que esta aplicación todavía está en fase beta.\n\n - Nulide</string>
     <string name="Introduction_UpdatePermission">Se necesitan algunos permisos nuevos.\nPor favor, compruebe los siguientes permisos para poder seguir utilizando esta aplicación, o regrese a una versión anterior.</string>
     <string name="Permission_SMS">Para poder ordenar al teléfono que haga algo, esta aplicación necesita poder ver sus mensajes SMS. Sus mensajes nunca salen de su teléfono, y nunca se utilizan para nada excepto para encontrar su teléfono.\nEste permiso es necesario.</string>
