@@ -116,7 +116,7 @@
     <string name="not_registered">not registered</string>
     <string name="MH_LAST_KNOWN_LOCATION">Last known location</string>
     <string name="MH_LAST_KNOWN_LOCATION_NOT_AVAILABLE">Last location is not available.</string>
-    <string name="Alert_First_time_fmdserver">Here you can configure the application to communicate with FMDserver. If you want to configure a different server than default, you can do so by changing the URL. If you press "register" you can register the application to the server. Afterwards you can enable the server functionality. If you do so, your phone will send you location data to the specified server. You can check your phone\'s location by entering the ID and the passoword on the page.</string>
+    <string name="Alert_First_time_fmdserver">Here you can configure the application to communicate with FMDserver. If you want to configure a different server than default, you can do so by changing the URL. If you press "register" you can register the application to the server. Afterwards you can enable the server functionality. If you do so, your phone will send you location data to the specified server. You can check your phone\'s location by entering the ID and the password on the page.</string>
     <string name="Settings_FMDServer_Alert_PrivacyPolicy_Title">Privacy Policy</string>
     <string name="accept">accept</string>
     <string name="cancel">cancel</string>
