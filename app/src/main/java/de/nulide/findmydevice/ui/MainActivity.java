@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViewCamera.setText(getString(R.string.Disabled));
             textViewCamera.setTextColor(colorDisabled);
         }
-        expandableCardViewPermissions.setTitle(-1, getString(R.string.Settings_Permissions) + " " + Permission.ENABLED_PERMISSIONS + "/" + Permission.AVAILABLE_PERMISSIONS);
+        expandableCardViewPermissions.setTitle(-1, getString(R.string.Granted) + " " + Permission.ENABLED_PERMISSIONS + "/" + Permission.AVAILABLE_PERMISSIONS);
 
         if((Boolean) Settings.get(Settings.SET_FMDSERVER_UPLOAD_SERVICE)){
             textViewServerServiceEnabled.setText(getString(R.string.Enabled));

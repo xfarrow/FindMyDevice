@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name" translatable="false">FindMyDevice</string>
 
+    <!-- TODO: Following strings need to be translated into most languages -->
+    <string name="Granted">Granted: </string>
+    <string name="Edit">Edit</string>
+    <string name="contacts">contacts</string>
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -76,7 +83,6 @@
     <string name="Settings_About">About</string>
     <string name="Settings_Settings">Settings</string>
     <string name="Error">Error</string>
-    <string name="Main_WhiteListCounterText">WhiteList:</string>
     <string name="OpenCellId_OpenCellId">OpenCellId</string>
     <string name="OpenCellId_API_Key_Description">API-KEY:</string>
     <string name="Notification_Usage">Usage</string>
