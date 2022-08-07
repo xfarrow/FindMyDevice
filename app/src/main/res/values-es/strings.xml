@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">FindMyDevice</string>
     <string name="hello_blank_fragment">Hola fragmento en blanco</string>
     <string name="Introduction_Introduction">FindMyDevice (FMD) es una aplicación que puede ayudarlo a encontrar su teléfono cuando se pierda.\nUtiliza SMS (mensajes de texto) para comunicarse y enviar comandos desde un segundo dispositivo para que pueda rastrear su teléfono.\nSolo envíe un mensaje SMS que contenga el comando fmd.\nPor favor, tenga en cuenta que esta aplicación todavía está en fase beta.\n\n - Nulide</string>
     <string name="Introduction_UpdatePermission">Se necesitan algunos permisos nuevos.\nPor favor, compruebe los siguientes permisos para poder seguir utilizando esta aplicación, o regrese a una versión anterior.</string>
@@ -13,18 +12,10 @@
     <string name="Permission_OVERLAY">Cuando usted bloquea remotamente su dispositivo, esta aplicación puede mostrar un mensaje en la pantalla de bloqueo para quien encuentre su teléfono.\nSi no otorga este permiso, esta funcionalidad no se activará.</string>
     <string name="Introduction_Give_Permission">Otorgar Permiso</string>
     <string name="Introduction_Next">Siguiente</string>
-    <string name="Locked_Lock_Screen">FindMyDevice ¡Este teléfono está bloqueado! Mensaje del/de la dueño/a:</string>
+    <string name="Locked_Lock_Screen">FindMyDevice ¡Este teléfono está bloqueado!\nMensaje del/de la dueño/a:</string>
     <string name="About">Acerca de</string>
     <string name="About_Text">¡Gracias por descargar esta aplicación!\nTodavía queda mucho por hacer, pero espero que esta aplicación le ayude si llega a encontrarse en la misma situación que yo. Perder su teléfono es malo, pero perderlo porque no hay aplicaciones que respeten su privacidad que le ayuden a encontrarlo es aún peor.\n¡Las contribuciones y donaciones son bienvenidas! Solo tiene que ir a F-Droid y buscar mi aplicación.\n\n - Nulide</string>
     <string name="About_Used_APIs">APIs utilizadas:\n</string>
-    <string name="About_UsedApis_Content" translatable="false">androidx.appcompat:appcompat:1.2.0\nandroidx.constraintlayout:constraintlayout:2.0.1\nandroidx.legacy:legacy-support-v4:1.0.0\nandroidx.preference:preference:1.1.1\njunit:junit:4.12\nandroidx.test.ext:junit:1.1.2\nandroidx.test.espresso:espresso-core:3.3.0\ncom.google.android.material:material:1.2.1\ncom.fasterxml.jackson.core:jackson-databind:2.10.0\ncom.android.volley:volley:1.1.1\norg.mindrot:jbcrypt:0.4\nandroidx.fragment:fragment:1.2.5\njakarta.xml.bind, name: jakarta.xml.bind-api, version: 2.3.2\nxerces, name: xercesImpl, version: 2.12.1\norg.bouncycastle, name: bcprov-jdk16, version: 1.46\ncom.android.support:multidex:1.0.3\ncom.github.Stjinchan:ExpandableCardView:1.3.0-beta02\ncom.github.iamrobj:NotificationHelperLibrary:2.0.5\ncom.github.UnifiedPush:android-connector:2.0.0\nOpenCellID\nOpenStreetMap</string>
-    <string name="Info_Service" translatable="false">FMD</string>
-    <string name="Info_CORE" translatable="false">CORE:</string>
-    <string name="Info_GPS" translatable="false">GPS:</string>
-    <string name="Info_DND" translatable="false">DND:</string>
-    <string name="Info_DEVICE_ADMIN" translatable="false">DeviceAdmin:</string>
-    <string name="Info_Overlay" translatable="false">Overlay:</string>
-    <string name="Info_SecureSettings" translatable="false">SecureSettings:</string>
     <string name="Enable">Activar</string>
     <string name="Settings_Pin_Description">Usado como confirmación antes de borrar el dispositivo o para el uso temporal del servicio.</string>
     <string name="Settings_Lockscreenmessage_Description">Mensaje de la Pantalla de Bloqueo:\nAl bloquear el dispositivo, este mensaje aparecerá en la pantalla de bloqueo.</string>
@@ -34,7 +25,6 @@
     <string name="WhiteList_Add_Contact">Añadir Contacto</string>
     <string name="Enabled">Activado</string>
     <string name="Disabled">Desactivado</string>
-    <string name="Main_Title" translatable="false">Info</string>
     <string name="Toast_Landcode_error">Por favor, añada el código de país al número. (Como +49, +44, ...)</string>
     <string name="Delete">Eliminar</string>
     <string name="WhiteList_Select_Action">Seleccione una acción:</string>
@@ -65,7 +55,6 @@
     <string name="Crashed_Send_log">Enviar Registro</string>
     <string name="MH_No_GPS">Lo sentimos, la ubicación está desactivada.</string>
     <string name="About_Version">Versión de FMD:</string>
-    <string name="Main_OpenWhiteList" translatable="false">+</string>
     <string name="Settings_FMDConfig">Configuración FMD</string>
     <string name="Settings_WhiteList">Lista Blanca</string>
     <string name="Settings_OpenCellId">OpenCellId</string>
@@ -94,9 +83,6 @@
     <string name="Log_Alert_LogData">Datos del Registro</string>
     <string name="Sender_End_Of_Msg">---Fin del Mensaje---</string>
     <string name="Settings_Ringer_Tone_Description">Seleccione un timbre que se reproducirá cuando se envíe fmd ring</string>
-    <string name="Settings_Select_Ringtone">Seleccionar Timbre</string>
-    <string name="WhiteList_Select_Number">Seleccione uno de los números de teléfono.</string>
-    <string name="Settings_FMDServer_Description">Al activarlo, la aplicación enviará constantemente su ubicación al servidor especificado.</string>
     <string name="Settings_Select_Ringtone">Seleccionar Timbre</string>
     <string name="WhiteList_Select_Number">Seleccione uno de los números de teléfono.</string>
     <string name="Settings_FMDServer_Description">Al activarlo, la aplicación enviará constantemente su ubicación al servidor especificado.</string>
