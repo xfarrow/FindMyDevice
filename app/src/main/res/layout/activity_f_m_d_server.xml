@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Settings.FMDServerActivity">
+    tools:context=".ui.settings.FMDServerActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,6 +19,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
+                android:textStyle="bold"
+                android:textSize="17sp"
                 android:textColor="@color/colorAccent"
                 android:text="FMDServer" />
 
@@ -44,6 +46,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
+                android:textStyle="bold"
+                android:textSize="17sp"
                 android:textColor="@color/colorAccent"
                 android:text="FMDServer Auto Upload" />
 
@@ -69,6 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
+                android:textStyle="bold"
+                android:textSize="17sp"
                 android:textColor="@color/colorAccent"
                 android:text="@string/Settings_FMDServer_ID" />
 
@@ -107,6 +113,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
+                android:textStyle="bold"
+                android:textSize="17sp"
                 android:textColor="@color/colorAccent"
                 android:text="FMDServer URL" />
 
@@ -142,6 +150,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
+                android:textStyle="bold"
+                android:textSize="17sp"
                 android:textColor="@color/colorAccent"
                 android:text="FMDServer Update Time" />
 
@@ -170,6 +180,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
+                android:textStyle="bold"
+                android:textSize="17sp"
                 android:textColor="@color/colorAccent"
                 android:text="Location Data" />
 
@@ -202,6 +214,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="1mm"
+                android:textStyle="bold"
+                android:textSize="17sp"
                 android:textColor="@color/colorAccent"
                 android:text="LOW BAT Upload" />
 
