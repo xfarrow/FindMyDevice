@@ -11,14 +11,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
+                android:layout_marginStart="50dp"
                 android:text="@string/Info_CORE"
                 android:textSize="21sp" />
 
@@ -26,9 +25,9 @@
                 android:id="@+id/textViewCORE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
-                android:gravity="center_horizontal"
+                android:textAlignment="viewEnd"
+                android:layout_marginEnd="50dp"
                 android:text="@string/Disabled"
                 android:textSize="21sp" />
 
@@ -37,14 +36,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
+                android:layout_marginStart="50dp"
                 android:text="@string/Info_GPS"
                 android:textSize="21sp" />
 
@@ -52,9 +50,9 @@
                 android:id="@+id/textViewGPS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
-                android:gravity="center_horizontal"
+                android:textAlignment="viewEnd"
+                android:layout_marginEnd="50dp"
                 android:text="@string/Disabled"
                 android:textSize="21sp" />
 
@@ -63,14 +61,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
+                android:layout_marginStart="50dp"
                 android:text="@string/Info_DND"
                 android:textSize="21sp" />
 
@@ -78,9 +75,9 @@
                 android:id="@+id/textViewDND"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
-                android:gravity="center_horizontal"
+                android:textAlignment="viewEnd"
+                android:layout_marginEnd="50dp"
                 android:text="@string/Disabled"
                 android:textSize="21sp" />
 
@@ -89,14 +86,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
+                android:layout_marginStart="50dp"
                 android:text="@string/Info_DEVICE_ADMIN"
                 android:textSize="21sp" />
 
@@ -104,9 +100,9 @@
                 android:id="@+id/textViewDeviceAdmin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
-                android:gravity="center_horizontal"
+                android:textAlignment="viewEnd"
+                android:layout_marginEnd="50dp"
                 android:text="@string/Disabled"
                 android:textSize="21sp" />
 
@@ -115,14 +111,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
+                android:layout_marginStart="50dp"
                 android:text="@string/Info_Overlay"
                 android:textSize="21sp" />
 
@@ -130,9 +125,9 @@
                 android:id="@+id/textViewOverlay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
-                android:gravity="center_horizontal"
+                android:textAlignment="viewEnd"
+                android:layout_marginEnd="50dp"
                 android:text="@string/Disabled"
                 android:textSize="21sp" />
 
@@ -141,14 +136,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
+                android:layout_marginStart="50dp"
                 android:text="@string/Info_SecureSettings"
                 android:textSize="21sp" />
 
@@ -156,9 +150,9 @@
                 android:id="@+id/textViewWriteSecureSettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
-                android:gravity="center_horizontal"
+                android:textAlignment="viewEnd"
+                android:layout_marginEnd="50dp"
                 android:text="@string/Disabled"
                 android:textSize="21sp" />
 
@@ -167,14 +161,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
+                android:layout_marginStart="50dp"
                 android:text="@string/Info_Notification"
                 android:textSize="21sp" />
 
@@ -182,9 +175,9 @@
                 android:id="@+id/textViewNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
-                android:gravity="center_horizontal"
+                android:textAlignment="viewEnd"
+                android:layout_marginEnd="50dp"
                 android:text="@string/Disabled"
                 android:textSize="21sp" />
 
@@ -193,14 +186,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
+                android:layout_marginStart="50dp"
                 android:text="@string/Info_Camera"
                 android:textSize="21sp" />
 
@@ -208,9 +200,9 @@
                 android:id="@+id/textViewCamera"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_weight="0.5"
-                android:gravity="center_horizontal"
+                android:textAlignment="viewEnd"
+                android:layout_marginEnd="50dp"
                 android:text="@string/Disabled"
                 android:textSize="21sp" />
 

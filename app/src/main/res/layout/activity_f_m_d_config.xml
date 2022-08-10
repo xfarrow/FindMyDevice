@@ -18,6 +18,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:layout_marginTop="10dp"
                 android:layout_margin="1mm"
                 android:textColor="@color/colorAccent"
                 android:text="FMD via Pin" />
@@ -43,6 +46,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="17sp"
                 android:layout_margin="1mm"
                 android:textColor="@color/colorAccent"
                 android:text="Pin" />
@@ -68,7 +73,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_margin="1mm"
+                android:textSize="17sp"
                 android:textColor="@color/colorAccent"
                 android:text="fmd command" />
 
@@ -94,7 +101,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_margin="1mm"
+                android:textSize="17sp"
                 android:textColor="@color/colorAccent"
                 android:text="fmd ring" />
 
@@ -119,7 +128,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_margin="1mm"
+                android:textSize="17sp"
                 android:textColor="@color/colorAccent"
                 android:text="fmd lock" />
 
@@ -145,7 +156,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_margin="1mm"
+                android:textSize="17sp"
                 android:textColor="@color/colorAccent"
                 android:text="fmd delete" />
 
