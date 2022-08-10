@@ -145,9 +145,11 @@ public class MessageHandler {
                     String intf = it.next();
                     replyBuilder.append(intf).append(": ").append(ips.get(intf)).append("\n");
                 }
-                replyBuilder.append(context.getString(R.string.MH_Networks));
+                replyBuilder.append("\n" + context.getString(R.string.MH_Networks) + "\n");
                 for (ScanResult sr : Network.getWifiNetworks(context)) {
-                    replyBuilder.append(sr.SSID).append("\n");
+                    replyBuilder.append("SSID: ");
+                    replyBuilder.append(sr.SSID).append("\nBSSID: ");
+                    replyBuilder.append(sr.BSSID).append("\n\n");
                 }
 
             //DELETE
