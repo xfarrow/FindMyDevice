@@ -1,7 +1,13 @@
 # FindMyDevice
 
 ### This is a Fork
-Forked from https://gitlab.com/Nulide/findmydevice
+Forked from https://gitlab.com/Nulide/findmydevice<br/>
+<b>Why?</b><br/>
+The base repo is in Alpha still and rightfully does not have a clear documentation yet, nor a clear explaination of what each option does. Some options are present in the code but likely forgotten to be written about in the documentation.
+
+Furthermore does not seem to be possible to set a PIN to confirm commands without lowering the security of the application (making PIN required only if the other device is not in the whitelist). It is not possible to be in the whitelist AND confirm commands with a PIN. A government or an hacker can easily perform a SIM swap exposing sensitive data (eg GPS coordinates) or performing destructive actions (wipe data).
+
+The goal of this fork is hence increase security, write a better documentation and do some code clean-up.
 
 # Bug in Version 0.2.4
 In the last version fmd deletes all data on the server, due to a vulnerbility. I am sorry but i forgot to remove this codeline from the new release, so every phone deletes it's registration data.
