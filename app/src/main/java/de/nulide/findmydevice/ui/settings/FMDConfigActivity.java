@@ -52,10 +52,22 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
         checkBoxDeviceWipe = findViewById(R.id.checkBoxWipeData);
         checkBoxDeviceWipe.setChecked((Boolean) settings.get(Settings.SET_WIPE_ENABLED));
         checkBoxDeviceWipe.setOnCheckedChangeListener(this);
+        // if the Pin/Password is not set, then disable this checkbox
+        if(settings.get(Settings.SET_PIN).equals("")){
+            settings.set(Settings.SET_WIPE_ENABLED, false);
+            checkBoxDeviceWipe.setChecked(false);
+            checkBoxDeviceWipe.setEnabled(false);
+        }
 
         checkBoxAccessViaPin = findViewById(R.id.checkBoxFMDviaPin);
         checkBoxAccessViaPin.setChecked((Boolean) settings.get(Settings.SET_ACCESS_VIA_PIN));
         checkBoxAccessViaPin.setOnCheckedChangeListener(this);
+        // if the Pin/Password is not set, then disable this checkbox
+        if(settings.get(Settings.SET_PIN).equals("")){
+            settings.set(Settings.SET_ACCESS_VIA_PIN, false);
+            checkBoxAccessViaPin.setChecked(false);
+            checkBoxAccessViaPin.setEnabled(false);
+        }
 
         editTextLockScreenMessage = findViewById(R.id.editTextTextLockScreenMessage);
         editTextLockScreenMessage.setText((String) settings.get(Settings.SET_LOCKSCREEN_MESSAGE));
@@ -70,6 +82,7 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
         }
 
         buttonEnterPin = findViewById(R.id.buttonEnterPin);
+        // if the Pin/Password is not set, change the button colour
         if(settings.get(Settings.SET_PIN).equals("")){
             buttonEnterPin.setBackgroundColor(colorDisabled);
         }else{
@@ -134,7 +147,18 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
                     if (!text.isEmpty()) {
                         settings.set(Settings.SET_PIN, CypherUtils.hashPassword(text));
                         buttonEnterPin.setBackgroundColor(colorEnabled);
+                        checkBoxAccessViaPin.setEnabled(true);
+                        checkBoxDeviceWipe.setEnabled(true);
                     }
+                    else{
+                        Toast.makeText(FMDConfigActivity.this, "Cannot use a blank password. Aborted!", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+            alert.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
                 }
             });
             alert.show();

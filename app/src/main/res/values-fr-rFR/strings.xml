@@ -11,7 +11,6 @@
     <string name="Alert_First_time_whitelist">Ici vous pouvez ajouter vos contacts à la liste blanche. Les contacts de cette liste blanche seront capable de tracer votre équipement quand il écriront un SMS qui contiendra \"fmd\"</string>
     <string name="MH_Pin_Accepted">Code PIN accepté</string>
     <string name="Settings_Enter_Pin">Entrez le code PIN</string>
-    <string name="Settings_FMD_via_Pin_Description">Autoriser à communiquer avec FMD avec un code PIN. Vous serez ajouté à une liste blanche temporaire.</string>
     <string name="About_Help">Aide</string>
     <string name="MH_Help_delete">" delete - réinitialiser votre téléphone"</string>
     <string name="MH_Help_Stats">" stats - envoyer les informations du périphérique"</string>

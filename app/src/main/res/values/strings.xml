@@ -63,7 +63,7 @@
     <string name="MH_Help_Stats">" stats - sends device information"</string>
     <string name="MH_Help_delete">" delete - resets the phone"</string>
     <string name="About_Help">Help</string>
-    <string name="Settings_FMD_via_Pin_Description">Allows you to communicate with FMD via a pin. You will be added to a temporary Whitelist.</string>
+    <string name="Settings_FMD_via_Pin_Description">This setting allows you to communicate with fmd with a non-whitelisted contact. If you activate this setting and set a pin you can communicate with fmd with a phone number that is not added to the whitelist. Just write \'fmd (pin)\' and the phone number you have just used is put to a 10-minutes temporary whitelist.</string>
     <string name="Settings_Enter_Pin">Enter Pin</string>
     <string name="MH_Pin_Accepted">Pin accepted!</string>
     <string name="Alert_First_time_whitelist">Here you can add your contacts to the whitelist. Whitelisted contacts will be able to send commands to your phone using SMS.</string>

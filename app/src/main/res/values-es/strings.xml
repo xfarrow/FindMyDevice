@@ -44,7 +44,6 @@
     <string name="MH_Help_Stats">" stats - envía la información del dispositivo"</string>
     <string name="MH_Help_delete">" delete - restablece el dispositivo"</string>
     <string name="About_Help">Ayuda</string>
-    <string name="Settings_FMD_via_Pin_Description">Le permite comunicarse con FMD mediante un pin. Será añadido/a a una Lista Blanca temporal.</string>
     <string name="Settings_Enter_Pin">Ingresar Pin</string>
     <string name="MH_Pin_Accepted">¡Pin aceptado!</string>
     <string name="Alert_First_time_whitelist">Aquí puede añadir sus contactos a la lista blanca. Los contactos autorizados serán capaces de enviar comandos a su teléfono usando SMS:</string>

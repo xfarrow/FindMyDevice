@@ -56,7 +56,6 @@
     <string name="MH_Help_Stats">" stats - отправляет информацию о телефоне"</string>
     <string name="MH_Help_delete">" delete - удаляет данные телефона"</string>
     <string name="About_Help">Помощь</string>
-    <string name="Settings_FMD_via_Pin_Description">Разрешить связываться с FMD при помощи pin. Вы будете временно добавлены в Белый Список.</string>
     <string name="Settings_Enter_Pin">Введите Pin</string>
     <string name="MH_Pin_Accepted">Pin принят!</string>
     <string name="Alert_First_time_whitelist">Здесь вы можете добавить ваши контакты в Белый Список. Контакты этого Белого Списка смогут отслеживать ваше устройство, если отправят SMS-сообщение с текстом \"fmd\".</string>

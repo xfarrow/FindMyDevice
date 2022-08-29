@@ -82,11 +82,14 @@ public class FMDSMSService extends JobService {
         ch.setSender(new SMS(receiver));
         boolean inWhitelist = false;
         String executedCommand = "";
+
+        // check if number is in the whitelist. If true, execute the command.
         for (int iwl = 0; iwl < whiteList.size(); iwl++) {
             if (PhoneNumberUtils.compare(whiteList.get(iwl).getNumber(), receiver)) {
                 Logger.logSession("Usage", receiver + " used FMD");
                 executedCommand = ch.getMessageHandler().handle(msg, this);
                 inWhitelist = true;
+                // break; // can we break here?
             }
         }
         if ((Boolean) ch.getSettings().get(Settings.SET_ACCESS_VIA_PIN) && !((String)ch.getSettings().get(Settings.SET_PIN)).isEmpty()) {

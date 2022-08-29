@@ -56,7 +56,6 @@
     <string name="Settings_Log">Log</string>
     <string name="Alert_First_Time_contact_added">Herzlichen Glückwunsch! Sie haben Ihren ersten Kontakt hinzugefügt. Sie können nun mit FMD kommunizieren, indem Sie eine SMS mit dem Inhalt \"fmd\" von der in der Whitelist enthaltenen Telefonnummer senden. Wenn alles funktioniert, wird die Anwendung antworten.</string>
     <string name="Alert_First_time_whitelist">Hier können Sie Ihre Kontakte in die Whitelist aufnehmen. Die Kontakte dieser Whitelist können Ihr Gerät verfolgen, wenn sie eine SMS schreiben, die \"fmd\" enthält.</string>
-    <string name="Settings_FMD_via_Pin_Description">Erlauben Sie die Kommunikation mit FMD über eine Pin. Sie werden in eine temporäre Whitelist aufgenommen.</string>
     <string name="About_Version">FMD-Version:</string>
     <string name="Settings_FMDConfig">FMD-Einstellungen</string>
     <string name="Settings_WhiteList">WhiteList</string>
