@@ -1,5 +1,8 @@
 # FindMyDevice
 
+### This is a Fork
+Forked from https://gitlab.com/Nulide/findmydevice
+
 # Bug in Version 0.2.4
 In the last version fmd deletes all data on the server, due to a vulnerbility. I am sorry but i forgot to remove this codeline from the new release, so every phone deletes it's registration data.
 This only happens if the app is installed via an appstore.
