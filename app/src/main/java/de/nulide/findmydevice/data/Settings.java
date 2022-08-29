@@ -30,6 +30,7 @@ public class Settings extends HashMap<Integer, Object> {
     public static final int SET_INTRODUCTION_VERSION = 6;
     public static final int SET_RINGER_TONE = 7;
     public static final int SET_SET_VERSION = 8;
+    public static final int SET_PIN_ONLY = 9;
 
     public static final int SET_FMDSERVER_UPLOAD_SERVICE = 101;
     public static final int SET_FMDSERVER_URL = 102;
@@ -85,6 +86,7 @@ public class Settings extends HashMap<Integer, Object> {
                 case SET_FMDSERVER_UPLOAD_SERVICE:
                 case SET_FMDSERVER_PASSWORD_SET:
                 case SET_FMD_LOW_BAT_SEND:
+                case SET_PIN_ONLY:
                     return false;
                 case SET_FMDSERVER_AUTO_UPLOAD:
                     return true;

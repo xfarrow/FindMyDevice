@@ -92,6 +92,8 @@ public class FMDSMSService extends JobService {
                 // break; // can we break here?
             }
         }
+
+        // check if set access via pin (tmp whitelist) is enabled and PIN is not blank
         if ((Boolean) ch.getSettings().get(Settings.SET_ACCESS_VIA_PIN) && !((String)ch.getSettings().get(Settings.SET_PIN)).isEmpty()) {
             String tempContact = (String) config.get(ConfigSMSRec.CONF_TEMP_WHITELISTED_CONTACT);
             if (!inWhitelist && tempContact != null && PhoneNumberUtils.compare(tempContact, receiver)) {
@@ -108,6 +110,7 @@ public class FMDSMSService extends JobService {
                 TempContactExpiredService.scheduleJob(this, ch.getSender());
             }
         }
+
         if(executedCommand == MessageHandler.COM_LOCATE) {
             return true;
         }else{

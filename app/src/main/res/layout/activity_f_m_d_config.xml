@@ -74,6 +74,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textSize="17sp"
+                android:layout_marginTop="10dp"
+                android:layout_margin="1mm"
+                android:textColor="@color/colorAccent"
+                android:text="PIN only" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="All commands require a PIN" />
+
+            <CheckBox
+                android:id="@+id/checkBoxPinOnly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Enable" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_margin="1mm"
                 android:textSize="17sp"
                 android:textColor="@color/colorAccent"
@@ -161,6 +189,12 @@
                 android:textSize="17sp"
                 android:textColor="@color/colorAccent"
                 android:text="fmd delete" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1mm"
+                android:text="@string/Settings.FmdDelete_Description" />
 
             <CheckBox
                 android:id="@+id/checkBoxWipeData"

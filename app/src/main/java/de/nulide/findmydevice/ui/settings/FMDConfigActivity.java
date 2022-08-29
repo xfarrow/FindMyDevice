@@ -32,6 +32,7 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
 
     private CheckBox checkBoxDeviceWipe;
     private CheckBox checkBoxAccessViaPin;
+    private CheckBox checkBoxPinOnly;
     private Button buttonEnterPin;
     private Button buttonSelectRingtone;
     private EditText editTextLockScreenMessage;
@@ -67,6 +68,16 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
             settings.set(Settings.SET_ACCESS_VIA_PIN, false);
             checkBoxAccessViaPin.setChecked(false);
             checkBoxAccessViaPin.setEnabled(false);
+        }
+
+        checkBoxPinOnly = findViewById(R.id.checkBoxPinOnly);
+        checkBoxPinOnly.setChecked((Boolean) settings.get(Settings.SET_PIN_ONLY));
+        checkBoxPinOnly.setOnClickListener(this);
+        // if the Pin/Password is not set, then disable this checkbox
+        if(settings.get(Settings.SET_PIN).equals("")){
+            settings.set(Settings.SET_PIN_ONLY, false);
+            checkBoxPinOnly.setChecked(false);
+            checkBoxPinOnly.setEnabled(false);
         }
 
         editTextLockScreenMessage = findViewById(R.id.editTextTextLockScreenMessage);
@@ -105,6 +116,8 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
             settings.set(Settings.SET_WIPE_ENABLED, isChecked);
         } else if (buttonView == checkBoxAccessViaPin) {
             settings.set(Settings.SET_ACCESS_VIA_PIN, isChecked);
+        } else if (buttonView == checkBoxPinOnly){
+            settings.set(Settings.SET_PIN_ONLY, isChecked);
         }
     }
 
@@ -161,7 +174,27 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
                     dialogInterface.cancel();
                 }
             });
-            alert.show();
+            final AlertDialog dialog = alert.create();
+            dialog.show();
+
+            // Disable button "OK" if the PIN contains a space or it's empty.
+            input.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(!charSequence.toString().equals("") && !charSequence.toString().contains(" "));
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
         }else if(v == buttonSelectRingtone){
             Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
             intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);

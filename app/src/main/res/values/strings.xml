@@ -37,6 +37,7 @@
     <string name="Enable">Enable</string>
     <string name="Settings_Pin_Description">Used as confirmation before wiping the device or for temporary usage of the service.</string>
     <string name="Settings_Lockscreenmessage_Description">Lock Screen Message:\nWhen locking the device, this message will appear on the lock screen.</string>
+    <string name="Settings.FmdDelete_Description">Allow to wipe all data on your smartphone. This can be used only alongside a PIN.</string>
     <string name="Settings_FMDCommand_Description">The command used to communicate with the FindMyDevice application.</string>
     <string name="Settings_PermissionDescription">The permissions needed for certain features</string>
     <string name="Settings_Permission">Permissions</string>
