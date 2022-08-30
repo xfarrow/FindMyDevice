@@ -72,7 +72,7 @@ public class FMDConfigActivity extends AppCompatActivity implements CompoundButt
 
         checkBoxPinOnly = findViewById(R.id.checkBoxPinOnly);
         checkBoxPinOnly.setChecked((Boolean) settings.get(Settings.SET_PIN_ONLY));
-        checkBoxPinOnly.setOnClickListener(this);
+        checkBoxPinOnly.setOnCheckedChangeListener(this);
         // if the Pin/Password is not set, then disable this checkbox
         if(settings.get(Settings.SET_PIN).equals("")){
             settings.set(Settings.SET_PIN_ONLY, false);
